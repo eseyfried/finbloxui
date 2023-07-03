@@ -1,0 +1,49 @@
+<template>
+    <div v-bind="containerProps" :style="`height: ${height}px`" v-if="enabled">
+        <div v-bind="wrapperProps">
+            <slot :rows="virtualList" :columns="columns" />
+        </div>
+    </div>
+    <slot :rows="listToVirtualList" :columns="columns" v-else />
+    
+</template>
+<script setup>
+import { useVirtualList } from "@vueuse/core";
+// eslint-disable-next-line no-unused-vars
+const props = defineProps({
+    /**
+     * Enable virtual scrolling. If disabled, slot content is loaded with all data rendered
+     */
+    enabled: {
+        type: Boolean,
+        default: false,
+    },
+    /**
+     * An array of data to be rendered
+     */
+    list: {
+        type: Array,
+        default: () => [],
+    },
+    /**
+     * An array of Column components
+     */
+    columns: {
+        type: Array,
+        default: () => [],
+    },
+    /**
+     * The height of the virtual scroll viewport
+     */
+    height: {
+        type: Number,
+        default: 400,
+    }
+});
+const { list: virtualList, containerProps, wrapperProps } = useVirtualList(props.list, { 
+    itemHeight: 20.5
+});
+const listToVirtualList = props.list.map((item, index) => {
+    return { data: item, index: index };
+});
+</script>

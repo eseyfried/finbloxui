@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+    h1, h2, h3, h4, h5, h6 {
+        @apply font-light;
+    }
+    h1 {
+        @apply text-4xl;
+    }
+    h2 {
+        @apply text-3xl;
+    }
+}
+
+.fb-client-list-item {
+    @apply m-2;
+}
+.fb-client-card {
+    @apply rounded-sm drop-shadow-md bg-white p-4;
+}
+.fb-client-card label {
+    @apply pr-2;
+}
+.fb-client-card span {
+    @apply text-gray-500;
+}
+.fb-client-card label::after {
+    content:":";
+}
+.fb-client-card a[href='#'],
+.primary-button {
+    @apply py-2 px-4 bg-indigo-500 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-opacity-75;
+}
+.fb-client-card-stats {
+    @apply mb-5 !important;
+}
+
+.fb-data-point h3 {
+    /* @apply text-2xl; */
+}
+.fb-data-point h4 {
+    @apply text-3xl;
+}
+.fb-data-point-body {
+    @apply p-3;
+}
+.fb-data-point-trend {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+.fb-data-point-trend[data-trend-direction='up']::before {
+    content: "+";
+}
+.fb-data-point-trend[data-trend-direction='down']::before {
+    content: "-";
+}
+.fb-data-point-footer {
+    @apply pl-3 py-2 bg-indigo-400/40;
+}
+.icon::before {
+    display: inline-block;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+}
+
+.fb-data-point-body {
+    margin-left: 55px;
+}
+
+.fb-data-point::before {
+    position: absolute;
+    top: 20px;
+    left: 10px;
+    font-size: 20px !important;
+    font: var(--fa-font-solid);
+    padding: .75rem 1rem;
+    @apply rounded-full bg-white text-indigo-500;
+}
+.aum .fb-data-point::before {
+    content: "\24";
+}
+
+.fees .fb-data-point::before {
+    content: "\f81d";
+    padding: .75rem;
+}
+
+.clients .fb-data-point::before {
+    content: "\f0c0";
+    padding: .75rem .65rem;
+}

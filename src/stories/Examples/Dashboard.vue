@@ -14,15 +14,28 @@
                 <DataPoint :dataPoint="{ label: 'Total Clients', value: clients.length, format: null, trend: {} }" />
             </div>
         </div>
-        <h2>Clients</h2>
-        <ClientList :clients="clients" />
+        <div class="grid grid-cols-2 gap-4 mb-5">
+            <div>
+                <h2>Clients</h2>
+                <ClientList
+                    :clients="clients"
+                    :clientListItemOptions="{ detailsLinkLabel: '' }"
+                    @fb-client-list-details-link:click="handleClientDetailsClick($event)"
+                />
+            </div>
+            <div>
+                <ClientCard :client="activeClient" v-if="activeClient" />
+            </div>
+        </div>
     </div>
 </template>
 <script setup>
+import { ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useDemoStore } from "@/stories/stores/store";
 import ToggleTheme from "./ToggleTheme";
 import ClientList from "@/components/Advisor/Clients/ClientList";
+import ClientCard from "@/components/Advisor/Clients/ClientCard";
 import DataPoint from "@/components/Core/DataPoint";
 
 
@@ -37,6 +50,10 @@ const dataPointClasses = [
     'text-white',
     'drop-shadow-md',
 ];
+const activeClient = ref();
+const handleClientDetailsClick = (client) => {
+    activeClient.value = client;
+}
 </script>
 <style lang="scss" scoped>
 .page {

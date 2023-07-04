@@ -1,7 +1,7 @@
 <template>
     <div class="fb-client-list" :class="listType === 'ClientCard' ? 'fb-card' : 'fb-list-item'">
         <template v-for="(client, i) in clients" :key="i">
-            <div class="fb-client-list-item">
+            <div class="fb-client-list-item-container">
                 <slot :client="client" :props="props">
                     <template v-if="listType === 'ClientCard'">
                         <ClientCard :client="client" v-bind="clientCardOptions" @fb-client-card-details-link:click="handleClientDetailsLinkClick(client)">

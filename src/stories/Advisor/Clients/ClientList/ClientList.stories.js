@@ -77,8 +77,8 @@ export default {
                 category: 'CSS Classes',
             },
         },
-        ".fb-client-list-item": {
-            description: "The class applied to each client list item element.",
+        ".fb-client-list-item-container": {
+            description: "The class applied to each client list item container element.",
             table: {
                 category: 'CSS Classes',
             },

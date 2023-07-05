@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import { faker } from "@faker-js/faker";
 
 // const defaultTasks = [
 //     { id: '1', title: 'Something', state: 'TASK_INBOX' },
@@ -21,64 +22,66 @@ const defaultAccounts = (numberOfRecords) => {
 
 const defaultClients = (numberOfRecords) => {
     return Array.from(Array(numberOfRecords).keys(), (i) => {
+        const first_name = faker.person.firstName();
+        const last_name = faker.person.lastName();
         return {
             id: i+1 ,
             name: {
-                first_name: "Linda",
-                last_name: `Faux${i+1}`,
-                household: `Lind Faux${i+1} Household`,
+                first_name: first_name,
+                last_name: last_name,
+                household: `${first_name} ${last_name} Household`,
             },
             stats: [
                 {
                     label: "Total AUM",
-                    value: 123765.98,
+                    value: faker.finance.amount({ min: 250000, max: 100000000, dec: 2 }),
                     order: 1,
                     format: "currency",
                 },
                 {
                     label: "YTD Performance",
-                    value: 1.64,
+                    value: faker.finance.amount({ min: 1, max: 3, dec: 2 }),
                     order: 4,
                     format: "percent",
                 },
                 {
                     label: "YTD Fees",
-                    value: 5698.34,
+                    value: faker.finance.amount({ min: 3000, max: 10000, dec: 2 }),
                     order: 2,
                     format: "currency",
                 },
                 {
                     label: "YTD Fees %",
-                    value: 5.71,
+                    value: faker.finance.amount({ min: 1, max: 3, dec: 2 }),
                     order: 3,
                     format: "percent",
                 },
                 {
                     label: "Number of Account",
-                    value: 4,
+                    value: faker.number.int({ min: 1, max: 10 }),
                     order: 5,
                 },
             ],
             contact_info: {
                 email: {
                     label: "E-Mail",
-                    value: `linda.faux${i+1}@company.com`,
+                    value: faker.internet.email({ firstName: first_name, lastName: last_name }),
                 },
                 address: {
-                    street_1: "123 Elm St.",
-                    street_2: "Apt. G",
-                    city: "Some City",
-                    state: "SS",
-                    postal_code: 12345,
+                    street_1: faker.location.street(),
+                    street_2: faker.location.secondaryAddress(),
+                    city: faker.location.city(),
+                    state: faker.location.state(),
+                    postal_code: faker.location.zipCode("#####"),
                 },
                 phone: [
                     {
                         label: "mobile",
-                        value: "123-456-7890"
+                        value: faker.phone.number("###-###-####")
                     },
                     {
                         label: "home",
-                        value: "098-765-4321"
+                        value: faker.phone.number("###-###-####")
                     }
                 ]
             },

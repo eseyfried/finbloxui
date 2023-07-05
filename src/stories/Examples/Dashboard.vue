@@ -51,8 +51,11 @@ const dataPointClasses = [
     'drop-shadow-md',
 ];
 const activeClient = ref();
+// methods
 const handleClientDetailsClick = (client) => {
+    console.log(client)
     activeClient.value = client;
+
 }
 </script>
 <style lang="scss" scoped>

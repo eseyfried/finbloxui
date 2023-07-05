@@ -14,6 +14,7 @@ See [Vite Configuration Reference](https://vitejs.dev/config/).
 
 ```sh
 npm install
+npm i -g hygen
 ```
 
 ### Compile and Hot-Reload for Development
@@ -38,4 +39,21 @@ npm run test:unit
 
 ```sh
 npm run lint
+```
+
+### Creating a New Component
+Using a hygen generator, we can scoffold a new set of component files:
+
+- vue SFC
+- vue spec
+- storybook files
+
+Make sure you have hygenn installed
+```sh
+npm i -g hygen
+```
+
+Then from `/src` run:
+```sh
+hygen component with-prompt
 ```

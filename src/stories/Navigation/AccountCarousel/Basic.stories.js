@@ -2,7 +2,7 @@ import { action } from "@storybook/addon-actions";
 import { ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useDemoStore } from "@/stories/stores/store";
-import AccountCarousel from '../../../components/Navigation/AccountCarousel.vue';
+import AccountCarousel from '@/components/Navigation/AccountCarousel.vue';
 
 let defaultAccounts = ref([]);
 export default {

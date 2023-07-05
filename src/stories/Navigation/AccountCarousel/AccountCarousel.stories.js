@@ -1,5 +1,5 @@
 
-import AccountCarousel from '../../../components/Navigation/AccountCarousel.vue';
+import AccountCarousel from '@/components/Navigation/AccountCarousel.vue';
 
 import * as BasicStory from './Basic.stories';
 import * as AccountClickStory from './AccountClick.stories';

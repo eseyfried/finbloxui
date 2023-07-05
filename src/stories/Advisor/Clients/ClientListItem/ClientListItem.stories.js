@@ -1,4 +1,4 @@
-import ClientListItem from '../../../../components/Advisor/Clients/ClientListItem.vue';
+import ClientListItem from '@/components/Advisor/Clients/ClientListItem.vue';
 
 import * as BasicStory from './Basic.stories';
 import * as EventsStory from './Events.stories';

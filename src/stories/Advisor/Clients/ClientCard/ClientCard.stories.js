@@ -1,4 +1,4 @@
-import ClientCard from '../../../../components/Advisor/Clients/ClientCard.vue';
+import ClientCard from '@/components/Advisor/Clients/ClientCard.vue';
 
 import * as BasicStory from './Basic.stories';
 import * as EventsStory from './Events.stories';

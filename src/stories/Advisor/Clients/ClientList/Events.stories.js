@@ -2,7 +2,7 @@ import { action } from "@storybook/addon-actions";
 import { ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useDemoStore } from "@/stories/stores/store";
-import ClientList from '../../../../components/Advisor/Clients/ClientList.vue';
+import ClientList from '@/components/Advisor/Clients/ClientList.vue';
 
 let defaultClients = ref({});
 export default {

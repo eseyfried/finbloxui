@@ -1,7 +1,7 @@
 import { ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useDemoStore } from "@/stories/stores/store";
-import ClientListItem from '../../../../components/Advisor/Clients/ClientListItem.vue';
+import ClientListItem from '@/components/Advisor/Clients/ClientListItem.vue';
 
 let defaultClient = ref({});
 export default {

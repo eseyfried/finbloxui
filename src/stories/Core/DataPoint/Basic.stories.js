@@ -1,5 +1,5 @@
 
-import DataPoint from '../../../components/Core/DataPoint.vue';
+import DataPoint from '@/components/Core/DataPoint.vue';
 
 // eslint-disable-next-line storybook/story-exports
 export default {

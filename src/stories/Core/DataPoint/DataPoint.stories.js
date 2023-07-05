@@ -1,4 +1,4 @@
-import DataPoint from '../../../components/Core/DataPoint.vue';
+import DataPoint from '@/components/Core/DataPoint.vue';
 import * as BasicStory from './Basic.stories';
 import * as CustomTemplateStory from './CustomTemplate.stories';
 import * as CustomFormatterStory from './CustomFormatter.stories';

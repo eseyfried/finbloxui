@@ -39,7 +39,7 @@ import ClientCard from "@/components/Advisor/Clients/ClientCard";
 import DataPoint from "@/components/Core/DataPoint";
 
 
-const { accounts, clients } = storeToRefs(useDemoStore());
+const { accounts, clients, positions } = storeToRefs(useDemoStore());
 const aum = accounts.value.map((account) => account.total_market_value).reduce((accumulator, currentValue) => {
     return accumulator + parseFloat(currentValue);
 }, 0);

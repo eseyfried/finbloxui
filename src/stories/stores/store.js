@@ -9,6 +9,7 @@ import { faker } from "@faker-js/faker";
 //   ];
 const defaultNumberOfRecords = 10;
 const defaultNumberOfAccounts = 10;
+const defaultNumberOfPositions = 10;
 const defaultTasks = (numberOfRecords) => {
         return Array.from(Array(numberOfRecords).keys(), (i) => {
         return { id: i+1 , title: 'Something', state: 'TASK_INBOX' }
@@ -88,12 +89,46 @@ const defaultClients = (numberOfRecords) => {
         }
     });
 };
+
+const defaultPositions = (numberOfRecords) => {
+    return Array.from(
+        Array(numberOfRecords).keys(),
+        (i) => {
+            const quantity = faker.string.numeric({ min: 1, max: 238 });
+            const price = faker.finance.amount({ min: 5, max: 300, dec: 2 });
+            const changeFactor = price * (faker.number.float({ min: 1, max: 5, precision: 0.1 })/100);
+            return {
+                id: i+1,
+                symbol: getSymbol(),
+                security_description: faker.lorem.words(4),
+                quantity: quantity,
+                price: price,
+                market_value: quantity * price,
+                change_in_value_amt: price - (price * changeFactor),
+                change_in_value_pct: changeFactor,
+            }
+        }
+    );
+};
+
+const getSymbol = () => {
+    return faker.helpers.arrayElement(
+        [
+            faker.string.alpha({ length: 3, casing: 'upper'}),
+            faker.string.alpha({ length: 5, casing: 'upper'}),
+            faker.string.alphanumeric({ length: 9, casing: 'upper'}),
+            `${faker.string.alpha({ length: 3, casing: 'upper'})}.B`
+        ]
+    );
+};
+
 export const useDemoStore = defineStore({
     id: 'demo',
     state: () => ({
       tasks: defaultTasks(defaultNumberOfRecords),
       accounts: defaultAccounts(defaultNumberOfAccounts),
       clients: defaultClients(defaultNumberOfRecords),
+      positions: defaultPositions(defaultNumberOfPositions),
       title: "Test Title",
       status: 'idle',
       error: null,

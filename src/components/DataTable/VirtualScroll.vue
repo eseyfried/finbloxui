@@ -4,7 +4,7 @@
             <slot :rows="virtualList" :columns="columns" />
         </div>
     </div>
-    <slot :rows="listToVirtualList" :columns="columns" v-else />
+    <slot v-else :rows="listToVirtualList" :columns="columns" />
     
 </template>
 <script setup>

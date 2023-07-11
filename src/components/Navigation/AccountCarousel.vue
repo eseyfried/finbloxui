@@ -193,7 +193,6 @@ const prevStep = () => {
 }
 
 const handleClick = (object) => {
-    console.log(object);
     emit("fb-account-carousel:click", object);
 };
 

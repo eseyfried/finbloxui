@@ -6,9 +6,10 @@ import Column from "@/components/DataTable/Column.vue";
 import AccountCarousel from "@/components/Navigation/AccountCarousel.vue";
 import ClientCard from "@/components/Advisor/Clients/ClientCard.vue";
 import ClientList from "@/components/Advisor/Clients/ClientList.vue";
+import PositionsGrid from "@/components/Core/PositionsGrid/PositionsGrid.vue";
 import { formatCurrency } from "@/modules/useFormatter";
 
-const { tasks, accounts, clients } = storeToRefs(useDemoStore());
+const { tasks, accounts, clients, positions } = storeToRefs(useDemoStore());
 const formatTitle = (title) => title.toLowerCase();
 const onColumnHeaderClick = (column) => {
     console.log(column);
@@ -16,6 +17,10 @@ const onColumnHeaderClick = (column) => {
 </script>
 
 <template>
+    <PositionsGrid :positions="positions">
+        <Column field="id" header="Id" />
+        <Column field="symbol" header="Symbol" />
+    </PositionsGrid>
     <div>
         <ClientList :clients="clients" />
     </div>

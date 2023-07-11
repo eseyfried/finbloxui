@@ -15,11 +15,11 @@ import * as formatters from "@/modules/useFormatter";
 
 // vars
 const props = defineProps({});
-const emit = defineEmits(['fb-*']);
+const emit = defineEmits(['fb-<%= h.changeCase.paramCase(name) %>']);
 
 // methods
 const handleEvent = () => {
-    emit("fb-*:click", null);
+    emit("fb-<%= h.changeCase.paramCase(name) %>:click", null);
 }
 </script>
 <style lang="scss" scoped>

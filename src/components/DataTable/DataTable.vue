@@ -13,6 +13,7 @@
 </template>
 <script setup>
 import { computed, useSlots } from "vue";
+import Base from "@/components/DataTable/Base";
 import VirtualScroll from "@/components/DataTable/virtualScroll";
 import TableHeader from "@/components/DataTable/TableHeader";
 import TableBody from "@/components/DataTable/TableBody";
@@ -44,11 +45,7 @@ const props = defineProps({
 
 const emits = defineEmits(["column-click"]);
 
-const columns = computed(() => {
-    let children = slots.default().filter(child => child.type.__name === "Column")
-    return children;
-});
-
+const columns = Base.columns(slots);
 
 // methods
 const onColumnHeaderClick = (column) => {

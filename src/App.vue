@@ -3,7 +3,7 @@ import { storeToRefs } from "pinia";
 import { useDemoStore } from "@/stories/stores/store";
 import DataTable from "@/components/DataTable/DataTable.vue";
 import Column from "@/components/DataTable/Column.vue";
-import AccountCarousel from "@/components/Navigation/AccountCarousel.vue";
+import AccountCarousel from "@/components/Core/Navigation/AccountCarousel.vue";
 import ClientCard from "@/components/Advisor/Clients/ClientCard.vue";
 import ClientList from "@/components/Advisor/Clients/ClientList.vue";
 import PositionsGrid from "@/components/Core/PositionsGrid/PositionsGrid.vue";

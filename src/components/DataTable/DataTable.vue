@@ -12,7 +12,7 @@
     </VirtualScroll>
 </template>
 <script setup>
-import { computed, useSlots } from "vue";
+import { useSlots } from "vue";
 import Base from "@/components/DataTable/Base";
 import VirtualScroll from "@/components/DataTable/virtualScroll";
 import TableHeader from "@/components/DataTable/TableHeader";

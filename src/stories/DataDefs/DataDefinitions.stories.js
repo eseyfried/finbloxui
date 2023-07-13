@@ -1,6 +1,7 @@
 // import DataDefinitions from '../DataDefinitions.vue';
 import * as ClientObjectStory from './ClientObject.stories'
 import * as DataPointObjectStory from './DataPointObject.stories'
+import * as MenuItemObjectStory from './MenuItemObject.stories'
 
 export default {
   title: 'Example/DataDefinitions',
@@ -36,6 +37,10 @@ export const ClientObject = {
 
 export const DataPointObject = {
     ...DataPointObjectStory.default
+};
+
+export const MenuItemObject = {
+    ...MenuItemObjectStory.default
 };
 
 

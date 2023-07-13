@@ -1,34 +1,35 @@
 import { ref } from "vue";
-import { storeToRefs } from "pinia";
-import { useDemoStore } from "@/stories/stores/store";
-import ActionMenu from '@/components/Core/Navigation/ActionMenu/ActionMenu.vue';
+import ContextMenu from '@/components/Core/Navigation/ContextMenu/ContextMenu.vue';
 
 // eslint-disable-next-line storybook/story-exports
 let defaultMenuItems = ref({});
 export default {
-    title: 'Example/Core/Navigation/ActionMenu',
+    title: 'Example/Core/Navigation/ContextMenu',
     args: {
         menuItems: defaultMenuItems
     },
     render: (args) => ({
-      components: { ActionMenu },
+      components: { ContextMenu },
       setup() {
         defaultMenuItems.value = [
             { url: null, label: "Item 1" },
             { url: "some-url", label: "Item 2" },
+            { url: null, label: "Item 3", callback: (item) => { console.log(item) } },
         ];
         args.menuItems = defaultMenuItems.value;
         return { args };
       },
-      template: '<ActionMenu :menuItems="args.menuItems" />', // <--- CHANGE THIS
+      template: `
+        <ContextMenu :menuItems="args.menuItems" style="height: 100px;"/>
+      `,
     }),
     parameters: {
         docs: {
             description: {
-                story: "The basic use of the ActionMenu component.",
+                story: "The basic use of the ContextMenu component.",
             },
             source: {
-                code: `<ActionMenu :menuItems="args.menuItems" />` // <--- CHANGE THIS
+                code: `<ContextMenu :menuItems="args.menuItems" />`
             }
         }
     }

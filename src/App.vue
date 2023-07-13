@@ -1,4 +1,5 @@
 <script setup>
+import { ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useDemoStore } from "@/stories/stores/store";
 import DataTable from "@/components/DataTable/DataTable.vue";
@@ -7,6 +8,7 @@ import AccountCarousel from "@/components/Core/Navigation/AccountCarousel.vue";
 import ClientCard from "@/components/Advisor/Clients/ClientCard.vue";
 import ClientList from "@/components/Advisor/Clients/ClientList.vue";
 import PositionsGrid from "@/components/Core/PositionsGrid/PositionsGrid.vue";
+import ContextMenu from "@/components/Core/Navigation/ContextMenu/ContextMenu.vue";
 import { formatCurrency } from "@/modules/useFormatter";
 
 const { tasks, accounts, clients, positions } = storeToRefs(useDemoStore());
@@ -14,9 +16,23 @@ const formatTitle = (title) => title.toLowerCase();
 const onColumnHeaderClick = (column) => {
     console.log(column);
 }
+
 </script>
 
 <template>
+    <div>
+        <ContextMenu
+            :menuItems="[
+                { url: null, label: 'item 1' },
+                { url: null, label: 'item 2' },
+            ]"
+        >
+            <template #button="slotProps">
+                <button v-on="slotProps.eventHandlers" v-bind="slotProps.attrs">toggle</button>
+            </template>
+        </ContextMenu>
+        <p>some text to test z-index</p>
+    </div>
     <PositionsGrid :positions="positions">
         <Column field="id" header="Id" />
         <Column field="symbol" header="Symbol" />

@@ -1,6 +1,7 @@
 import { action } from "@storybook/addon-actions";
 import DataTable from '@/components/DataTable/DataTable.vue';
 import Column from '@/components/DataTable/Column.vue';
+import * as ActionMenuColumnStory from './ActionMenuColumn.stories';
 import { storeToRefs } from "pinia";
 import { useDemoStore } from "@/stories/stores/store";
 import { ref } from "vue";
@@ -55,6 +56,27 @@ export default {
             },
             options: [true, false],
             control: { type: 'radio' },
+        },
+        type: {
+            description: "The type of Column to render. Defaults to data. However, a [ContextMenu](/?path=/docs/example-core-navigation-contextmenu--docs) component can be used as a special type of column.",
+            table: {
+                type: { summary: "String" },
+                defaultValue: { summary: "data" },
+                category: 'Props',
+            },
+            options: ['data', 'actions'],
+            control: { type: 'radio' },
+        },
+        contextMenuOptions: {
+            type: { name: "Object" },
+            description: "When using Column type = 'actions', pass a valid object based on the [ContextMenu](/?path=/docs/example-core-navigation-contextmenu--docs) docs to control the context menu.",
+            table: {
+                type: { summary: "Object" },
+                defaultValue: { summary: "" },
+                category: 'Props',
+            },
+            defaultValue: "",
+            control: false,
         },
         // slotprops
         sorted: {
@@ -244,4 +266,8 @@ export const CustomColumnHeaderAndBodyCells = {
             }
         }
     }
+};
+
+export const ActionMenuColumn = {
+    ...ActionMenuColumnStory.default
 };

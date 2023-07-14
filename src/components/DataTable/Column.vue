@@ -14,5 +14,17 @@ const props = defineProps({
         type: Boolean,
         default: false
     },
+    type: {
+        type: String,
+        default: "data",
+        validator(value) {
+        // The value must match one of these strings
+            return ["data", "actions"].includes(value)
+        },
+    },
+    actionMenuItems: {
+        type: Array,
+        default: () => [],
+    }
 });
 </script>

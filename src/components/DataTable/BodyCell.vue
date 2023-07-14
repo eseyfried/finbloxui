@@ -7,6 +7,11 @@
         :field="field"
         :attrs="{ 'data-cell': field, 'role': 'cell' }"
     />   
+    <template v-else-if="column.props.type && column.props.type === 'actions'">
+        <td :data-cell="field" role="cell">
+            <ContextMenu v-bind="column.props.contextMenuOptions" />
+        </td>
+    </template>
     <template v-else>
         <td :data-cell="field" role="cell">{{ resolveFieldData() }}</td>
     </template>
@@ -14,6 +19,7 @@
 <script setup>
 import { computed } from "vue";
 import ComponentUtils from "@/modules/ComponentUtils";
+import ContextMenu from "@/components/Core/Navigation/ContextMenu/ContextMenu";
 const props = defineProps({
     rowData: {
         type: Object,

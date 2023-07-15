@@ -1,5 +1,5 @@
 
-import AccountCarousel from '@/components/Navigation/AccountCarousel.vue';
+import AccountCarousel from '@/components/Core/Navigation/AccountCarousel.vue';
 
 import * as BasicStory from './Basic.stories';
 import * as AccountClickStory from './AccountClick.stories';
@@ -15,7 +15,7 @@ import * as CustomAccountTemplateStory from './CustomAccountTemplate.stories';
  * The carousel displays navigational left/right buttons on non-mobile viewports while allowing touch navigation on mobile.
  */
 export default {
-    title: 'Example/Navigation/AccountCarousel',
+    title: 'Example/Core/Navigation/AccountCarousel',
     component: { AccountCarousel },
     tags: ['autodocs'],
     argTypes: {

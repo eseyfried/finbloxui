@@ -36,8 +36,7 @@
 </template>
 <script setup>
 // imports
-import { ref, useSlots } from "vue";
-import * as formatters from "@/modules/useFormatter";
+import { ref } from "vue";
 
 // vars
 const props = defineProps({
@@ -63,7 +62,7 @@ const handleMenuItemClick = (e, item) => {
     }
     emit("fb-action-menu-item:click", item);
 }
-const handleMenuButtonClick = (e) => {
+const handleMenuButtonClick = () => {
     showMenu.value = !showMenu.value;
 }
 

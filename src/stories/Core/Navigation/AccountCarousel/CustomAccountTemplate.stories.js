@@ -2,13 +2,14 @@ import { action } from "@storybook/addon-actions";
 import { ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useDemoStore } from "@/stories/stores/store";
-import AccountCarousel from '@/components/Navigation/AccountCarousel.vue';
+import AccountCarousel from '@/components/Core/Navigation/AccountCarousel.vue';
 import { formatCurrency } from "@/modules/useFormatter";
 
+// eslint-disable-next-line storybook/story-exports
 let defaultAccounts = ref([]);
 
 export default {
-    title: 'Example/Navigation/AccountCarousel',
+    title: 'Example/Core/Navigation/AccountCarousel',
     args: {
         accounts: defaultAccounts
     },

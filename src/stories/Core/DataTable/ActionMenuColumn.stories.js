@@ -35,7 +35,11 @@ export default {
             <Column field="id" header="Id" />
             <Column field="title" header="Title" />
             <Column field="state" header="State" />
-            <Column header="Actions" type="actions" :contextMenuOptions="args.contextMenuOptions"/>
+            <Column header="Actions" type="actions" :contextMenuOptions="args.contextMenuOptions">
+                <template #button="slotProps">
+                    <button v-on="slotProps.eventHandlers" v-bind="slotProps.attrs">+++</button>
+                </template>
+            </Column>
         </DataTable>
       `,
     }),
@@ -58,7 +62,11 @@ const contextMenuOptions = {
     <Column field="id" header="Id" />
     <Column field="title" header="Title" />
     <Column field="state" header="State" />
-    <Column header="Actions" type="actions" :contextMenuOptions="contextMenuOptions" />
+    <Column header="Actions" type="actions" :contextMenuOptions="contextMenuOptions">
+        <template #button="slotProps">
+            <button v-on="slotProps.eventHandlers" v-bind="slotProps.attrs">+++</button>
+        </template>
+    </Column>
 </DataTable>`
             }
         }

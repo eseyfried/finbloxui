@@ -36,7 +36,7 @@
 </template>
 <script setup>
 // imports
-import { ref } from "vue";
+import { ref, useSlots } from "vue";
 import * as formatters from "@/modules/useFormatter";
 
 // vars
@@ -52,7 +52,6 @@ const props = defineProps({
 });
 const showMenu = ref(props.show);
 const emit = defineEmits(['fb-action-menu-item:click']);
-
 // methods
 const handleMenuItemClick = (e, item) => {
     if (item.callback && typeof item.callback === "function") {

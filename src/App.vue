@@ -58,6 +58,16 @@ const onColumnHeaderClick = (column) => {
             </template>
         </Column>
         <Column field="state" header="State" sortable />
+        <Column header="Actions" type="actions" :contextMenuOptions="{
+            menuItems: [
+                { url: null, label: 'item 1' },
+                { url: null, label: 'item 2' },
+            ]
+        }">
+            <template #button="slotProps">
+                <button v-on="slotProps.eventHandlers" v-bind="slotProps.attrs">+++</button>
+            </template>
+        </Column>
       </DataTable>
 
       <AccountCarousel :accounts="accounts" :numVisibile=5 :numScroll=1 :showLabels="true">

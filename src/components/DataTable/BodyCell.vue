@@ -9,7 +9,12 @@
     />   
     <template v-else-if="column.props.type && column.props.type === 'actions'">
         <td :data-cell="field" role="cell">
-            <ContextMenu v-bind="column.props.contextMenuOptions" />
+            <ContextMenu v-bind="column.props.contextMenuOptions">
+                <!-- pass component template slots from grandparent to grandchild using special component -->
+                <template v-for="(name, _) in Object.keys(column.children)" #[name]="slotData" :key="_">
+                    <component :is="column.children[name]" v-bind="slotData || {}" />
+                </template>
+            </ContextMenu>
         </td>
     </template>
     <template v-else>
@@ -39,6 +44,9 @@ const resolveFieldData = () => {
 const columnProp = (prop) => {
     return ComponentUtils.getVNodeProp(props.column, prop);
 };
+// console.log("---- begin ---")
+// console.log(props.column)
+// console.log("---- end ---")
 </script>
 <style lang="scss" scoped>
 

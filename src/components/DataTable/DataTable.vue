@@ -46,7 +46,6 @@ const props = defineProps({
 const emits = defineEmits(["column-click"]);
 
 const columns = Base.columns(slots);
-
 // methods
 const onColumnHeaderClick = (column) => {
     emits("column-click", column);

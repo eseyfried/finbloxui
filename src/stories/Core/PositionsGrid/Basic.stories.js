@@ -30,7 +30,10 @@ export default {
                 story: "The basic use of the PositionsGrid component.",
             },
             source: {
-                code: `<PositionsGrid :positions="args.positions" />` // <--- CHANGE THIS
+                code: `
+<PositionsGrid :positions="positions">
+    <Column field="symbol" header="Symbol" />
+</PositionsGrid>`
             }
         }
     }

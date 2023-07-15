@@ -55,11 +55,18 @@ const parseContextMenuItems = (contextMenuOptions) => {
         ...contextMenuOptions
     }
     finalContextMenuOptions.menuItems = contextMenuOptions.menuItems.map((item) => {
+        const newItem = {};
         for (const [key, value] of Object.entries(item)) {
-           let compiled = template(`${value}`);
-           item[key] = typeof value === "string" ? compiled(props.rowData) : value;
+           if (typeof value === "string") {
+                let compiled = template(`${value}`);
+                newItem[key] = compiled(props.rowData);
+           } else if (typeof value === "function") {
+                newItem[key] = () => {
+                    return value(item, props.rowData)
+                }
+           }
         }
-        return item 
+        return newItem;
     });
     return finalContextMenuOptions;
 };

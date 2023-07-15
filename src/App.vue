@@ -61,7 +61,7 @@ const onColumnHeaderClick = (column) => {
         <Column header="Actions" type="actions" :contextMenuOptions="{
             menuItems: [
                 { url: null, label: 'item 1' },
-                { url: null, label: 'item 2' },
+                { url: null, label: 'item 2 <%=id%>' },
             ]
         }">
             <template #button="slotProps">

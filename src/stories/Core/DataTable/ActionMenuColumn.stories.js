@@ -19,7 +19,7 @@ export default {
         args.actionMenuItems = [
             { url: null, label: "Item 1" },
             { url: "some-url?id=<%=id%>&title=<%=title%>", label: "Item 2" },
-            { url: null, label: "Item 3", callback: (item) => { console.log(item) } },
+            { url: null, label: "Item 3", callback: (item, rowData) => { console.log(item), console.log(rowData) } },
         ];
 
         args.contextMenuOptions = {
@@ -45,7 +45,8 @@ export default {
                 story: `
 A Column can be configured to contain ContextMenu component by passing the standard ContextMenu options via the contextMenuOptions prop.
 You may also access the table row record data to utilize in your context menu. For example, if you needed to pass record data as params in
-a menu item url. Template vars in the format <%=some_field_name%> will be replaced with the field value from the row record.
+a menu item url you can use template vars in the format <%=some_field_name%>. They will be replaced with the field value from the row record.
+Additionally, the context menu item accepts a callback function which receives the menu item object and the rowData object.
                 `,
             },
             source: {
@@ -55,7 +56,7 @@ const contextMenuOptions = {
     menuItems:  [
         { url: null, label: "Item 1" },
         { url: "some-url?id=<%=id%>&title=<%=title%>", label: "Item 2" },
-        { url: null, label: "Item 3", callback: (item) => { console.log(item) } },
+        { url: null, label: "Item 3", callback: (item, rowData) => { console.log(item), console.log(rowData) } },
     ]
 }
 <DataTable :rows="args.rows">                

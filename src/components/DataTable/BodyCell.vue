@@ -9,9 +9,9 @@
     />   
     <template v-else-if="column.props.type && column.props.type === 'actions'">
         <td :data-cell="field" role="cell">
-            <ContextMenu v-bind="column.props.contextMenuOptions">
+            <ContextMenu v-bind="parseContextMenuItems(column.props.contextMenuOptions)">
                 <!-- pass component template slots from grandparent to grandchild using special component -->
-                <template v-for="(name, _) in Object.keys(column.children)" #[name]="slotData" :key="_">
+                <template v-for="(name, _) in Object.keys(column.children || {})" #[name]="slotData" :key="_">
                     <component :is="column.children[name]" v-bind="slotData || {}" />
                 </template>
             </ContextMenu>
@@ -25,6 +25,7 @@
 import { computed } from "vue";
 import ComponentUtils from "@/modules/ComponentUtils";
 import ContextMenu from "@/components/Core/Navigation/ContextMenu/ContextMenu";
+import { template } from "lodash";
 const props = defineProps({
     rowData: {
         type: Object,
@@ -38,15 +39,31 @@ const props = defineProps({
 const field = computed(() => {
     return columnProp('field');
 });
+// methods
 const resolveFieldData = () => {
     return ComponentUtils.resolveFieldData(props.rowData, field.value);
 }
 const columnProp = (prop) => {
     return ComponentUtils.getVNodeProp(props.column, prop);
 };
-// console.log("---- begin ---")
-// console.log(props.column)
-// console.log("---- end ---")
+/**
+ * parse menu items replacing template variables with rowData values
+ * template vars are in lodash format: <%=var%>
+ */
+const parseContextMenuItems = (contextMenuOptions) => {
+    const finalContextMenuOptions = {
+        ...contextMenuOptions
+    }
+    finalContextMenuOptions.menuItems = contextMenuOptions.menuItems.map((item) => {
+        for (const [key, value] of Object.entries(item)) {
+           let compiled = template(`${value}`);
+           item[key] = typeof value === "string" ? compiled(props.rowData) : value;
+        }
+        return item 
+    });
+    return finalContextMenuOptions;
+};
+
 </script>
 <style lang="scss" scoped>
 

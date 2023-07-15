@@ -18,12 +18,12 @@ export default {
 
         args.actionMenuItems = [
             { url: null, label: "Item 1" },
-            { url: "some-url", label: "Item 2" },
+            { url: "some-url?id=<%=id%>&title=<%=title%>", label: "Item 2" },
             { url: null, label: "Item 3", callback: (item) => { console.log(item) } },
         ];
 
         args.contextMenuOptions = {
-            buttonLabel: "more",
+            buttonLabel: "Actions",
             menuItems:  args.actionMenuItems
         }
 
@@ -35,26 +35,26 @@ export default {
             <Column field="id" header="Id" />
             <Column field="title" header="Title" />
             <Column field="state" header="State" />
-            <Column header="Actions" type="actions" :contextMenuOptions="args.contextMenuOptions">
-                <template #button="slotProps">
-                    <button v-on="slotProps.eventHandlers" v-bind="slotProps.attrs">+++</button>
-                </template>
-            </Column>
+            <Column header="" type="actions" :contextMenuOptions="args.contextMenuOptions" />
         </DataTable>
       `,
     }),
     parameters: {
         docs: {
             description: {
-                story: "The basic use of the Column component will render standard HTML table > thead > tr > th and table > tbody > tr > td elements.",
+                story: `
+A Column can be configured to contain ContextMenu component by passing the standard ContextMenu options via the contextMenuOptions prop.
+You may also access the table row record data to utilize in your context menu. For example, if you needed to pass record data as params in
+a menu item url. Template vars in the format <%=some_field_name%> will be replaced with the field value from the row record.
+                `,
             },
             source: {
                 code: `
 const contextMenuOptions = {
-    buttonLabel: "more",
+    buttonLabel: "Actions",
     menuItems:  [
         { url: null, label: "Item 1" },
-        { url: "some-url", label: "Item 2" },
+        { url: "some-url?id=<%=id%>&title=<%=title%>", label: "Item 2" },
         { url: null, label: "Item 3", callback: (item) => { console.log(item) } },
     ]
 }
@@ -62,11 +62,7 @@ const contextMenuOptions = {
     <Column field="id" header="Id" />
     <Column field="title" header="Title" />
     <Column field="state" header="State" />
-    <Column header="Actions" type="actions" :contextMenuOptions="contextMenuOptions">
-        <template #button="slotProps">
-            <button v-on="slotProps.eventHandlers" v-bind="slotProps.attrs">+++</button>
-        </template>
-    </Column>
+    <Column header="" type="actions" :contextMenuOptions="contextMenuOptions" />
 </DataTable>`
             }
         }

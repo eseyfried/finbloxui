@@ -14,7 +14,7 @@
                 {{ buttonLabel }}
             </button>
         </slot>
-        <ul :class="{'fb-column-selector-visible' : showColumns  }">
+        <ul :class="{'fb-column-selector-visible' : showColumns  }" ref="target">
             <template v-for="column in columns" :key="column">
                 <li :class="{ 'fb-column-selector-selected': selectedColumns.includes(column.name) }">
                     <slot
@@ -35,6 +35,7 @@
 <script setup>
 // imports
 import { ref } from "vue";
+import { onClickOutside } from "@vueuse/core";
 
 // vars
 const props = defineProps({
@@ -56,6 +57,10 @@ const emit = defineEmits([
     'fb-column-selector-button:click'
 ]);
 const showColumns = ref(false);
+const target = ref(null);
+
+onClickOutside(target, () => { showColumns.value = false; });
+
 
 
 // methods

@@ -29,11 +29,25 @@ describe('ColumnSelector', () => {
         expect(wrapper.findAll(".fb-column-selector li").length).toBe(config.props.columns.length);
     })
 
+    it('default selected columns matchthe full list of columns when defaultSelectedColumns is not passed', () => {
+        const wrapper = mount(ColumnSelector, config)
+        expect(wrapper.findAll("li.fb-column-selector-selected").length).toBe(config.props.columns.length);
+    })
+
+    it('default selected columns match the defaultSelectedColumns prop', () => {
+        config.props.defaultSelectedColumns = [
+            config.props.columns[0]
+        ]
+        const wrapper = mount(ColumnSelector, config)
+        expect(wrapper.findAll("li.fb-column-selector-selected").length).toBe(config.props.defaultSelectedColumns.length);
+    })
+
     it('column list appears when trigger button is clicked', async () => {
         const wrapper = mount(ColumnSelector, config);
         await wrapper.find(".fb-column-selector-button").trigger("click");
         expect(wrapper.find(".fb-column-selector-visible").exists()).toBe(true);
     })
+
 
     it('column is added to selected columns when column is clicked', async () => {
         const wrapper = mount(ColumnSelector, config);
@@ -42,6 +56,7 @@ describe('ColumnSelector', () => {
         const emitted = wrapper.emitted("fb-column-selector-selected:click");
         expect(emitted.length).toBe(1);
     })
+    
 
     it('column is removed from selected columns when column is de-selected', async () => {
         const wrapper = mount(ColumnSelector, config);

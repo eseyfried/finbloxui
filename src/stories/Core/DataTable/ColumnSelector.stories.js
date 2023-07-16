@@ -1,6 +1,5 @@
 import DataTable from '@/components/DataTable/DataTable.vue';
 import Column from '@/components/DataTable/Column.vue';
-import ColumnSelector from '@/components/DataTable/ColumnSelector/ColumnSelector.vue';
 import { storeToRefs } from "pinia";
 import { useDemoStore } from "@/stories/stores/store";
 import { ref } from "vue";

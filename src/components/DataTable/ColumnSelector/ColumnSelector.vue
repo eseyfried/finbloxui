@@ -46,7 +46,7 @@ const props = defineProps({
         type: String,
         default: "Columns",
     },
-    defaultColumns: {
+    defaultSelectedColumns: {
         type: Array,
         default: () => [],
     },
@@ -80,8 +80,8 @@ const handleButtonClick = () => {
     showColumns.value  = !showColumns.value
     emit("fb-column-selector-button:click", !showColumns.value);
 }
-const defaultColumns = props.defaultColumns.length > 0 ? props.defaultColumns : props.columns;
-const selectedColumns = ref(transformColumnsToNames(defaultColumns));
+const defaultSelectedColumns = props.defaultSelectedColumns.length > 0 ? props.defaultSelectedColumns : props.columns;
+const selectedColumns = ref(transformColumnsToNames(defaultSelectedColumns));
 </script>
 <style lang="scss" scoped>
 .fb-column-selector {

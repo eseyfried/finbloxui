@@ -4,6 +4,7 @@ import Column from '@/components/DataTable/Column.vue';
 import { storeToRefs } from "pinia";
 import { useDemoStore } from "@/stories/stores/store";
 import { ref } from "vue";
+import * as ColumnSelectorStory from './ColumnSelector.stories';
 
 /**
  * ## Overview
@@ -32,6 +33,16 @@ export default {
             table: {
                 type: { summary: "Array" },
                 defaultValue: { summary: "[]" },
+                category: 'Props',
+            },
+        },
+        columnSelector: {
+            type: { name: "Boolean" },
+            defaultValue: false,
+            description: "Enables a ColumnSelector control to toggle visibility of data columns",
+            table: {
+                type: { summary: "Boolean" },
+                defaultValue: { summary: "false" },
                 category: 'Props',
             },
         },
@@ -305,4 +316,8 @@ export const VirtualScrollTable = {
             }
         }
     }
+};
+
+export const ColumnSelector = {
+    ...ColumnSelectorStory.default
 };

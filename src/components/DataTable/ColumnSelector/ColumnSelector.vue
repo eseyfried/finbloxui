@@ -37,8 +37,6 @@
 import { ref } from "vue";
 
 // vars
-const showColumns = ref(false);
-const selectedColumns = ref([]);
 const props = defineProps({
     columns: {
         type: Array,
@@ -48,13 +46,25 @@ const props = defineProps({
         type: String,
         default: "Columns",
     },
+    defaultColumns: {
+        type: Array,
+        default: () => [],
+    },
 });
 const emit = defineEmits([
     'fb-column-selector-selected:click',
     'fb-column-selector-button:click'
 ]);
+const showColumns = ref(false);
+
 
 // methods
+const transformColumnsToNames = (columns) => {
+    return columns.filter(column => typeof column.name === "string")
+                .map((column) => column.name);
+}
+
+
 const handleColumnSelection = (column) => {
     if (selectedColumns.value.includes(column.name)) {
         // delete column from selected columns
@@ -64,13 +74,14 @@ const handleColumnSelection = (column) => {
     } else {
         selectedColumns.value.push(column.name);
     }
-    console.log(selectedColumns.value)
     emit("fb-column-selector-selected:click", selectedColumns.value);
 }
 const handleButtonClick = () => {
     showColumns.value  = !showColumns.value
     emit("fb-column-selector-button:click", !showColumns.value);
 }
+const defaultColumns = props.defaultColumns.length > 0 ? props.defaultColumns : props.columns;
+const selectedColumns = ref(transformColumnsToNames(defaultColumns));
 </script>
 <style lang="scss" scoped>
 .fb-column-selector {

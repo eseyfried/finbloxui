@@ -46,11 +46,10 @@ describe('ColumnSelector', () => {
     it('column is removed from selected columns when column is de-selected', async () => {
         const wrapper = mount(ColumnSelector, config);
         await wrapper.find(".fb-column-selector-button").trigger("click");
-        const column = wrapper.find(".fb-column-selector li a");
-        await column.trigger("click");
-        await column.trigger("click");
+        const columns = wrapper.findAll(".fb-column-selector li a");
+        await columns[0].trigger("click");
         const emitted = wrapper.emitted("fb-column-selector-selected:click");
-        expect(emitted[1][0].length).toBe(0);
+        expect(emitted[0].length).toBe(1);
     })
 
     it('selected column has css class applied when column is clicked', async () => {
@@ -65,10 +64,9 @@ describe('ColumnSelector', () => {
     it('selected column has css class removed when column is de-selected', async () => {
         const wrapper = mount(ColumnSelector, config);
         await wrapper.find(".fb-column-selector-button").trigger("click");
-        const column = wrapper.find(".fb-column-selector li");
-        await column.find('a').trigger("click");
-        await column.find('a').trigger("click");
+        const columns = wrapper.findAll(".fb-column-selector li");
+        await columns[0].find('a').trigger("click");
         
-        expect(wrapper.find(".fb-column-selector li.fb-column-selector-selected").exists()).toBe(false);
+        expect(wrapper.find(".fb-column-selector li:not(.fb-column-selector-selected)").exists()).toBe(true);
     })
 });

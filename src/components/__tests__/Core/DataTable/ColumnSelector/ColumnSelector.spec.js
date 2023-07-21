@@ -29,7 +29,7 @@ describe('ColumnSelector', () => {
         expect(wrapper.findAll(".fb-column-selector li").length).toBe(config.props.columns.length);
     })
 
-    it('default selected columns matchthe full list of columns when defaultSelectedColumns is not passed', () => {
+    it('default selected columns match the full list of columns when defaultSelectedColumns is not passed', () => {
         const wrapper = mount(ColumnSelector, config)
         expect(wrapper.findAll("li.fb-column-selector-selected").length).toBe(config.props.columns.length);
     })

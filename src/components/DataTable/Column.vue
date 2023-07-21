@@ -18,7 +18,7 @@ const props = defineProps({
         type: String,
         default: "data",
         validator(value) {
-        // The value must match one of these strings
+            // The value must match one of these strings
             return ["data", "actions"].includes(value)
         },
     },

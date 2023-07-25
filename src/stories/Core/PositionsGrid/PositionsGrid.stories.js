@@ -18,14 +18,27 @@ import * as CustomTemplateStory from './CustomTemplate.stories';
     argTypes: {
         positions: {
             type: { name: "Array", required: true },
-            defaultValue: {},
-            description: "A [client object](/?path=/story/example-datadefinitions--client-object)",
+            defaultValue: [],
+            description: "An array of JSON objects representing your position data.",
             table: {
                 type: { summary: "Array" },
+                defaultValue: { summary: "[]" },
+                category: 'Props',
+            },
+            control: false,
+        },
+        dataTableOptions: {
+            type: { name: "Object" },
+            defaultValue: {
+                "columnSelector" : true
+            },
+            description: "An object of [DataTable](/?path=/docs/example-core-datatable-datatable--docs) properties",
+            table: {
+                type: { summary: "Object" },
                 defaultValue: { summary: "{}" },
                 category: 'Props',
             },
-            control: false
+            control: { type: 'object' },
         },
         "fb-positions-grid-details-link:click": {
             description: "Event emitted when details link is clicked. Typically used for linking to deeper client content.",

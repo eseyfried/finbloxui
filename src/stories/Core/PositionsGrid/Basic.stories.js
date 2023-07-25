@@ -5,6 +5,7 @@ import PositionsGrid from '@/components/Core/PositionsGrid/PositionsGrid.vue';
 import Column from '@/components/DataTable/Column.vue';
 import ColumnFilter from '@/components/DataTable/ColumnFilter/ColumnFilter.vue';
 
+// eslint-disable-next-line storybook/story-exports
 let defaultPositions = ref({});
 export default {
     title: 'Example/Core/PositionsGrid',
@@ -17,6 +18,10 @@ export default {
         const { positions } = storeToRefs(useDemoStore());
         args.positions = ref(positions.value);
         defaultPositions.value = args.positions;
+
+        args.dataTableOptions = {
+            "columnSelector": true
+        }
         return { args };
       },
       template: `
@@ -35,6 +40,7 @@ export default {
                 code: `
 <PositionsGrid :positions="positions">
     <Column field="symbol" header="Symbol" />
+    <Column field="security_description" header="Description" />
 </PositionsGrid>`
             }
         }

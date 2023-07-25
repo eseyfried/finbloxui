@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
     <div class="fb-positions-grid">
-        <DataTable v-if="positions.length > 0" :rows="positions">
+        <DataTable v-if="positions.length > 0" :rows="positions" v-bind="dataTableOptions">
             <template v-for="(_, name) in $slots" #[name]="slotData">
                 <slot :name="name" v-bind="slotData || {}" />
             </template>
@@ -11,7 +11,6 @@
 <script setup>
 // imports
 import { useSlots } from "vue";
-import * as formatters from "@/modules/useFormatter";
 import DataTable from "@/components/DataTable/DataTable";
 import Base from "@/components/DataTable/Base";
 
@@ -23,6 +22,14 @@ const props = defineProps({
         type: Array,
         default: () => [],
     },
+    dataTableOptions: {
+        type: Object,
+        default: () => {
+            return {
+                columnSelector: true,
+            }
+        }
+    }
 });
 const emit = defineEmits(['fb-positions-grid']);
 

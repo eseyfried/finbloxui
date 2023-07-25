@@ -3,6 +3,7 @@ import { storeToRefs } from "pinia";
 import { useDemoStore } from "@/stories/stores/store";
 import PositionsGrid from '@/components/Core/PositionsGrid/PositionsGrid.vue';
 import Column from '@/components/DataTable/Column.vue';
+import ColumnFilter from '@/components/DataTable/ColumnFilter/ColumnFilter.vue';
 
 let defaultPositions = ref({});
 export default {
@@ -11,7 +12,7 @@ export default {
         positions: defaultPositions
     },
     render: (args) => ({
-      components: { PositionsGrid, Column },
+      components: { PositionsGrid, Column, ColumnFilter },
       setup() {
         const { positions } = storeToRefs(useDemoStore());
         args.positions = ref(positions.value);
@@ -21,6 +22,7 @@ export default {
       template: `
         <PositionsGrid :positions="args.positions">
             <Column field="symbol" header="Symbol" />
+            <Column field="security_description" header="Description" />
         </PositionsGrid>
       `,
     }),

@@ -245,6 +245,7 @@ const handleApplyButtonClick = () => {
 <style lang="scss" scoped>
 .fb-column-filter {
     position: relative;
+    display: inline-block;
 }
 
 .fb-column-filter-menu {
@@ -256,6 +257,10 @@ const handleApplyButtonClick = () => {
 .fb-column-filter-menu-visible {
     display: flex !important;
     flex-direction: column;
+}
+
+.fb-column-filter-buttons {
+    width: max-content;
 }
 
 </style>

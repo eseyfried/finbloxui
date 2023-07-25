@@ -123,10 +123,10 @@ const columnFilter = (filter, rows) => {
                 match = !row[field].toLowerCase().includes(cleanedFilterValue);
             break;
             case "starts_with":
-                match = row[field].startsWith(cleanedFilterValue);
+                match = row[field].toLowerCase().startsWith(cleanedFilterValue.toLowerCase());
             break;
             case "ends_with":
-                match = row[field].endsWith(cleanedFilterValue);
+                match = row[field].toLowerCase().endsWith(cleanedFilterValue.toLowerCase());
             break;
             case "equals":
                 if (Array.isArray(cleanedFilterValue)) {

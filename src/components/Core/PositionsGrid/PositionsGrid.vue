@@ -13,7 +13,6 @@
 import { useSlots } from "vue";
 import * as formatters from "@/modules/useFormatter";
 import DataTable from "@/components/DataTable/DataTable";
-import Column from "@/components/DataTable/Column";
 import Base from "@/components/DataTable/Base";
 
 // vars

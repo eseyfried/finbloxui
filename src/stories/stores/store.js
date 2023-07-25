@@ -12,12 +12,23 @@ const defaultNumberOfAccounts = 10;
 const defaultNumberOfPositions = 10;
 const defaultTasks = (numberOfRecords) => {
         return Array.from(Array(numberOfRecords).keys(), (i) => {
-        return { id: i+1 , title: 'Something', state: 'TASK_INBOX' }
+        return { 
+            id: i+1 , 
+            title: faker.lorem.words(3),
+            qty: faker.finance.amount({ min: 5, max: 300, dec: 2 }),
+            state: faker.helpers.arrayElement(['open', 'pending', 'new', 'closed'])
+        }
     } );
 }
 const defaultAccounts = (numberOfRecords) => {
         return Array.from(Array(numberOfRecords).keys(), (i) => {
-        return { id: i+1 , number: `1234567${i+1}`, total_market_value: '143908.8754', change_in_value_pct: "3.0", change_in_value_amt: 1342.98, name: "IRA Goldberg" }
+        return { 
+            id: i+1 , 
+            number: `1234567${i+1}`, 
+            total_market_value: '143908.8754', 
+            change_in_value_pct: "3.0", 
+            change_in_value_amt: 1342.98, 
+            name: "IRA Goldberg" }
     } );
 }
 

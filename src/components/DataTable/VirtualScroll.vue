@@ -5,9 +5,9 @@
         </div>
     </div>
     <slot v-else :rows="listToVirtualList" :columns="columns" />
-    
 </template>
 <script setup>
+import { computed } from "vue";
 import { useVirtualList } from "@vueuse/core";
 // eslint-disable-next-line no-unused-vars
 const props = defineProps({
@@ -43,7 +43,10 @@ const props = defineProps({
 const { list: virtualList, containerProps, wrapperProps } = useVirtualList(props.list, { 
     itemHeight: 20.5
 });
-const listToVirtualList = props.list.map((item, index) => {
-    return { data: item, index: index };
+const listToVirtualList = computed(() => {
+    const list = props.list.value ? props.list.value : props.list
+    return list.map((item, index) => {
+        return { data: item, index: index };
+    });
 });
 </script>

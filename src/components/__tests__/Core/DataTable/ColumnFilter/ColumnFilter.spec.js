@@ -78,15 +78,15 @@ describe('ColumnFilter', () => {
         
         await wrapper.find(".fb-column-filter-button").trigger("click");
 
-        await operator.setValue("c"); // Contains
+        await operator.setValue("contains"); // Contains
         await input.setValue("some text");
         expect(input.element.value).toBe("some text");
-        expect(operator.element.value).toBe("c");
+        expect(operator.element.value).toBe("contains");
 
         await wrapper.find(".fb-column-filter-clear-button").trigger("click");
         
         expect(input.element.value).toBe("");
-        expect(operator.element.value).toBe("sw"); // Starts With
+        expect(operator.element.value).toBe("starts_with"); // Starts With
     })
 
     it('apply button should emit event passing filter options', async () => {
@@ -98,7 +98,7 @@ describe('ColumnFilter', () => {
         
         await wrapper.find(".fb-column-filter-button").trigger("click");
 
-        await operator.setValue("c"); // Contains
+        await operator.setValue("contains"); // Contains
         await input.setValue("some text");
 
         await wrapper.find(".fb-column-filter-apply-button").trigger("click");
@@ -107,7 +107,7 @@ describe('ColumnFilter', () => {
         expect(emitted[0]).toEqual([
             {
                 filterValue: "some text",
-                filterOperator: "c"
+                filterOperator: "contains"
             }
         ]);
     })

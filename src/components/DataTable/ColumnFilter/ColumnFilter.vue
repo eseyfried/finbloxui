@@ -148,23 +148,23 @@ const props = defineProps({
     equalityOptions: {
         type: Array,
         default: () => [
-            { label: "Starts With", value: "sw"},
-            { label: "Contains", value: "c"},
-            { label: "Not Contains", value: "nc"},
-            { label: "Ends With", value: "ew"},
-            { label: "Equals", value: "eq"},
-            { label: "Not Equals", value: "ne"},
+            { label: "Starts With", value: "starts_with"},
+            { label: "Contains", value: "contains"},
+            { label: "Not Contains", value: "not_contains"},
+            { label: "Ends With", value: "ends_with"},
+            { label: "Equals", value: "equals"},
+            { label: "Not Equals", value: "not_equals"},
         ],
     },
     comparisonOptions: {
         type: Array,
         default: () => [
-            { label: "Equals", value: "eq"},
-            { label: "Not Equals", value: "ne"},
-            { label: "Less than", value: "lt"},
-            { label: "Less than or equal to", value: "lte"},
-            { label: "Greater than", value: "gt"},
-            { label: "Greater than or equal to", value: "gte"},
+            { label: "Equals", value: "equals"},
+            { label: "Not Equals", value: "not_equals"},
+            { label: "Less than", value: "less_than"},
+            { label: "Less than or equal to", value: "less_than_equal"},
+            { label: "Greater than", value: "greater_than"},
+            { label: "Greater than or equal to", value: "greater_than_equal"},
         ],
     },
     clearButtonLabel: {
@@ -188,14 +188,17 @@ const emit = defineEmits([
 switch (props.operator) {
     case "default":
     case "equality":
-        filterOperator.value = "sw";
+        filterOperator.value = "starts_with";
         break;
     case "comparison":
-        filterOperator.value = "eq";
+        filterOperator.value = "equals";
         break;
+}
+switch (props.filterType) {
     case "select":
-        filterOperator.value = null;
-    break;
+    case "multiselect":
+        filterOperator.value = "equals";
+        break;
 }
 defaultFilterOperator.value = filterOperator.value;
 

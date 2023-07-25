@@ -1,19 +1,26 @@
 <template v-slot="slotProps">
     <ColumnSelector :columns="transformColumns(defaultColumns)" v-if="columnSelector" @fb-column-selector-selected:click="handleColumnSelection($event)" />
-    <VirtualScroll :list="rows" :columns="columns" :enabled="useVirtualScroll" :height="virtualScrollHeight">
+    <VirtualScroll :list="transformedRows" :columns="columns" :enabled="useVirtualScroll" :height="virtualScrollHeight">
         <template #default="slopProps">
             <table v-bind="$attrs" role="table">
                 <TableHeader
                     :columns="slopProps.columns"
+                    :rows="slopProps.rows"
                     @column-click="onColumnHeaderClick($event)"
+                    @column-apply-filter="onColumnHeaderApplyFilter($event)"
+                    @column-clear-filter="onColumnHeaderClearFilter($event)"
                 />
-                <TableBody :columns="slopProps.columns" :rows="slopProps.rows" />
+                <TableBody
+                    :columns="slopProps.columns"
+                    :rows="slopProps.rows"
+                />
             </table>
         </template>
     </VirtualScroll>
 </template>
 <script setup>
-import { ref, useSlots } from "vue";
+import { ref, useSlots, computed } from "vue";
+import { filter as _filter } from "lodash";
 import Base from "@/components/DataTable/Base";
 import VirtualScroll from "@/components/DataTable/virtualScroll";
 import TableHeader from "@/components/DataTable/TableHeader";
@@ -57,11 +64,96 @@ const emits = defineEmits(["column-click"]);
 const defaultColumns = Base.columns(slots);
 
 const columns = ref(defaultColumns);
+const filteredRows = ref([]);
+
+/**
+ * stack of applied filters;
+ */
+const filterStack = ref({});
+const hasFilters = ref(false);
+
+const transformedRows = computed( () => {
+    return hasFilters.value ? filteredRows.value : props.rows;
+});
 
 // methods
 const onColumnHeaderClick = (column) => {
     emits("column-click", column);
 };
+
+const onColumnHeaderClearFilter = (filter) => {
+    delete filterStack.value[filter.field]
+    filteredRows.value = applyFilters(true);    
+}
+const onColumnHeaderApplyFilter = (filter) => {
+    // queue filter in stack
+    filterStack.value[filter.field] = filter;
+    
+    // filteredRows.value = columnFilter(filter, props.rows);
+    filteredRows.value = applyFilters();
+    hasFilters.value = true;
+};
+
+
+
+/**
+ * apply all column filters in filterStack
+ */
+const applyFilters = (reset = false) => {
+    let rows = reset ? props.rows : transformedRows.value;
+    Object.keys(filterStack.value).forEach(filter => {
+       rows = columnFilter(filterStack.value[filter], rows)
+    });
+    return rows;
+}
+
+/**
+ * utility to filter rows by a columns filter object
+ */
+const columnFilter = (filter, rows) => {
+    return _filter(rows, (row) => {
+        const { field , filterOperator, filterValue} = filter;
+        const cleanedFilterValue = Array.isArray(filterValue) ? filterValue : filterValue.trim();
+        let match;
+        switch(filterOperator) {
+            case "contains":
+                match = row[field].toLowerCase().includes(cleanedFilterValue);
+            break;
+            case "not_contains":
+                match = !row[field].toLowerCase().includes(cleanedFilterValue);
+            break;
+            case "starts_with":
+                match = row[field].startsWith(cleanedFilterValue);
+            break;
+            case "ends_with":
+                match = row[field].endsWith(cleanedFilterValue);
+            break;
+            case "equals":
+                if (Array.isArray(cleanedFilterValue)) {
+                    match = cleanedFilterValue.includes(row[field].toLowerCase())
+                } else {
+                    match = row[field].toLowerCase() === cleanedFilterValue;
+                }
+            break;
+            case "not_equals":
+                match = row[field].toLowerCase() !== cleanedFilterValue;
+            break;
+            case "greater_than":
+                match = parseFloat(row[field]) > parseFloat(cleanedFilterValue);
+            break;
+            case "greater_than_equal":
+                match = parseFloat(row[field]) >= parseFloat(cleanedFilterValue);
+            break;
+            case "less_than":
+                match = parseFloat(row[field]) < parseFloat(cleanedFilterValue);
+            break;
+            case "less_than_equal":
+                match = parseFloat(row[field]) <= parseFloat(cleanedFilterValue);
+            break;
+        }
+        return match;
+    })
+}
 
 const transformColumns = (columns) => {
     return columns.map((column) => {

@@ -15,6 +15,15 @@
             <template v-if="columnProp('sortable')">
                 <component :is="(column.children && column.children.sortIcon)" :sorted="sorted" :sortDir="sortDir" />
             </template>
+            
+            <component
+                v-if="column.children && Object.hasOwn(column.children, 'default')"
+                :is="column.children.default()[0]"
+                :column="column"
+                :selectOptions="column.children.default()[0].props.selectOptions || selectOptions"
+                @fb-column-filter-apply-button:click="handleApplyFilter($event)"
+                @fb-column-filter-clear-button:click="handleClearFilter($event)"
+            />
         </th>
     </template>
     
@@ -28,12 +37,23 @@ const props = defineProps({
         type: Object,
         default: null
     },
+    rows: {
+        type: Array,
+        default: () => {},
+    }
 });
 
-const emits = defineEmits(["header-cell-click"]);
+const emits = defineEmits([
+    "header-cell-click",
+    "header-cell-apply-filter",
+    "header-cell-clear-filter",
+]);
 
 const sortDir = ref("asc");
 const sorted = ref(false);
+
+//props.column.children.default()[0].props.selectOptions || 
+
 
 // methods
 const columnProp = (prop) => {
@@ -55,9 +75,24 @@ const onClick = () => {
     
 };
 
+const handleApplyFilter = (event) => {
+    emits("header-cell-apply-filter", event);
+}
+
+const handleClearFilter = (event) => {
+    emits("header-cell-clear-filter", event);
+}
+
 const toggleSortDir = () => {
     sortDir.value = sortDir.value === "asc" ? "desc" : "asc";
 };
+
+const columnData = (field) => {
+    return props.rows.map((row) => {
+        return row.data[field]
+    })
+};
+const selectOptions = columnData(columnProp('field'));
 
 </script>
 <style lang="scss" scoped>

@@ -4,8 +4,11 @@
             <HeaderCell
                 v-for="(column, i) in columns"
                 :column="column"
+                :rows="rows"
                 :key="i"
                 @header-cell-click="onHeaderCellClick($event)"
+                @header-cell-apply-filter="onHeaderCellApplyFilter(column, $event)"
+                @header-cell-clear-filter="onHeaderCellClearFilter(column, $event)"
             />
         </tr>
     </thead>
@@ -17,13 +20,32 @@ const props = defineProps({
     columns: {
         type: Array,
         default: null,
+    },
+    rows: {
+        type: Array,
+        default: null,
     }
 });
-const emits = defineEmits(["column-click"]);
+const emits = defineEmits([
+    "column-click",
+    "column-apply-filter",
+    "column-clear-filter",
+]);
 // methods
 const onHeaderCellClick = (column) => {
     emits("column-click", column);
 };
+
+const onHeaderCellApplyFilter = (column, filter) => {
+    filter.field = column.props.field
+    emits("column-apply-filter", filter);
+}
+const onHeaderCellClearFilter = (column, clear) => {
+    emits("column-clear-filter", {
+        field: column.props.field,
+        clear: clear
+    });
+}
 </script>
 <style lang="scss" scoped>
 

@@ -5,6 +5,7 @@ import { storeToRefs } from "pinia";
 import { useDemoStore } from "@/stories/stores/store";
 import { ref } from "vue";
 import * as ColumnSelectorStory from './ColumnSelector.stories';
+import * as ColumnFilterStory from './ColumnFilter.stories';
 
 /**
  * ## Overview
@@ -320,4 +321,8 @@ export const VirtualScrollTable = {
 
 export const ColumnSelector = {
     ...ColumnSelectorStory.default
+};
+
+export const ColumnFilter = {
+    ...ColumnFilterStory.default
 };

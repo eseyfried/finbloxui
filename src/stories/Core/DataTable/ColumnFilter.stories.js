@@ -39,16 +39,24 @@ export default {
         docs: {
             description: {
                 story: `
-The ColumnSelector component allows users to toggle the visibility of data columns in the DataTable. The order of the columns is preserved based
-on the order of the Column components.
+The ColumnFilter component allows users to filter data based on the values in a given column. Filtered values can be compared based on
+equality (starts with, contains, etc.) or comparison (equals, greater than, etc.) matchers as well as selected from a list. Multiple filters
+can be applied to a DataTable. When using multiple filters, the data filtering is refined with each ColumnFilter applied.
                 `,
             },
             source: {
                 code: `
 <DataTable :rows="rows" columnSelector="true">                
     <Column field="id" header="Id" />
-    <Column field="title" header="Title" />
-    <Column field="state" header="State" />
+    <ColumnFilter field="title" header="Title">
+        <ColumnFilter filterType="text" operator="equality" />
+    </ColumnFilter>
+    <Column field="qty" header="Qty">
+        <ColumnFilter filterType="text" operator="comparison" />
+    </Column>
+    <Column field="state" header="State">
+        <ColumnFilter filterType="multiselect" />
+    </Column>
 </DataTable>`
             }
         }

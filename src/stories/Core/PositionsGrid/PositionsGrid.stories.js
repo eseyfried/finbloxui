@@ -4,6 +4,7 @@ import Column from '@/components/DataTable/Column.vue';
 import * as BasicStory from './Basic.stories';
 import * as EventsStory from './Events.stories';
 import * as CustomTemplateStory from './CustomTemplate.stories';
+import * as QuoteHoverStory from './QuoteHover.stories';
 /**
  * ## Overview
  * The `PositionsGrid` component ...  
@@ -68,3 +69,7 @@ export const BasicPositionsGrid = {
 // export const CustomTemplate = {
 //     ...CustomTemplateStory.default
 // };
+
+export const QuoteHover = {
+    ...QuoteHoverStory.default
+};

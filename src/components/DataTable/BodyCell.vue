@@ -17,14 +17,43 @@
             </ContextMenu>
         </td>
     </template>
+    <template v-else-if="column.props.type && column.props.type === 'quote'">
+        <!-- <td :data-cell="field" role="cell" @mouseover="handleHover(true)" @mouseleave="handleHover(false)"> -->
+        <td :data-cell="field" role="cell">
+            <span :id="`id-${rowData['id']}`" @mouseover="handleHover(true)" @mouseleave="handleHover(false)">
+                {{ resolveFieldData() }}
+            </span>
+            <Popover :selector="`#id-${rowData['id']}`" :trigger="column.props.quoteDetailOptions.trigger || 'hover'">
+                 <QuoteDetail
+                    v-bind="column.props.quoteDetailOptions"
+                    :symbol="resolveFieldData()"
+                    :show="showQuoteHover"
+                    :callbackOn="column.props.quoteDetailOptions.callbackOn || 'show'"
+                    :class="{ 'fb-quote-detail-hover': showQuoteHover }"
+                />
+            </Popover>
+        </td>
+    </template>
     <template v-else>
-        <td :data-cell="field" role="cell">{{ resolveFieldData() }}</td>
+        <td :data-cell="field" role="cell">
+            {{ resolveFieldData() }}
+            
+            <component
+                v-if="column.children && Object.hasOwn(column.children, 'default') && column.children.default()[0].type.__name === 'QuoteDetail'"
+                :is="column.children.default()[0]"
+                v-bind="column.children.default()[0].props"
+
+            />
+            
+        </td>
     </template>
 </template>
 <script setup>
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import ComponentUtils from "@/modules/ComponentUtils";
 import ContextMenu from "@/components/Core/Navigation/ContextMenu/ContextMenu";
+import QuoteDetail from "@/components/Core/QuoteDetail/QuoteDetail";
+import Popover from "@/components/Core/Popover/Popover";
 import { template } from "lodash";
 const props = defineProps({
     rowData: {
@@ -36,9 +65,13 @@ const props = defineProps({
         default: null
     },
 });
+
+
 const field = computed(() => {
     return columnProp('field');
 });
+
+const showQuoteHover = ref(false);
 // methods
 const resolveFieldData = () => {
     return ComponentUtils.resolveFieldData(props.rowData, field.value);
@@ -46,6 +79,10 @@ const resolveFieldData = () => {
 const columnProp = (prop) => {
     return ComponentUtils.getVNodeProp(props.column, prop);
 };
+const handleHover = (isHover) => {
+
+    showQuoteHover.value = isHover;
+}
 /**
  * parse menu items replacing template variables with rowData values
  * template vars are in lodash format: <%=var%>
@@ -73,5 +110,7 @@ const parseContextMenuItems = (contextMenuOptions) => {
 
 </script>
 <style lang="scss" scoped>
+.fb-quote-detail-hover {
 
+}
 </style>

@@ -58,13 +58,13 @@ export default {
             control: { type: 'radio' },
         },
         type: {
-            description: "The type of Column to render. Defaults to data. However, a [ContextMenu](/?path=/docs/example-core-navigation-contextmenu--docs) component can be used as a special type of column.",
+            description: "The type of Column to render. Defaults to data. However, a [ContextMenu](/?path=/docs/example-core-navigation-contextmenu--docs) or [QuoteDetail](?path=/docs/example-core-quotedetail--docs) component can be used as a special type of column.",
             table: {
                 type: { summary: "String" },
                 defaultValue: { summary: "data" },
                 category: 'Props',
             },
-            options: ['data', 'actions'],
+            options: ['data', 'actions', 'quote'],
             control: { type: 'radio' },
         },
         contextMenuOptions: {

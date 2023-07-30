@@ -6,6 +6,7 @@ import QuoteDetail from '@/components/Core/QuoteDetail/QuoteDetail.vue';
 export default {
     title: 'Example/Core/QuoteDetail',
     args: {
+        show: true,
         showDetails: true,
         symbol: "AAPL",
         security_description: "Apple, Inc.",

@@ -5,12 +5,16 @@ import * as BasicStory from './Basic.stories';
 import * as EventsStory from './Events.stories';
 import * as CustomTemplateStory from './CustomTemplate.stories';
 import * as QuoteHoverStory from './QuoteHover.stories';
+import * as ActionMenuColumnStory from './ActionMenuColumn.stories';
+import * as ColumnFilterStory from './ColumnFilter.stories';
 /**
  * ## Overview
- * The `PositionsGrid` component ...  
+ * The `PositionsGrid` component is a `DataTable` component with built in features such as column selection, column filtering, 
+ * action menus, and a security symbol quote hover.
  * 
  * ### User Story
- * > As a user, I want to ... so that I can ...
+ * > As a user, I want to see my investment security positions data in a way that I can refine the view to better understand my data and/or take
+ * actions.
  */
  export default {
     title: 'Example/Core/PositionsGrid',
@@ -70,6 +74,12 @@ export const BasicPositionsGrid = {
 //     ...CustomTemplateStory.default
 // };
 
+export const ColumnFilter = {
+    ...ColumnFilterStory.default
+};
 export const QuoteHover = {
     ...QuoteHoverStory.default
+};
+export const ActionMenuColumn = {
+    ...ActionMenuColumnStory.default
 };

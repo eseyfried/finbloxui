@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-    <div class="fb-quote-detail">
+    <div class="fb-quote-detail" v-if="show">
         <slot name="loader" v-if="!isLoaded">
             <div class="fb-loading">
                 Loading...
@@ -13,11 +13,11 @@
             :attrs="{
                 class: ['fb-quote-detail-heading']
             }"
-            :symbol="symbol.toUpperCase()"
-            :security_description="security_description"
+            :symbol="quote.symbol.toUpperCase()"
+            :security_description="quote.security_description"
         >
             <div class="fb-quote-detail-heading">
-                <h3>{{ security_description }} ({{ symbol.toUpperCase() }})</h3>
+                <h3>{{ quote.security_description }} ({{ quote.symbol.toUpperCase() }})</h3>
             </div>
         </slot>
         <slot name="price"
@@ -26,23 +26,23 @@
             :attrs="{
                 class: ['fb-quote-detail-price']
             }"
-            :current_price="formatters.formatCurrency(current_price)"
-            :price_change_pct="formatters.formatPercent(price_change_pct)"
-            :price_change_amt="formatters.formatCurrency(price_change_amt)"
-            :price_change_pct_css="priceChangePctClass"
-            :price_change_amt_css="priceChangeAmtClass"
+            :current_price="formatters.formatCurrency(quote.current_price)"
+            :price_change_pct="formatters.formatPercent(quote.price_change_pct)"
+            :price_change_amt="formatters.formatCurrency(quote.price_change_amt)"
+            :price_change_pct_css="quote.priceChangePctClass"
+            :price_change_amt_css="quote.priceChangeAmtClass"
         >
             <div class="fb-quote-detail-price">
-                <h4>{{ formatters.formatCurrency(current_price) }}</h4>
+                <h4>{{ formatters.formatCurrency(quote.current_price) }}</h4>
                 <span
                     :class="priceChangePctClass"
                 >
-                    {{ formatters.formatPercent(price_change_pct) }}
+                    {{ formatters.formatPercent(quote.price_change_pct) }}
                 </span>
                 <span
                     :class="priceChangeAmtClass"
                 >
-                    {{ formatters.formatCurrency(price_change_amt) }}
+                    {{ formatters.formatCurrency(quote.price_change_amt) }}
                 </span>
             </div>
         </slot>
@@ -53,44 +53,78 @@
                 class: ['fb-quote-detail-details']
             }"
             v-if="isLoaded && showDetails"
-            :previous_close_price="formatters.formatCurrency(previous_close_price)"
-            :day_low_price="formatters.formatCurrency(day_low_price)"
-            :day_high_price="formatters.formatCurrency(day_high_price)"
-            :dividend_yield="formatters.formatPercent(dividend_yield)"
-            :bid="formatters.formatCurrency(bid)"
-            :ask="formatters.formatCurrency(ask)"
+            :previous_close_price="formatters.formatCurrency(quote.previous_close_price)"
+            :day_low_price="formatters.formatCurrency(quote.day_low_price)"
+            :day_high_price="formatters.formatCurrency(quote.day_high_price)"
+            :dividend_yield="formatters.formatPercent(quote.dividend_yield)"
+            :bid="formatters.formatCurrency(quote.bid)"
+            :ask="formatters.formatCurrency(quote.ask)"
         >
             <div class="fb-quote-detail-details">
-                <dl>
-                    <dt v-if="previous_close_price">{{ labels.previous_close_price }}</dt>
-                    <dd v-if="previous_close_price">{{ formatters.formatCurrency(previous_close_price) }}</dd>
-                    <dt v-if="day_high_price && day_low_price">{{ labels.day_range }}</dt>
-                    <dd v-if="day_high_price && day_low_price">{{ formatters.formatCurrency(day_low_price) }} - {{ formatters.formatCurrency(day_high_price) }}</dd>
-                    <dt v-if="volume">{{ labels.volume }}</dt>
-                    <dd v-if="volume">{{ volume }}</dd>
-                    <dt v-if="pe_ratio">{{ labels.pe_ratio }}</dt>
-                    <dd v-if="pe_ratio">{{ pe_ratio }}</dd>
-                    <dt v-if="dividend_yield">{{ labels.dividend_yield }}</dt>
-                    <dd v-if="dividend_yield">{{ formatters.formatPercent(dividend_yield) }}</dd>
-                    <dt v-if="bid && ask">{{ labels.bid }} / {{ labels.ask }}</dt>
-                    <dd v-if="bid && ask">{{ formatters.formatCurrency(bid) }} / {{ formatters.formatCurrency(ask) }}</dd>
-                    <dt v-if="exchange">{{ labels.exchange }}</dt>
-                    <dd v-if="exchange">{{ exchange }}</dd>
-                </dl>
+                <ul>
+                    <li v-if="quote.previous_close_price">
+                        <label>{{ labels.previous_close_price }}</label>
+                        <span>{{ formatters.formatCurrency(quote.previous_close_price) }}</span>
+                    </li>
+                    <li v-if="quote.day_high_price && quote.day_low_price">
+                        <label>{{ labels.day_range }}</label>
+                        <span>{{ formatters.formatCurrency(quote.day_low_price) }} - {{ formatters.formatCurrency(quote.day_high_price) }}</span>
+                    </li>
+                    <li v-if="quote.volume">
+                        <label>{{ labels.volume }}</label>
+                        <span>{{ quote.volume }}</span>
+                    </li>
+                    <li v-if="quote.pe_ratio">
+                        <label>{{ labels.pe_ratio }}</label>
+                        <span>{{ quote.pe_ratio }}</span>
+                    </li>
+                    <li v-if="quote.pe_ratio">
+                        <label>{{ labels.pe_ratio }}</label>
+                        <span>{{ quote.pe_ratio }}</span>
+                    </li>
+                    <li v-if="quote.dividend_yield">
+                        <label>{{ labels.dividend_yield }}</label>
+                        <span>{{ formatters.formatPercent(quote.dividend_yield) }}</span>
+                    </li>
+                    <li v-if="quote.bid && quote.ask">
+                        <label>{{ labels.bid }} / {{ labels.ask }}</label>
+                        <span>{{ formatters.formatCurrency(quote.bid) }} / {{ formatters.formatCurrency(quote.ask) }}</span>
+                    </li>
+                    <li v-if="quote.exchange">
+                        <label>{{ labels.exchange }}</label>
+                        <span>{{ quote.exchange }}</span>
+                    </li>
+                </ul>
             </div>
         </slot>
     </div>
 </template>
 <script setup>
 // imports
-import { computed, onBeforeMount } from "vue";
+import { ref, computed, onBeforeMount, watch } from "vue";
 import * as formatters from "@/modules/useFormatter";
 
 // vars
 const props = defineProps({
+    show: {
+        type: Boolean,
+        default: true
+    },
     showDetails: {
         type: Boolean,
         default: true
+    },
+    callback: {
+        type: Function,
+        default: null
+    },
+    callbackOn: {
+        type: String,
+        default: null,
+        validator(value) {
+            // The value must match one of these strings
+            return ["mount","show"].includes(value)
+        },
     },
     symbol: {
         type: String,
@@ -166,24 +200,77 @@ const props = defineProps({
 });
 const emit = defineEmits([
     'fb-quote-detail',
-    'fb-quote-detail-before-mount'
+    'fb-quote-detail-before-mount',
+    'fb-quote-detail-show'
 ]);
+// temp object to contain data from callback
+const callbackQuote = ref({});
+const isCallbackLoaded = ref(false);
 
 const isLoaded = computed(() => {
-    return props.symbol && props.security_description;
+    if (props.callback) {
+        return isCallbackLoaded.value;
+    } else {
+        return quote.value.symbol && quote.value.security_description;
+    }
 });
 
-onBeforeMount(() => {
-    emit('fb-quote-detail-before-mount');
+const quote = computed(() => {
+    return {
+        ...props,
+        ...callbackQuote.value
+    }
+});
+
+
+onBeforeMount(async () => {
+    if (props.callbackOn === "mount") {
+        triggerCallback();
+    }
+    emit('fb-quote-detail-before-mount', props.symbol);
 })
 
+
+
 // methods
+const onShow = async () => {
+    if (props.callbackOn === "show") {
+        triggerCallback();
+    }
+    emit('fb-quote-detail-show', props.symbol);
+}
+
+const triggerCallback = async () => {
+     if (typeof props.callback === 'function') {
+        isCallbackLoaded.value = false;
+        callbackQuote.value = {};
+        callbackQuote.value = await props.callback(props.symbol);
+        if (Object.keys(callbackQuote.value).length > 0) {
+            isCallbackLoaded.value = true;
+        }
+    }
+}
+
 const priceChangePctClass = computed(() => {
-    return props.price_change_pct < 0 ? 'fb-negative' : 'fb-positive';
+    return quote.value.price_change_pct < 0 ? 'fb-negative' : 'fb-positive';
 })
 const priceChangeAmtClass = computed(() => {
-    return props.price_change_amt < 0 ? 'fb-negative' : 'fb-positive';
+    return quote.value.price_change_amt < 0 ? 'fb-negative' : 'fb-positive';
 })
+/**
+ * watch the sow prop and trigger the show method when it updated
+ */
+watch(() => props.show, (value, prevValue) => {
+  if (value === true) {
+    onShow();
+  }
+}, { immediate: true })
 </script>
 <style lang="scss" scoped>
+
+.fb-quote-detail-details ul {
+    list-style: none;
+    padding: unset;
+    margin: unset;
+}
 </style>

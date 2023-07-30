@@ -52,8 +52,6 @@ const emits = defineEmits([
 const sortDir = ref("asc");
 const sorted = ref(false);
 
-//props.column.children.default()[0].props.selectOptions || 
-
 
 // methods
 const columnProp = (prop) => {

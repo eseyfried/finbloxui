@@ -19,8 +19,12 @@ const props = defineProps({
         default: "data",
         validator(value) {
             // The value must match one of these strings
-            return ["data", "actions"].includes(value)
+            return ["data", "actions", "quote"].includes(value)
         },
+    },
+    quoteDetailOptions: {
+        type: Object,
+        default: () => {},
     },
     actionMenuItems: {
         type: Array,

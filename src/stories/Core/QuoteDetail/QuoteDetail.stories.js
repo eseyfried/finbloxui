@@ -3,6 +3,7 @@ import QuoteDetail from '@/components/Core/QuoteDetail/QuoteDetail.vue';
 import * as BasicStory from './Basic.stories';
 import * as EventsStory from './Events.stories';
 import * as CustomTemplateStory from './CustomTemplate.stories';
+import * as AsyncCallbackStory from './AsyncCallback.stories';
 /**
  * ## Overview
  * The `QuoteDetail` component ...  
@@ -178,6 +179,40 @@ import * as CustomTemplateStory from './CustomTemplate.stories';
             },
             control: 'boolean'
         },
+        show: {
+            type: { name: "Boolean" },
+            defaultValue: true,
+            description: "Show or hide component",
+            table: {
+                type: { summary: "Boolean" },
+                defaultValue: { summary: true },
+                category: 'Props',
+            },
+            control: 'boolean'
+        },
+        callback: {
+            type: { name: "Function" },
+            defaultValue: null,
+            description: "A custom async callback function that will be called either when component is mounted or shown. Callback expects the symbol as an arg and shold return an object with all quote props.",
+            table: {
+                type: { summary: "Function" },
+                defaultValue: { summary: "(symbol) => {}" },
+                category: 'Props',
+            },
+            control: 'boolean'
+        },
+        callbackOn: {
+            type: { name: "String" },
+            defaultValue: null,
+            description: "Trigger the callback function when component is mounted or shown",
+            table: {
+                type: { summary: "String" },
+                defaultValue: { summary: "" },
+                category: 'Props',
+            },
+            options: ["mount", "show"],
+            control: 'radio'
+        },
         "fb-quote-detail-before-mount": {
             description: "Event emitted before component is rendered to the DOM. Typically used for binding to a function to fetch data and set props.",
             table: {
@@ -293,6 +328,10 @@ export const BasicQuoteDetail = {
 
 export const Events = {
     ...EventsStory.default
+};
+
+export const AsyncCallback = {
+    ...AsyncCallbackStory.default
 };
 
 export const CustomTemplate = {

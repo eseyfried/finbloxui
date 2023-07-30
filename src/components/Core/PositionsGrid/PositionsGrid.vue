@@ -12,10 +12,11 @@
 // imports
 import { useSlots } from "vue";
 import DataTable from "@/components/DataTable/DataTable";
-import Base from "@/components/DataTable/Base";
+
 
 // vars
 const slots = useSlots();
+
 // eslint-disable-next-line no-unused-vars
 const props = defineProps({
     positions: {
@@ -33,7 +34,6 @@ const props = defineProps({
 });
 const emit = defineEmits(['fb-positions-grid']);
 
-const columns = Base.columns(slots);
 
 // methods
 const handleEvent = () => {

@@ -45,13 +45,6 @@ import * as ColumnFilterStory from './ColumnFilter.stories';
             },
             control: { type: 'object' },
         },
-        "fb-positions-grid-details-link:click": {
-            description: "Event emitted when details link is clicked. Typically used for linking to deeper client content.",
-            table: {
-                category: 'Events',
-                defaultValue: { summary: "" },
-            },
-        },
         ".fb-positions-grid": {
             description: "The class applied to the component root element.",
             table: {

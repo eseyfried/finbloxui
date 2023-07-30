@@ -18,7 +18,6 @@
         </td>
     </template>
     <template v-else-if="column.props.type && column.props.type === 'quote'">
-        <!-- <td :data-cell="field" role="cell" @mouseover="handleHover(true)" @mouseleave="handleHover(false)"> -->
         <td :data-cell="field" role="cell">
             <span :id="`id-${rowData['id']}`" @mouseover="handleHover(true)" @mouseleave="handleHover(false)">
                 {{ resolveFieldData() }}
@@ -55,6 +54,7 @@ import ContextMenu from "@/components/Core/Navigation/ContextMenu/ContextMenu";
 import QuoteDetail from "@/components/Core/QuoteDetail/QuoteDetail";
 import Popover from "@/components/Core/Popover/Popover";
 import { template } from "lodash";
+import * as formatters from "@/modules/useFormatter";
 const props = defineProps({
     rowData: {
         type: Object,
@@ -74,7 +74,19 @@ const field = computed(() => {
 const showQuoteHover = ref(false);
 // methods
 const resolveFieldData = () => {
-    return ComponentUtils.resolveFieldData(props.rowData, field.value);
+
+    let fieldData = ComponentUtils.resolveFieldData(props.rowData, field.value);;
+    const formatter = columnProp('formatter')
+    if (formatter) {
+        if (formatter === "currency") {
+            fieldData = formatters.formatCurrency(fieldData);
+        } else if (formatter === "percent") {
+            fieldData = formatters.formatPercent(fieldData);
+        } else if (typeof formatter === "function") {
+            fieldData = formatter(fieldData);
+        }
+    }
+    return fieldData;
 }
 const columnProp = (prop) => {
     return ComponentUtils.getVNodeProp(props.column, prop);

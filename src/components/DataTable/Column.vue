@@ -14,6 +14,10 @@ const props = defineProps({
         type: Boolean,
         default: false
     },
+    formatter: {
+        type: [String, Function],
+        default: null,
+    },
     type: {
         type: String,
         default: "data",

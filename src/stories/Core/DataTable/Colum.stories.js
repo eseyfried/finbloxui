@@ -57,6 +57,21 @@ export default {
             options: [true, false],
             control: { type: 'radio' },
         },
+        formatter: {
+            description: `Format the column value as a currency, percent or custom format using a callback function.
+            
+Allowable prop options:
+- currency
+- percent
+- a callback function
+            `,
+            table: {
+                type: { summary: "Mixed" },
+                defaultValue: { summary: "" },
+                category: 'Props',
+            },
+            control: false,
+        },
         type: {
             description: "The type of Column to render. Defaults to data. However, a [ContextMenu](/?path=/docs/example-core-navigation-contextmenu--docs) or [QuoteDetail](?path=/docs/example-core-quotedetail--docs) component can be used as a special type of column.",
             table: {
@@ -165,6 +180,55 @@ export const BasicColumn = {
     <Column field="id" header="Id" />
     <Column field="title" header="Title" />
     <Column field="state" header="State" />
+</DataTable>`
+            }
+        }
+    }
+};
+
+export const ColumnFormatter = {
+    args: {
+        rows: []
+    },
+    render: (args) => ({
+      components: { DataTable, Column },
+      setup() {
+        args.rows = ref([
+            { price: 1245.87, qty: 2, change_in_value_pct: 0.5, change_in_value_amt: 12.98 },
+            { price: 98.23, qty: 22, change_in_value_pct: -1.5, change_in_value_amt: -34.67 },
+        ]);
+        args.customFormatter = (value) => `** ${value}`;
+        return { args };
+      },
+      template: `
+        <span style="display: none">{{ args.rows.length }}</span> <!-- this is needed to get SB to render the data -->
+        <DataTable :rows="args.rows">
+            <Column field="price" header="Price" formatter="currency" />
+            <Column field="qty" header="Quantity" :formatter="args.customFormatter"/>
+            <Column field="change_in_value_pct" header="Change In Value (%)" formatter="percent"/>
+            <Column field="change_in_value_amt" header="Change In Value ($)" formatter="currency" />
+        </DataTable>
+      `,
+    }),
+    parameters: {
+        docs: {
+            description: {
+                story: `Format the column values using the Formatter prop. The Column component offers the following options:
+- currency - format values as USD currency
+- percent - format values as a percent
+- callback - pass a custom callback function to achieve your own custom formatting. Function: (value) => { return value; }                
+                `,
+            },
+            source: {
+                code: `
+const customFormatter = (value) => {
+    return "**" + value;
+}
+<DataTable :rows="rows">
+    <Column field="price" header="Price" formatter="currency" />
+    <Column field="qty" header="Quantity" :formatter="customFormatter"/>
+    <Column field="change_in_value_pct" header="Change In Value (%)" formatter="percent"/>
+    <Column field="change_in_value_amt" header="Change In Value ($)" formatter="currency" />
 </DataTable>`
             }
         }

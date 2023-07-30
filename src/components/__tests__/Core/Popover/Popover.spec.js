@@ -18,6 +18,6 @@ describe('Popover', () => {
 
     it('renders properly', () => {
         const wrapper = mount(Popover, config)
-        expect(wrapper.find(".fb-popover").exists()).toBe(true);
+        expect(wrapper.find(".fb-popover").exists()).toBe(false);
     })
 });

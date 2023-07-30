@@ -62,35 +62,31 @@
         >
             <div class="fb-quote-detail-details">
                 <ul>
-                    <li v-if="quote.previous_close_price">
+                    <li v-if="quote.previous_close_price" data-field="previous_close_price">
                         <label>{{ labels.previous_close_price }}</label>
                         <span>{{ formatters.formatCurrency(quote.previous_close_price) }}</span>
                     </li>
-                    <li v-if="quote.day_high_price && quote.day_low_price">
+                    <li v-if="quote.day_high_price && quote.day_low_price" data-field="day_range">
                         <label>{{ labels.day_range }}</label>
                         <span>{{ formatters.formatCurrency(quote.day_low_price) }} - {{ formatters.formatCurrency(quote.day_high_price) }}</span>
                     </li>
-                    <li v-if="quote.volume">
+                    <li v-if="quote.volume" data-field="volume">
                         <label>{{ labels.volume }}</label>
                         <span>{{ quote.volume }}</span>
                     </li>
-                    <li v-if="quote.pe_ratio">
+                    <li v-if="quote.pe_ratio" data-field="pe_ratio">
                         <label>{{ labels.pe_ratio }}</label>
                         <span>{{ quote.pe_ratio }}</span>
                     </li>
-                    <li v-if="quote.pe_ratio">
-                        <label>{{ labels.pe_ratio }}</label>
-                        <span>{{ quote.pe_ratio }}</span>
-                    </li>
-                    <li v-if="quote.dividend_yield">
+                    <li v-if="quote.dividend_yield" data-field="dividend_yield">
                         <label>{{ labels.dividend_yield }}</label>
                         <span>{{ formatters.formatPercent(quote.dividend_yield) }}</span>
                     </li>
-                    <li v-if="quote.bid && quote.ask">
+                    <li v-if="quote.bid && quote.ask" data-field="bid_ask">
                         <label>{{ labels.bid }} / {{ labels.ask }}</label>
                         <span>{{ formatters.formatCurrency(quote.bid) }} / {{ formatters.formatCurrency(quote.ask) }}</span>
                     </li>
-                    <li v-if="quote.exchange">
+                    <li v-if="quote.exchange" data-field="exchange">
                         <label>{{ labels.exchange }}</label>
                         <span>{{ quote.exchange }}</span>
                     </li>
@@ -163,7 +159,7 @@ const props = defineProps({
         default: null,
     },
     volume: {
-        type: Number,
+        type: String,
         default: null,
     },
     bid: {

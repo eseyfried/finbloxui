@@ -7,9 +7,9 @@
             <Column field="symbol" header="Symbol" />
             <Column field="security_description" header="Description" />
             <Column field="quantity" header="Quantity" />
-            <Column field="market_value" header="Market Value" />
-            <Column field="change_in_value_amt" header="Change In Value ($)" />
-            <Column field="change_in_value_pct" header="Change In Value (%)" />
+            <Column field="market_value" header="Market Value" formatter="currency" />
+            <Column field="change_in_value_amt" header="Change In Value ($)" formatter="currency" />
+            <Column field="change_in_value_pct" header="Change In Value (%)" formatter="percent" />
         </PositionsGrid>
     </div>
 </template>

@@ -12,7 +12,7 @@ const formatCurrency = (value) => {
 };
 
 const formatPercent = (value) => {
-    return `${value}%`;
+    return `${parseFloat(value).toFixed(2)}%`;
 };
 
 const formatMask = (value, showNumChars = 3, maskChar = "*") => {

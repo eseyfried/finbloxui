@@ -6,6 +6,7 @@ export default {
     title: 'Example/Core/DataTable/ColumnFilter',
     args: {
         filterType: "text",
+        buttonLabel: "...",
         selectOptions: ["some text", 'some other text', 'some other text'],
         operator: null,
         equalityOptions: [

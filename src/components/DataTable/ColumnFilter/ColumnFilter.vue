@@ -9,9 +9,10 @@
         >
             <button
                 class="fb-column-filter-button"
+                :class="{ 'fb-column-filter-has-filters': hasFilters }"
                 @click="handleFilterButtonClick()"
             >
-                ...
+                {{ buttonLabel }}
             </button>
         </slot>
         <div class="fb-column-filter-menu" :class="{ 'fb-column-filter-menu-visible': showFilter }" ref="target">
@@ -121,6 +122,7 @@ const filterOperator = ref(null);
 const defaultFilterOperator = ref(null);
 const showFilter = ref(false);
 const target = ref(null);
+const hasFilters = ref(false);
 
 onClickOutside(target, () => { showFilter.value = false; });
 // eslint-disable-next-line no-unused-vars
@@ -175,6 +177,10 @@ const props = defineProps({
         type: String,
         default: "Apply",
     },
+    buttonLabel: {
+        type: String,
+        default: null
+    }
 });
 const emit = defineEmits([
     'fb-column-filter-button:click',
@@ -183,6 +189,7 @@ const emit = defineEmits([
     'fb-column-filter-clear-button:click',
     'fb-column-filter-apply-button:click',
 ]);
+
 
 // set default value based on operator
 switch (props.operator) {
@@ -231,6 +238,7 @@ const handleTextFilterOperator = () => {
 const handleClearButtonClick = () => {
     filterValue.value = props.filterType === "multiselect" ? [] : null;
     filterOperator.value = defaultFilterOperator.value;
+    hasFilters.value = false;
     emit("fb-column-filter-clear-button:click", true);
 }
 
@@ -239,6 +247,7 @@ const handleApplyButtonClick = () => {
         filterValue: toRaw(filterValue.value),
         filterOperator: filterOperator.value
     }
+    hasFilters.value = true;
     emit("fb-column-filter-apply-button:click", filters);
 }
 </script>

@@ -119,6 +119,17 @@ import * as CustomTemplateStory from './CustomTemplate.stories';
             },
             control: { type: 'text' },
         },
+        buttonLabel: {
+            type: { name: "String" },
+            defaultValue: "text",
+            description: "The label for the filter trigger button",
+            table: {
+                type: { summary: "String" },
+                defaultValue: { summary: "" },
+                category: 'Props',
+            },
+            control: { type: 'text' },
+        },
         // EVENTS
         "fb-column-filter-apply-button:click": {
             description: "Event emitted when apply button is clicked.",
@@ -209,6 +220,12 @@ import * as CustomTemplateStory from './CustomTemplate.stories';
         },
         ".fb-column-filter-apply-button": {
             description: "The class applied to the apply button.",
+            table: {
+                category: 'CSS Classes',
+            },
+        },
+        ".fb-column-filter-has-filters": {
+            description: "The class applied to the trigger button when column is filtered.",
             table: {
                 category: 'CSS Classes',
             },

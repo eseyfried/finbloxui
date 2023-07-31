@@ -239,6 +239,7 @@ const handleClearButtonClick = () => {
     filterValue.value = props.filterType === "multiselect" ? [] : null;
     filterOperator.value = defaultFilterOperator.value;
     hasFilters.value = false;
+    showFilter.value = !showFilter.value;
     emit("fb-column-filter-clear-button:click", true);
 }
 
@@ -248,6 +249,7 @@ const handleApplyButtonClick = () => {
         filterOperator: filterOperator.value
     }
     hasFilters.value = true;
+    showFilter.value = !showFilter.value;
     emit("fb-column-filter-apply-button:click", filters);
 }
 </script>

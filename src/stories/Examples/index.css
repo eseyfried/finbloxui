@@ -167,6 +167,8 @@
 }
 
 /* DataTable */
+
+/* ColumnSelector */
 .fb-column-selector {
     display: grid;
 }
@@ -201,6 +203,9 @@
 .fb-column-filter-button::before {
     content: "\f0b0";
     font: var(--fa-font-solid);
+    @apply text-gray-500;
+}
+.fb-column-filter-has-filters::before {
     @apply text-indigo-500;
 }
 .fb-column-filter-operator {

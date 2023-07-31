@@ -8,10 +8,18 @@
                 <ColumnFilter filterType="text" operator="equality" />
             </Column>
             <Column field="security_description" header="Description" />
-            <Column field="quantity" header="Quantity" />
-            <Column field="market_value" header="Market Value" formatter="currency" />
-            <Column field="change_in_value_amt" header="Change In Value ($)" formatter="currency" />
-            <Column field="change_in_value_pct" header="Change In Value (%)" formatter="percent" />
+            <Column field="quantity" header="Quantity">
+                <ColumnFilter filterType="text" operator="comparison" />
+            </Column>
+            <Column field="market_value" header="Market Value" formatter="currency">
+                <ColumnFilter filterType="text" operator="comparison" />
+            </Column>
+            <Column field="change_in_value_amt" header="Change In Value ($)" formatter="currency">
+                <ColumnFilter filterType="text" operator="comparison" />
+            </Column>
+            <Column field="change_in_value_pct" header="Change In Value (%)" formatter="percent">
+                <ColumnFilter filterType="text" operator="comparison" />
+            </Column>
         </PositionsGrid>
     </div>
 </template>

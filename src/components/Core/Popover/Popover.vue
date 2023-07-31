@@ -93,7 +93,7 @@ function hide() {
 .fb-popover,
 #tooltip {
     background: #FFFFFF;
-    padding: 4px 8px;
+    padding: 0;
     font-size: 13px;
     border-radius: 4px;
     display: none;
@@ -110,6 +110,7 @@ function hide() {
     width: 8px;
     height: 8px;
     background: inherit;
+    z-index: -1;
 }
 
 #arrow {

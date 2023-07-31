@@ -15,7 +15,7 @@
     }
 
     table thead th {
-        @apply p-2 border-b-2 border-gray-200 text-sm;
+        @apply p-2 border-b-2 border-gray-200 text-sm bg-white;
     }
 
     table tbody td {
@@ -53,6 +53,21 @@
     }
 }
 
+/* General FinBloxUI CSS */
+.fb-negative {
+    @apply text-red-800;
+}
+.fb-positive {
+    @apply text-green-800;
+}
+.fb-positive::before {
+    content: "\f062";
+    font: var(--fa-font-solid);
+}
+.fb-negative::before {
+    content: "\f063";
+    font: var(--fa-font-solid);
+}
 
 .fb-client-list-item-container {
     @apply mt-2 mr-2 mb-2;
@@ -239,4 +254,39 @@
 .fb-positions-grid td[data-cell="change_in_value_pct"]
 {
     text-align: right;
+}
+
+/* QuoteDetail */
+.fb-quote-detail {
+    @apply shadow-md p-3 rounded border-indigo-500 border-2 bg-white;
+}
+.fb-quote-detail-heading h3 {
+    @apply text-lg font-semibold;
+}
+.fb-quote-detail-price {
+    display: flex;
+    @apply items-end my-2;
+}
+.fb-quote-detail-price h4 {
+    @apply text-xl p-0 m-0;
+    line-height: inherit;
+}
+.fb-quote-detail-price h4,
+.fb-quote-detail-price span {
+    margin-right: .5rem;
+}
+.fb-quote-detail-price span {
+    line-height: normal;
+}
+.fb-quote-detail-details li label::after {
+    content: ":";
+}
+.fb-quote-detail-details li {
+    display: flex;
+    justify-content: space-between;
+}
+/* Popover */
+.fb-popover,
+#tooltip {
+    @apply bg-indigo-500 !important;
 }

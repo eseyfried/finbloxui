@@ -92,7 +92,6 @@ const columnProp = (prop) => {
     return ComponentUtils.getVNodeProp(props.column, prop);
 };
 const handleHover = (isHover) => {
-
     showQuoteHover.value = isHover;
 }
 /**

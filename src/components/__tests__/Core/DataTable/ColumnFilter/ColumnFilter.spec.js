@@ -111,4 +111,40 @@ describe('ColumnFilter', () => {
             }
         ]);
     })
+
+    it('column filters closes when clear button is clicked', async () => {
+        const wrapper = mount(ColumnFilter, config);
+        await wrapper.find(".fb-column-filter-button").trigger("click");
+        expect(wrapper.find(".fb-column-filter-menu-visible").exists()).toBe(true);
+        await wrapper.find(".fb-column-filter-clear-button").trigger("click");
+        expect(wrapper.find(".fb-column-filter-menu-visible").exists()).toBe(false);
+    })
+
+    it('column filters closes when apply button is clicked', async () => {
+        const wrapper = mount(ColumnFilter, config);
+        await wrapper.find(".fb-column-filter-button").trigger("click");
+        expect(wrapper.find(".fb-column-filter-menu-visible").exists()).toBe(true);
+        await wrapper.find(".fb-column-filter-apply-button").trigger("click");
+        expect(wrapper.find(".fb-column-filter-menu-visible").exists()).toBe(false);
+    })
+
+    it('trigger button has filtered CSS when apply button is clicked', async () => {
+        const wrapper = mount(ColumnFilter, config);
+        await wrapper.find(".fb-column-filter-button").trigger("click");
+        await wrapper.find(".fb-column-filter-apply-button").trigger("click");
+        expect(wrapper.find(".fb-column-filter-has-filters").exists()).toBe(true);
+    })
+
+    it('trigger button does not have filtered CSS when clear button is clicked', async () => {
+        const wrapper = mount(ColumnFilter, config);
+        await wrapper.find(".fb-column-filter-button").trigger("click");
+        await wrapper.find(".fb-column-filter-clear-button").trigger("click");
+        expect(wrapper.find(".fb-column-filter-has-filters").exists()).toBe(false);
+    })
+
+    it('trigger button has label when buttonLabel prop is set', () => {
+        config.props.buttonLabel = "label";
+        const wrapper = mount(ColumnFilter, config);
+        expect(wrapper.find(".fb-column-filter-button").text()).toBe(config.props.buttonLabel);
+    })
 });

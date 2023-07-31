@@ -54,6 +54,7 @@
                 >
                     <input
                         type="text"
+                        ref="filterInput"
                         class="fb-column-filter-input"
                         v-model="filterValue"
                         @input="handleTextFilterInput()"
@@ -113,12 +114,13 @@
 </template>
 <script setup>
 // imports
-import { ref, toRaw } from "vue";
+import { ref, toRaw, nextTick } from "vue";
 import { onClickOutside } from "@vueuse/core";
 
 // vars
 const filterValue = props.filterType === "multiselect" ? ref([]) : ref(null);
 const filterOperator = ref(null);
+const filterInput = ref(null);
 const defaultFilterOperator = ref(null);
 const showFilter = ref(false);
 const target = ref(null);
@@ -226,6 +228,9 @@ const getUniqueOptions = (options) => {
 
 const handleFilterButtonClick = () => {
     showFilter.value = !showFilter.value;
+    nextTick(() => {
+        filterInput.value.focus();
+      });
     emit("fb-column-filter-button:click", showFilter.value);
 }
 const handleTextFilterInput = () => {

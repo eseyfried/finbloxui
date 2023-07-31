@@ -21,6 +21,36 @@
     table tbody td {
         @apply py-4 border-b-2 border-gray-200 text-sm;
     }
+
+    .primary-button {
+        @apply py-2
+            px-4
+            bg-indigo-500
+            text-white
+            font-semibold
+            rounded-lg
+            shadow-md
+            hover:bg-indigo-700
+            focus:outline-none
+            focus:ring-2
+            focus:ring-indigo-400
+            focus:ring-opacity-75;
+    }
+
+    .secondary-button {
+        @apply py-2
+            px-4
+            bg-gray-400
+            text-white
+            font-semibold
+            rounded-lg
+            shadow-md
+            hover:bg-gray-600
+            focus:outline-none
+            focus:ring-2
+            focus:ring-gray-500
+            focus:ring-opacity-75;
+    }
 }
 
 
@@ -75,9 +105,8 @@
 
 }
 
-.fb-client-card a[href='#'],
-.primary-button {
-    @apply py-2 px-4 bg-indigo-500 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-opacity-75;
+.fb-client-card a[href='#'] {
+    @apply primary-button;
 }
 
 
@@ -135,6 +164,63 @@
 .clients .fb-data-point::before {
     content: "\f0c0";
     padding: .75rem .65rem;
+}
+
+/* DataTable */
+.fb-column-selector {
+    display: grid;
+}
+.fb-column-selector button {
+    @apply secondary-button justify-self-end;
+}
+
+.fb-column-selector ul {
+    @apply bg-white mt-1 shadow-md justify-self-end;
+    top: 45px;
+}
+.fb-column-selector li {
+    @apply text-sm;
+    padding: 3px 10px;
+}
+.fb-column-selector li:hover {
+    @apply bg-gray-100;
+}
+.fb-column-selector li:not(.fb-column-selector-selected) a {
+    margin-left: 17px;
+}
+.fb-column-selector-selected a::before {
+    content: "\f14a";
+    font: var(--fa-font-solid);
+    margin-right: 5px;
+    @apply text-green-500;
+}
+/* ColumFilter */
+.fb-column-filter-menu {
+    @apply bg-white shadow-md p-2;
+}
+.fb-column-filter-button::before {
+    content: "\f0b0";
+    font: var(--fa-font-solid);
+    @apply text-indigo-500;
+}
+.fb-column-filter-operator {
+    @apply appearance-none border border-gray-200 text-gray-700 py-3 px-4 rounded mb-1;
+}
+.fb-column-filter-operator::after {
+    content: "\f078";
+    font: var(--fa-font-solid);
+}
+.fb-column-filter-input {
+    @apply appearance-none border border-gray-200 text-gray-700 py-3 px-4 rounded;
+}
+.fb-column-filter-buttons {
+    @apply mt-2;
+}
+.fb-column-filter-clear-button {
+    @apply secondary-button mr-2;
+}
+.fb-column-filter-apply-button {
+    @apply primary-button;
 }
 
 /* PositionsGrid */

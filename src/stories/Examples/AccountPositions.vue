@@ -4,7 +4,9 @@
         <ToggleTheme :class="['primary-button']" />
         <h1 class="mb-5">Positions</h1>
         <PositionsGrid :positions="positions">
-            <Column field="symbol" header="Symbol" />
+            <Column field="symbol" header="Symbol">
+                <ColumnFilter filterType="text" operator="equality" />
+            </Column>
             <Column field="security_description" header="Description" />
             <Column field="quantity" header="Quantity" />
             <Column field="market_value" header="Market Value" formatter="currency" />

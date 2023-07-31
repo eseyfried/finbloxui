@@ -9,10 +9,10 @@ const toggleTheme = ref(false);
 watchEffect(() => {
     const themeFiles = [
         "./node_modules/tailwindcss/tailwind.css",
-        "./src/stories/Examples/index.css",
         "./src/assets/fontawesome/css/fontawesome.css",
         "./src/assets/fontawesome/css/brands.css",
         "./src/assets/fontawesome/css/solid.css",
+        "./src/stories/Examples/index.css",
     ];
     if (toggleTheme.value) {
         themeFiles.forEach((item) => {

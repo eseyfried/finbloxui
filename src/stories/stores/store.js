@@ -111,7 +111,7 @@ const defaultPositions = (numberOfRecords) => {
             return {
                 id: i+1,
                 symbol: getSymbol(),
-                security_description: faker.lorem.words(4),
+                security_description: faker.company.name(),
                 quantity: quantity,
                 price: price,
                 market_value: quantity * price,

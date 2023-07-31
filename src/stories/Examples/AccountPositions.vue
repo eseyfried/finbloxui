@@ -4,7 +4,7 @@
         <ToggleTheme :class="['primary-button']" />
         <h1 class="mb-5">Positions</h1>
         <PositionsGrid :positions="positions">
-            <Column field="symbol" header="Symbol">
+            <Column field="symbol" header="Symbol" type="quote" :quoteDetailOptions="quoteDetailOptions">
                 <ColumnFilter filterType="text" operator="equality" />
             </Column>
             <Column field="security_description" header="Description" />
@@ -32,6 +32,35 @@ import PositionsGrid from '@/components/Core/PositionsGrid/PositionsGrid.vue';
 import Column from '@/components/DataTable/Column.vue';
 import ColumnFilter from '@/components/DataTable/ColumnFilter/ColumnFilter.vue';
 const { positions } = storeToRefs(useDemoStore());
+import { faker } from "@faker-js/faker";
+
+const fetchQuote = async (symbol) => {
+            console.log("fetching quote for %s", symbol)
+            return new Promise(resolve => {
+                const quote = {}
+                setTimeout(function() { 
+                    quote.showDetails = true;
+                    quote.symbol = symbol;
+                    quote.security_description = faker.company.name();
+                    quote.current_price = 191.94 * Math.random();
+                    quote.price_change_amt = 0.81;
+                    quote.price_change_pct = 0.42;
+                    quote.previous_close_price = 191.94;
+                    quote.day_low_price =  192.25;
+                    quote.day_high_price = 194.91;
+                    quote.exchange = "NASDAQ";
+                    quote.volume = "5.38M";
+                    quote.bid = 192.75;
+                    quote.ask = 191.75;
+                    quote.pe_ratio = 32.75;
+                    quote.dividend_yield = 0.50;
+                    resolve(quote)
+                }, 2000);
+            });
+        }
+const quoteDetailOptions = {
+    callback: fetchQuote,
+}
 </script>
 <style lang="scss" scoped>
 .page {

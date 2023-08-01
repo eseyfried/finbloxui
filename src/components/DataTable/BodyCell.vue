@@ -24,7 +24,17 @@
             </span>
             <Popover :selector="`#id-${rowData['id']}`" :trigger="column.props.quoteDetailOptions.trigger || 'hover'">
                  <QuoteDetail
+                    v-if="!column.children"
                     v-bind="column.props.quoteDetailOptions"
+                    :symbol="resolveFieldData()"
+                    :show="showQuoteHover"
+                    :callbackOn="column.props.quoteDetailOptions.callbackOn || 'show'"
+                    :class="{ 'fb-quote-detail-hover': showQuoteHover }"
+                />
+                <component
+                    v-if="column.children && Object.hasOwn(column.children, 'default') && column.children.default()[0].type.__name === 'QuoteDetail'"
+                    :is="column.children.default()[0]"
+                    v-bind="column.children.default()[0].props"
                     :symbol="resolveFieldData()"
                     :show="showQuoteHover"
                     :callbackOn="column.props.quoteDetailOptions.callbackOn || 'show'"
@@ -36,14 +46,6 @@
     <template v-else>
         <td :data-cell="field" role="cell">
             {{ resolveFieldData() }}
-            
-            <component
-                v-if="column.children && Object.hasOwn(column.children, 'default') && column.children.default()[0].type.__name === 'QuoteDetail'"
-                :is="column.children.default()[0]"
-                v-bind="column.children.default()[0].props"
-
-            />
-            
         </td>
     </template>
 </template>

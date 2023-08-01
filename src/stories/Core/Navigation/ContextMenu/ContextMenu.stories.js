@@ -31,11 +31,11 @@ import * as CustomTemplateStory from './CustomTemplate.stories';
             description: "Text label for trigger button",
             table: {
                 type: { summary: "String" },
-                defaultValue: { summary: "..." },
+                defaultValue: { summary: "" },
                 category: 'Props',
             },
             type: { name: "string" },
-            defaultValue: "...",
+            defaultValue: "",
             control: { type: 'text' },
         },
         "fb-action-menu-item:click": {

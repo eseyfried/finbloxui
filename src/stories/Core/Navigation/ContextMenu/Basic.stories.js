@@ -6,6 +6,7 @@ let defaultMenuItems = ref({});
 export default {
     title: 'Example/Core/Navigation/ContextMenu',
     args: {
+        buttonLabel: "...",
         menuItems: defaultMenuItems
     },
     render: (args) => ({

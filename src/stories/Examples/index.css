@@ -290,3 +290,27 @@
 #tooltip {
     @apply bg-indigo-500 !important;
 }
+
+/* ContextMenu */
+.fb-action-menu {
+    display: grid;
+}
+.fb-action-menu ul {
+    @apply mt-2 shadow-md rounded border-indigo-500 border-2 bg-white !important;
+    top: 20px;
+    left: -53px;
+}
+.fb-action-menu li {
+    @apply p-2 min-w-max;
+}
+.fb-action-menu li:hover {
+    @apply bg-indigo-300;
+}
+.fb-action-menu-button {
+    justify-self: center;
+}
+.fb-action-menu-button::before {
+    content: "\f142";
+    font: var(--fa-font-solid);
+    @apply secondary-button;
+}

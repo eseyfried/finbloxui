@@ -20,6 +20,7 @@
             <Column field="change_in_value_pct" header="Change In Value (%)" formatter="percent">
                 <ColumnFilter filterType="text" operator="comparison" />
             </Column>
+            <Column header="Actions" type="actions" :contextMenuOptions="contextMenuOptions" />
         </PositionsGrid>
     </div>
 </template>
@@ -60,6 +61,13 @@ const fetchQuote = async (symbol) => {
         }
 const quoteDetailOptions = {
     callback: fetchQuote,
+}
+const contextMenuOptions = {
+    menuItems: [
+            { url: null, label: "Market News" },
+            { url: "some-url?id=<%=id%>&symbol=<%=symbol%>", label: "Company News" },
+            { url: null, label: "Trade", callback: (item, rowData) => { console.log(item), console.log(rowData) } },
+        ]
 }
 </script>
 <style lang="scss" scoped>

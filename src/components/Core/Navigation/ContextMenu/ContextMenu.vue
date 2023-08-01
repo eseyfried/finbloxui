@@ -46,7 +46,7 @@ const props = defineProps({
     },
     buttonLabel: {
         type: String,
-        default: "...",
+        default: null,
     }
 });
 const showMenu = ref(props.show);

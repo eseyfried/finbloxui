@@ -165,7 +165,7 @@ describe('QuoteDetail', () => {
 
     it('dividend_yield is formatted as percent', async () => {
         const wrapper = mount(QuoteDetail, config)
-        expect(wrapper.find(".fb-quote-detail-details li[data-field='dividend_yield'] span").text()).toBe("0.5%");
+        expect(wrapper.find(".fb-quote-detail-details li[data-field='dividend_yield'] span").text()).toBe("0.50%");
     })
 
     it('labels can be overridden when prop is passed', async () => {

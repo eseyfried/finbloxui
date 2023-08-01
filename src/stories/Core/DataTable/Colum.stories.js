@@ -57,12 +57,13 @@ export default {
             options: [true, false],
             control: { type: 'radio' },
         },
-        formatter: {
-            description: `Format the column value as a currency, percent or custom format using a callback function.
+        formatters: {
+            description: `Format the column value with built in or custom formatters. You can apply multiple formatters by passing them in an array.
             
 Allowable prop options:
-- currency
-- percent
+- currency: format USD currency
+- percent: format as percent
+- change-indicator: adds .fb-positive or .fb-negative class to help indicate change in value
 - a callback function
             `,
             table: {
@@ -203,10 +204,10 @@ export const ColumnFormatter = {
       template: `
         <span style="display: none">{{ args.rows.length }}</span> <!-- this is needed to get SB to render the data -->
         <DataTable :rows="args.rows">
-            <Column field="price" header="Price" formatter="currency" />
-            <Column field="qty" header="Quantity" :formatter="args.customFormatter"/>
-            <Column field="change_in_value_pct" header="Change In Value (%)" formatter="percent"/>
-            <Column field="change_in_value_amt" header="Change In Value ($)" formatter="currency" />
+            <Column field="price" header="Price" formatters="currency" />
+            <Column field="qty" header="Quantity" :formatters="args.customFormatter"/>
+            <Column field="change_in_value_pct" header="Change In Value (%)" formatters="percent"/>
+            <Column field="change_in_value_amt" header="Change In Value ($)" :formatters="['currency', 'change-indicator']" />
         </DataTable>
       `,
     }),
@@ -225,10 +226,10 @@ const customFormatter = (value) => {
     return "**" + value;
 }
 <DataTable :rows="rows">
-    <Column field="price" header="Price" formatter="currency" />
-    <Column field="qty" header="Quantity" :formatter="customFormatter"/>
-    <Column field="change_in_value_pct" header="Change In Value (%)" formatter="percent"/>
-    <Column field="change_in_value_amt" header="Change In Value ($)" formatter="currency" />
+    <Column field="price" header="Price" formatters="currency" />
+    <Column field="qty" header="Quantity" :formatters="customFormatter"/>
+    <Column field="change_in_value_pct" header="Change In Value (%)" formatters="percent"/>
+    <Column field="change_in_value_amt" header="Change In Value ($)" :formatters="['currency', 'change-indicator']" />
 </DataTable>`
             }
         }

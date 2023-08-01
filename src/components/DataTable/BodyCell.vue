@@ -44,7 +44,7 @@
         </td>
     </template>
     <template v-else>
-        <td :data-cell="field" role="cell">
+        <td :data-cell="field" role="cell" :class="cellClasses">
             {{ resolveFieldData() }}
         </td>
     </template>
@@ -72,13 +72,32 @@ const props = defineProps({
 const field = computed(() => {
     return columnProp('field');
 });
+const hasChangeIndicatorFormat = ref(false);
+const rawFieldData = computed(() => ComponentUtils.resolveFieldData(props.rowData, field.value));
+const cellClasses = computed(() => {
+    return {
+        "fb-positive": hasChangeIndicatorFormat.value && rawFieldData.value > 0,
+        "fb-negative": hasChangeIndicatorFormat.value && rawFieldData.value < 0,
+    }
+})
 
 const showQuoteHover = ref(false);
 // methods
 const resolveFieldData = () => {
 
-    let fieldData = ComponentUtils.resolveFieldData(props.rowData, field.value);;
-    const formatter = columnProp('formatter')
+    let fieldData = rawFieldData.value;
+    const formatter = columnProp('formatters')
+    let _formatters = formatter;
+    if (!Array.isArray(_formatters)) {
+        _formatters = [formatter]
+    }
+    _formatters.forEach(_formatter => {
+        fieldData = formatColumn(_formatter,fieldData)
+    });
+    return fieldData;
+}
+
+const formatColumn = (formatter, fieldData) => {
     if (formatter) {
         if (formatter === "currency") {
             fieldData = formatters.formatCurrency(fieldData);
@@ -86,6 +105,8 @@ const resolveFieldData = () => {
             fieldData = formatters.formatPercent(fieldData);
         } else if (typeof formatter === "function") {
             fieldData = formatter(fieldData);
+        } else if(formatter === "change-indicator") {
+            hasChangeIndicatorFormat.value = true;
         }
     }
     return fieldData;

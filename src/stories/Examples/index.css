@@ -297,7 +297,7 @@
 }
 .fb-action-menu ul {
     @apply mt-2 shadow-md rounded border-indigo-500 border-2 bg-white !important;
-    top: 20px;
+    top: 33px;
     left: -53px;
 }
 .fb-action-menu li {
@@ -308,9 +308,9 @@
 }
 .fb-action-menu-button {
     justify-self: center;
+    @apply primary-button rounded-full;
 }
 .fb-action-menu-button::before {
     content: "\f142";
     font: var(--fa-font-solid);
-    @apply secondary-button;
 }

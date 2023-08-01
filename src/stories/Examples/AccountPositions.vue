@@ -11,16 +11,16 @@
             <Column field="quantity" header="Quantity">
                 <ColumnFilter filterType="text" operator="comparison" />
             </Column>
-            <Column field="market_value" header="Market Value" formatter="currency">
+            <Column field="market_value" header="Market Value" formatters="currency">
                 <ColumnFilter filterType="text" operator="comparison" />
             </Column>
-            <Column field="change_in_value_amt" header="Change In Value ($)" formatter="currency">
+            <Column field="change_in_value_amt" header="Change In Value ($)" :formatters="['currency','change-indicator']">
                 <ColumnFilter filterType="text" operator="comparison" />
             </Column>
-            <Column field="change_in_value_pct" header="Change In Value (%)" formatter="percent">
+            <Column field="change_in_value_pct" header="Change In Value (%)" :formatters="['percent','change-indicator']">
                 <ColumnFilter filterType="text" operator="comparison" />
             </Column>
-            <Column header="Actions" type="actions" :contextMenuOptions="contextMenuOptions" />
+            <Column header="Actions" field="action" type="actions" :contextMenuOptions="contextMenuOptions" />
         </PositionsGrid>
     </div>
 </template>

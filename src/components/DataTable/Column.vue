@@ -14,8 +14,8 @@ const props = defineProps({
         type: Boolean,
         default: false
     },
-    formatter: {
-        type: [String, Function],
+    formatters: {
+        type: [String, Function, Array],
         default: null,
     },
     type: {

@@ -63,6 +63,7 @@ const handleMenuItemClick = (e, item) => {
     if (!item.url || item.url === "#") {
         e.preventDefault();
     }
+    showMenu.value = !showMenu.value;
     emit("fb-action-menu-item:click", item);
 }
 const handleMenuButtonClick = () => {

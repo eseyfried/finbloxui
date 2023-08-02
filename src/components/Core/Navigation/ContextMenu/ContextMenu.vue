@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-    <div class="fb-action-menu">
+    <div class="fb-action-menu" ref="target">
         <slot
             name="button"
             :props="props"
@@ -15,7 +15,7 @@
             </button>
         </slot>
         
-        <ul :class="{ 'fb-action-menu-visible': showMenu }" ref="target">
+        <ul :class="{ 'fb-action-menu-visible': showMenu }">
             <li v-for="(item, i) in menuItems" :key="i" class="fb-action-menu-item">
                 <slot
                     name="menuItem"

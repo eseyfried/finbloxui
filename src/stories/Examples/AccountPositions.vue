@@ -32,6 +32,7 @@ import ToggleTheme from "./ToggleTheme";
 import PositionsGrid from '@/components/Core/PositionsGrid/PositionsGrid.vue';
 import Column from '@/components/DataTable/Column.vue';
 import ColumnFilter from '@/components/DataTable/ColumnFilter/ColumnFilter.vue';
+import QuoteDetail from '@/components/Core/QuoteDetail/QuoteDetail.vue';
 const { positions } = storeToRefs(useDemoStore());
 import { faker } from "@faker-js/faker";
 

@@ -37,4 +37,7 @@ export default {
     isFunction(obj) {
         return !!(obj && obj.constructor && obj.call && obj.apply);
     },
+    getChildVNodeByType(children, type) {
+        return children.filter(child => child.type.__name === type)[0]
+    }
 };

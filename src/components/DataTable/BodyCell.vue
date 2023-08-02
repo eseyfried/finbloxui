@@ -23,18 +23,18 @@
                 {{ resolveFieldData() }}
             </span>
             <Popover :selector="`#id-${rowData['id']}`" :trigger="column.props.quoteDetailOptions.trigger || 'hover'">
-                 <QuoteDetail
-                    v-if="!column.children"
-                    v-bind="column.props.quoteDetailOptions"
+                <component
+                    v-if="column.children && Object.hasOwn(column.children, 'default') && ComponentUtils.getChildVNodeByType(column.children.default(), 'QuoteDetail')"
+                    :is="ComponentUtils.getChildVNodeByType(column.children.default(), 'QuoteDetail')"
+                    v-bind="ComponentUtils.getChildVNodeByType(column.children.default(), 'QuoteDetail').props"
                     :symbol="resolveFieldData()"
                     :show="showQuoteHover"
                     :callbackOn="column.props.quoteDetailOptions.callbackOn || 'show'"
                     :class="{ 'fb-quote-detail-hover': showQuoteHover }"
                 />
-                <component
-                    v-if="column.children && Object.hasOwn(column.children, 'default') && column.children.default()[0].type.__name === 'QuoteDetail'"
-                    :is="column.children.default()[0]"
-                    v-bind="column.children.default()[0].props"
+                 <QuoteDetail
+                    v-else
+                    v-bind="column.props.quoteDetailOptions"
                     :symbol="resolveFieldData()"
                     :show="showQuoteHover"
                     :callbackOn="column.props.quoteDetailOptions.callbackOn || 'show'"
@@ -117,6 +117,9 @@ const columnProp = (prop) => {
 const handleHover = (isHover) => {
     showQuoteHover.value = isHover;
 }
+
+
+
 /**
  * parse menu items replacing template variables with rowData values
  * template vars are in lodash format: <%=var%>

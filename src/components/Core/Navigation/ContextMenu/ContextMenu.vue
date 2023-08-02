@@ -53,7 +53,9 @@ const showMenu = ref(props.show);
 const emit = defineEmits(['fb-action-menu-item:click']);
 const target = ref(null);
 
-onClickOutside(target, () => { showMenu.value = false; });
+onClickOutside(target, () => { 
+    showMenu.value = false; 
+});
 // methods
 const handleMenuItemClick = (e, item) => {
     if (item.callback && typeof item.callback === "function") {

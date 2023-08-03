@@ -19,7 +19,7 @@
     </template>
     <template v-else-if="column.props.type && column.props.type === 'quote'">
         <td :data-cell="header" role="cell">
-            <span :id="`id-${rowData['id']}`" @mouseover="handleHover(true)" @mouseleave="handleHover(false)">
+            <span :id="`id-${rowData['id']}`" @mouseover="handleHover(true)" @mouseleave="handleHover(false)" class="fb-quote-detail-hover">
                 {{ resolveFieldData() }}
             </span>
             <Popover :selector="`#id-${rowData['id']}`" :trigger="column.props.quoteDetailOptions.trigger || 'hover'">
@@ -156,6 +156,6 @@ const parseContextMenuItems = (contextMenuOptions) => {
 </script>
 <style lang="scss" scoped>
 .fb-quote-detail-hover {
-
+    cursor: pointer;
 }
 </style>

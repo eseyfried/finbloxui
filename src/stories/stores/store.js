@@ -10,6 +10,7 @@ import { faker } from "@faker-js/faker";
 const defaultNumberOfRecords = 10;
 const defaultNumberOfAccounts = 10;
 const defaultNumberOfPositions = 10;
+const defaultNumberOfTransactions = 10;
 const defaultTasks = (numberOfRecords) => {
         return Array.from(Array(numberOfRecords).keys(), (i) => {
         return { 
@@ -122,6 +123,46 @@ const defaultPositions = (numberOfRecords) => {
     );
 };
 
+const defaultTransactions = (numberOfRecords) => {
+    return Array.from(
+        Array(numberOfRecords).keys(),
+        (i) => {
+            const quantity = faker.string.numeric({ min: 1, max: 238 });
+            const amount = faker.finance.amount({ min: 5, max: 300, dec: 2 });
+            const neg_amount = faker.finance.amount({ min: -3005, max: -5, dec: 2 });
+            const transaction_date = faker.date.past({ days: 3 });
+            const transaction_type = faker.helpers.arrayElement(['Buy', 'Sell', 'Income', 'Expense', 'Transfer']);
+            const txn = {
+                id: i+1,
+                account: null,
+                symbol: null,
+                description: null,
+                quantity: null,
+                amount: amount,
+                transaction_type: transaction_type,
+                transaction_date: transaction_date,
+                transaction_fee: null,
+            }
+            if (['Buy', 'Sell'].includes(transaction_type)) {
+                txn.symbol = getSymbol();
+                txn.quantity = quantity;
+                txn.amount = transaction_type === "Buy" ? amount : neg_amount;
+                txn.description = `${transaction_type} ${txn.quantity} shares @ ${txn.amount}`;
+            }
+            if (['Income'].includes(transaction_type)) {
+                const sub_type = faker.helpers.arrayElement(['Dividend']);
+                txn.description = `${sub_type} of ${txn.amount} from ${getSymbol()}`;
+            }
+            if (['Expense'].includes(transaction_type)) {
+                const sub_type = faker.helpers.arrayElement(['Advisory Fee']);
+                txn.transaction_fee = neg_amount;
+                txn.description = `${sub_type}`;
+            }
+            return txn;
+        }
+    );
+};
+
 const getSymbol = () => {
     return faker.helpers.arrayElement(
         [
@@ -140,6 +181,7 @@ export const useDemoStore = defineStore({
       accounts: defaultAccounts(defaultNumberOfAccounts),
       clients: defaultClients(defaultNumberOfRecords),
       positions: defaultPositions(defaultNumberOfPositions),
+      transactions: defaultTransactions(defaultNumberOfTransactions),
       title: "Test Title",
       status: 'idle',
       error: null,

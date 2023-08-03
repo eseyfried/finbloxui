@@ -1,4 +1,4 @@
-import PositionsGrid from '@/components/Core/PositionsGrid/PositionsGrid.vue';
+import TransactionsGrid from '@/components/Core/TransactionsGrid/TransactionsGrid.vue';
 import Column from '@/components/DataTable/Column.vue';
 import ColumnFilter from '@/components/DataTable/ColumnFilter/ColumnFilter.vue';
 import { storeToRefs } from "pinia";
@@ -6,38 +6,44 @@ import { useDemoStore } from "@/stories/stores/store";
 import { ref } from "vue";
 
 // eslint-disable-next-line storybook/story-exports
-let defaultPositions = ref({});
+let defaultTransactions = ref({});
 export default {
-    title: 'Example/Core/PositionsGrid',
+    title: 'Example/Core/TransactionsGrid',
     args: {
-        positions: []
-    },
-    render: (args) => ({
-      components: { PositionsGrid, Column, ColumnFilter },
-      setup() {
-        const { positions } = storeToRefs(useDemoStore());
-        args.positions = ref(positions.value);
-        defaultPositions.value = args.positions;
-
-        args.dataTableOptions = {
+        transactions: [],
+        dataTableOptions: {
             "columnSelector": true
         }
+    },
+    render: (args) => ({
+      components: { TransactionsGrid, Column, ColumnFilter },
+      setup() {
+        const { transactions } = storeToRefs(useDemoStore());
+        args.transactions = ref(transactions.value);
+        defaultTransactions.value = args.transactions;
 
         return { args };
       },
       template: `
-        <PositionsGrid :positions="args.positions">
+        <TransactionsGrid :transactions="args.transactions">
             <Column field="symbol" header="Symbol">
                 <ColumnFilter filterType="text" operator="equality" />
             </Column>
-            <Column field="security_description" header="Description" />
+            <Column field="description" header="Description" />
             <Column field="quantity" header="Quantity">
                 <ColumnFilter filterType="text" operator="comparison" />
             </Column>
-            <Column field="market_value" header="Market Value" />
-            <Column field="change_in_value_amt" header="Change In Value ($)" />
-            <Column field="change_in_value_pct" header="Change In Value (%)" />
-        </PositionsGrid>
+            <Column field="amount" header="Amount">
+                <ColumnFilter filterType="text" operator="comparison" />
+            </Column>
+            <Column field="transaction_fee" header="Fee">
+                <ColumnFilter filterType="text" operator="comparison" />
+            </Column>
+            <Column field="transaction_type" header="Transaction">
+                <ColumnFilter filterType="select" />
+            </Column>
+            <Column field="transaction_date" header="Date" />
+        </TransactionsGrid>
       `,
     }),
     parameters: {
@@ -52,18 +58,25 @@ see [ColumnFilter](?path=/docs/example-core-datatable-columnfilter--docs).
             },
             source: {
                 code: `
-<PositionsGrid :rows="positions">
+<TransactionsGrid :rows="transactions">
     <Column field="symbol" header="Symbol">
         <ColumnFilter filterType="text" operator="equality" />
     </Column>
-    <Column field="security_description" header="Description" />
+    <Column field="description" header="Description" />
     <Column field="quantity" header="Quantity">
         <ColumnFilter filterType="text" operator="comparison" />
     </Column>
-    <Column field="market_value" header="Market Value" />
-    <Column field="change_in_value_amt" header="Change In Value ($)" />
-    <Column field="change_in_value_pct" header="Change In Value (%)" />
-</PositionsGrid>`
+    <Column field="amount" header="Amount">
+        <ColumnFilter filterType="text" operator="comparison" />
+    </Column>
+    <Column field="transaction_fee" header="Fee">
+        <ColumnFilter filterType="text" operator="comparison" />
+    </Column>
+    <Column field="transaction_type" header="Transaction">
+        <ColumnFilter filterType="select" />
+    </Column>
+<Column field="transaction_date" header="Date" />
+</TransactionsGrid>`
             }
         }
     }

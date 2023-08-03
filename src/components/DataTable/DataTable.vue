@@ -114,41 +114,47 @@ const columnFilter = (filter, rows) => {
     return _filter(rows, (row) => {
         const { field , filterOperator, filterValue} = filter;
         const cleanedFilterValue = Array.isArray(filterValue) ? filterValue : filterValue.trim();
+        const fieldValue = row[field];
         let match;
+
+        if (!fieldValue) {
+            return;
+        }
+        
         switch(filterOperator) {
             case "contains":
-                match = row[field].toLowerCase().includes(cleanedFilterValue);
+                match = fieldValue.toLowerCase().includes(cleanedFilterValue);
             break;
             case "not_contains":
-                match = !row[field].toLowerCase().includes(cleanedFilterValue);
+                match = !fieldValue.toLowerCase().includes(cleanedFilterValue);
             break;
             case "starts_with":
-                match = row[field].toLowerCase().startsWith(cleanedFilterValue.toLowerCase());
+                match = fieldValue.toLowerCase().startsWith(cleanedFilterValue.toLowerCase());
             break;
             case "ends_with":
-                match = row[field].toLowerCase().endsWith(cleanedFilterValue.toLowerCase());
+                match = fieldValue.toLowerCase().endsWith(cleanedFilterValue.toLowerCase());
             break;
             case "equals":
                 if (Array.isArray(cleanedFilterValue)) {
-                    match = cleanedFilterValue.includes(row[field].toLowerCase())
+                    match = cleanedFilterValue.includes(fieldValue.toLowerCase())
                 } else {
-                    match = row[field].toLowerCase() === cleanedFilterValue;
+                    match = fieldValue.toLowerCase() === cleanedFilterValue.toLowerCase();
                 }
             break;
             case "not_equals":
-                match = row[field].toLowerCase() !== cleanedFilterValue;
+                match = fieldValue.toLowerCase() !== cleanedFilterValue.toLowerCase();
             break;
             case "greater_than":
-                match = parseFloat(row[field]) > parseFloat(cleanedFilterValue);
+                match = parseFloat(fieldValue) > parseFloat(cleanedFilterValue);
             break;
             case "greater_than_equal":
-                match = parseFloat(row[field]) >= parseFloat(cleanedFilterValue);
+                match = parseFloat(fieldValue) >= parseFloat(cleanedFilterValue);
             break;
             case "less_than":
-                match = parseFloat(row[field]) < parseFloat(cleanedFilterValue);
+                match = parseFloat(fieldValue) < parseFloat(cleanedFilterValue);
             break;
             case "less_than_equal":
-                match = parseFloat(row[field]) <= parseFloat(cleanedFilterValue);
+                match = parseFloat(fieldValue) <= parseFloat(cleanedFilterValue);
             break;
         }
         return match;

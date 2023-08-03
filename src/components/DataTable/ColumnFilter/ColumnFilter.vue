@@ -222,14 +222,17 @@ const getOperatorOptions = () => {
 
 const getUniqueOptions = (options) => {
     return options.filter((value, index, array) => {
-        return array.indexOf(value) === index;
+        return value && array.indexOf(value) === index;
     })
 }
 
 const handleFilterButtonClick = () => {
     showFilter.value = !showFilter.value;
     nextTick(() => {
-        filterInput.value.focus();
+        if (filterInput.value) {
+            filterInput.value.focus();
+        }
+        
       });
     emit("fb-column-filter-button:click", showFilter.value);
 }

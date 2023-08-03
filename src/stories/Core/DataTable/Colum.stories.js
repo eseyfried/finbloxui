@@ -57,6 +57,16 @@ export default {
             options: [true, false],
             control: { type: 'radio' },
         },
+        emptyString: {
+            description: "String to display when a column's data cell is null or empty.",
+            table: {
+                type: { summary: "String" },
+                defaultValue: { summary: "--" },
+                category: 'Props',
+            },
+            defaultValue: "--",
+            control: { type: 'text' },
+        },
         formatters: {
             description: `Format the column value with built in or custom formatters. You can apply multiple formatters by passing them in an array.
             

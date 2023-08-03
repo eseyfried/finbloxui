@@ -86,6 +86,9 @@ const showQuoteHover = ref(false);
 const resolveFieldData = () => {
 
     let fieldData = rawFieldData.value;
+    if (fieldData === null || fieldData === "") {
+        return props.column.type.props.emptyString.default;
+    }
     const formatter = columnProp('formatters')
     let _formatters = formatter;
     if (!Array.isArray(_formatters)) {
@@ -98,7 +101,6 @@ const resolveFieldData = () => {
 }
 
 const formatColumn = (formatter, fieldData) => {
-    console.log(formatter)
     if (formatter) {
         if (formatter === "currency") {
             fieldData = formatters.formatCurrency(fieldData);

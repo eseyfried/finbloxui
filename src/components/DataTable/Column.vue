@@ -18,6 +18,10 @@ const props = defineProps({
         type: [String, Function, Array],
         default: null,
     },
+    emptyString: {
+        type: String,
+        default: "--",
+    },
     type: {
         type: String,
         default: "data",

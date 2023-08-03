@@ -118,7 +118,8 @@ export const BasicTable = {
 
 export const CustomColumnHeaderTemplate = {
     args: {
-        rows: []
+        rows: [],
+        emptyString: "--"
     },
     parameters: {
         docs: {

@@ -226,12 +226,9 @@
 }
 .fb-column-filter-operator,
 .fb-column-filter-select {
-    @apply appearance-none border border-gray-200 text-gray-700 py-3 px-4 rounded mb-1;
+    @apply border border-gray-200 text-gray-700 py-3 rounded mb-1;
 }
-.fb-column-filter-operator::after {
-    content: "\f078";
-    font: var(--fa-font-solid);
-}
+
 .fb-column-filter-input {
     @apply appearance-none border border-gray-200 text-gray-700 py-3 px-4 rounded;
 }

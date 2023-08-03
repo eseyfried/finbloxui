@@ -5,10 +5,10 @@
         :data="rowData"
         :column="column"
         :field="field"
-        :attrs="{ 'data-cell': field, 'role': 'cell' }"
+        :attrs="{ 'data-cell': header, 'role': 'cell', class: cellClasses }"
     />   
     <template v-else-if="column.props.type && column.props.type === 'actions'">
-        <td :data-cell="field" role="cell">
+        <td :data-cell="header" role="cell">
             <ContextMenu v-bind="parseContextMenuItems(column.props.contextMenuOptions)">
                 <!-- pass component template slots from grandparent to grandchild using special component -->
                 <template v-for="(name, _) in Object.keys(column.children || {})" #[name]="slotData" :key="_">
@@ -18,7 +18,7 @@
         </td>
     </template>
     <template v-else-if="column.props.type && column.props.type === 'quote'">
-        <td :data-cell="field" role="cell">
+        <td :data-cell="header" role="cell">
             <span :id="`id-${rowData['id']}`" @mouseover="handleHover(true)" @mouseleave="handleHover(false)">
                 {{ resolveFieldData() }}
             </span>
@@ -44,8 +44,8 @@
         </td>
     </template>
     <template v-else>
-        <td :data-cell="field" role="cell" :class="cellClasses">
-            {{ resolveFieldData() }}
+        <td :data-cell="header" role="cell">
+            <span :class="cellClasses">{{ resolveFieldData() }}</span>
         </td>
     </template>
 </template>
@@ -71,6 +71,9 @@ const props = defineProps({
 
 const field = computed(() => {
     return columnProp('field');
+});
+const header = computed(() => {
+    return columnProp('header');
 });
 const hasChangeIndicatorFormat = ref(false);
 const rawFieldData = computed(() => ComponentUtils.resolveFieldData(props.rowData, field.value));

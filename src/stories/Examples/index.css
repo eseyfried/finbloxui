@@ -51,6 +51,48 @@
             focus:ring-gray-500
             focus:ring-opacity-75;
     }
+
+}
+/* Small & Large Mobile Devices */
+@media (max-width: 576px) {
+    /* DataTable */
+    table tbody td {
+        border: none;
+        text-align: right !important;
+    }
+
+    table tbody td span {
+        justify-self: end;
+    }
+
+    table tbody td::before {
+        text-align: left !important;
+        width: 150px;
+    }
+
+    table tbody tr {
+        @apply border-b-2 border-gray-200;
+    }
+
+    table tbody td .fb-action-menu-button {
+        justify-self: end !important;
+    }
+
+    table tbody td .fb-action-menu ul {
+        left: unset !important;
+        right: 0;
+    }
+
+    /* PositionsGrid & TransactionsGrid */
+    .fb-transactions-grid td[data-cell="Description"] span,
+    .fb-positions-grid td[data-cell="Description"] span {
+        white-space: break-spaces;
+        width: 150px;
+    }
+
+
+    
+    
 }
 
 /* General FinBloxUI CSS */

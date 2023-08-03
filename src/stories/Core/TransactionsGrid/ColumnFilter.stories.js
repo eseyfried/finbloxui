@@ -33,16 +33,16 @@ export default {
             <Column field="quantity" header="Quantity">
                 <ColumnFilter filterType="text" operator="comparison" />
             </Column>
-            <Column field="amount" header="Amount">
+            <Column field="amount" header="Amount" formatters="currency">
                 <ColumnFilter filterType="text" operator="comparison" />
             </Column>
-            <Column field="transaction_fee" header="Fee">
+            <Column field="transaction_fee" header="Fee" formatters="currency">
                 <ColumnFilter filterType="text" operator="comparison" />
             </Column>
             <Column field="transaction_type" header="Transaction">
                 <ColumnFilter filterType="select" />
             </Column>
-            <Column field="transaction_date" header="Date" />
+            <Column field="transaction_date" header="Date" formatters="date" />
         </TransactionsGrid>
       `,
     }),
@@ -66,16 +66,16 @@ see [ColumnFilter](?path=/docs/example-core-datatable-columnfilter--docs).
     <Column field="quantity" header="Quantity">
         <ColumnFilter filterType="text" operator="comparison" />
     </Column>
-    <Column field="amount" header="Amount">
+    <Column field="amount" header="Amount" formatters="currency">
         <ColumnFilter filterType="text" operator="comparison" />
     </Column>
-    <Column field="transaction_fee" header="Fee">
+    <Column field="transaction_fee" header="Fee" formatters="currency">
         <ColumnFilter filterType="text" operator="comparison" />
     </Column>
     <Column field="transaction_type" header="Transaction">
         <ColumnFilter filterType="select" />
     </Column>
-<Column field="transaction_date" header="Date" />
+<Column field="transaction_date" header="Date" formatters="date" />
 </TransactionsGrid>`
             }
         }

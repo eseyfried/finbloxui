@@ -98,11 +98,14 @@ const resolveFieldData = () => {
 }
 
 const formatColumn = (formatter, fieldData) => {
+    console.log(formatter)
     if (formatter) {
         if (formatter === "currency") {
             fieldData = formatters.formatCurrency(fieldData);
         } else if (formatter === "percent") {
             fieldData = formatters.formatPercent(fieldData);
+        } else if (formatter === "date") {
+            fieldData = formatters.formatDate(fieldData);
         } else if (typeof formatter === "function") {
             fieldData = formatter(fieldData);
         } else if(formatter === "change-indicator") {

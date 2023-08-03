@@ -1,3 +1,4 @@
+import moment from "moment";
 const formatCurrency = (value) => {
     let formatted;
     if (!value) {
@@ -15,6 +16,10 @@ const formatPercent = (value) => {
     return `${parseFloat(value).toFixed(2)}%`;
 };
 
+const formatDate = (value) => {
+    return moment(value).format("MM/DD/YYYY");
+};
+
 const formatMask = (value, showNumChars = 3, maskChar = "*") => {
     const replaceStr = value.substr(0, value.length - showNumChars);
     const maskStr = maskChar.repeat(replaceStr.length);
@@ -29,5 +34,6 @@ export {
     formatCurrency,
     formatPercent,
     formatNumberWithCommas,
-    formatMask
+    formatMask,
+    formatDate
 }

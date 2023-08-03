@@ -29,10 +29,10 @@ export default {
             <Column field="symbol" header="Symbol" />
             <Column field="description" header="Description" />
             <Column field="quantity" header="Quantity" />
-            <Column field="amount" header="Amount" />
-            <Column field="transaction_fee" header="Fee" />
+            <Column field="amount" header="Amount" formatters="currency" />
+            <Column field="transaction_fee" header="Fee" formatters="currency" />
             <Column field="transaction_type" header="Transaction" />
-            <Column field="transaction_date" header="Date" />
+            <Column field="transaction_date" header="Date" formatters="date" />
         </TransactionsGrid>
       `,
     }),
@@ -50,10 +50,10 @@ const dataTableOptions = {
     <Column field="symbol" header="Symbol" />
     <Column field="description" header="Description" />
     <Column field="quantity" header="Quantity" />
-    <Column field="amount" header="Amount" />
-    <Column field="transaction_fee" header="Fee" />
+    <Column field="amount" header="Amount" formatters="currency" />
+    <Column field="transaction_fee" header="Fee" formatters="currency" />
     <Column field="transaction_type" header="Transaction" />
-    <Column field="transaction_date" header="Date" />
+    <Column field="transaction_date" header="Date" formatters="date" />
 </TransactionsGrid>`
             }
         }

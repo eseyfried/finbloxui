@@ -40,10 +40,10 @@ export default {
             <Column field="symbol" header="Symbol" />
             <Column field="description" header="Description" />
             <Column field="quantity" header="Quantity" />
-            <Column field="amount" header="Amount" />
-            <Column field="transaction_fee" header="Fee" />
+            <Column field="amount" header="Amount" formatters="currency" />
+            <Column field="transaction_fee" header="Fee" formatters="currency" />
             <Column field="transaction_type" header="Transaction" />
-            <Column field="transaction_date" header="Date" />
+            <Column field="transaction_date" header="Date" formatters="date" />
             <Column header="" type="actions" :contextMenuOptions="args.contextMenuOptions" />
         </TransactionsGrid>
       `,
@@ -75,7 +75,7 @@ const contextMenuOptions = {
     <Column field="amount" header="Amount" />
     <Column field="transaction_fee" header="Fee" />
     <Column field="transaction_type" header="Transaction" />
-    <Column field="transaction_date" header="Date" />
+    <Column field="transaction_date" header="Date" formatters="date" />
     <Column header="" type="actions" :contextMenuOptions="args.contextMenuOptions" />
 </TransactionsGrid>`
             }

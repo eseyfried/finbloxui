@@ -214,6 +214,7 @@
 /* ColumFilter */
 .fb-column-filter-menu {
     @apply bg-white shadow-md p-2;
+    left: -80px;
 }
 .fb-column-filter-button::before {
     content: "\f0b0";
@@ -223,7 +224,8 @@
 .fb-column-filter-has-filters::before {
     @apply text-indigo-500;
 }
-.fb-column-filter-operator {
+.fb-column-filter-operator,
+.fb-column-filter-select {
     @apply appearance-none border border-gray-200 text-gray-700 py-3 px-4 rounded mb-1;
 }
 .fb-column-filter-operator::after {
@@ -313,4 +315,18 @@
 .fb-action-menu-button::before {
     content: "\f142";
     font: var(--fa-font-solid);
+}
+
+/* TransactionsGrid */
+.fb-transactions-grid td[data-cell="description"],
+.fb-transactions-grid td[data-cell="quantity"],
+.fb-transactions-grid td[data-cell="transaction_type"]
+{
+    text-align: center;
+}
+.fb-transactions-grid td[data-cell="amount"],
+.fb-transactions-grid td[data-cell="transaction_fee"],
+.fb-transactions-grid td[data-cell="transaction_date"]
+{
+    text-align: right;
 }

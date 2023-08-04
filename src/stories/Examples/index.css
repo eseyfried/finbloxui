@@ -350,6 +350,7 @@
 }
 .fb-action-menu li {
     @apply p-2 min-w-max;
+    text-align: left;
 }
 .fb-action-menu li:hover {
     @apply bg-indigo-300;

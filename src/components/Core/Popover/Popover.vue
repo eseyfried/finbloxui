@@ -9,8 +9,9 @@
 // imports
 import * as formatters from "@/modules/useFormatter";
 import { createPopper } from "@popperjs/core";
-import { onMounted, ref } from "vue"; 
+import { onMounted, ref, watch } from "vue"; 
 import { useEventListener, onClickOutside } from "@vueuse/core";
+
 
 
 // vars
@@ -25,13 +26,17 @@ const props = defineProps({
         validator: (value) => {
             return ["click", "hover"].includes(value);
         }
+    },
+    updatePopover: {
+        type: Boolean,
+        default: false,
     }
 });
 
 const popperInstance = ref(null);
 const tooltip = ref(null);
 
-onMounted(() => {
+onMounted(async () => {
     const toggleElement = document.querySelector(props.selector);
     if (props.trigger === "hover") {
         useEventListener(toggleElement, "mouseenter", show);
@@ -42,24 +47,28 @@ onMounted(() => {
     }
     
 
-    
+    // const element = document.querySelector('.fb-positions-grid');
+    // console.log(element)
 
   popperInstance.value = createPopper(toggleElement, tooltip.value, {
+    placement: 'auto',
+    
     modifiers: [
         {
-        name: 'offset',
-        options: {
-            offset: [0, 8],
-        },
+            name: 'offset',
+            options: {
+                offset: [0, 8],
+            },
         },
     ],
     });
+
 })
 
 
 
-function show() {
-  // Make the tooltip visible
+function show() {  
+    // Make the tooltip visible
     tooltip.value.setAttribute('data-show', '');
 
     // Enable the event listeners
@@ -70,9 +79,10 @@ function show() {
         { name: 'eventListeners', enabled: true },
         ],
     }));
-
     // Update its position
     popperInstance.value.update();
+    
+
 }
 
 function hide() {
@@ -88,8 +98,15 @@ function hide() {
         ],
     }));
 }
+
+watch(() => props.updatePopover, (value, prevValue) => {
+  if (value === true) {
+   popperInstance.value.update();
+  }
+}, { immediate: true })
 </script>
 <style lang="scss" scoped>
+
 .fb-popover,
 #tooltip {
     background: #FFFFFF;
@@ -102,6 +119,8 @@ function hide() {
 
 #tooltip[data-show] {
     display: block;
+    pointer-events: auto;
+    z-index: 1;
 }
 
 #arrow,
@@ -132,7 +151,7 @@ content: '';
 }
 
 #tooltip[data-popper-placement^='left'] > #arrow {
-    right: -4px;
+    right: 4px;
 }
 
 #tooltip[data-popper-placement^='right'] > #arrow {

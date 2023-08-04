@@ -197,7 +197,8 @@ const props = defineProps({
 const emit = defineEmits([
     'fb-quote-detail',
     'fb-quote-detail-before-mount',
-    'fb-quote-detail-show'
+    'fb-quote-detail-show',
+    'fb-quote-detail-loaded',
 ]);
 // temp object to contain data from callback
 const callbackQuote = ref({});
@@ -243,6 +244,7 @@ const triggerCallback = async () => {
         callbackQuote.value = await props.callback(props.symbol);
         if (Object.keys(callbackQuote.value).length > 0) {
             isCallbackLoaded.value = true;
+            emit('fb-quote-detail-loaded',true);
         }
     }
 }

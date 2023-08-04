@@ -19,10 +19,10 @@
     </template>
     <template v-else-if="column.props.type && column.props.type === 'quote'">
         <td :data-cell="header" role="cell">
-            <span :id="`id-${rowData['id']}`" @mouseover="handleHover(true)" @mouseleave="handleHover(false)" class="fb-quote-detail-hover">
+            <span :id="`id-${rowData['id']}`" @mouseover="handleHover(true)" @mouseleave="handleHover(false);updatePopover=false;" class="fb-quote-detail-hover">
                 {{ resolveFieldData() }}
             </span>
-            <Popover :selector="`#id-${rowData['id']}`" :trigger="column.props.quoteDetailOptions.trigger || 'hover'">
+            <Popover :selector="`#id-${rowData['id']}`" :trigger="column.props.quoteDetailOptions.trigger || 'hover'" :updatePopover="updatePopover">
                 <component
                     v-if="column.children && Object.hasOwn(column.children, 'default') && ComponentUtils.getChildVNodeByType(column.children.default(), 'QuoteDetail')"
                     :is="ComponentUtils.getChildVNodeByType(column.children.default(), 'QuoteDetail')"
@@ -32,13 +32,14 @@
                     :callbackOn="column.props.quoteDetailOptions.callbackOn || 'show'"
                     :class="{ 'fb-quote-detail-hover': showQuoteHover }"
                 />
-                 <QuoteDetail
+                <QuoteDetail
                     v-else
                     v-bind="column.props.quoteDetailOptions"
                     :symbol="resolveFieldData()"
                     :show="showQuoteHover"
                     :callbackOn="column.props.quoteDetailOptions.callbackOn || 'show'"
                     :class="{ 'fb-quote-detail-hover': showQuoteHover }"
+                    @fb-quote-detail-loaded="updatePopover = true"
                 />
             </Popover>
         </td>
@@ -75,6 +76,7 @@ const field = computed(() => {
 const header = computed(() => {
     return columnProp('header');
 });
+const updatePopover = ref(false);
 const hasChangeIndicatorFormat = ref(false);
 const rawFieldData = computed(() => ComponentUtils.resolveFieldData(props.rowData, field.value));
 const cellClasses = computed(() => {

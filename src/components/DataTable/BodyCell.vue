@@ -19,8 +19,15 @@
     </template>
     <template v-else-if="column.props.type && column.props.type === 'quote'">
         <td :data-cell="header" role="cell">
-            <span :id="`id-${rowData['id']}`" @mouseover="handleHover(true)" @mouseleave="handleHover(false);updatePopover=false;" class="fb-quote-detail-hover">
-                {{ resolveFieldData() }}
+            <span>
+                <a href="#"
+                    :id="`id-${rowData['id']}`"
+                    @click.prevent="() => null"
+                    @mouseover="handleHover(true)"
+                    @mouseleave="handleHover(false);updatePopover=false;"
+                >
+                    {{ resolveFieldData() }}
+                </a>
             </span>
             <Popover :selector="`#id-${rowData['id']}`" :trigger="column.props.quoteDetailOptions.trigger || 'hover'" :updatePopover="updatePopover">
                 <component
@@ -31,6 +38,7 @@
                     :show="showQuoteHover"
                     :callbackOn="column.props.quoteDetailOptions.callbackOn || 'show'"
                     :class="{ 'fb-quote-detail-hover': showQuoteHover }"
+                    :eventHandlers="{ '@fb-quote-detail-loaded': () => { updatePopover.value = true }}"
                 />
                 <QuoteDetail
                     v-else
@@ -157,7 +165,5 @@ const parseContextMenuItems = (contextMenuOptions) => {
 
 </script>
 <style lang="scss" scoped>
-.fb-quote-detail-hover {
-    cursor: pointer;
-}
+
 </style>

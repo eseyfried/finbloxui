@@ -1,7 +1,8 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
     <div class="fb-positions-grid">
-        <DataTable v-if="positions.length > 0" :rows="positions" v-bind="dataTableOptions">
+        <MobileFilters />
+        <DataTable v-if="positions.length > 0" :rows="positions" v-bind="dataTableOptions" teleportTo=".fb-positions-grid">
             <template v-for="(_, name) in $slots" #[name]="slotData">
                 <slot :name="name" v-bind="slotData || {}" />
             </template>
@@ -12,6 +13,8 @@
 // imports
 import { useSlots } from "vue";
 import DataTable from "@/components/DataTable/DataTable";
+import MobileFilters from "@/components/DataTable/MobileFilters";
+
 
 
 // vars

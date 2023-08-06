@@ -4,6 +4,7 @@ import { storeToRefs } from "pinia";
 import { useDemoStore } from "@/stories/stores/store";
 import DataTable from "@/components/DataTable/DataTable.vue";
 import Column from "@/components/DataTable/Column.vue";
+import ColumnFilter from '@/components/DataTable/ColumnFilter/ColumnFilter.vue';
 import AccountCarousel from "@/components/Core/Navigation/AccountCarousel.vue";
 import ClientCard from "@/components/Advisor/Clients/ClientCard.vue";
 import ClientList from "@/components/Advisor/Clients/ClientList.vue";
@@ -34,9 +35,23 @@ const onColumnHeaderClick = (column) => {
         <p>some text to test z-index</p>
     </div>
     <PositionsGrid :positions="positions">
-        <Column field="id" header="Id" />
-        <Column field="symbol" header="Symbol" />
-    </PositionsGrid>
+            <Column field="symbol" header="Symbol">
+                <ColumnFilter filterType="text" operator="equality" />
+            </Column>
+            <Column field="security_description" header="Description" />
+            <Column field="quantity" header="Quantity">
+                <ColumnFilter filterType="text" operator="comparison" />
+            </Column>
+            <Column field="market_value" header="Market Value" formatters="currency">
+                <ColumnFilter filterType="text" operator="comparison" />
+            </Column>
+            <Column field="change_in_value_amt" header="Change In Value ($)" :formatters="['currency','change-indicator']">
+                <ColumnFilter filterType="text" operator="comparison" />
+            </Column>
+            <Column field="change_in_value_pct" header="Change In Value (%)" :formatters="['percent','change-indicator']">
+                <ColumnFilter filterType="text" operator="comparison" />
+            </Column>
+        </PositionsGrid>
     <div>
         <ClientList :clients="clients" />
     </div>

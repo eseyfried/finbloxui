@@ -97,9 +97,48 @@
         width: 150px;
     }
 
-
-    
-    
+    /* Mobile ColumnFilter */
+    .fb-filters {
+        display: grid;
+    }
+    .fb-filters .fb-column-filter {
+        display: block;
+        justify-self: end;
+        & .fb-column-filter-menu {
+            left: unset;
+            right: -10px;
+        }
+        & .fb-column-filter-button::before {
+            margin-right: 5px;
+        }
+    }
+    .fb-data-table-filters-visible {
+        display: grid !important;
+    }
+    .fb-data-table-filters {
+        justify-self: end;
+    }
+    .fb-filters a {
+        @apply no-underline;
+        justify-self: end;
+        &:after {
+            content: "\f078";
+            font: var(--fa-font-solid);
+            @apply ml-1;
+        }
+    }
+    .fb-column-filter-button::before {
+        content: unset !important;
+        font: unset !important;
+    }
+    .fb-column-filter-button::after {
+        content: "\f0b0";
+        font: var(--fa-font-solid);
+        @apply text-gray-500 ml-2;
+    }
+    .fb-column-filter-has-filters::after {
+        @apply text-indigo-500;
+    }
 }
 
 /* General FinBloxUI CSS */

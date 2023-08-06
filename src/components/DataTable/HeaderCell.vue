@@ -16,14 +16,17 @@
                 <component :is="(column.children && column.children.sortIcon)" :sorted="sorted" :sortDir="sortDir" />
             </template>
             
-            <component
-                v-if="column.children && Object.hasOwn(column.children, 'default')"
-                :is="column.children.default()[0]"
-                :column="column"
-                :selectOptions="column.children.default()[0].props.selectOptions || selectOptions"
-                @fb-column-filter-apply-button:click="handleApplyFilter($event)"
-                @fb-column-filter-clear-button:click="handleClearFilter($event)"
-            />
+            <teleport :to="`${teleportTo} .fb-data-table-filters`" :disabled="!isMobile">
+                <component
+                    v-if="column.children && Object.hasOwn(column.children, 'default')"
+                    :is="column.children.default()[0]"
+                    :column="column"
+                    :buttonLabel="isMobile ? columnProp('header') : null"
+                    :selectOptions="column.children.default()[0].props.selectOptions || selectOptions"
+                    @fb-column-filter-apply-button:click="handleApplyFilter($event)"
+                    @fb-column-filter-clear-button:click="handleClearFilter($event)"
+                />
+             </teleport>
         </th>
     </template>
     
@@ -40,8 +43,17 @@ const props = defineProps({
     rows: {
         type: Array,
         default: () => {},
+    },
+    isMobile: {
+        type: Boolean,
+        default: false
+    },
+    teleportTo: {
+        type: String,
+        default: null
     }
 });
+
 
 const emits = defineEmits([
     "header-cell-click",
@@ -51,7 +63,6 @@ const emits = defineEmits([
 
 const sortDir = ref("asc");
 const sorted = ref(false);
-
 
 // methods
 const columnProp = (prop) => {

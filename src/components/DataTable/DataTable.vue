@@ -1,11 +1,12 @@
 <template v-slot="slotProps">
     <ColumnSelector :columns="transformColumns(defaultColumns)" v-if="columnSelector" @fb-column-selector-selected:click="handleColumnSelection($event)" />
-    <VirtualScroll :list="transformedRows" :columns="columns" :enabled="useVirtualScroll" :height="virtualScrollHeight">
+    <VirtualScroll :list="transformedRows" :columns="columns" :enabled="useVirtualScroll" :height="virtualScrollHeight"  v-if="teleportComplete">
         <template #default="slopProps">
             <table v-bind="$attrs" role="table">
                 <TableHeader
                     :columns="slopProps.columns"
                     :rows="slopProps.rows"
+                    :teleportTo="teleportTo"
                     @column-click="onColumnHeaderClick($event)"
                     @column-apply-filter="onColumnHeaderApplyFilter($event)"
                     @column-clear-filter="onColumnHeaderClearFilter($event)"
@@ -19,7 +20,7 @@
     </VirtualScroll>
 </template>
 <script setup>
-import { ref, useSlots, computed } from "vue";
+import { ref, useSlots, computed, onMounted, nextTick } from "vue";
 import { filter as _filter } from "lodash";
 import Base from "@/components/DataTable/Base";
 import VirtualScroll from "@/components/DataTable/virtualScroll";
@@ -27,6 +28,7 @@ import TableHeader from "@/components/DataTable/TableHeader";
 import TableBody from "@/components/DataTable/TableBody";
 import ColumnSelector from "@/components/DataTable/ColumnSelector/ColumnSelector";
 const slots = useSlots();
+
 // eslint-disable-next-line no-unused-vars
 const props = defineProps({
     /**
@@ -56,6 +58,13 @@ const props = defineProps({
     columnSelector: {
         type: Boolean,
         default: false,
+    },
+    /**
+     * class selector to teleportTo in a wrapper component (i.e. PositionsGrid)
+     */
+    teleportTo: {
+        type: String,
+        default: null
     }
 });
 
@@ -65,6 +74,7 @@ const defaultColumns = Base.columns(slots);
 
 const columns = ref(defaultColumns);
 const filteredRows = ref([]);
+const teleportComplete = ref(props.teleportTo ? false : true);
 
 /**
  * stack of applied filters;
@@ -74,6 +84,15 @@ const hasFilters = ref(false);
 
 const transformedRows = computed( () => {
     return hasFilters.value ? filteredRows.value : props.rows;
+});
+
+onMounted(() => {
+    nextTick(() => {
+        const teleportToEl = document.querySelector(`${props.teleportTo} .fb-filters`);
+        if (teleportToEl) {
+            teleportComplete.value = true;
+        }
+    });
 });
 
 // methods

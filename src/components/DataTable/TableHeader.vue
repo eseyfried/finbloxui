@@ -6,6 +6,8 @@
                 :column="column"
                 :rows="rows"
                 :key="i"
+                :isMobile="isMobile"
+                :teleportTo="teleportTo"
                 @header-cell-click="onHeaderCellClick($event)"
                 @header-cell-apply-filter="onHeaderCellApplyFilter(column, $event)"
                 @header-cell-clear-filter="onHeaderCellClearFilter(column, $event)"
@@ -15,6 +17,7 @@
 </template>
 <script setup>
 import HeaderCell from "@/components/DataTable/HeaderCell";
+import { isMobile } from "@/modules/useResponsive";
 // eslint-disable-next-line no-unused-vars
 const props = defineProps({
     columns: {
@@ -24,8 +27,13 @@ const props = defineProps({
     rows: {
         type: Array,
         default: null,
+    },
+    teleportTo: {
+        type: String,
+        default: null,
     }
 });
+
 const emits = defineEmits([
     "column-click",
     "column-apply-filter",

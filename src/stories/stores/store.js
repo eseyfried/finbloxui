@@ -11,6 +11,7 @@ const defaultNumberOfRecords = 10;
 const defaultNumberOfAccounts = 10;
 const defaultNumberOfPositions = 10;
 const defaultNumberOfTransactions = 10;
+const defaultNumberOfUGLLots = 10;
 const defaultTasks = (numberOfRecords) => {
         return Array.from(Array(numberOfRecords).keys(), (i) => {
         return { 
@@ -163,6 +164,35 @@ const defaultTransactions = (numberOfRecords) => {
     );
 };
 
+const defaultUGLLots = (numberOfRecords) => {
+    return Array.from(
+        Array(numberOfRecords).keys(),
+        (i) => {
+            const quantity = faker.string.numeric({ min: 1, max: 238 });
+            const price = faker.finance.amount({ min: 5, max: 300, dec: 2 });
+            const cost_basis = faker.finance.amount({ min: price - 10, max: price + 4, dec: 2 });
+            const unrealized_gl = cost_basis - price;
+            const changeFactor = price * (faker.number.float({ min: 1, max: 5, precision: 0.1 })/100);
+            const open_date = faker.date.past({ days: 3 });
+            return {
+                id: i+1,
+                symbol: getSymbol(),
+                security_description: faker.company.name(),
+                quantity: quantity,
+                price: price,
+                market_value: quantity * price,
+                cost_basis: cost_basis, // purchase price
+                unrealized_gl: price > cost_basis ? (unrealized_gl * -1) : unrealized_gl, // cost_basis - current market_value
+                duration: faker.helpers.arrayElement(['Short Term', 'Long Term']), //short term | long term
+                wash_sale: faker.helpers.arrayElement([true, false]),
+                change_in_value_amt: price - (price * changeFactor),
+                change_in_value_pct: changeFactor,
+                open_date: open_date,
+            }
+        }
+    );
+};
+
 const getSymbol = () => {
     return faker.helpers.arrayElement(
         [
@@ -182,6 +212,7 @@ export const useDemoStore = defineStore({
       clients: defaultClients(defaultNumberOfRecords),
       positions: defaultPositions(defaultNumberOfPositions),
       transactions: defaultTransactions(defaultNumberOfTransactions),
+      unrealizedLots: defaultUGLLots(defaultNumberOfUGLLots),
       title: "Test Title",
       status: 'idle',
       error: null,

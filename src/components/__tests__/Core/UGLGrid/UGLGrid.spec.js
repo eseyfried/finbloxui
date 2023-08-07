@@ -1,9 +1,9 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 
 import { mount } from '@vue/test-utils';
-import TransactionsGrid from '@/components/Core/TransactionsGrid/TransactionsGrid.vue'
+import UGLGrid from '@/components/Core/UGLGrid/UGLGrid.vue'
 
-describe('TransactionsGrid', () => {
+describe('UGLGrid', () => {
     let config;
     beforeEach(() => {
       config = {
@@ -17,7 +17,7 @@ describe('TransactionsGrid', () => {
     });
 
     it('renders properly', () => {
-        const wrapper = mount(TransactionsGrid, config)
-        expect(wrapper.find(".fb-transactions-grid").exists()).toBe(true);
+        const wrapper = mount(UGLGrid, config)
+        expect(wrapper.find(".fb-ugl-grid").exists()).toBe(true);
     })
 });

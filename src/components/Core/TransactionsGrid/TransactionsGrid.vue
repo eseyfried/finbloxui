@@ -2,7 +2,7 @@
 <template>
     <div class="fb-transactions-grid">
         <MobileFilters />
-        <DataTable v-if="transactions.length > 0" :rows="transactions" v-bind="dataTableOptions" teleportTo=".fb-transactions-grid">
+        <DataTable v-if="transactions.length > 0" :rows="transactions" v-bind="defaultDataTableOptions" teleportTo=".fb-transactions-grid">
             <template v-for="(_, name) in $slots" #[name]="slotData">
                 <slot :name="name" v-bind="slotData || {}" />
             </template>
@@ -13,6 +13,7 @@
 // imports
 import { useSlots } from "vue";
 import DataTable from "@/components/DataTable/DataTable";
+import Base from "@/components/DataTable/Base";
 import MobileFilters from "@/components/DataTable/MobileFilters";
 
 
@@ -27,14 +28,11 @@ const props = defineProps({
     },
     dataTableOptions: {
         type: Object,
-        default: () => {
-            return {
-                columnSelector: true,
-            }
-        }
+        default: () => {}
     }
 });
 const emit = defineEmits(['fb-transactions-grid']);
+const defaultDataTableOptions = Base.defaultDataTableOptions(props.dataTableOptions);
 
 
 // methods

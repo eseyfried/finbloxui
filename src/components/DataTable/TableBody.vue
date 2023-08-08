@@ -1,7 +1,24 @@
 <template>
     <tbody role="rowgroup">
         <template v-if="rows.length > 0">
-            <template v-for="{data, index} in rows"  :key="index">
+            <!-- grouped records -->
+            <template v-if="groupRowsBy">
+                <template v-for="{groupKey, data, index} in rows"  :key="index">
+                    <tr role="row" class="fb-data-table-group-header">
+                        <td :colspan="columns.length" :data-cell="groupRowLabel" role="cell">
+                            {{ groupKey }}
+                        </td>
+                    </tr>
+                    <template v-for="(row, index) in data"  :key="index">
+                        <tr role="row">
+                            <template v-for="(column, i) in columns"  :key="i">
+                                <BodyCell :rowData="row" :column="column" />
+                            </template>
+                        </tr>
+                    </template>
+                </template>
+            </template>
+            <template v-else v-for="{data, index} in rows"  :key="index">
                 <tr role="row">
                     <template v-for="(column, i) in columns"  :key="i">
                         <BodyCell :rowData="data" :column="column" />
@@ -22,6 +39,29 @@ const props = defineProps({
     columns: {
         type: Array,
         default: () => [],
+    },
+    groupRowsBy: {
+        type: String,
+        default: null,
+    },
+    groupRowLabel: {
+        type: String,
+        default: null,
     }
 });
+
+
 </script>
+<style lang="scss" scoped>
+.fb-data-table-group-header {
+    position: sticky;
+    z-index: 1;
+    top: 35px;
+}
+/* Small & Large Mobile Devices */
+@media (max-width: 576px) {
+    .fb-data-table-group-header {
+        top: 0px;
+    }
+}
+</style>

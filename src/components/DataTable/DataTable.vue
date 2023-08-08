@@ -14,6 +14,8 @@
                 <TableBody
                     :columns="slopProps.columns"
                     :rows="slopProps.rows"
+                    :groupRowsBy="groupRowsBy"
+                    :groupRowLabel="getGroupRowLabel()"
                 />
             </table>
         </template>
@@ -21,7 +23,7 @@
 </template>
 <script setup>
 import { ref, useSlots, computed, onMounted, nextTick } from "vue";
-import { filter as _filter } from "lodash";
+import { filter as _filter, groupBy as _groupBy } from "lodash";
 import Base from "@/components/DataTable/Base";
 import VirtualScroll from "@/components/DataTable/virtualScroll";
 import TableHeader from "@/components/DataTable/TableHeader";
@@ -65,16 +67,25 @@ const props = defineProps({
     teleportTo: {
         type: String,
         default: null
+    },
+    /**
+     * Group rows by a field in the data set
+     */
+    groupRowsBy: {
+        type: String,
+        default: null
     }
 });
 
 const emits = defineEmits(["column-click"]);
 
-const defaultColumns = Base.columns(slots);
+const defaultColumns = Base.columns(slots, props.groupRowsBy);
 
 const columns = ref(defaultColumns);
 const filteredRows = ref([]);
 const teleportComplete = ref(props.teleportTo ? false : true);
+
+
 
 /**
  * stack of applied filters;
@@ -83,7 +94,7 @@ const filterStack = ref({});
 const hasFilters = ref(false);
 
 const transformedRows = computed( () => {
-    return hasFilters.value ? filteredRows.value : props.rows;
+    return hasFilters.value ? filteredRows.value : groupRows();
 });
 
 onMounted(() => {
@@ -113,8 +124,15 @@ const onColumnHeaderApplyFilter = (filter) => {
     hasFilters.value = true;
 };
 
-
-
+const getGroupRowLabel = () => {
+    if (!props.groupRowsBy) {
+        return null;
+    }
+    const groupByColumn = Base.columns(slots).filter(column => {
+        return column.props.field === props.groupRowsBy
+    })[0];
+    return groupByColumn.props.header;
+}
 /**
  * apply all column filters in filterStack
  */
@@ -188,6 +206,17 @@ const transformColumns = (columns) => {
         }
     });
 }
+
+const groupRows = () => {
+    if (!props.groupRowsBy) {
+        return props.rows;
+    }
+    if (!props.rows[0][props.groupRowsBy]) {
+        return props.rows;
+    }
+    return _groupBy(props.rows, props.groupRowsBy)
+};
+
 const handleColumnSelection = (selectedColumns) => {
     // get the selected columns
     const cols = selectedColumns.map(col => {

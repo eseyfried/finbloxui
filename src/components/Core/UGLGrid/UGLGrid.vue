@@ -2,7 +2,7 @@
 <template>
     <div class="fb-ugl-grid">
         <MobileFilters />
-        <DataTable v-if="lots.length > 0" :rows="lots" v-bind="dataTableOptions" teleportTo=".fb-ugl-grid">
+        <DataTable v-if="lots.length > 0" :rows="lots" v-bind="defaultDataTableOptions" teleportTo=".fb-ugl-grid">
             <template v-for="(_, name) in $slots" #[name]="slotData">
                 <slot :name="name" v-bind="slotData || {}" />
             </template>
@@ -13,6 +13,7 @@
 // imports
 import { useSlots } from "vue";
 import DataTable from "@/components/DataTable/DataTable";
+import Base from "@/components/DataTable/Base";
 import MobileFilters from "@/components/DataTable/MobileFilters";
 
 
@@ -27,15 +28,11 @@ const props = defineProps({
     },
     dataTableOptions: {
         type: Object,
-        default: () => {
-            return {
-                columnSelector: true,
-            }
-        }
+        default: () => {}
     }
 });
 const emit = defineEmits(['fb-ugl-grid']);
-
+const defaultDataTableOptions = Base.defaultDataTableOptions(props.dataTableOptions);
 
 // methods
 const handleEvent = () => {

@@ -45,8 +45,20 @@ const { list: virtualList, containerProps, wrapperProps } = useVirtualList(props
 });
 const listToVirtualList = computed(() => {
     const list = props.list.value ? props.list.value : props.list
-    return list.map((item, index) => {
-        return { data: item, index: index };
-    });
+    /**
+     * format list for grouped records
+     */
+    if (!Array.isArray(list)) {
+        const groupKeys = Object.keys(list);
+        const groupedList = groupKeys.map((key, index) => {
+            return { groupKey: key, data: list[key], index: index }
+        });
+        console.log(groupedList)
+        return groupedList;
+    } else {
+        return list.map((item, index) => {
+            return { groupKey: null, data: item, index: index };
+        });
+    }
 });
 </script>

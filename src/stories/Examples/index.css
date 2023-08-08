@@ -26,7 +26,7 @@
     }
 
     table tbody td {
-        @apply py-4 border-b-2 border-gray-200 text-sm;
+        @apply py-4 px-2 border-b-2 border-gray-200 text-sm  bg-white;
     }
 
     .primary-button {
@@ -270,6 +270,9 @@
 }
 
 /* DataTable */
+.fb-data-table-group-header {
+    @apply font-bold;
+}
 
 /* ColumnSelector */
 .fb-column-selector {

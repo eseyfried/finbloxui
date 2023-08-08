@@ -3,7 +3,7 @@
     <div class="page">
         <ToggleTheme :class="['primary-button']" />
         <h1 class="mb-5">Unrealized Gains/Losses</h1>
-        <UGLGrid :lots="unrealizedLots">
+        <UGLGrid :lots="unrealizedLots" :dataTableOptions="{ groupRowsBy: 'symbol' }">
             <Column field="symbol" header="Symbol">
                 <ColumnFilter filterType="text" operator="equality" />
             </Column>
@@ -40,8 +40,6 @@ import Column from '@/components/DataTable/Column.vue';
 import ColumnFilter from '@/components/DataTable/ColumnFilter/ColumnFilter.vue';
 const { unrealizedLots } = storeToRefs(useDemoStore());
 
-
-console.log(unrealizedLots)
 
 </script>
 <style lang="scss" scoped>

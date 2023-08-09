@@ -53,7 +53,6 @@ const listToVirtualList = computed(() => {
         const groupedList = groupKeys.map((key, index) => {
             return { groupKey: key, data: list[key], index: index }
         });
-        console.log(groupedList)
         return groupedList;
     } else {
         return list.map((item, index) => {

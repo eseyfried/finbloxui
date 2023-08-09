@@ -55,7 +55,7 @@ const props = defineProps({
 <style lang="scss" scoped>
 .fb-data-table-group-header {
     position: sticky;
-    z-index: 1;
+    z-index: -1;
     top: 35px;
 }
 /* Small & Large Mobile Devices */

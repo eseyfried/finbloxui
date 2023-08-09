@@ -1,6 +1,6 @@
 <template v-slot="slotProps">
     <ColumnSelector :columns="transformColumns(defaultColumns)" v-if="columnSelector" @fb-column-selector-selected:click="handleColumnSelection($event)" />
-    <VirtualScroll :list="transformedRows" :columns="columns" :enabled="useVirtualScroll" :height="virtualScrollHeight"  v-if="teleportComplete">
+    <VirtualScroll :list="groupRows(transformedRows)" :columns="columns" :enabled="useVirtualScroll" :height="virtualScrollHeight"  v-if="teleportComplete">
         <template #default="slopProps">
             <table v-bind="$attrs" role="table">
                 <TableHeader
@@ -94,7 +94,7 @@ const filterStack = ref({});
 const hasFilters = ref(false);
 
 const transformedRows = computed( () => {
-    return hasFilters.value ? filteredRows.value : groupRows();
+    return hasFilters.value ? filteredRows.value : props.rows;
 });
 
 onMounted(() => {
@@ -138,6 +138,7 @@ const getGroupRowLabel = () => {
  */
 const applyFilters = (reset = false) => {
     let rows = reset ? props.rows : transformedRows.value;
+    console.log(rows);
     Object.keys(filterStack.value).forEach(filter => {
        rows = columnFilter(filterStack.value[filter], rows)
     });
@@ -207,14 +208,14 @@ const transformColumns = (columns) => {
     });
 }
 
-const groupRows = () => {
+const groupRows = (rows) => {
     if (!props.groupRowsBy) {
         return props.rows;
     }
     if (!props.rows[0][props.groupRowsBy]) {
         return props.rows;
     }
-    return _groupBy(props.rows, props.groupRowsBy)
+    return _groupBy(rows, props.groupRowsBy)
 };
 
 const handleColumnSelection = (selectedColumns) => {

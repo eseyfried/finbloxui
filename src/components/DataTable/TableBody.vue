@@ -3,23 +3,30 @@
         <template v-if="rows.length > 0">
             <!-- grouped records -->
             <template v-if="groupRowsBy">
-                <template v-for="{groupKey, data, index} in rows"  :key="index">
+                <template v-for="{groupKey, data, index} in rows" :key="index">
                     <tr role="row" class="fb-data-table-group-header">
                         <td :colspan="columns.length" :data-cell="groupRowLabel" role="cell">
                             {{ groupKey }}
                         </td>
+                        <!-- <template v-for="(column, i) in columns" :key="i">
+                            <ColumnTotal :rows="data" :column="column" :grouped="true" v-if="column.props.showTotal" />
+                        </template> -->
+                        <!-- <template v-for="(cell, i) in fillerCells" :key="i">
+                            <td role="cell"></td>
+                        </template> -->
                     </tr>
                     <template v-for="(row, index) in data"  :key="index">
                         <tr role="row">
-                            <template v-for="(column, i) in columns"  :key="i">
+                            <template v-for="(column, i) in columns" :key="i">
                                 <BodyCell :rowData="row" :column="column" />
                             </template>
                         </tr>
                     </template>
                     <template v-if="showTotals">
                         <tr role="row" class="fb-data-table-group-footer">
-                            <template v-for="(column, i) in columns"  :key="i">
-                                <ColumnTotal :rows="data" :column="column" :grouped="true" />
+                            <template v-for="(column, i) in columns" :key="i">
+                                <td v-if="nonTotalColumns.includes(column.props.field)" role="cell"></td>
+                                <ColumnTotal v-if="column.props.showTotal" :rows="data" :column="column" :grouped="true" />
                             </template>
                         </tr>
                     </template>
@@ -69,7 +76,8 @@ const props = defineProps({
     }
 });
 
-
+const nonTotalColumns = props.columns.filter(column => !column.props.showTotal).map(column => column.props.field);
+console.log(nonTotalColumns)
 </script>
 <style lang="scss" scoped>
 

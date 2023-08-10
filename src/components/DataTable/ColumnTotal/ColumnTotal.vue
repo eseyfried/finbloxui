@@ -3,9 +3,10 @@
     <td :data-cell="Base.header(column)" role="cell" :class="{ 'fb-data-table-column-total': showTotal }">
         <span
             :class="cellClasses"
-            v-if="showTotal">
-                {{ Base.resolveFieldData(column, rawFieldData) }}
-            </span>
+            v-if="showTotal"
+        >
+            {{ Base.resolveFieldData(column, rawFieldData) }}
+        </span>
     </td>
 </template>
 <script setup>

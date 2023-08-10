@@ -341,14 +341,14 @@
 }
 
 /* PositionsGrid */
-.fb-positions-grid td[data-cell="security_description"],
-.fb-positions-grid td[data-cell="quantity"]
+.fb-positions-grid td[data-cell="Description"],
+.fb-positions-grid td[data-cell="Quantity"]
 {
     text-align: center;
 }
-.fb-positions-grid td[data-cell="market_value"],
-.fb-positions-grid td[data-cell="change_in_value_amt"],
-.fb-positions-grid td[data-cell="change_in_value_pct"]
+.fb-positions-grid td[data-cell="Market Value"],
+.fb-positions-grid td[data-cell="Change In Value ($)"],
+.fb-positions-grid td[data-cell="Change In Value (%)"]
 {
     text-align: right;
 }
@@ -423,6 +423,21 @@
 .fb-transactions-grid td[data-cell="amount"],
 .fb-transactions-grid td[data-cell="transaction_fee"],
 .fb-transactions-grid td[data-cell="transaction_date"]
+{
+    text-align: right;
+}
+
+/* UGLGrid */
+.fb-ugl-grid td[data-cell="Quantity"],
+.fb-ugl-grid td[data-cell="Duration"]
+{
+    text-align: center;
+}
+.fb-ugl-grid td[data-cell="Cost Basis"],
+.fb-ugl-grid td[data-cell="Price"],
+.fb-ugl-grid td[data-cell="Market Value"],
+.fb-ugl-grid td[data-cell="Gain/Loss"],
+.fb-ugl-grid td[data-cell="Purchase Date"]
 {
     text-align: right;
 }

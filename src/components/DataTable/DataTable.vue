@@ -258,5 +258,8 @@ table {
         content: attr(data-cell) ": ";
         text-transform: capitalize;
     }
+    table:deep(tr.fb-data-table-group-footer td:not(.fb-data-table-column-total)::before) {
+        content: " ";
+    }
 }
 </style>

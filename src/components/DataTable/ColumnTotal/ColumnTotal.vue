@@ -1,7 +1,11 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-    <td :data-cell="Base.header(column)" role="cell">
-        <span :class="cellClasses" v-if="Base.columnProp(column, 'showTotal')">{{ Base.resolveFieldData(column, rawFieldData) }}</span>
+    <td :data-cell="Base.header(column)" role="cell" :class="{ 'fb-data-table-column-total': showTotal }">
+        <span
+            :class="cellClasses"
+            v-if="showTotal">
+                {{ Base.resolveFieldData(column, rawFieldData) }}
+            </span>
     </td>
 </template>
 <script setup>
@@ -24,7 +28,7 @@ const props = defineProps({
         default: false
     },
 });
-
+const showTotal = Base.columnProp(props.column, 'showTotal');
 const rawFieldData = computed(() => Base.totalByColumn(props.rows, props.column, props.grouped));
 const cellClasses = computed(() => {
     return {

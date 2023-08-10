@@ -77,6 +77,9 @@ const props = defineProps({
     position: sticky;
     top: 35px;
 }
+tr:not(.fb-data-table-group-header) {
+    // display: none;
+}
 
 /* Small & Large Mobile Devices */
 @media (max-width: 576px) {

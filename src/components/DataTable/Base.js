@@ -27,7 +27,7 @@ const defaultDataTableOptions = (options = {}) => {
 }
 
 const totalByColumn = (rows, column) => {
-    const columnData = rows.map(row => row[column.props.field]);
+    const columnData = rows.map(row => row.data ? row.data[column.props.field] : row[column.props.field]);
     const total = columnData.reduce((accumulator, value) => parseFloat(accumulator) + parseFloat(value), 0);
     return isNaN(total) ? "" : total;
 }

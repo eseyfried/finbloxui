@@ -10,6 +10,10 @@ const props = defineProps({
         type: String,
         default: null,
     },
+    showTotal: {
+        type: Boolean,
+        default: false,
+    },
     sortable: {
         type: Boolean,
         default: false

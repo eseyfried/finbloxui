@@ -16,6 +16,7 @@
                     :rows="slopProps.rows"
                     :groupRowsBy="groupRowsBy"
                     :groupRowLabel="getGroupRowLabel()"
+                    :showTotals="showTotals"
                 />
             </table>
         </template>
@@ -74,7 +75,14 @@ const props = defineProps({
     groupRowsBy: {
         type: String,
         default: null
-    }
+    },
+    /**
+     * show column totals
+     */
+    showTotals: {
+        type: Boolean,
+        default: false,
+    },
 });
 
 const emits = defineEmits(["column-click"]);
@@ -84,8 +92,6 @@ const defaultColumns = Base.columns(slots, props.groupRowsBy);
 const columns = ref(defaultColumns);
 const filteredRows = ref([]);
 const teleportComplete = ref(props.teleportTo ? false : true);
-
-
 
 /**
  * stack of applied filters;
@@ -138,7 +144,6 @@ const getGroupRowLabel = () => {
  */
 const applyFilters = (reset = false) => {
     let rows = reset ? props.rows : transformedRows.value;
-    console.log(rows);
     Object.keys(filterStack.value).forEach(filter => {
        rows = columnFilter(filterStack.value[filter], rows)
     });

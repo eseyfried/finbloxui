@@ -3,24 +3,24 @@
     <div class="page">
         <ToggleTheme :class="['primary-button']" />
         <h1 class="mb-5">Unrealized Gains/Losses</h1>
-        <UGLGrid :lots="unrealizedLots" :dataTableOptions="{ groupRowsBy: 'symbol' }">
+        <UGLGrid :lots="unrealizedLots" :dataTableOptions="{ groupRowsBy: 'symbol', showTotals: true }">
             <Column field="symbol" header="Symbol">
                 <ColumnFilter filterType="text" operator="equality" />
             </Column>
             <Column field="security_description" header="Description" />
-            <Column field="quantity" header="Quantity">
+            <Column field="quantity" header="Quantity" showTotal="true">
                 <ColumnFilter filterType="text" operator="comparison" />
             </Column>
-            <Column field="cost_basis" header="Cost Basis" formatters="currency">
+            <Column field="cost_basis" header="Cost Basis" formatters="currency" showTotal="true">
                 <ColumnFilter filterType="text" operator="comparison" />
             </Column>
-            <Column field="price" header="Price" formatters="currency">
+            <Column field="price" header="Price" formatters="currency" showTotal="true">
                 <ColumnFilter filterType="text" operator="comparison" />
             </Column>
-            <Column field="market_value" header="Market Value" formatters="currency">
+            <Column field="market_value" header="Market Value" formatters="currency" showTotal="true">
                 <ColumnFilter filterType="text" operator="comparison" />
             </Column>
-            <Column field="unrealized_gl" header="Gain/Loss" :formatters="['change-indicator','currency']">
+            <Column field="unrealized_gl" header="Gain/Loss" :formatters="['change-indicator','currency']" showTotal="true">
                 <ColumnFilter filterType="text" operator="comparison" />
             </Column>
             <Column field="duration" header="Duration">
@@ -31,7 +31,6 @@
     </div>
 </template>
 <script setup>
-import { ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useDemoStore } from "@/stories/stores/store";
 import ToggleTheme from "./ToggleTheme";

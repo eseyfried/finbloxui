@@ -16,7 +16,7 @@
                             </template>
                         </tr>
                     </template>
-                    <template v-if="true">
+                    <template v-if="showTotals">
                         <tr role="row">
                             <template v-for="(column, i) in columns"  :key="i">
                                 <ColumnTotal :rows="data" :column="column" />
@@ -29,6 +29,13 @@
                 <tr role="row">
                     <template v-for="(column, i) in columns"  :key="i">
                         <BodyCell :rowData="data" :column="column" />
+                    </template>
+                </tr>
+            </template>
+            <template v-if="showTotals && !groupRowsBy">
+                <tr role="row">
+                    <template v-for="(column, i) in columns"  :key="i">
+                        <ColumnTotal :rows="rows" :column="column" />
                     </template>
                 </tr>
             </template>
@@ -55,6 +62,10 @@ const props = defineProps({
     groupRowLabel: {
         type: String,
         default: null,
+    },
+    showTotals: {
+        type: Boolean,
+        default: false,
     }
 });
 

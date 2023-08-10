@@ -74,6 +74,28 @@ export default {
             type: { name: "string" },
             defaultValue: "400",
             control: { type: 'text' },
+        },
+        groupRowsBy: {
+            description: "Group rows by a column",
+            table: {
+                type: { summary: "string" },
+                defaultValue: { summary: "" },
+                category: 'Props',
+            },
+            type: { name: "string" },
+            defaultValue: "",
+            control: { type: 'text' },
+        },
+        showTotals: {
+            type: { name: "Boolean" },
+            defaultValue: true,
+            description: "Show column totals",
+            table: {
+                type: { summary: "Boolean" },
+                defaultValue: { summary: false },
+                category: 'Props',
+            },
+            control: 'boolean'
         }
     },
 
@@ -84,7 +106,8 @@ export default {
  */
 export const BasicTable = {
     args: {
-        rows: []
+        rows: [],
+        showTotals: false
     },
     render: (args) => ({
       components: { DataTable, Column },
@@ -281,6 +304,45 @@ SortableColumnTemplate.parameters = {
           `
         }
     },
+};
+
+export const ShowColumnTotal = {
+    args: {
+        rows: []
+    },
+    render: (args) => ({
+      components: { DataTable, Column },
+      setup() {
+        const { tasks } = storeToRefs(useDemoStore());
+        args.rows = ref(tasks.value);
+        return { args };
+      },
+      template: `
+        <span style="display: none">{{ args.rows.length }}</span> <!-- this is needed to get SB to render the data -->
+        <DataTable :rows="args.rows" :showTotals=true>
+            <Column field="id" header="Id" />
+            <Column field="title" header="Title" />
+            <Column field="qty" header="Items" showTotal="true" />
+            <Column field="state" header="State" />
+        </DataTable>
+      `,
+    }),
+    parameters: {
+        docs: {
+            description: {
+                story: "Show column totals by turning on the `DataTable` showTotals prop in conjuction with `Column` showTotal prop.",
+            },
+            source: {
+                code: `
+<DataTable :rows="rows" :showTotals=true>
+    <Column field="id" header="Id" />
+    <Column field="title" header="Title" />
+    <Column field="qty" header="Items" showTotal="true" />
+    <Column field="state" header="State" />
+</DataTable>`
+            }
+        }
+    }
 };
 
 export const VirtualScrollTable = {

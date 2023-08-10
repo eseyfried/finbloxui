@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
     <td :data-cell="Base.header(column)" role="cell">
-        <span :class="cellClasses">{{ Base.resolveFieldData(column, rawFieldData) }}</span>
+        <span :class="cellClasses" v-if="Base.columnProp(column, 'showTotal')">{{ Base.resolveFieldData(column, rawFieldData) }}</span>
     </td>
 </template>
 <script setup>

@@ -16,6 +16,13 @@
                             </template>
                         </tr>
                     </template>
+                    <template v-if="true">
+                        <tr role="row">
+                            <template v-for="(column, i) in columns"  :key="i">
+                                <ColumnTotal :rows="data" :column="column" />
+                            </template>
+                        </tr>
+                    </template>
                 </template>
             </template>
             <template v-else v-for="{data, index} in rows"  :key="index">
@@ -30,6 +37,7 @@
 </template>
 <script setup>
 import BodyCell from "@/components/DataTable/BodyCell";
+import ColumnTotal from "@/components/DataTable/ColumnTotal/ColumnTotal";
 // eslint-disable-next-line no-unused-vars
 const props = defineProps({
     rows: {

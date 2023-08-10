@@ -174,9 +174,10 @@ const defaultUGLLots = (numberOfRecords) => {
             const unrealized_gl = cost_basis - price;
             const changeFactor = price * (faker.number.float({ min: 1, max: 5, precision: 0.1 })/100);
             const open_date = faker.date.past({ days: 3 });
+            const symbol = i % 2 ? getSymbol() : "AAPL";
             return {
                 id: i+1,
-                symbol: getSymbol(),
+                symbol: symbol,
                 security_description: faker.company.name(),
                 quantity: quantity,
                 price: price,

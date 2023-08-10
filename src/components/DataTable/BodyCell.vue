@@ -5,10 +5,10 @@
         :data="rowData"
         :column="column"
         :field="field"
-        :attrs="{ 'data-cell': header, 'role': 'cell', class: cellClasses }"
+        :attrs="{ 'data-cell': Base.header(column), 'role': 'cell', class: cellClasses }"
     />   
     <template v-else-if="column.props.type && column.props.type === 'actions'">
-        <td :data-cell="header" role="cell">
+        <td :data-cell="Base.header(column)" role="cell">
             <ContextMenu v-bind="parseContextMenuItems(column.props.contextMenuOptions)">
                 <!-- pass component template slots from grandparent to grandchild using special component -->
                 <template v-for="(name, _) in Object.keys(column.children || {})" #[name]="slotData" :key="_">
@@ -18,7 +18,7 @@
         </td>
     </template>
     <template v-else-if="column.props.type && column.props.type === 'quote'">
-        <td :data-cell="header" role="cell">
+        <td :data-cell="Base.header(column)" role="cell">
             <span>
                 <a href="#"
                     :id="`id-${rowData['id']}`"
@@ -26,7 +26,7 @@
                     @mouseover="handleHover(true)"
                     @mouseleave="handleHover(false);updatePopover=false;"
                 >
-                    {{ resolveFieldData() }}
+                    {{ Base.resolveFieldData(column, rawFieldData) }}
                 </a>
             </span>
             <Popover :selector="`#id-${rowData['id']}`" :trigger="column.props.quoteDetailOptions.trigger || 'hover'" :updatePopover="updatePopover">
@@ -34,7 +34,7 @@
                     v-if="column.children && Object.hasOwn(column.children, 'default') && ComponentUtils.getChildVNodeByType(column.children.default(), 'QuoteDetail')"
                     :is="ComponentUtils.getChildVNodeByType(column.children.default(), 'QuoteDetail')"
                     v-bind="ComponentUtils.getChildVNodeByType(column.children.default(), 'QuoteDetail').props"
-                    :symbol="resolveFieldData()"
+                    :symbol="Base.resolveFieldData(column, rawFieldData)"
                     :show="showQuoteHover"
                     :callbackOn="column.props.quoteDetailOptions.callbackOn || 'show'"
                     :class="{ 'fb-quote-detail-hover': showQuoteHover }"
@@ -43,7 +43,7 @@
                 <QuoteDetail
                     v-else
                     v-bind="column.props.quoteDetailOptions"
-                    :symbol="resolveFieldData()"
+                    :symbol="Base.resolveFieldData(column, rawFieldData)"
                     :show="showQuoteHover"
                     :callbackOn="column.props.quoteDetailOptions.callbackOn || 'show'"
                     :class="{ 'fb-quote-detail-hover': showQuoteHover }"
@@ -53,8 +53,8 @@
         </td>
     </template>
     <template v-else>
-        <td :data-cell="header" role="cell">
-            <span :class="cellClasses">{{ resolveFieldData() }}</span>
+        <td :data-cell="Base.header(column)" role="cell">
+            <span :class="cellClasses">{{ Base.resolveFieldData(column, rawFieldData) }}</span>
         </td>
     </template>
 </template>
@@ -65,7 +65,7 @@ import ContextMenu from "@/components/Core/Navigation/ContextMenu/ContextMenu";
 import QuoteDetail from "@/components/Core/QuoteDetail/QuoteDetail";
 import Popover from "@/components/Core/Popover/Popover";
 import { template } from "lodash";
-import * as formatters from "@/modules/useFormatter";
+import Base from "@/components/DataTable/Base";
 const props = defineProps({
     rowData: {
         type: Object,
@@ -78,65 +78,20 @@ const props = defineProps({
 });
 
 
-const field = computed(() => {
-    return columnProp('field');
-});
-const header = computed(() => {
-    return columnProp('header');
-});
 const updatePopover = ref(false);
-const hasChangeIndicatorFormat = ref(false);
-const rawFieldData = computed(() => ComponentUtils.resolveFieldData(props.rowData, field.value));
+const showQuoteHover = ref(false);
+const rawFieldData = computed(() => ComponentUtils.resolveFieldData(props.rowData, Base.field(props.column)));
 const cellClasses = computed(() => {
     return {
-        "fb-positive": hasChangeIndicatorFormat.value && rawFieldData.value > 0,
-        "fb-negative": hasChangeIndicatorFormat.value && rawFieldData.value < 0,
+        "fb-positive": Base.hasChangeIndicatorFormat(props.column) && rawFieldData.value > 0,
+        "fb-negative": Base.hasChangeIndicatorFormat(props.column) && rawFieldData.value < 0,
     }
 })
 
-const showQuoteHover = ref(false);
 // methods
-const resolveFieldData = () => {
-
-    let fieldData = rawFieldData.value;
-    if (fieldData === null || fieldData === "") {
-        return props.column.type.props.emptyString.default;
-    }
-    const formatter = columnProp('formatters')
-    let _formatters = formatter;
-    if (!Array.isArray(_formatters)) {
-        _formatters = [formatter]
-    }
-    _formatters.forEach(_formatter => {
-        fieldData = formatColumn(_formatter,fieldData)
-    });
-    return fieldData;
-}
-
-const formatColumn = (formatter, fieldData) => {
-    if (formatter) {
-        if (formatter === "currency") {
-            fieldData = formatters.formatCurrency(fieldData);
-        } else if (formatter === "percent") {
-            fieldData = formatters.formatPercent(fieldData);
-        } else if (formatter === "date") {
-            fieldData = formatters.formatDate(fieldData);
-        } else if (typeof formatter === "function") {
-            fieldData = formatter(fieldData);
-        } else if(formatter === "change-indicator") {
-            hasChangeIndicatorFormat.value = true;
-        }
-    }
-    return fieldData;
-}
-const columnProp = (prop) => {
-    return ComponentUtils.getVNodeProp(props.column, prop);
-};
 const handleHover = (isHover) => {
     showQuoteHover.value = isHover;
 }
-
-
 
 /**
  * parse menu items replacing template variables with rowData values

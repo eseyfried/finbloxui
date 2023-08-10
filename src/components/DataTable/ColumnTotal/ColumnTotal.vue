@@ -19,9 +19,13 @@ const props = defineProps({
         type: Object,
         default: null
     },
+    grouped: {
+        type: Boolean,
+        default: false
+    },
 });
 
-const rawFieldData = computed(() => Base.totalByColumn(props.rows, props.column));
+const rawFieldData = computed(() => Base.totalByColumn(props.rows, props.column, props.grouped));
 const cellClasses = computed(() => {
     return {
         "fb-positive": Base.hasChangeIndicatorFormat(props.column) && rawFieldData.value > 0,

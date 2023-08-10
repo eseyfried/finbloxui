@@ -26,8 +26,24 @@ const defaultDataTableOptions = (options = {}) => {
     }
 }
 
-const totalByColumn = (rows, column) => {
-    const columnData = rows.map(row => row.data ? row.data[column.props.field] : row[column.props.field]);
+const totalByColumn = (rows, column, grouped = false) => {
+    let columnData = null
+    /**
+     * handle totaling all rows when not grouped
+     */
+    if(!grouped && Array.isArray(rows[0].data)) {
+        columnData = rows.map(row => {
+            return row.data.reduce((accumulator, value) => parseFloat(accumulator) + parseFloat(value[column.props.field]), 0);
+        });
+    } 
+    /**
+     * handle totaling all rows when not grouped
+     */
+    else if (!grouped && typeof rows[0].data === 'object') {
+        columnData = rows.map(row => row.data[column.props.field]);
+    } else {
+        columnData = rows.map(row => row[column.props.field]);
+    }
     const total = columnData.reduce((accumulator, value) => parseFloat(accumulator) + parseFloat(value), 0);
     return isNaN(total) ? "" : total;
 }

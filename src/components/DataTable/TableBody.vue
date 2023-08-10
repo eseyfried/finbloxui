@@ -19,7 +19,7 @@
                     <template v-if="showTotals">
                         <tr role="row">
                             <template v-for="(column, i) in columns"  :key="i">
-                                <ColumnTotal :rows="data" :column="column" />
+                                <ColumnTotal :rows="data" :column="column" :grouped="true" />
                             </template>
                         </tr>
                     </template>
@@ -32,7 +32,7 @@
                     </template>
                 </tr>
             </template>
-            <template v-if="showTotals && !groupRowsBy">
+            <template v-if="showTotals">
                 <tr role="row">
                     <template v-for="(column, i) in columns"  :key="i">
                         <ColumnTotal :rows="rows" :column="column" />

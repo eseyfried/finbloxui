@@ -272,8 +272,15 @@
 /* DataTable */
 .fb-data-table-group-header {
     @apply font-bold;
+    & td {
+        @apply bg-gray-200;
+    }
 }
-
+.fb-data-table-group-footer {
+    & td {
+        @apply bg-gray-100 border-b-4 border-white;
+    }
+}
 /* ColumnSelector */
 .fb-column-selector {
     display: grid;

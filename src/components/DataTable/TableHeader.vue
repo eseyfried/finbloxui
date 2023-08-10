@@ -56,5 +56,8 @@ const onHeaderCellClearFilter = (column, clear) => {
 }
 </script>
 <style lang="scss" scoped>
-
+thead {
+    position: relative;
+    z-index: 1010;
+}
 </style>

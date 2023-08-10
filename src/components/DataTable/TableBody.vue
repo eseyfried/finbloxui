@@ -17,7 +17,7 @@
                         </tr>
                     </template>
                     <template v-if="showTotals">
-                        <tr role="row">
+                        <tr role="row" class="fb-data-table-group-footer">
                             <template v-for="(column, i) in columns"  :key="i">
                                 <ColumnTotal :rows="data" :column="column" :grouped="true" />
                             </template>
@@ -33,7 +33,7 @@
                 </tr>
             </template>
             <template v-if="showTotals">
-                <tr role="row">
+                <tr role="row" class="fb-data-table-group-footer">
                     <template v-for="(column, i) in columns"  :key="i">
                         <ColumnTotal :rows="rows" :column="column" />
                     </template>
@@ -72,11 +72,12 @@ const props = defineProps({
 
 </script>
 <style lang="scss" scoped>
+
 .fb-data-table-group-header {
     position: sticky;
-    z-index: -1;
     top: 35px;
 }
+
 /* Small & Large Mobile Devices */
 @media (max-width: 576px) {
     .fb-data-table-group-header {

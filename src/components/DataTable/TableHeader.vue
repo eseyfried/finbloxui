@@ -58,6 +58,6 @@ const onHeaderCellClearFilter = (column, clear) => {
 <style lang="scss" scoped>
 thead {
     position: relative;
-    z-index: 1010;
+    z-index: 1000;
 }
 </style>

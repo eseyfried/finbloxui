@@ -24,8 +24,8 @@ const props = defineProps({
 const rawFieldData = computed(() => Base.totalByColumn(props.rows, props.column));
 const cellClasses = computed(() => {
     return {
-        "fb-positive": Base.hasChangeIndicatorFormat && rawFieldData.value > 0,
-        "fb-negative": Base.hasChangeIndicatorFormat && rawFieldData.value < 0,
+        "fb-positive": Base.hasChangeIndicatorFormat(props.column) && rawFieldData.value > 0,
+        "fb-negative": Base.hasChangeIndicatorFormat(props.column) && rawFieldData.value < 0,
     }
 })
 

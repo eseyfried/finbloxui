@@ -1,9 +1,6 @@
 import * as formatters from "@/modules/useFormatter";
-import { ref, computed } from "vue";
 import ComponentUtils from "@/modules/ComponentUtils";
 
-
-const  hasChangeIndicatorFormat = ref(false);
 
 const columns = (slots, groupRowsBy) => {
     let children;
@@ -17,13 +14,8 @@ const columns = (slots, groupRowsBy) => {
 }
 
 const field = (column) => columnProp(column, 'field');
+
 const header = (column) => columnProp(column, 'header');
-// const field = computed(() => {
-//     return columnProp(props.column, 'field');
-// });
-// const header = computed(() => {
-//     return columnProp(props.column, 'header');
-// });
 
 const defaultDataTableOptions = (options = {}) => {
     return {
@@ -37,7 +29,7 @@ const defaultDataTableOptions = (options = {}) => {
 const totalByColumn = (rows, column) => {
     const columnData = rows.map(row => row[column.props.field]);
     const total = columnData.reduce((accumulator, value) => parseFloat(accumulator) + parseFloat(value), 0);
-    return total
+    return isNaN(total) ? "" : total;
 }
 
 const formatColumn = (formatter, fieldData) => {
@@ -50,11 +42,18 @@ const formatColumn = (formatter, fieldData) => {
             fieldData = formatters.formatDate(fieldData);
         } else if (typeof formatter === "function") {
             fieldData = formatter(fieldData);
-        } else if(formatter === "change-indicator") {
-            hasChangeIndicatorFormat.value = true;
         }
     }
     return fieldData;
+}
+
+const hasChangeIndicatorFormat = (column) => {
+    const formatters = columnProp(column, 'formatters');
+    let _formatters = formatters;
+    if (!Array.isArray(_formatters)) {
+        _formatters = [formatters]
+    }
+    return _formatters.includes("change-indicator");
 }
 
 const resolveFieldData = (column, rawFieldData) => {

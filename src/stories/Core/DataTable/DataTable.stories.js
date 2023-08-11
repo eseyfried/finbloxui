@@ -96,6 +96,18 @@ export default {
                 category: 'Props',
             },
             control: 'boolean'
+        },
+        groupedTotalsLocation: {
+            type: { name: "Boolean" },
+            defaultValue: true,
+            description: "Show column totals as a grouped footer or in the group header",
+            table: {
+                type: { summary: "String" },
+                defaultValue: { summary: "top" },
+                category: 'Props',
+            },
+            control: 'radio',
+            options: ["top", "bottom"]
         }
     },
 

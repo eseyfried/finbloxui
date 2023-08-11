@@ -17,6 +17,7 @@
                     :groupRowsBy="groupRowsBy"
                     :groupRowLabel="getGroupRowLabel()"
                     :showTotals="showTotals"
+                    :groupedTotalsLocation="groupTotalsLocationOveride"
                 />
             </table>
         </template>
@@ -25,6 +26,7 @@
 <script setup>
 import { ref, useSlots, computed, onMounted, nextTick } from "vue";
 import { filter as _filter, groupBy as _groupBy } from "lodash";
+import { isMobile } from "@/modules/useResponsive";
 import Base from "@/components/DataTable/Base";
 import VirtualScroll from "@/components/DataTable/virtualScroll";
 import TableHeader from "@/components/DataTable/TableHeader";
@@ -83,6 +85,16 @@ const props = defineProps({
         type: Boolean,
         default: false,
     },
+    /**
+     * location of grouped totals
+     */
+    groupedTotalsLocation: {
+        type: String,
+        default: "top",
+        validator: (value) => {
+            return ["top","bottom"].includes(value)
+        }
+    }
 });
 
 const emits = defineEmits(["column-click"]);
@@ -92,6 +104,7 @@ const defaultColumns = Base.columns(slots, props.groupRowsBy);
 const columns = ref(defaultColumns);
 const filteredRows = ref([]);
 const teleportComplete = ref(props.teleportTo ? false : true);
+const groupTotalsLocationOveride = isMobile ? "bottom" : props.groupedTotalsLocation;
 
 /**
  * stack of applied filters;

@@ -5,15 +5,17 @@
             <template v-if="groupRowsBy">
                 <template v-for="{groupKey, data, index} in rows" :key="index">
                     <tr role="row" class="fb-data-table-group-header">
-                        <td :colspan="columns.length" :data-cell="groupRowLabel" role="cell">
+                        <td :colspan="colspan" :data-cell="groupRowLabel" role="cell">
                             {{ groupKey }}
                         </td>
-                        <!-- <template v-for="(column, i) in columns" :key="i">
-                            <ColumnTotal :rows="data" :column="column" :grouped="true" v-if="column.props.showTotal" />
-                        </template> -->
-                        <!-- <template v-for="(cell, i) in fillerCells" :key="i">
-                            <td role="cell"></td>
-                        </template> -->
+                        <template v-if="showTotals && groupedTotalsLocation === 'top'">
+                            <template v-for="(column, i) in columns" :key="i">
+                                <ColumnTotal :rows="data" :column="column" :grouped="true" v-if="column.props.showTotal" />
+                            </template>
+                            <template v-for="(cell, i) in nonTotalColumns" :key="i">
+                                <td v-if="i < nonTotalColumns.length - 1" role="cell" class="fb-data-table-column-total"></td>
+                            </template>
+                        </template>
                     </tr>
                     <template v-for="(row, index) in data"  :key="index">
                         <tr role="row">
@@ -22,7 +24,7 @@
                             </template>
                         </tr>
                     </template>
-                    <template v-if="showTotals">
+                    <template v-if="showTotals && groupedTotalsLocation === 'bottom'">
                         <tr role="row" class="fb-data-table-group-footer">
                             <template v-for="(column, i) in columns" :key="i">
                                 <td v-if="nonTotalColumns.includes(column.props.field)" role="cell"></td>
@@ -50,6 +52,7 @@
     </tbody>
 </template>
 <script setup>
+import { computed } from "vue";
 import BodyCell from "@/components/DataTable/BodyCell";
 import ColumnTotal from "@/components/DataTable/ColumnTotal/ColumnTotal";
 // eslint-disable-next-line no-unused-vars
@@ -73,11 +76,19 @@ const props = defineProps({
     showTotals: {
         type: Boolean,
         default: false,
-    }
+    },
+    groupedTotalsLocation: {
+        type: String,
+        default: "top",
+    },
+    
 });
 
 const nonTotalColumns = props.columns.filter(column => !column.props.showTotal).map(column => column.props.field);
-console.log(nonTotalColumns)
+const colspan = computed(() => {
+    return props.showTotals && props.groupedTotalsLocation === "bottom" ? props.columns.length : null;
+});
+
 </script>
 <style lang="scss" scoped>
 

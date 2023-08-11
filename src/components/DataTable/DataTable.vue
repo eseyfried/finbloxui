@@ -86,6 +86,13 @@ const props = defineProps({
         default: false,
     },
     /**
+     * collapse grouped rows
+     */
+    collapsible: {
+        type: Boolean,
+        default: false,
+    },
+    /**
      * location of grouped totals
      */
     groupedTotalsLocation: {

@@ -108,7 +108,18 @@ export default {
             },
             control: 'radio',
             options: ["top", "bottom"]
-        }
+        },
+        collapsible: {
+            type: { name: "Boolean" },
+            defaultValue: false,
+            description: "Use in conjuction with `groupRowsBy` to make groups collapsible",
+            table: {
+                type: { summary: "Boolean" },
+                defaultValue: { summary: false },
+                category: 'Props',
+            },
+            control: 'boolean'
+        },
     },
 
 };
@@ -119,7 +130,8 @@ export default {
 export const BasicTable = {
     args: {
         rows: [],
-        showTotals: false
+        showTotals: false,
+        collapsible: false,
     },
     render: (args) => ({
       components: { DataTable, Column },

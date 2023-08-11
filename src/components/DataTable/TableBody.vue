@@ -6,7 +6,8 @@
                 <template v-for="{groupKey, data, index} in rows" :key="index">
                     <tr role="row" class="fb-data-table-group-header">
                         <td :colspan="colspan" :data-cell="groupRowLabel" role="cell">
-                            {{ groupKey }}
+                            <a href="#" v-if="collapsible" @click.prevent="handleGroupClick(groupKey)">{{ groupKey }}</a>
+                            <template v-else>{{ groupKey }}</template>
                         </td>
                         <template v-if="showTotals && groupedTotalsLocation === 'top'">
                             <template v-for="(column, i) in columns" :key="i">
@@ -18,7 +19,7 @@
                         </template>
                     </tr>
                     <template v-for="(row, index) in data"  :key="index">
-                        <tr role="row">
+                        <tr role="row" :class="{ 'hide': collapsible }" :data-group-id="groupKey">
                             <template v-for="(column, i) in columns" :key="i">
                                 <BodyCell :rowData="row" :column="column" />
                             </template>
@@ -81,14 +82,28 @@ const props = defineProps({
         type: String,
         default: "top",
     },
-    
+    collapsible: {
+        type: Boolean,
+        default: false,
+    },
 });
 
 const nonTotalColumns = props.columns.filter(column => !column.props.showTotal).map(column => column.props.field);
 const colspan = computed(() => {
     return props.showTotals && props.groupedTotalsLocation === "bottom" ? props.columns.length : null;
 });
-
+// methods
+const handleGroupClick = (groupKey) => {
+    const items = document.querySelectorAll(`tr[data-group-id=${groupKey}]`);
+    items.forEach((item) => {
+        if (item.classList.value.includes("hide")) {
+            item.classList.remove('hide');
+        } else {
+            item.classList.add('hide');
+        }
+        
+    });
+}
 </script>
 <style lang="scss" scoped>
 
@@ -96,9 +111,13 @@ const colspan = computed(() => {
     position: sticky;
     top: 35px;
 }
-tr:not(.fb-data-table-group-header) {
-    // display: none;
+.fb-data-table-group-header a {
+    display: block;
 }
+.hide {
+    display: none;
+}
+
 
 /* Small & Large Mobile Devices */
 @media (max-width: 576px) {

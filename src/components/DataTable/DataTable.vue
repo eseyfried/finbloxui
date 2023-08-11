@@ -18,6 +18,7 @@
                     :groupRowLabel="getGroupRowLabel()"
                     :showTotals="showTotals"
                     :groupedTotalsLocation="groupTotalsLocationOveride"
+                    :collapsible="collapsible"
                 />
             </table>
         </template>
@@ -111,7 +112,7 @@ const defaultColumns = Base.columns(slots, props.groupRowsBy);
 const columns = ref(defaultColumns);
 const filteredRows = ref([]);
 const teleportComplete = ref(props.teleportTo ? false : true);
-const groupTotalsLocationOveride = isMobile ? "bottom" : props.groupedTotalsLocation;
+const groupTotalsLocationOveride = isMobile.value ? "bottom" : props.groupedTotalsLocation;
 
 /**
  * stack of applied filters;

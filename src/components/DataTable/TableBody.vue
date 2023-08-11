@@ -87,7 +87,7 @@ const props = defineProps({
         default: false,
     },
 });
-
+console.log(props.collapsible)
 const nonTotalColumns = props.columns.filter(column => !column.props.showTotal).map(column => column.props.field);
 const colspan = computed(() => {
     return props.showTotals && props.groupedTotalsLocation === "bottom" ? props.columns.length : null;

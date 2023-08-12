@@ -19,7 +19,7 @@
                         </template>
                     </tr>
                     <template v-for="(row, index) in data"  :key="index">
-                        <tr role="row" :class="{ 'collapsed': collapsible }" :data-group-id="groupKey">
+                        <tr role="row" :class="{ 'collapsed': collapsible }" :data-group-id="`group-${generateGroupId(groupKey)}`">
                             <template v-for="(column, i) in columns" :key="i">
                                 <BodyCell :rowData="row" :column="column" />
                             </template>
@@ -91,10 +91,15 @@ const nonTotalColumns = props.columns.filter(column => !column.props.showTotal).
 const colspan = computed(() => {
     return props.showTotals && props.groupedTotalsLocation === "bottom" ? props.columns.length : null;
 });
+
 // methods
+const generateGroupId = (groupKey) => {
+    return groupKey.replace(/[^a-zA-Z0-9]/g, '');
+}
 const handleGroupClick = (e, groupKey) => {
+    const id = `group-${generateGroupId(groupKey)}`;
     const targetEl = e.target
-    const items = document.querySelectorAll(`tr[data-group-id=${groupKey}]`);
+    const items = document.querySelectorAll(`tr[data-group-id=${id}]`);
     items.forEach((item) => {
         if (item.classList.value.includes("collapsed")) {
             item.classList.remove('collapsed');
@@ -106,6 +111,7 @@ const handleGroupClick = (e, groupKey) => {
         
     });
 }
+
 </script>
 <style lang="scss" scoped>
 

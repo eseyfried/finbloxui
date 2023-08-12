@@ -6,7 +6,7 @@
                 <template v-for="{groupKey, data, index} in rows" :key="index">
                     <tr role="row" class="fb-data-table-group-header">
                         <td :colspan="colspan" :data-cell="groupRowLabel" role="cell">
-                            <a href="#" v-if="collapsible" @click.prevent="handleGroupClick(groupKey)">{{ groupKey }}</a>
+                            <a href="#" v-if="collapsible" @click.prevent="handleGroupClick($event, groupKey)">{{ groupKey }}</a>
                             <template v-else>{{ groupKey }}</template>
                         </td>
                         <template v-if="showTotals && groupedTotalsLocation === 'top'">
@@ -19,7 +19,7 @@
                         </template>
                     </tr>
                     <template v-for="(row, index) in data"  :key="index">
-                        <tr role="row" :class="{ 'hide': collapsible }" :data-group-id="groupKey">
+                        <tr role="row" :class="{ 'collapsed': collapsible }" :data-group-id="groupKey">
                             <template v-for="(column, i) in columns" :key="i">
                                 <BodyCell :rowData="row" :column="column" />
                             </template>
@@ -87,19 +87,21 @@ const props = defineProps({
         default: false,
     },
 });
-console.log(props.collapsible)
 const nonTotalColumns = props.columns.filter(column => !column.props.showTotal).map(column => column.props.field);
 const colspan = computed(() => {
     return props.showTotals && props.groupedTotalsLocation === "bottom" ? props.columns.length : null;
 });
 // methods
-const handleGroupClick = (groupKey) => {
+const handleGroupClick = (e, groupKey) => {
+    const targetEl = e.target
     const items = document.querySelectorAll(`tr[data-group-id=${groupKey}]`);
     items.forEach((item) => {
-        if (item.classList.value.includes("hide")) {
-            item.classList.remove('hide');
+        if (item.classList.value.includes("collapsed")) {
+            item.classList.remove('collapsed');
+            targetEl.classList.add('expanded');
         } else {
-            item.classList.add('hide');
+            item.classList.add('collapsed');
+            targetEl.classList.remove('expanded');
         }
         
     });
@@ -114,7 +116,7 @@ const handleGroupClick = (groupKey) => {
 .fb-data-table-group-header a {
     display: block;
 }
-.hide {
+.collapsed {
     display: none;
 }
 

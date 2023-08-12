@@ -441,3 +441,14 @@
 {
     text-align: right;
 }
+.fb-ugl-grid .fb-data-table-group-header a {
+    @apply no-underline !important;
+}
+.fb-ugl-grid .fb-data-table-group-header a::before {
+    content: "\f078";
+    font: var(--fa-font-solid);
+    @apply mr-3;
+}
+.fb-ugl-grid .fb-data-table-group-header a.expanded::before {
+    content: "\f077";
+}

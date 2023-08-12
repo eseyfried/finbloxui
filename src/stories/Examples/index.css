@@ -281,6 +281,11 @@
         @apply bg-gray-100 border-b-4 border-white;
     }
 }
+.fb-data-table-footer {
+    & td {
+        @apply border-b-0;
+    }
+}
 /* ColumnSelector */
 .fb-column-selector {
     display: grid;

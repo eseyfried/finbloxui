@@ -43,7 +43,7 @@
                 </tr>
             </template>
             <template v-if="showTotals">
-                <tr role="row" class="fb-data-table-group-footer">
+                <tr role="row" class="fb-data-table-footer">
                     <template v-for="(column, i) in columns"  :key="i">
                         <ColumnTotal :rows="rows" :column="column" />
                     </template>

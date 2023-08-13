@@ -8,19 +8,19 @@
                 <ColumnFilter filterType="text" operator="equality" />
             </Column>
             <Column field="security_description" header="Description" />
-            <Column field="quantity" header="Quantity" showTotal="true">
+            <Column field="quantity" header="Quantity" :showTotal="true">
                 <ColumnFilter filterType="text" operator="comparison" />
             </Column>
-            <Column field="cost_basis" header="Cost Basis" formatters="currency" showTotal="true">
+            <Column field="cost_basis" header="Cost Basis" formatters="currency" :showTotal="true">
                 <ColumnFilter filterType="text" operator="comparison" />
             </Column>
-            <Column field="price" header="Price" formatters="currency" showTotal="true">
+            <Column field="price" header="Price" formatters="currency">
                 <ColumnFilter filterType="text" operator="comparison" />
             </Column>
-            <Column field="market_value" header="Market Value" formatters="currency" showTotal="true">
+            <Column field="market_value" header="Market Value" formatters="currency" :showTotal="true">
                 <ColumnFilter filterType="text" operator="comparison" />
             </Column>
-            <Column field="unrealized_gl" header="Gain/Loss" :formatters="['change-indicator','currency']" showTotal="true">
+            <Column field="unrealized_gl" header="Gain/Loss" :formatters="['change-indicator','currency']" :showTotal="true">
                 <ColumnFilter filterType="text" operator="comparison" />
             </Column>
             <Column field="duration" header="Duration">

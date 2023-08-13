@@ -44,7 +44,7 @@ const totalByColumn = (rows, column, grouped = false) => {
     } else {
         columnData = rows.map(row => row[column.props.field]);
     }
-    const total = columnData.reduce((accumulator, value) => parseFloat(accumulator) + parseFloat(value), 0);
+    const total = columnData.reduce((accumulator, value) => parseFloat(accumulator) + parseFloat(value), 0);    
     return isNaN(total) ? "" : total;
 }
 

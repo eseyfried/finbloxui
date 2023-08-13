@@ -29,7 +29,7 @@ const props = defineProps({
         default: false
     },
 });
-const showTotal = Base.columnProp(props.column, 'showTotal');
+const showTotal = computed(() => Base.columnProp(props.column, 'showTotal'));
 const rawFieldData = computed(() => Base.totalByColumn(props.rows, props.column, props.grouped));
 const cellClasses = computed(() => {
     return {

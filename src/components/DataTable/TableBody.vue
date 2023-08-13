@@ -12,11 +12,12 @@
                         <!-- column total on top -->
                         <template v-if="showTotals && groupedTotalsLocation === 'top' && !isMobile">
                             <template v-for="(column, i) in columns" :key="i">
-                                <ColumnTotal :rows="data" :column="column" :grouped="true" v-if="column.props.showTotal" />
+                                <ColumnTotal :rows="data" :column="column" :grouped="true" v-if="column.props.showTotal && i > 0" />
+                                <td v-if="!column.props.showTotal && i > 0" role="cell" class="fb-data-table-column-total"></td>
                             </template>
-                            <template v-for="(cell, i) in nonTotalColumns" :key="i">
+                            <!-- <template v-for="(cell, i) in nonTotalColumns" :key="i">
                                 <td v-if="i < nonTotalColumns.length - 1" role="cell" class="fb-data-table-column-total"></td>
-                            </template>
+                            </template> -->
                         </template>
                     </tr>
                     <template v-for="(row, index) in data"  :key="index">
@@ -94,7 +95,7 @@ const nonTotalColumns = props.columns.filter(column => !column.props.showTotal).
 const colspan = computed(() => {
     return props.showTotals && props.groupedTotalsLocation === "bottom" ? props.columns.length : null;
 });
-
+console.log(nonTotalColumns)
 // methods
 const generateGroupId = (groupKey) => {
     return groupKey.replace(/[^a-zA-Z0-9]/g, '');

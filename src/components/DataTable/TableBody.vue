@@ -9,7 +9,8 @@
                             <a href="#" v-if="collapsible" @click.prevent="handleGroupClick($event, groupKey)">{{ groupKey }}</a>
                             <template v-else>{{ groupKey }}</template>
                         </td>
-                        <template v-if="showTotals && groupedTotalsLocation === 'top'">
+                        <!-- column total on top -->
+                        <template v-if="showTotals && groupedTotalsLocation === 'top' && !isMobile">
                             <template v-for="(column, i) in columns" :key="i">
                                 <ColumnTotal :rows="data" :column="column" :grouped="true" v-if="column.props.showTotal" />
                             </template>
@@ -25,6 +26,7 @@
                             </template>
                         </tr>
                     </template>
+                    <!-- column total on bottom -->
                     <template v-if="showTotals && groupedTotalsLocation === 'bottom'">
                         <tr role="row" class="fb-data-table-group-footer">
                             <template v-for="(column, i) in columns" :key="i">
@@ -56,6 +58,7 @@
 import { computed } from "vue";
 import BodyCell from "@/components/DataTable/BodyCell";
 import ColumnTotal from "@/components/DataTable/ColumnTotal/ColumnTotal";
+import { isMobile } from "@/modules/useResponsive";
 // eslint-disable-next-line no-unused-vars
 const props = defineProps({
     rows: {

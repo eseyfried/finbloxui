@@ -34,14 +34,15 @@ describe('ClientList', () => {
         expect(emitted.length).toBe(1);
     });
 
-    it('contact into section is rendered when clientCardOptions prop is passed', () => {
+    it('contact info section is rendered when clientCardOptions prop is passed', () => {
+        config.props.listType = "ClientCard";
         config.props.clientCardOptions = {};
         config.props.clientCardOptions.showContactInfo = true
-        const wrapper = mount(ClientList, config)
+        const wrapper = mount(ClientList, config);
         expect(wrapper.find(".fb-client-card-contact-info").exists()).toBe(true);
     })
 
-    it('contact into section is hidden by default', () => {
+    it('contact info section is hidden by default', () => {
         const wrapper = mount(ClientList, config)
         expect(wrapper.find(".fb-client-card-contact-info").exists()).toBe(false);
     })

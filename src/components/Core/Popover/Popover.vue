@@ -7,7 +7,6 @@
 </template>
 <script setup>
 // imports
-import * as formatters from "@/modules/useFormatter";
 import { createPopper } from "@popperjs/core";
 import { onMounted, ref, watch } from "vue"; 
 import { useEventListener, onClickOutside } from "@vueuse/core";
@@ -46,9 +45,6 @@ onMounted(async () => {
         onClickOutside(toggleElement, hide)
     }
     
-
-    // const element = document.querySelector('.fb-positions-grid');
-    // console.log(element)
 
   popperInstance.value = createPopper(toggleElement, tooltip.value, {
     placement: 'auto',

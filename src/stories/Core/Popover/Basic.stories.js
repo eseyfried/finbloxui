@@ -1,25 +1,21 @@
-import { ref } from "vue";
-import { storeToRefs } from "pinia";
-import { useDemoStore } from "@/stories/stores/store";
 import Popover from '@/components/Core/Popover/Popover.vue';
 
-let defaultClient = ref({}); // <--- CHANGE THIS
+
+// eslint-disable-next-line storybook/story-exports
 export default {
     title: 'Example/Core/Popover',
     args: {
-        client: defaultClient // <--- CHANGE THIS
+        trigger: "click",
+        selector: "#show"
     },
     render: (args) => ({
       components: { Popover },
       setup() {
-        const { clients } = storeToRefs(useDemoStore()); // <--- CHANGE THIS
-        args.client = ref(clients.value[0]); // <--- CHANGE THIS
-        defaultClient.value = args.client; // <--- CHANGE THIS
         return { args };
       },
       template: `
       <button id="show">show</button>
-      <Popover selector="#show" trigger="hover">
+      <Popover :selector="args.selector">
         <div>tool tip</div>
       </Popover>
       
@@ -28,10 +24,15 @@ export default {
     parameters: {
         docs: {
             description: {
-                story: "The basic use of the Popover component.",
+                story: "The basic use of the Popover component involves wrapping your content with the `Popover` component.",
             },
             source: {
-                code: `<Popover :client="client" />` // <--- CHANGE THIS
+                code: `
+<button id="show">show</button>
+<Popover selector="#show" trigger="click">
+    <div>tool tip</div>  <-- Slot your custom content here
+</Popover>                
+                `
             }
         }
     }

@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-    <td :data-cell="Base.header(column)" role="cell" :class="{ 'fb-data-table-column-total': showTotal }">
+    <td :data-cell="Base.header(column)" role="cell" class="fb-column-total" :class="{ 'fb-column-total fb-data-table-column-total': showTotal }">
         <span
             :class="cellClasses"
             v-if="showTotal"
@@ -29,6 +29,7 @@ const props = defineProps({
         default: false
     },
 });
+
 const showTotal = computed(() => Base.columnProp(props.column, 'showTotal'));
 const rawFieldData = computed(() => Base.totalByColumn(props.rows, props.column, props.grouped));
 const cellClasses = computed(() => {

@@ -95,7 +95,7 @@ const nonTotalColumns = props.columns.filter(column => !column.props.showTotal).
 const colspan = computed(() => {
     return props.showTotals && props.groupedTotalsLocation === "bottom" ? props.columns.length : null;
 });
-console.log(nonTotalColumns)
+
 // methods
 const generateGroupId = (groupKey) => {
     return groupKey.replace(/[^a-zA-Z0-9]/g, '');

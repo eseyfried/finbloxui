@@ -24,7 +24,6 @@ import * as CustomTemplateStory from './CustomTemplate.stories';
                 defaultValue: { summary: "[ { name: 'column name', label: 'column text label  }, { name: 'column name', label: 'column text label  } ]" },
                 category: 'Props',
             },
-            control: false
         },
         "fb-column-selector-selected:click": {
             description: "Event emitted when a column item is clicked. The array of all selected column names are passed to the event handler",

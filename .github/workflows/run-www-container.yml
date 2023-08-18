@@ -16,6 +16,8 @@ jobs:
           key: ${{ secrets.DIGITALOCEAN_SSH_KEY }}
           debug: true
           script: |
+            # create network
+            docker network create -d bridge finbloxui-network
             # stop container
             docker stop ${{ env.WWW_CONTAINER_NAME }}
             # remove container

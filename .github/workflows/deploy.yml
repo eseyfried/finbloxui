@@ -25,13 +25,13 @@ jobs:
           script: |
             # login to registry
             docker login -u ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }} -p ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }} registry.digitalocean.com
-  #           # stop running containers
-  #           docker stop ${{ env.WWW_CONTAINER_NAME }}
-  #           # remove running containers
-  #           docker rm ${{ env.WWW_CONTAINER_NAME }}
-  #           # Pull latest images
-  #           docker pull ${{ env.REGISTRY }}/${{ env.WWW_IMAGE_NAME }}:${{ github.event.inputs.version }} 
-  # run-www-container:
-  #   needs: deploy
-  #   uses: eseyfried/finbloxui/.github/workflows/run-www-container.yml@main
-  #   secrets: inherit  
+            # stop running containers
+            docker stop ${{ env.WWW_CONTAINER_NAME }}
+            # remove running containers
+            docker rm ${{ env.WWW_CONTAINER_NAME }}
+            # Pull latest images
+            docker pull ${{ env.REGISTRY }}/${{ env.WWW_IMAGE_NAME }}:${{ github.event.inputs.version }} 
+  run-www-container:
+    needs: deploy
+    uses: eseyfried/finbloxui/.github/workflows/run-www-container.yml@main
+    secrets: inherit  

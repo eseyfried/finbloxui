@@ -1,0 +1,29 @@
+name: Run WWW Container
+on: [workflow_call, workflow_dispatch]
+env:
+  REGISTRY: "registry.digitalocean.com/sports-camp-360"
+  WWW_CONTAINER_NAME: "www"
+  WWW_IMAGE_NAME: "finbloxui-www"
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Run WWW container"
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.DROPLET_HOST }}
+          username: ${{ secrets.DROPLET_USERNAME }}
+          key: ${{ secrets.DIGITALOCEAN_SSH_KEY }}
+          debug: true
+          script: |
+            # stop container
+            docker stop ${{ env.WWW_CONTAINER_NAME }}
+            # remove container
+            docker rm ${{ env.WWW_CONTAINER_NAME }}
+            # run container
+            docker run -d \
+            --restart always \
+            --name ${{ env.WWW_CONTAINER_NAME }} \
+            -p 80:80 \
+            --network finbloxui-network \
+            ${{ env.REGISTRY }}/${{ env.WWW_IMAGE_NAME }}

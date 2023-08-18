@@ -1,0 +1,44 @@
+name: Deploy
+on:
+  workflow_call:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Image Version"
+        required: true
+env:
+  REGISTRY: "registry.digitalocean.com/sports-camp-360"
+  WWW_IMAGE_NAME: "finbloxui-www"
+  WWW_CONTAINER_NAME: "www"
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Deploy to Digital Ocean droplet via ssh Action"
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.DROPLET_HOST }}
+          username: ${{ secrets.DROPLET_USERNAME }}
+          key: ${{ secrets.DIGITALOCEAN_SSH_KEY }}
+          debug: true
+          envs: WWW_IMAGE_NAME,WWW_CONTAINER_NAME,${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }},GITHUB_SHA
+          script: |
+            # login to registry
+            docker login -u ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }} -p ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }} registry.digitalocean.com
+            # stop running containers
+            docker stop ${{ env.WWW_CONTAINER_NAME }}
+            # remove running containers
+            docker rm ${{ env.WWW_CONTAINER_NAME }}
+            # Pull latest images
+            docker pull ${{ env.REGISTRY }}/${{ env.WWW_IMAGE_NAME }}:${{ github.event.inputs.version }}
+            # Run www container
+            # docker run -d \
+            # --restart always \
+            # --name ${{ env.WWW_CONTAINER_NAME }} \
+            # -p 80:80 \
+            # --network finbloxui-network \
+            # ${{ env.REGISTRY }}/${{ env.WWW_IMAGE_NAME }}   
+  run-www-container:
+    needs: deploy
+    uses: eseyfried/finbloxui/.github/workflows/run-www-container.yml@main
+    secrets: inherit  

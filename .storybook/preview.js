@@ -1,4 +1,8 @@
 /** @type { import('@storybook/vue3').Preview } */
+import { withThemeByDataAttribute } from '@storybook/addon-styling';
+// import "../src/assets/tailwind.css";
+import "tailwindcss/tailwind.css";
+import "..//src/stories/Examples/index.css"
 
 const preview = {
   parameters: {
@@ -12,9 +16,19 @@ const preview = {
   }
 }
 
+export default preview;
 
+export const decorators = [
+  withThemeByDataAttribute({
+    themes: {
+      light: 'light',
+      dark: 'dark',
+    },
+    defaultTheme: 'light',
+    attributeName: 'data-mode',
+  }),
+];
 
-export default preview
 
 import { setup } from '@storybook/vue3'
 import { createPinia } from 'pinia';

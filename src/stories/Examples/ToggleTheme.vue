@@ -8,7 +8,7 @@ import { ref, watchEffect } from "vue";
 const toggleTheme = ref(false);
 watchEffect(() => {
     const themeFiles = [
-        "./node_modules/tailwindcss/tailwind.css",
+        // "./node_modules/tailwindcss/tailwind.css",
         "./src/assets/fontawesome/css/fontawesome.css",
         "./src/assets/fontawesome/css/brands.css",
         "./src/assets/fontawesome/css/solid.css",

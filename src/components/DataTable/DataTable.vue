@@ -29,7 +29,7 @@ import { ref, useSlots, computed, onMounted, nextTick } from "vue";
 import { filter as _filter, groupBy as _groupBy } from "lodash";
 import { isMobile } from "@/modules/useResponsive";
 import Base from "@/components/DataTable/Base";
-import VirtualScroll from "@/components/DataTable/virtualScroll";
+import VirtualScroll from "@/components/DataTable/VirtualScroll";
 import TableHeader from "@/components/DataTable/TableHeader";
 import TableBody from "@/components/DataTable/TableBody";
 import ColumnSelector from "@/components/DataTable/ColumnSelector/ColumnSelector";

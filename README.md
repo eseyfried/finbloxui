@@ -57,3 +57,15 @@ Then from `/src` run:
 ```sh
 hygen component with-prompt
 ```
+
+### Production Build
+from within project root:
+
+#### docker build
+ ```sh
+ docker build --progress=plain --no-cache --build-arg env=dev -f ./infra/configs/www/Dockerfile .
+ ```
+#### docker run
+```sh
+docker run --name finbloxui-www -p 7080:80 <IMAGE>
+```

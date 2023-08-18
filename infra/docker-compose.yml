@@ -1,0 +1,27 @@
+version: '3'
+services:
+  nginx:
+    image: finbloxui-www
+    container_name: finbloxui-www
+    restart: unless-stopped
+    tty: true
+    build:
+      context: ./configs/www
+      args:
+        env: dev
+    volumes:
+      - ./:/usr/src
+      # this allows npm to successfully install all modules
+      - /usr/src/node_modules
+    ports:
+      - 7080:80
+    networks:
+      - finbloxui-network
+#Docker Networks
+networks:
+  finbloxui-network:
+    driver: bridge
+#Volumes
+volumes:
+  lbdata:
+    driver: local

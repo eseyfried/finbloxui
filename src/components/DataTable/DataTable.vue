@@ -146,7 +146,6 @@ const onColumnHeaderApplyFilter = (filter) => {
     // queue filter in stack
     filterStack.value[filter.field] = filter;
     
-    // filteredRows.value = columnFilter(filter, props.rows);
     filteredRows.value = applyFilters();
     hasFilters.value = true;
 };
@@ -236,10 +235,10 @@ const transformColumns = (columns) => {
 
 const groupRows = (rows) => {
     if (!props.groupRowsBy) {
-        return props.rows;
+        return rows;
     }
     if (!props.rows[0][props.groupRowsBy]) {
-        return props.rows;
+        return rows;
     }
     return _groupBy(rows, props.groupRowsBy)
 };

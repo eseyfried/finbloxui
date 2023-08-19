@@ -1,0 +1,3 @@
+html[data-mode='theme-1'] .fb-positions-grid th {
+    @apply bg-slate-50;
+}

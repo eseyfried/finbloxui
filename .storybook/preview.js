@@ -1,8 +1,13 @@
 /** @type { import('@storybook/vue3').Preview } */
 import { withThemeByDataAttribute } from '@storybook/addon-styling';
-// import "../src/assets/tailwind.css";
-import "tailwindcss/tailwind.css";
-import "..//src/stories/Examples/index.css"
+// import "tailwindcss/tailwind.css";
+import "../src/assets/fontawesome/css/fontawesome.css";
+import "../src/assets/fontawesome/css/brands.css";
+import "../src/assets/fontawesome/css/solid.css";
+import "../src/stories/Examples/preflight.scss"
+import "../src/stories/Examples/index.css"
+import "../src/stories/Examples/themes/theme-1.css"
+
 
 const preview = {
   parameters: {
@@ -18,13 +23,17 @@ const preview = {
 
 export default preview;
 
+
 export const decorators = [
   withThemeByDataAttribute({
     themes: {
-      light: 'light',
-      dark: 'dark',
+    //   light: 'light',
+    //   dark: 'dark',
+      headless: 'headless',
+      'theme 1': 'theme-1',
+      'theme 2': 'theme 2',
     },
-    defaultTheme: 'light',
+    defaultTheme: 'headless',
     attributeName: 'data-mode',
   }),
 ];

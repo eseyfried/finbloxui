@@ -17,7 +17,7 @@ import * as CustomTemplateStory from './CustomTemplate.stories';
  * > As a user, I want to filter my data table by a columns value or values so that I can refine the view of data I am looking at
  */
  export default {
-    title: 'Example/Core/DataTable/ColumnFilter',
+    title: 'Library/Core/DataTable/ColumnFilter',
     component: { ColumnFilter },
     tags: ['autodocs'],
     argTypes: {

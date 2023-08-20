@@ -1,7 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
     <div class="page">
-        <ToggleTheme :class="['primary-button']" />
         <h1 class="mb-5">Dashboard</h1>
         <div class="grid grid-cols-3 gap-4 mb-5">
             <div :class="dataPointClasses" class="icon aum fb-data-point-icon">

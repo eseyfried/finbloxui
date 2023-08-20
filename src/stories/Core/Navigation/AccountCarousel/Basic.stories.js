@@ -6,7 +6,7 @@ import AccountCarousel from '@/components/Core/Navigation/AccountCarousel.vue';
 // eslint-disable-next-line storybook/story-exports
 let defaultAccounts = ref([]);
 export default {
-    title: 'Example/Core/Navigation/AccountCarousel',
+    title: 'Library/Core/Navigation/AccountCarousel',
     args: {
         accounts: defaultAccounts
     },

@@ -5,7 +5,7 @@ import QuoteDetail from '@/components/Core/QuoteDetail/QuoteDetail.vue';
 
 // eslint-disable-next-line storybook/story-exports
 export default {
-    title: 'Example/Core/QuoteDetail',
+    title: 'Library/Core/QuoteDetail',
     args: {
         showDetails: true,
         symbol: null,

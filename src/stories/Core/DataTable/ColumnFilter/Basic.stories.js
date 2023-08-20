@@ -3,7 +3,7 @@ import ColumnFilter from '@/components/DataTable/ColumnFilter/ColumnFilter.vue';
 
 
 export default {
-    title: 'Example/Core/DataTable/ColumnFilter',
+    title: 'Library/Core/DataTable/ColumnFilter',
     args: {
         filterType: "text",
         buttonLabel: "...",

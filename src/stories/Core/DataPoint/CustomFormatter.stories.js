@@ -2,7 +2,7 @@ import DataPoint from '@/components/Core/DataPoint.vue';
 
 // eslint-disable-next-line storybook/story-exports
 export default {
-    title: 'Example/Core/DataPoint',
+    title: 'Library/Core/DataPoint',
     args: {
         dataPoint: {
             label: "YTD AUM",

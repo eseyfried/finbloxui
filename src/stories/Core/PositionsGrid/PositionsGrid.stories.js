@@ -17,7 +17,7 @@ import * as ColumnFilterStory from './ColumnFilter.stories';
  * actions.
  */
  export default {
-    title: 'Example/Core/PositionsGrid',
+    title: 'Library/Core/PositionsGrid',
     component: { PositionsGrid, Column },
     tags: ['autodocs'],
     argTypes: {

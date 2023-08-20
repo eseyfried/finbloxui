@@ -11,7 +11,7 @@ import * as CustomTemplateStory from './CustomTemplate.stories';
  */
 
 export default {
-    title: 'Example/Advisor/Clients/ClientListItem',
+    title: 'Library/Advisor/Clients/ClientListItem',
     component: { ClientListItem },
     tags: ['autodocs'],
     argTypes: {

@@ -5,7 +5,7 @@ import ContextMenu from '@/components/Core/Navigation/ContextMenu/ContextMenu.vu
 let defaultMenuItems = ref({});
 
 export default {
-    title: 'Example/Core/Navigation/ContextMenu',
+    title: 'Library/Core/Navigation/ContextMenu',
     args: {
         menuItems: defaultMenuItems
     },

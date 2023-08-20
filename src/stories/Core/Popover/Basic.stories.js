@@ -3,7 +3,7 @@ import Popover from '@/components/Core/Popover/Popover.vue';
 
 // eslint-disable-next-line storybook/story-exports
 export default {
-    title: 'Example/Core/Popover',
+    title: 'Library/Core/Popover',
     args: {
         trigger: "click",
         selector: "#show"

@@ -9,7 +9,7 @@ import <%=h.inflection.camelize(name)%> from '@/components/<%=path%>/<%=h.inflec
 let defaultClient = ref({}); // <--- CHANGE THIS
 
 export default {
-    title: 'Example/<%=path%>/<%=h.inflection.camelize(name)%>',
+    title: 'Library/<%=path%>/<%=h.inflection.camelize(name)%>',
     args: {
         client: defaultClient // <--- CHANGE THIS
     },

@@ -11,7 +11,7 @@ import * as CustomTemplateStory from './CustomTemplate.stories';
  * > As a user, I want to ... so that I can ...
  */
  export default {
-    title: 'Example/Core/DataTable/ColumnTotal',
+    title: 'Library/Core/DataTable/ColumnTotal',
     component: { ColumnTotal },
     tags: ['autodocs'],
     argTypes: {

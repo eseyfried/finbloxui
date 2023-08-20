@@ -2,7 +2,7 @@ import { within, userEvent } from '@storybook/testing-library';
 import MyPage from './Page.vue';
 
 export default {
-  title: 'Example/Page',
+  title: 'Library/Page',
   component: MyPage,
   parameters: {
     // More on how to position stories at: https://storybook.js.org/docs/vue/configure/story-layout

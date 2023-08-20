@@ -11,7 +11,7 @@ import * as CustomTemplateStory from './CustomTemplate.stories';
  * > As a user, I want to see a list of available columns so that I can select which ones I'd like to see in my data table.
  */
  export default {
-    title: 'Example/Core/DataTable/ColumnSelector',
+    title: 'Library/Core/DataTable/ColumnSelector',
     component: { ColumnSelector },
     tags: ['autodocs'],
     argTypes: {

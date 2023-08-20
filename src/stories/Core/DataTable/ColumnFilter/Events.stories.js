@@ -4,7 +4,7 @@ import ColumnFilter from '@/components/DataTable/ColumnFilter/ColumnFilter.vue';
 
 // eslint-disable-next-line storybook/story-exports
 export default {
-    title: 'Example/Core/DataTable/ColumnFilter',
+    title: 'Library/Core/DataTable/ColumnFilter',
     args: {
         filterType: "text",
         selectOptions: ["some text", 'some other text', 'some other text'],

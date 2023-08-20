@@ -6,7 +6,7 @@ import ClientCard from '@/components/Advisor/Clients/ClientCard.vue';
 
 let defaultClient = ref({});
 export default {
-    title: 'Example/Advisor/Clients/ClientCard',
+    title: 'Library/Advisor/Clients/ClientCard',
     args: {
         client: defaultClient
     },

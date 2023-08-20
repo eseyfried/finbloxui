@@ -12,7 +12,7 @@ import * as CustomTemplateStory from './CustomTemplate.stories';
  * > As a user, I want to select from a list of possible menu options in the context of specific content so that I can quickly complete a task.
  */
  export default {
-    title: 'Example/Core/Navigation/ContextMenu',
+    title: 'Library/Core/Navigation/ContextMenu',
     component: { ContextMenu },
     tags: ['autodocs'],
     argTypes: {

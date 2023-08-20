@@ -15,7 +15,7 @@ import * as CustomAccountTemplateStory from './CustomAccountTemplate.stories';
  * The carousel displays navigational left/right buttons on non-mobile viewports while allowing touch navigation on mobile.
  */
 export default {
-    title: 'Example/Core/Navigation/AccountCarousel',
+    title: 'Library/Core/Navigation/AccountCarousel',
     component: { AccountCarousel },
     tags: ['autodocs'],
     argTypes: {

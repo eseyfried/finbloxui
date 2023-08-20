@@ -1,7 +1,7 @@
 /* eslint-disable storybook/story-exports */
 import DataDefinitions from '../DataDefinitions.vue';
 export default {
-    title: 'Example/DataDefinitions/ClientObject',
+    title: 'Library/DataDefinitions/ClientObject',
     render: () => ({
         components: {
             DataDefinitions,

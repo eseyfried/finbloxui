@@ -14,7 +14,7 @@ import * as CustomTemplateStory from './CustomTemplate.stories';
  * > As a user, I want to ... so that I can ...
  */
  export default {
-    title: 'Example/<%=path%>/<%=h.inflection.camelize(name)%>',
+    title: 'Library/<%=path%>/<%=h.inflection.camelize(name)%>',
     component: { <%=h.inflection.camelize(name)%> },
     tags: ['autodocs'],
     argTypes: {

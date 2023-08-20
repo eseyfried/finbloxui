@@ -4,7 +4,7 @@ import ContextMenu from '@/components/Core/Navigation/ContextMenu/ContextMenu.vu
 // eslint-disable-next-line storybook/story-exports
 let defaultMenuItems = ref({});
 export default {
-    title: 'Example/Core/Navigation/ContextMenu',
+    title: 'Library/Core/Navigation/ContextMenu',
     args: {
         buttonLabel: "...",
         menuItems: defaultMenuItems

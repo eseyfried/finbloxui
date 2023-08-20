@@ -6,7 +6,7 @@ import { ref } from "vue";
 
 // eslint-disable-next-line storybook/story-exports
 export default {
-    title: 'Example/Core/DataTable/Column/ActionMenuColumn',
+    title: 'Library/Core/DataTable/Column/ActionMenuColumn',
     args: {
         rows: []
     },

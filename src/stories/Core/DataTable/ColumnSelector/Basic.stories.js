@@ -2,7 +2,7 @@ import ColumnSelector from '@/components/DataTable/ColumnSelector/ColumnSelector
 
 // eslint-disable-next-line storybook/story-exports
 export default {
-    title: 'Example/Core/DataTable/ColumnSelector',
+    title: 'Library/Core/DataTable/ColumnSelector',
     args: {
         columns: [
             { name: 'column_1', label: 'Column 1'},

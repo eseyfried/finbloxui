@@ -6,7 +6,7 @@ import Popover from '@/components/Core/Popover/Popover.vue';
 
 let defaultClient = ref({}); // <--- CHANGE THIS
 export default {
-    title: 'Example/Core/Popover',
+    title: 'Library/Core/Popover',
     args: {
         client: defaultClient // <--- CHANGE THIS
     },

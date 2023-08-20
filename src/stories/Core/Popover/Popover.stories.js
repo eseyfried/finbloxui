@@ -11,7 +11,7 @@ import * as BasicStory from './Basic.stories';
  * > As a user, I want to hover over a symbol and see the current quote, bid, ask, etc. of the security so that I can quickly make a trading decision.
  */
  export default {
-    title: 'Example/Core/Popover',
+    title: 'Library/Core/Popover',
     component: { Popover },
     tags: ['autodocs'],
     argTypes: {

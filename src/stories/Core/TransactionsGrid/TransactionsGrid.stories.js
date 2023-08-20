@@ -15,7 +15,7 @@ import * as ColumnFilterStory from './ColumnFilter.stories';
  * > As a user, I want to see my account transaction data in a way that I can refine the view to better understand activity on my account.
  */
  export default {
-    title: 'Example/Core/TransactionsGrid',
+    title: 'Library/Core/TransactionsGrid',
     component: { TransactionsGrid, Column },
     tags: ['autodocs'],
     argTypes: {

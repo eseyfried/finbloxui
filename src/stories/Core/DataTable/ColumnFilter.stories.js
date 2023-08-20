@@ -7,7 +7,7 @@ import { ref } from "vue";
 
 // eslint-disable-next-line storybook/story-exports
 export default {
-    title: 'Example/Core/DataTable/ColumnFilter',
+    title: 'Library/Core/DataTable/ColumnFilter',
     args: {
         rows: []
     },

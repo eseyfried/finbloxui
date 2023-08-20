@@ -4,7 +4,7 @@ import * as DataPointObjectStory from './DataPointObject.stories'
 import * as MenuItemObjectStory from './MenuItemObject.stories'
 
 export default {
-  title: 'Example/DataDefinitions',
+  title: 'Library/DataDefinitions',
 //   component: DataDefinitions,
 //   parameters: {
 //     // More on how to position stories at: https://storybook.js.org/docs/vue/configure/story-layout

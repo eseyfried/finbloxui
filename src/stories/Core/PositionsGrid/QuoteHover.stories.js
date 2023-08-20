@@ -8,7 +8,7 @@ import QuoteDetail from '@/components/Core/QuoteDetail/QuoteDetail.vue';
 // eslint-disable-next-line storybook/story-exports
 let defaultPositions = ref({});
 export default {
-    title: 'Example/Core/PositionsGrid',
+    title: 'Library/Core/PositionsGrid',
     args: {
         positions: defaultPositions
     },

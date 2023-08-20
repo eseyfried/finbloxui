@@ -7,7 +7,7 @@ import { ref } from "vue";
 // eslint-disable-next-line storybook/story-exports
 let defaultTransactions = ref({});
 export default {
-    title: 'Example/Core/TransactionsGrid',
+    title: 'Library/Core/TransactionsGrid',
     args: {
         rows: []
     },

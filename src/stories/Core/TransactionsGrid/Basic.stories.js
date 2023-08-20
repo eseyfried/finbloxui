@@ -8,7 +8,7 @@ import ColumnFilter from '@/components/DataTable/ColumnFilter/ColumnFilter.vue';
 // eslint-disable-next-line storybook/story-exports
 let defaultTransactions = ref({});
 export default {
-    title: 'Example/Core/TransactionsGrid',
+    title: 'Library/Core/TransactionsGrid',
     args: {
         transactions: defaultTransactions,
         dataTableOptions: {

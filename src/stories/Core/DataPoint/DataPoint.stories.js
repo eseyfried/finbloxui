@@ -13,7 +13,7 @@ import * as EventsStory from './Events.stories';
  */
 
 export default {
-    title: 'Example/Core/DataPoint',
+    title: 'Library/Core/DataPoint',
     component: { DataPoint },
     tags: ['autodocs'],
     argTypes: {

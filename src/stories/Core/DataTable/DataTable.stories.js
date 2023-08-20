@@ -23,7 +23,7 @@ import * as ColumnFilterStory from './ColumnFilter.stories';
  * ```
  */
 export default {
-    title: 'Example/Core/DataTable/DataTable',
+    title: 'Library/Core/DataTable/DataTable',
     component: { DataTable, Column },
     tags: ['autodocs'],
     argTypes: {

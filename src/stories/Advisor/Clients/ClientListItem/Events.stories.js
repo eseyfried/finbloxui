@@ -6,7 +6,7 @@ import ClientListItem from '@/components/Advisor/Clients/ClientListItem.vue';
 
 let defaultClient = ref({});
 export default {
-    title: 'Example/Advisor/Clients/ClientListItem',
+    title: 'Library/Advisor/Clients/ClientListItem',
     args: {
         client: defaultClient
     },

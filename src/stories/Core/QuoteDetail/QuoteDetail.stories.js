@@ -12,7 +12,7 @@ import * as AsyncCallbackStory from './AsyncCallback.stories';
  * > As a user, I want to ... so that I can ...
  */
  export default {
-    title: 'Example/Core/QuoteDetail',
+    title: 'Library/Core/QuoteDetail',
     component: { QuoteDetail },
     tags: ['autodocs'],
     argTypes: {

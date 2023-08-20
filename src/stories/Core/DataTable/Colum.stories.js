@@ -21,7 +21,7 @@ import { ref } from "vue";
  * ```
  */
 export default {
-    title: 'Example/Core/DataTable/Column',
+    title: 'Library/Core/DataTable/Column',
     component: { DataTable, Column },
     tags: ['autodocs'],
     argTypes: {

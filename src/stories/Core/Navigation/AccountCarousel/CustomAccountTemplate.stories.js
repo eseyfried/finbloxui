@@ -9,7 +9,7 @@ import { formatCurrency } from "@/modules/useFormatter";
 let defaultAccounts = ref([]);
 
 export default {
-    title: 'Example/Core/Navigation/AccountCarousel',
+    title: 'Library/Core/Navigation/AccountCarousel',
     args: {
         accounts: defaultAccounts
     },

@@ -1,6 +1,6 @@
 import Card from '../components/Card.vue';
 export default {
-    title: 'Example/Card',
+    title: 'Library/Card',
     component: Card,
     tags: ['autodocs'],
     argTypes: {},

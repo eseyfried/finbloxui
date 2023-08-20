@@ -6,7 +6,7 @@ import ColumnTotal from '@/components/DataTable/ColumnTotal/ColumnTotal.vue';
 let defaultClient = ref({}); // <--- CHANGE THIS
 
 export default {
-    title: 'Example/Core/DataTable/ColumnTotal',
+    title: 'Library/Core/DataTable/ColumnTotal',
     args: {
         client: defaultClient // <--- CHANGE THIS
     },

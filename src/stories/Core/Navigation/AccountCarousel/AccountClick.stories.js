@@ -8,7 +8,7 @@ import AccountCarousel from '@/components/Core/Navigation/AccountCarousel.vue';
 let defaultAccounts = ref([]);
 
 export default {
-    title: 'Example/Core/Navigation/AccountCarousel',
+    title: 'Library/Core/Navigation/AccountCarousel',
     args: {
         accounts: defaultAccounts
     },

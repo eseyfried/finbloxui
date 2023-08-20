@@ -6,7 +6,7 @@ import PositionsGrid from '@/components/Core/PositionsGrid/PositionsGrid.vue';
 let defaultClient = ref({}); // <--- CHANGE THIS
 
 export default {
-    title: 'Example/Core/PositionsGrid',
+    title: 'Library/Core/PositionsGrid',
     args: {
         client: defaultClient // <--- CHANGE THIS
     },

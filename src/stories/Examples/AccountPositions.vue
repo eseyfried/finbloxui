@@ -2,6 +2,7 @@
 <template>
     <div class="page">
         <h1 class="mb-5">Positions</h1>
+        <AccountCarousel :accounts="accounts" @fb-account-carousel:click="handleAccountClick($event)" />
         <PositionsGrid :positions="positions">
             <Column field="symbol" header="Symbol" type="quote" :quoteDetailOptions="quoteDetailOptions">
                 <ColumnFilter filterType="text" operator="equality" />
@@ -27,11 +28,11 @@
 import { ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useDemoStore } from "@/stories/stores/store";
-import ToggleTheme from "./ToggleTheme";
+import AccountCarousel from '@/components/Core/Navigation/AccountCarousel.vue';
 import PositionsGrid from '@/components/Core/PositionsGrid/PositionsGrid.vue';
 import Column from '@/components/DataTable/Column.vue';
 import ColumnFilter from '@/components/DataTable/ColumnFilter/ColumnFilter.vue';
-const { positions } = storeToRefs(useDemoStore());
+const { positions, accounts } = storeToRefs(useDemoStore());
 import { faker } from "@faker-js/faker";
 
 const fetchQuote = async (symbol) => {
@@ -67,6 +68,10 @@ const contextMenuOptions = {
             { url: "some-url?id=<%=id%>&symbol=<%=symbol%>", label: "Company News" },
             { url: null, label: "Trade", callback: (item, rowData) => { console.log(item), console.log(rowData) } },
         ]
+}
+const handleAccountClick = (event) => {
+    const { account } = event;
+    window.alert(`Account: ${account.number} was selected`)
 }
 </script>
 <style lang="scss" scoped>

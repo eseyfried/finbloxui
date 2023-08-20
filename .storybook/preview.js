@@ -22,10 +22,6 @@ const preview = {
         storySort: {
             order: ['Documentation', "Library", '*'],
           },
-        // storySort: (a, b) => {
-        //     console.log(a)
-        //     return a.id === b.id ? 0 : a.id.localeCompare(b.id, undefined, { numeric: true });
-        // }
     },
   }
 }

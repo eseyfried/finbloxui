@@ -1,7 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
     <div class="page">
-        <ToggleTheme :class="['primary-button']" />
         <h1 class="mb-5">Transactions</h1>
         <TransactionsGrid :transactions="transactions">
             <Column field="symbol" header="Symbol">

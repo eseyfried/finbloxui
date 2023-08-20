@@ -1,7 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
     <div class="page">
-        <ToggleTheme :class="['primary-button']" />
         <h1 class="mb-5">Unrealized Gains/Losses</h1>
         <UGLGrid :lots="unrealizedLots" :dataTableOptions="{ groupRowsBy: 'symbol', showTotals: true, collapsible: true, groupedTotalsLocation: 'top' }">
             <Column field="symbol" header="Symbol">

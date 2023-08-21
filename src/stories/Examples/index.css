@@ -462,4 +462,35 @@ html[data-mode='theme 2'] {
     content: "\f077";
 }
 
+.header {
+    display:flex;
+    justify-content: space-between;
+    @apply p-4 bg-slate-500;
+
+    & .logo::before {
+        content: "\f299";
+        font: var(--fa-font-brands);
+        @apply mr-2 text-green-500;
+    }
+    & .logo {
+        @apply text-xl text-white;
+    }
+    & .menu {
+        & a {
+            @apply text-white no-underline mx-2;
+        }
+
+        & .profile::before {
+            content: "\f2bd";
+            font: var(--fa-font-solid);
+            @apply mr-2 ml-0 text-lg;
+        }
+
+        & .logout::before {
+            content: "|";
+            @apply mr-4;
+        }
+    }
+}
+
 }

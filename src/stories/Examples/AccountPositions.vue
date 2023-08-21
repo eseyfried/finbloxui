@@ -1,5 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
+    <Header brandName="OneLeaf Financial" />
     <div class="page">
         <h1 class="mb-5">Positions</h1>
         <AccountCarousel :accounts="accounts" @fb-account-carousel:click="handleAccountClick($event)" />
@@ -28,6 +29,7 @@
 import { ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useDemoStore } from "@/stories/stores/store";
+import Header from '@/stories/Examples/Header.vue';
 import AccountCarousel from '@/components/Core/Navigation/AccountCarousel.vue';
 import PositionsGrid from '@/components/Core/PositionsGrid/PositionsGrid.vue';
 import Column from '@/components/DataTable/Column.vue';

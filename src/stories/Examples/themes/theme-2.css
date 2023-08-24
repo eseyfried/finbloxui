@@ -1,0 +1,562 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+    html[data-mode]:not([data-mode='headless']) {
+        a {
+            @apply text-indigo-500 underline;
+
+            &:hover {
+                @apply text-indigo-800;
+            }
+        }
+        h1, h2, h3, h4, h5, h6 {
+            @apply font-light;
+        }
+        h1 {
+            @apply text-4xl;
+        }
+        h2 {
+            @apply text-2xl;
+        }
+
+        table thead th {
+            @apply p-2 border-b-2 border-gray-200 text-sm bg-white;
+        }
+
+        table tbody td {
+            @apply py-4 px-2 border-b-2 border-gray-200 text-sm  bg-white;
+        }
+    }
+    
+    .primary-button {
+        @apply py-2
+            px-4
+            bg-indigo-500
+            text-white
+            font-semibold
+            rounded-lg
+            shadow-md
+            hover:bg-indigo-700
+            focus:outline-none
+            focus:ring-2
+            focus:ring-indigo-400
+            focus:ring-opacity-75;
+    }
+
+    .secondary-button {
+        @apply py-2
+            px-4
+            bg-gray-400
+            text-white
+            font-semibold
+            rounded-lg
+            shadow-md
+            hover:bg-gray-600
+            focus:outline-none
+            focus:ring-2
+            focus:ring-gray-500
+            focus:ring-opacity-75;
+    }
+}
+
+
+/* Small & Large Mobile Devices */
+@media (max-width: 576px) {
+    /* DataTable */
+    table tbody td {
+        border: none;
+        text-align: right !important;
+    }
+
+    table tbody td span {
+        justify-self: end;
+    }
+
+    table tbody td::before {
+        text-align: left !important;
+        width: 150px;
+    }
+
+    table tbody tr {
+        @apply border-b-2 border-gray-200;
+    }
+
+    table tbody td .fb-action-menu-button {
+        justify-self: end !important;
+    }
+
+    table tbody td .fb-action-menu ul {
+        left: unset !important;
+        right: 0;
+    }
+
+    /* PositionsGrid & TransactionsGrid */
+    .fb-transactions-grid td[data-cell="Description"] span,
+    .fb-positions-grid td[data-cell="Description"] span {
+        white-space: break-spaces;
+        width: 150px;
+    }
+
+    /* Mobile ColumnFilter */
+    .fb-filters {
+        display: grid;
+    }
+    .fb-filters .fb-column-filter {
+        display: block;
+        justify-self: end;
+        & .fb-column-filter-menu {
+            left: unset;
+            right: -10px;
+        }
+        & .fb-column-filter-button::before {
+            margin-right: 5px;
+        }
+    }
+    .fb-data-table-filters-visible {
+        display: grid !important;
+    }
+    .fb-data-table-filters {
+        justify-self: end;
+    }
+    .fb-filters a {
+        @apply no-underline;
+        justify-self: end;
+        &:after {
+            content: "\f078";
+            font: var(--fa-font-solid);
+            @apply ml-1;
+        }
+    }
+    .fb-column-filter-button::before {
+        content: unset !important;
+        font: unset !important;
+    }
+    .fb-column-filter-button::after {
+        content: "\f0b0";
+        font: var(--fa-font-solid);
+        @apply text-gray-500 ml-2;
+    }
+    .fb-column-filter-has-filters::after {
+        @apply text-indigo-500;
+    }
+}
+/* General FinBloxUI CSS */
+html[data-mode='theme-2'] {
+    .fb-negative {
+        @apply text-red-800;
+    }
+    .fb-positive {
+        @apply text-green-800;
+    }
+    .fb-positive::before {
+        content: "\f062";
+        font: var(--fa-font-solid);
+    }
+    .fb-negative::before {
+        content: "\f063";
+        font: var(--fa-font-solid);
+    }
+
+    .fb-client-list-item-container {
+        @apply mt-2 mr-2 mb-2;
+    }
+    /* ClientCard styles */
+    .fb-client-card {
+        @apply rounded-sm drop-shadow-md bg-white p-4;
+    }
+    .fb-client-card label {
+        @apply pr-2;
+    }
+    .fb-client-card span {
+        @apply text-gray-500;
+    }
+    .fb-client-card label::after {
+        content:":";
+    }
+    .fb-client-card-stats {
+        @apply mb-5 !important;
+    }
+    .fb-client-card-contact-info {
+        @apply mb-4 !important;
+    }
+
+    /* ClientListItem styles */
+
+    .fb-client-list-item {
+        @apply border-b-2 border-gray-200 bg-white pt-2 pr-2 pb-2;
+    }
+    .fb-client-list-item label {
+        @apply pr-2;
+    }
+    .fb-client-list-item span {
+        @apply text-gray-500 text-2xl;
+    }
+    .fb-client-list-item-stats {
+        @apply mr-4 !important;
+    }
+    .fb-client-list-item-stats li {
+        display: flex;
+        flex-flow: column-reverse;
+    }
+    .fb-client-list-item a[href='#'] {
+        align-self: center;
+        justify-self: center;
+    }
+    .fb-client-list-item a[href='#']::after {
+        font: var(--fa-font-solid);
+        content: "\f054";
+
+    }
+
+    .fb-client-card a[href='#'] {
+        @apply primary-button;
+    }
+
+
+    .fb-data-point h3 {
+        /* @apply text-2xl; */
+    }
+    .fb-data-point h4 {
+        @apply text-3xl;
+    }
+    .fb-data-point-body {
+        @apply p-3;
+    }
+    .fb-data-point-trend {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+    .fb-data-point-trend[data-trend-direction='up']::before {
+        content: "+";
+    }
+    .fb-data-point-trend[data-trend-direction='down']::before {
+        content: "-";
+    }
+    .fb-data-point-footer {
+        @apply pl-3 py-2 bg-indigo-400/40;
+    }
+    .icon::before {
+        display: inline-block;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    .fb-data-point-body {
+        margin-left: 55px;
+    }
+
+    .fb-data-point::before {
+        position: absolute;
+        top: 20px;
+        left: 10px;
+        font-size: 20px !important;
+        font: var(--fa-font-solid);
+        padding: .75rem 1rem;
+        @apply rounded-full bg-white text-indigo-500;
+    }
+    .aum .fb-data-point::before {
+        content: "\24";
+    }
+
+    .fees .fb-data-point::before {
+        content: "\f81d";
+        padding: .75rem;
+    }
+
+    .clients .fb-data-point::before {
+        content: "\f0c0";
+        padding: .75rem .65rem;
+    }
+
+    /* DataTable */
+    .fb-data-table-group-header {
+        @apply font-bold;
+        & td {
+            @apply bg-gray-200;
+        }
+    }
+    .fb-data-table-group-footer {
+        & td {
+            @apply bg-gray-100 border-b-4 border-white;
+        }
+    }
+    .fb-data-table-footer {
+        & td {
+            @apply border-b-0;
+        }
+    }
+    /* ColumnSelector */
+    .fb-column-selector {
+        display: grid;
+    }
+    .fb-column-selector button {
+        @apply secondary-button justify-self-end;
+    }
+
+    .fb-column-selector ul {
+        @apply bg-white mt-1 shadow-md justify-self-end;
+        top: 45px;
+    }
+    .fb-column-selector li {
+        @apply text-sm;
+        padding: 3px 10px;
+    }
+    .fb-column-selector li:hover {
+        @apply bg-gray-100;
+    }
+    .fb-column-selector li:not(.fb-column-selector-selected) a {
+        margin-left: 17px;
+    }
+    .fb-column-selector-selected a::before {
+        content: "\f14a";
+        font: var(--fa-font-solid);
+        margin-right: 5px;
+        @apply text-green-500;
+    }
+    /* ColumFilter */
+    .fb-column-filter-menu {
+        @apply bg-white shadow-md p-2;
+        left: -80px;
+    }
+    .fb-column-filter-button::before {
+        content: "\f0b0";
+        font: var(--fa-font-solid);
+        @apply text-gray-500;
+    }
+    .fb-column-filter-has-filters::before {
+        @apply text-indigo-500;
+    }
+    .fb-column-filter-operator,
+    .fb-column-filter-select {
+        @apply border border-gray-200 text-gray-700 py-3 rounded mb-1;
+    }
+
+    .fb-column-filter-input {
+        @apply appearance-none border border-gray-200 text-gray-700 py-3 px-4 rounded;
+    }
+    .fb-column-filter-buttons {
+        @apply mt-2;
+    }
+    .fb-column-filter-clear-button {
+        @apply secondary-button mr-2;
+    }
+    .fb-column-filter-apply-button {
+        @apply primary-button;
+    }
+
+    /* PositionsGrid */
+    .fb-positions-grid td[data-cell="Description"],
+    .fb-positions-grid td[data-cell="Quantity"]
+    {
+        text-align: center;
+    }
+    .fb-positions-grid td[data-cell="Market Value"],
+    .fb-positions-grid td[data-cell="Change In Value ($)"],
+    .fb-positions-grid td[data-cell="Change In Value (%)"]
+    {
+        text-align: right;
+    }
+
+    /* QuoteDetail */
+    .fb-quote-detail {
+        @apply shadow-md p-3 rounded border-indigo-500 border-2 bg-white;
+    }
+    .fb-quote-detail-heading h3 {
+        @apply text-lg font-semibold;
+    }
+    .fb-quote-detail-price {
+        display: flex;
+        @apply items-end my-2;
+    }
+    .fb-quote-detail-price h4 {
+        @apply text-xl p-0 m-0;
+        line-height: inherit;
+    }
+    .fb-quote-detail-price h4,
+    .fb-quote-detail-price span {
+        margin-right: .5rem;
+    }
+    .fb-quote-detail-price span {
+        line-height: normal;
+    }
+    .fb-quote-detail-details li label::after {
+        content: ":";
+    }
+    .fb-quote-detail-details li {
+        display: flex;
+        justify-content: space-between;
+    }
+    /* Popover */
+    .fb-popover,
+    #tooltip {
+        @apply bg-indigo-500 !important;
+    }
+
+    /* ContextMenu */
+    .fb-action-menu {
+        display: grid;
+    }
+    .fb-action-menu ul {
+        @apply mt-2 shadow-md rounded border-indigo-500 border-2 bg-white !important;
+        top: 33px;
+        left: -53px;
+    }
+    .fb-action-menu li {
+        @apply p-2 min-w-max;
+        text-align: left;
+    }
+    .fb-action-menu li:hover {
+        @apply bg-indigo-300;
+    }
+    .fb-action-menu-button {
+        justify-self: center;
+        @apply primary-button rounded-full;
+    }
+    .fb-action-menu-button::before {
+        content: "\f142";
+        font: var(--fa-font-solid);
+    }
+
+    /* TransactionsGrid */
+    .fb-transactions-grid td[data-cell="description"],
+    .fb-transactions-grid td[data-cell="quantity"],
+    .fb-transactions-grid td[data-cell="transaction_type"]
+    {
+        text-align: center;
+    }
+    .fb-transactions-grid td[data-cell="amount"],
+    .fb-transactions-grid td[data-cell="transaction_fee"],
+    .fb-transactions-grid td[data-cell="transaction_date"]
+    {
+        text-align: right;
+    }
+
+    /* UGLGrid */
+    .fb-ugl-grid td[data-cell="Quantity"],
+    .fb-ugl-grid td[data-cell="Duration"]
+    {
+        text-align: center;
+    }
+    .fb-ugl-grid td[data-cell="Cost Basis"],
+    .fb-ugl-grid td[data-cell="Price"],
+    .fb-ugl-grid td[data-cell="Market Value"],
+    .fb-ugl-grid td[data-cell="Gain/Loss"],
+    .fb-ugl-grid td[data-cell="Purchase Date"]
+    {
+        text-align: right;
+    }
+    .fb-ugl-grid .fb-data-table-group-header a {
+        @apply no-underline !important;
+    }
+    .fb-ugl-grid .fb-data-table-group-header a::before {
+        content: "\f078";
+        font: var(--fa-font-solid);
+        @apply mr-3;
+    }
+    .fb-ugl-grid .fb-data-table-group-header a.expanded::before {
+        content: "\f077";
+    }
+
+    /* AccountCarousel */
+    .fb-account-carousel-accounts-container button {
+        width: 2rem;
+        height: 2rem;
+        /* color: #6c757d; */
+        border: 0 none;
+        /* background: #e9ecef; */
+        border-radius: 50%;
+        transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+        margin: 0.5rem;
+    
+        align-items: center;
+        align-self: center;
+        display: flex;
+        flex-grow: 0;
+        flex-shrink: 0;
+        justify-content: center;
+        overflow: hidden;
+        position: relative;
+        @apply bg-indigo-500 text-white;
+    }
+    .fb-account-carousel-accounts-container button:first-child::before {
+        content: "\f053";
+        font: var(--fa-font-solid);
+    }
+    .fb-account-carousel-accounts-container button:last-child::before {
+        content: "\f054";
+        font: var(--fa-font-solid);
+    }
+    
+    .fb-account-carousel-accounts {
+        li {
+            @apply bg-slate-50 p-5 mr-2;
+        }
+        h2, h3, h4, h5 {
+            @apply mb-2;
+        }
+        h2, h3 {
+            display: flex;
+            flex-direction: column;
+            span {
+                @apply text-sm text-gray-500;
+            }
+        }
+        h3 span:first-child {
+            @apply text-lg text-black;
+        }
+    }
+    .fb-account-carousel-indicators {
+        flex-wrap: wrap;
+        justify-content: center;
+        @apply mt-3;
+    }
+    .fb-account-carousel-indicator {
+        /* background-color: #EEEEEE; */
+        height: 8px;
+        width: 5%;
+        margin-right: 0.5rem;
+        @apply bg-slate-200
+    }
+    .fb-account-carousel-indicator-highlight {
+        /* background-color: #999999; */
+        @apply bg-indigo-500;
+    }
+
+    /* Header */
+    .header {
+        display:flex;
+        justify-content: space-between;
+        @apply p-4 bg-slate-500;
+
+        & .logo::before {
+            content: "\f299";
+            font: var(--fa-font-brands);
+            @apply mr-2 text-green-500;
+        }
+        & .logo {
+            @apply text-xl text-white;
+        }
+        & .menu {
+            & a {
+                @apply text-white no-underline mx-2;
+            }
+
+            & .profile::before {
+                content: "\f2bd";
+                font: var(--fa-font-solid);
+                @apply mr-2 ml-0 text-lg;
+            }
+
+            & .logout::before {
+                content: "|";
+                @apply mr-4;
+            }
+        }
+    }
+
+} /* END General FinBloxUI CSS */

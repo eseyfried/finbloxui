@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
     <div>
-        <button @click="showSource = !showSource">Show Source Code</button>
+        <button @click="showSource = !showSource">{{ label }}</button>
         <prism v-if="sourceCode && showSource" language="javascript">{{ sourceCode }}</prism>
     </div>
 </template>
@@ -18,6 +18,10 @@ const props = defineProps({
         type: String,
         default: null,
         required: true
+    },
+    label: {
+        type: String,
+        default: "Show Source Code",
     },
     tag: {
         type: String,

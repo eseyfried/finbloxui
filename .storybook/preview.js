@@ -5,8 +5,8 @@ import "../src/assets/fontawesome/css/fontawesome.css";
 import "../src/assets/fontawesome/css/brands.css";
 import "../src/assets/fontawesome/css/solid.css";
 import "../src/stories/Examples/preflight.scss"
-import "../src/stories/Examples/index.css"
 import "../src/stories/Examples/themes/theme-1.css"
+import "../src/stories/Examples/themes/theme-2.css"
 
 
 const preview = {
@@ -28,6 +28,12 @@ const preview = {
 
 export default preview;
 
+const myDecorator = (getStory, context, { options, parameters }) => {
+       const theme = context.options.theme
+       return 
+}
+
+
 
 export const decorators = [
   withThemeByDataAttribute({
@@ -36,7 +42,7 @@ export const decorators = [
     //   dark: 'dark',
       headless: 'headless',
       'theme 1': 'theme-1',
-      'theme 2': 'theme 2',
+      'theme 2': 'theme-2',
     },
     defaultTheme: 'headless',
     attributeName: 'data-mode',

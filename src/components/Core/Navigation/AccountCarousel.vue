@@ -1,7 +1,7 @@
 <template>
     <div class="fb-account-carousel">
         <div class="fb-account-carousel-accounts-container">
-            <button @click="prev()" v-if="!isMobile">&lt;</button>
+            <button @click="prev()" v-if="!isMobile"></button>
             <div class="fb-account-carousel-accounts">
                 <ul :class="transitionClasses">
                     <li
@@ -44,7 +44,7 @@
                     </li>
                 </ul> 
             </div>
-            <button @click="next()" v-if="!isMobile">&gt;</button>
+            <button @click="next()" v-if="!isMobile"></button>
         </div>
         <ul class="fb-account-carousel-indicators">
             <li 
@@ -262,5 +262,11 @@ const getSkipInterval = () => {
 }
 .fb-account-carousel-indicators {
     padding: 0;
+}
+.fb-account-carousel-accounts-container button:first-child::before {
+    content: "<";
+}
+.fb-account-carousel-accounts-container button:last-child::before {
+    content: ">";
 }
 </style>

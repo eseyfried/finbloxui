@@ -8,5 +8,20 @@ export default {
       layout: 'fullscreen'
     },
   };
-  
-  export const AccountPositions = {};
+
+//   export const AccountPositions = {};
+
+
+export const AccountPositions = {
+    render: (args, context) => {
+        args.theme = context.globals.theme.replace(" ", "-");
+        return {
+            props: Object.keys(args),
+            components: { AccountPositionsPage },
+            template: `<AccountPositionsPage v-bind="$props" />`,
+        }
+    },
+    args: {
+        theme: null,
+    },
+};

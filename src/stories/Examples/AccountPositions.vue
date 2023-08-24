@@ -25,8 +25,17 @@
         </PositionsGrid>
     </div>
     <SFCSource filename="AccountPositions.vue" tag="all" />
+    <SFCSource :filename="`themes/${theme}.css`" tag="all" label="Show CSS Source" v-if="theme != 'headless'" />
 </template>
 <script setup>
+// eslint-disable-next-line no-unused-vars
+const props = defineProps({
+    theme: {
+        type: String,
+        default: null
+    }
+});
+
 /**
  * Use a reactive data store to manage your application data.
  * You can centralize your api calls within the data layer.

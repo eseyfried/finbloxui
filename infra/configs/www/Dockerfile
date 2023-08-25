@@ -35,6 +35,6 @@ COPY --from=build-stage /var/app/node_modules/tailwindcss/tailwind.css /var/www/
 COPY --from=build-stage /var/app/src/assets/fontawesome/css/fontawesome.css /var/www/docs/src/assets/fontawesome/css/fontawesome.css
 COPY --from=build-stage /var/app/src/assets/fontawesome/css/brands.css /var/www/docs/src/assets/fontawesome/css/brands.css
 COPY --from=build-stage /var/app/src/assets/fontawesome/css/solid.css /var/www/docs/src/assets/fontawesome/css/solid.css
-COPY --from=build-stage /var/app/src/stories/Examples/index.css /var/www/docs/src/stories/Examples/index.css
+# COPY --from=build-stage /var/app/src/stories/Examples/index.css /var/www/docs/src/stories/Examples/index.css
 COPY --from=build-stage /var/app/src/assets /var/www/docs/src/assets
 COPY --from=build-stage /var/app/health.html /var/www/index.html

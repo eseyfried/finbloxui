@@ -14,7 +14,7 @@ RUN npm install
 RUN pwd
 RUN ls -l
 
-RUN npm run test:unit run
+RUN npm run test run
 
 RUN npm run build-storybook
 

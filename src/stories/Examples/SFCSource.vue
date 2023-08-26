@@ -33,10 +33,24 @@ const props = defineProps({
 const rawSource = ref(null);
 const showSource = ref(false);
 
-const importedSource = () => import(/* @vite-ignore */ `../Examples/${props.filename}?raw`);
-importedSource().then((resolve) => {
-        rawSource.value = resolve.default;
-})
+const fileType = props.filename.split(".")[1];
+let importedFiles = {};
+let importFileKey = "";
+if (fileType == "vue") {
+    /**
+     * we use import.meta.glob as raw vs import(/path/to/file?raw) because
+     * vite/rollup production build cannot handle dynamic imports with raw
+     */
+    importedFiles = import.meta.glob('./*.vue', { as: 'raw'});
+    importFileKey = `./${props.filename}`;
+} else if (fileType == "css") {
+    importedFiles = import.meta.glob('./themes/*.css', { as: 'raw'});
+    importFileKey = `./themes/${props.filename}`;
+}
+importedFiles[importFileKey]().then((resolve) => {
+        rawSource.value = resolve;
+});
+
 const sourceCode = computed(() => {
     if(rawSource.value) {
         switch(props.tag) {

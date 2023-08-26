@@ -25,7 +25,7 @@
         </PositionsGrid>
     </div>
     <SFCSource filename="AccountPositions.vue" tag="all" />
-    <SFCSource :filename="`themes/${theme}.css`" tag="all" label="Show CSS Source" v-if="theme != 'headless'" />
+    <SFCSource :filename="`${theme}.css`" tag="all" label="Show CSS Source" v-if="theme != 'headless'" />
 </template>
 <script setup>
 // eslint-disable-next-line no-unused-vars

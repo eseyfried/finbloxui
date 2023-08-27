@@ -51,7 +51,12 @@ return str;
             description: "Event emiited on account item click",
             table: {
                 category: 'Events',
-                defaultValue: { summary: "{ account: <account object>, index: <position> }" },
+                defaultValue: { 
+                    detail: "The object passed to the event handler",
+                    summary: `{ 
+                        account: <account object>,
+                        index: <position>
+                    }` },
             },
         },
         numVisibile: {

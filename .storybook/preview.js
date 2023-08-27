@@ -1,6 +1,7 @@
 /** @type { import('@storybook/vue3').Preview } */
 import { withThemeByDataAttribute } from '@storybook/addon-styling';
 // import "tailwindcss/tailwind.css";
+import "./global.css";
 import "../src/assets/fontawesome/css/fontawesome.css";
 import "../src/assets/fontawesome/css/brands.css";
 import "../src/assets/fontawesome/css/solid.css";

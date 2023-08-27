@@ -494,7 +494,7 @@ html[data-mode='theme-2'] {
     
     .fb-account-carousel-accounts {
         li {
-            @apply bg-slate-50 p-5 mr-2;
+            @apply bg-slate-50 border-2 border-slate-100 p-5 mr-2;
         }
         h2, h3, h4, h5 {
             @apply mb-2;
@@ -508,6 +508,9 @@ html[data-mode='theme-2'] {
         }
         h3 span:first-child {
             @apply text-lg text-black;
+        }
+        li.fb-account-carousel-account-selected {
+            @apply bg-indigo-50 border-2 border-indigo-100;
         }
     }
     .fb-account-carousel-indicators {

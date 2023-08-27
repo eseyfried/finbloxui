@@ -39,17 +39,7 @@ export default {
         docs: {
             description: {
                 story: `You can override the default account template with your own custom layout using slotted content.
-                Wrap your content in a slot template tag named "accounts". The following slotProps will be available for use in your
-                template:
-                <ul>
-                    <li>props - all component props (i.e. showLabels, numVisible, etc.)</li>
-                    <li>totalMarketValueLabel - total market value label.</li>
-                    <li>changeInValueLabel - change in value label.</li>
-                    <li>accountNameLabel - account name label.</li>
-                    <li>accountNumberLabel - account number label.</li>
-                    <li>account - the account object.</li>
-                    <li>showLabels - show labels.</li>
-                </ul>
+                Wrap your content in a slot template tag named "account". The slotProps documented above will be available to your template.
                 `,
             },
             source: {

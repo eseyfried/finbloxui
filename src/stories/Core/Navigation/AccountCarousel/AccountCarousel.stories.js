@@ -40,7 +40,7 @@ For example:
 `;
 return str;
 })(),
-            table: {
+        table: {
                 type: { summary: "Array" },
                 defaultValue: { summary: "[]" },
                 category: 'Props',
@@ -58,11 +58,11 @@ return str;
             description: "Number of accounts visible in the carousel per page",
             table: {
                 type: { summary: "Number" },
-                defaultValue: { summary: "1" },
+                defaultValue: { summary: 3 },
                 category: 'Props',
             },
             type: { name: "string" },
-            defaultValue: "1",
+            defaultValue: 3,
             control: { type: 'text' },
         },
         numScroll: {
@@ -75,6 +75,17 @@ return str;
             type: { name: "string" },
             defaultValue: "1",
             control: { type: 'text' },
+        },
+        defaultAccountId: {
+            description: "The default account id to select and bring into view. The selected account will have selected classes applied.",
+            table: {
+                type: { summary: "Number" },
+                defaultValue: { summary: 3 },
+                category: 'Props',
+            },
+            type: { name: "Number" },
+            defaultValue: "3",
+            control: { type: 'number' },
         },
         showLabels: {
             description: "Show data labels.",
@@ -129,7 +140,71 @@ return str;
             type: { name: "string" },
             defaultValue: "Account Number",
             control: { type: 'text' },
+        },
+        // CSS
+        ".fb-account-carousel": {
+            description: "The class applied to the root element.",
+            table: {
+                category: 'CSS Classes',
+            },
+        },
+        ".fb-account-carousel-accounts-container": {
+            description: "The class applied to the carousel container element.",
+            table: {
+                category: 'CSS Classes',
+            },
+        },
+        ".fb-account-carousel-accounts": {
+            description: "The class applied to the carousel list of accounts element.",
+            table: {
+                category: 'CSS Classes',
+            },
+        },
+        ".fb-account-carousel-account-selected": {
+            description: "The class applied to the current selected account.",
+            table: {
+                category: 'CSS Classes',
+            },
+        },
+        ".fb-account-carousel-indicators": {
+            description: "The class applied to the container element of carousel indicators.",
+            table: {
+                category: 'CSS Classes',
+            },
+        },
+        ".fb-account-carousel-indicator": {
+            description: "The class applied to an individual carousel indicator.",
+            table: {
+                category: 'CSS Classes',
+            },
+        },
+        ".fb-account-carousel-indicator-highlight": {
+            description: "The class applied to the indicator showing the current position in the carousel.",
+            table: {
+                category: 'CSS Classes',
+            },
+        },
+        // slots
+        account: {
+            description: "The slot for customizing the each account item in the carousel",
+            table: {
+                type: { summary: "String" },
+                category: 'slots',
+                defaultValue: {
+                    detail: "available slotProps to bind to your template",
+                    summary: `{
+                        props: {},
+                        totalMarketValueLabel: null,
+                        changeInValueLabel: null,
+                        accountNameLabel: null,
+                        accountNumberLabel: null,
+                        account: null,
+                        showLabels: null,
+                    }`
+                }
+            },
         }
+        
     },
 
 };

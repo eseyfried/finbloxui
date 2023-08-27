@@ -11,6 +11,7 @@
                         @touchstart="onTouchStart"
                         @touchend="onTouchEnd"
                         @touchmove="onTouchMove"
+                        :class="{ 'fb-account-carousel-account-selected': account.id === currentAccount }"
                     >
                         <slot
                             name="account"
@@ -24,7 +25,7 @@
                         >
                             <div>
                                 <h2>
-                                    {{ formatCurrency(account.total_market_value) }}
+                                    {{ formatCurrency(account.total_market_value) }} {{ account.id }}
                                     <span v-if="showLabels">{{ totalMarketValueLabel }}</span>
                                 </h2>
                                 <h3>
@@ -57,6 +58,7 @@
 </template>
 <script setup>
 import { computed, ref, watch } from "vue";
+import { findIndex } from "lodash";
 import { isMobile } from "@/modules/useResponsive";
 import { formatCurrency, formatPercent, formatMask } from "@/modules/useFormatter";
 
@@ -81,6 +83,10 @@ const props = defineProps({
     showLabels: {
         type: Boolean,
         default: true,
+    },
+    defaultAccountId: {
+        type: Number,
+        default: null,
     },
     totalMarketValueLabel: {
         type: String,
@@ -109,6 +115,8 @@ watch(() => props.numScroll, () => {
 },{immediate:true});
 
 
+
+
 const numVisibile = computed(() => {
     if (isMobile.value) {
         return 1;
@@ -132,6 +140,17 @@ const prevItemPosition = ref(0);
 const currentItemPosition = ref(0);
 const startPos = ref({x: 0, y: 0});
 const swipeThreshold = ref(itemSize.value);
+// the account selected by a click event
+const selectedAccount = ref(null);
+
+// current active account set by a passed in prop or as a result of a click event
+const currentAccount = computed( () => {
+    if (selectedAccount.value) {
+        return selectedAccount.value;
+    }
+    return parseInt(props.defaultAccountId);
+});
+
 
 const getItemSize = computed(() => {
     return `${itemSize.value}%`;
@@ -163,6 +182,21 @@ const transitionClasses = computed(() => {
 });
 
 // methods
+const skipToAccount = () => {
+    if (!currentAccount.value) {
+        return
+    }
+    /**
+     * find the index position the defaultAccountId is in
+     * then figure out what page block it's in to finally figure out
+     * how iterations to run next
+     */
+    const accountIndex = findIndex(props.accounts, { id: parseInt(currentAccount.value) });
+    const skipTo = accountIndex - parseInt(props.numVisibile) + parseInt(props.numScroll);
+    for(let i = 0; i < skipTo; i++) {
+        next();
+    }
+}
 
 const prev = () => {
     if (currentPage.value === 1) {
@@ -193,6 +227,7 @@ const prevStep = () => {
 }
 
 const handleClick = (object) => {
+    selectedAccount.value = object.account.id;
     emit("fb-account-carousel:click", object);
 };
 
@@ -229,6 +264,11 @@ const changePageOnTouch = (e, diff) => {
 const getSkipInterval = () => {
     return itemSize.value * numScroll.value;
 }
+
+watch(() => props.defaultAccountId, () => {
+     skipToAccount();
+},{immediate:true});
+
 </script>
 <style lang="scss" scoped>
 .fb-account-carousel-accounts-container {

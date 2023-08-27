@@ -3,7 +3,7 @@
     <Header brandName="OneLeaf Financial" />
     <div class="page">
         <h1 class="mb-5">Positions</h1>
-        <AccountCarousel :accounts="accounts" @fb-account-carousel:click="handleAccountClick($event)" />
+        <AccountCarousel :accounts="accounts" defaultAccountId="4" @fb-account-carousel:click="handleAccountClick($event)" />
         <PositionsGrid :positions="positions">
             <Column field="symbol" header="Symbol" type="quote" :quoteDetailOptions="quoteDetailOptions">
                 <ColumnFilter filterType="text" operator="equality" />

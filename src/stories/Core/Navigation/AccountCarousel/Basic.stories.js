@@ -8,7 +8,10 @@ let defaultAccounts = ref([]);
 export default {
     title: 'Library/Core/Navigation/AccountCarousel',
     args: {
-        accounts: defaultAccounts
+        accounts: defaultAccounts,
+        defaultAccountId: 3,
+        numVisibile: "3",
+        numScroll: "1"
     },
     render: (args) => ({
       components: { AccountCarousel },

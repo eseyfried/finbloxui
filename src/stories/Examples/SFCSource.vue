@@ -86,8 +86,9 @@ const getStyle = (code) => {
     return stripSourceComponent(sourceCode);
 }
 const stripSourceComponent = (code) => {
-    const regex = /[ \t]*?<SFCSource(.*)\/>\n?/g
-    return code.replace(regex,"");
+    const regex1 = /[ \t]*?<SFCSource(.*)\/>\n?/g
+    const regex2 = /import SFCSource(.*)\n/g
+    return code.replace(regex1,"").replace(regex2, "");
 }
 </script>
 <style lang="scss" scoped>

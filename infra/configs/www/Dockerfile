@@ -13,10 +13,12 @@ RUN npm install
 
 RUN pwd
 RUN ls -l
-
+# run tests
 RUN npm run test run
-
+# build sstorybook docs
 RUN npm run build-storybook
+# build public website app
+RUN npm run build
 
 # production stage
 FROM nginx as production-stage
@@ -27,8 +29,10 @@ COPY ./infra/configs/www/nginx.$env.conf /etc/nginx/conf.d/default.conf
 
 # Create www directory
 RUN mkdir -p /var/www/docs
-
+# copy storybook docs content
 COPY --from=build-stage /var/app/storybook-static /var/www/docs
+# copy public website vue app
+COPY --from=build-stage /var/app/dist /var/www/
 
 # copy css assets for ToggleTheme
 COPY --from=build-stage /var/app/node_modules/tailwindcss/tailwind.css /var/www/docs/node_modules/tailwindcss/tailwind.css

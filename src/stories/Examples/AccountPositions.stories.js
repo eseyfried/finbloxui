@@ -9,9 +9,6 @@ export default {
     },
   };
 
-//   export const AccountPositions = {};
-
-
 export const AccountPositions = {
     render: (args, context) => {
         args.theme = context.globals.theme.replace(" ", "-");

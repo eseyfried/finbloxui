@@ -9,4 +9,17 @@ export default {
     },
   };
   
-  export const AccountTransactions = {};
+
+  export const AccountTransactions = {
+    render: (args, context) => {
+        args.theme = context.globals.theme.replace(" ", "-");
+        return {
+            props: Object.keys(args),
+            components: { AccountTransactionsPage },
+            template: `<AccountTransactionsPage v-bind="$props" />`,
+        }
+    },
+    args: {
+        theme: null,
+    },
+};

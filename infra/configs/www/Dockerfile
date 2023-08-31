@@ -32,7 +32,7 @@ RUN mkdir -p /var/www/docs
 # copy storybook docs content
 COPY --from=build-stage /var/app/storybook-static /var/www/docs
 # copy public website vue app
-COPY --from=build-stage /var/app/dist /var/www/
+COPY --from=build-stage /var/app/dist/www /var/www/
 
 # copy css assets for ToggleTheme
 COPY --from=build-stage /var/app/node_modules/tailwindcss/tailwind.css /var/www/docs/node_modules/tailwindcss/tailwind.css

@@ -69,3 +69,28 @@ from within project root:
 ```sh
 docker run --name finbloxui-www -p 7080:80 <IMAGE>
 ```
+
+## Testing NPM build package locally
+create a separate vue+vite project:
+
+prompted:
+```shell
+npm create vite@latest
+```
+or simple template:
+```shell
+npm create vite@latest vue-app -- --template vue
+```
+From the root of that project run:
+```shell
+sudo npm link ../path/to/storybook-vue/storybook-vue
+npm install # <-- not sure of this step
+npm run dev
+```
+
+Changes made to finbloxui will be seen here after running npm run build on finbloxui (storybook-vue).
+
+### removing local link
+```shell
+sudo npm unlink ../path/to/storybook-vue/storybook-vue
+```

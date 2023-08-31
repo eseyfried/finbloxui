@@ -1,7 +1,19 @@
 {
-  "name": "storybook-vue",
-  "version": "0.0.0",
-  "private": true,
+  "name": "finblox-ui",
+  "version": "1.0.0",
+  "type": "module",
+  "files": [
+        "dist"
+   ],
+   "main": "./dist/lib/finblox-ui.umd.cjs",
+   "module": "./dist/lib/finblox-ui.js",
+   "exports": {
+        ".": {
+            "import": "./dist/lib/finblox-ui.js",
+            "require": "./dist/lib/finblox-ui.umd.cjs"
+        },
+        "./src/stories/Examples/themes/*.css": "./dist/lib/themes"
+    },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -12,7 +24,9 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
     "format": "prettier --write src/",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "build-components": "node ./src/lib/build.js",
+    "build-lib": "npm run build-components && vite build --mode production --config vite-lib.config.js"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.4.0",

@@ -28,4 +28,5 @@ jobs:
             --name ${{ env.REGISTRY_CONTAINER_NAME }} \
             -p 4873:4873 \
             --network finbloxui-network \
+            -e VERDACCIO_PUBLIC_URL=https://registry.finbloxui.com \
             ${{ env.REGISTRY }}/${{ env.REGISTRY_IMAGE_NAME }}

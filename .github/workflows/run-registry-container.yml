@@ -26,6 +26,6 @@ jobs:
             docker run -d \
             --restart always \
             --name ${{ env.REGISTRY_CONTAINER_NAME }} \
-            -p 80:4873 \
+            -p 4873:4873 \
             --network finbloxui-network \
             ${{ env.REGISTRY }}/${{ env.REGISTRY_IMAGE_NAME }}

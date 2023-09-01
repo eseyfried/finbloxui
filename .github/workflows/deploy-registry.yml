@@ -11,7 +11,7 @@ env:
   REGISTRY_IMAGE_NAME: "finbloxui-registry"
   REGISTRY_CONTAINER_NAME: "registry"
 jobs:
-  deploy:
+  deploy-registry:
     runs-on: ubuntu-latest
     steps:
       - name: "Deploy to Digital Ocean droplet via ssh Action"
@@ -32,6 +32,6 @@ jobs:
             # Pull latest images
             docker pull ${{ env.REGISTRY }}/${{ env.REGISTRY_IMAGE_NAME }}:${{ github.event.inputs.version }} 
   run-registry-container:
-    needs: deploy
+    needs: deploy-registry
     uses: eseyfried/finbloxui/.github/workflows/run-registry-container.yml@main
     secrets: inherit  

@@ -4,8 +4,9 @@ FROM verdaccio/verdaccio
 # docker run -d --restart always --name registry -p 4873:4873 --network finbloxui-network <IMAGE>
 
 WORKDIR /verdaccio
-COPY ./infra/verdaccio/storage ./storage
-COPY ./infra/verdaccio/conf ./conf
-COPY ./infra/verdaccio/plugins ./
+RUN ls -l
+COPY ./infra/verdaccio/storage/. ./storage
+COPY ./infra/verdaccio/conf/. ./conf
+COPY ./infra/verdaccio/plugins/. ./plugins
 
 WORKDIR /opt/verdaccio

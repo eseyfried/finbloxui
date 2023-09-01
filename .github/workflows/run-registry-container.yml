@@ -17,7 +17,7 @@ jobs:
           debug: true
           script: |
             # create network
-            docker network create -d bridge finbloxui-network
+            docker network create -d bridge finbloxui-network || true
             # stop container
             docker stop ${{ env.REGISTRY_CONTAINER_NAME }}
             # remove container

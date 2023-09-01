@@ -6,6 +6,6 @@ FROM verdaccio/verdaccio
 WORKDIR /verdaccio
 COPY ./infra/verdaccio/storage ./storage
 COPY ./infra/verdaccio/conf ./conf
-COPY ./infra/verdaccio/plugins ./plugins
+COPY ./infra/verdaccio/plugins ./
 
 WORKDIR /opt/verdaccio

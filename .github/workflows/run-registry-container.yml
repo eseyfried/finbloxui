@@ -5,7 +5,7 @@ env:
   REGISTRY_CONTAINER_NAME: "registry"
   REGISTRY_IMAGE_NAME: "finbloxui-registry"
 jobs:
-  deploy:
+  run-registry-container:
     runs-on: ubuntu-latest
     steps:
       - name: "Run Registry container"

@@ -1,0 +1,37 @@
+name: Deploy Registry
+on:
+  workflow_call:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Image Version"
+        required: true
+env:
+  REGISTRY: "registry.digitalocean.com/sports-camp-360"
+  REGISTRY_IMAGE_NAME: "finbloxui-registry"
+  REGISTRY_CONTAINER_NAME: "registry"
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Deploy to Digital Ocean droplet via ssh Action"
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.DROPLET_HOST }}
+          username: ${{ secrets.DROPLET_USERNAME }}
+          key: ${{ secrets.DIGITALOCEAN_SSH_KEY }}
+          debug: true
+          envs: REGISTRY_IMAGE_NAME,REGISTRY_CONTAINER_NAME,${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }},GITHUB_SHA
+          script: |
+            # login to registry
+            docker login -u ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }} -p ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }} registry.digitalocean.com
+            # stop running containers
+            docker stop ${{ env.REGISTRY_CONTAINER_NAME }}
+            # remove running containers
+            docker rm ${{ env.REGISTRY_CONTAINER_NAME }}
+            # Pull latest images
+            docker pull ${{ env.REGISTRY }}/${{ env.REGISTRY_IMAGE_NAME }}:${{ github.event.inputs.version }} 
+  run-registry-container:
+    needs: deploy
+    uses: eseyfried/finbloxui/.github/workflows/run-reigstry-container.yml@main
+    secrets: inherit  

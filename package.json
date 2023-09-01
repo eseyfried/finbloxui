@@ -1,6 +1,6 @@
 {
-  "name": "finblox-ui",
-  "version": "1.0.0",
+  "name": "@finbloxui/finbloxui",
+  "version": "1.0.2",
   "type": "module",
   "files": [
         "dist"
@@ -74,5 +74,8 @@
     "tailwindcss": "^3.3.2",
     "vite": "^4.3.5",
     "vitest": "^0.31.0"
+  },
+  "publishConfig": {
+    "@finbloxui:registry": "http://registry.finbloxui.com"
   }
 }

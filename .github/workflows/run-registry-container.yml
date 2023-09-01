@@ -1,0 +1,31 @@
+name: Run Registry Container
+on: [workflow_call, workflow_dispatch]
+env:
+  REGISTRY: "registry.digitalocean.com/sports-camp-360"
+  REGISTRY_CONTAINER_NAME: "registry"
+  REGISTRY_IMAGE_NAME: "finbloxui-registry"
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Run Registry container"
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.DROPLET_HOST }}
+          username: ${{ secrets.DROPLET_USERNAME }}
+          key: ${{ secrets.DIGITALOCEAN_SSH_KEY }}
+          debug: true
+          script: |
+            # create network
+            docker network create -d bridge finbloxui-network
+            # stop container
+            docker stop ${{ env.REGISTRY_CONTAINER_NAME }}
+            # remove container
+            docker rm ${{ env.REGISTRY_CONTAINER_NAME }}
+            # run container
+            docker run -d \
+            --restart always \
+            --name ${{ env.REGISTRY_CONTAINER_NAME }} \
+            -p 80:4873 \
+            --network finbloxui-network \
+            ${{ env.REGISTRY }}/${{ env.REGISTRY_IMAGE_NAME }}

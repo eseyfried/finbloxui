@@ -94,3 +94,49 @@ Changes made to finbloxui will be seen here after running npm run build on finbl
 ```shell
 sudo npm unlink ../path/to/storybook-vue/storybook-vue
 ```
+
+## Build NPM Package
+```shell
+npm run build-lib
+```
+
+### Publish NPM Local Verdaccio
+
+Make sure you're logged into registry:
+
+```shell
+npm adduser --registry http://localhost:4873/
+username: admin
+password: 
+```
+> This admin user and password must have been generated and added to the Verdaccio htpasswd file.
+
+bump version number in package json
+
+```shell
+cd /path/to/storybook-vue/storybook-vue
+npm publish --@finbloxui:registry=http://localhost:4873/
+```
+
+### Publish NPM to Private Registry
+
+Make sure you're logged into registry:
+
+```shell
+npm adduser --registry http://registry.finbloxui.com/
+username: admin
+password: 
+```
+> This admin user and password must have been generated and added to the Verdaccio htpasswd file.
+
+bump version number in package json
+
+```shell
+cd /path/to/storybook-vue/storybook-vue
+npm publish
+```
+
+## Adding NPM Registry Users
+
+1. Create htpasswd credentials
+2. Add string from step 1 to `conf/htpasswd` file

@@ -1,19 +1,19 @@
 {
   "name": "@finbloxui/finbloxui",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "type": "module",
   "files": [
-        "dist"
-   ],
-   "main": "./dist/lib/finblox-ui.umd.cjs",
-   "module": "./dist/lib/finblox-ui.js",
-   "exports": {
-        ".": {
-            "import": "./dist/lib/finblox-ui.js",
-            "require": "./dist/lib/finblox-ui.umd.cjs"
-        },
-        "./src/stories/Examples/themes/*.css": "./dist/lib/themes"
+    "dist"
+  ],
+  "main": "./dist/lib/finblox-ui.umd.cjs",
+  "module": "./dist/lib/finblox-ui.js",
+  "exports": {
+    ".": {
+      "import": "./dist/lib/finblox-ui.js",
+      "require": "./dist/lib/finblox-ui.umd.cjs"
     },
+    "./src/stories/Examples/themes/*.css": "./dist/lib/themes"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",

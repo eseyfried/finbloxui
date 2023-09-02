@@ -4,7 +4,6 @@ plugins: /verdaccio/plugins
 auth:
   htpasswd:
     # Look for this htpasswd for login credentials
-    # file: ./htpasswd
     file: /verdaccio/storage/htpasswd
     # Setting this to -1 so that registration is disabled
     max_users: -1
@@ -12,18 +11,18 @@ uplinks:
   npmjs:
     url: https://registry.npmjs.org/
 packages:
-  # '@*/*':
-  #   proxy: npmjs
-  #   # access: $all,
-  #   access: $authenticated
-  #   publish: $authenticated
+  '@*/*':
+    proxy: npmjs
+    # access: $all,
+    access: $authenticated
+    publish: $authenticated
   '**':
     proxy: npmjs
     access: $authenticated
     publish: $authenticated
-  # '@finbloxui/*':
-  #   access: $authenticated
-  #   publish: admin
-  #   unpublish: admin
+  '@finbloxui/*':
+    access: $authenticated
+    publish: admin
+    unpublish: admin
 log:
   - { type: stdout, format: pretty, level: http }

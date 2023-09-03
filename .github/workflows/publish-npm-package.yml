@@ -1,3 +1,6 @@
+# TODO
+# Add version bump `npm version patch|major|minor --force && npm publish`
+# Fix rebuild registry loses all npm packages
 name: Publish Package to NPM Registry
 on:
   workflow_dispatch:

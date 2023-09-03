@@ -1,9 +1,10 @@
 var express = require('express');
 var app = express();
-
-app.get('/', function (req, res) {
-    console.log("hi")
-   res.send('Hello Worlds');
+const { User } = require('./models');
+  
+app.get('/', async function (req, res) {
+    const users = await User.findAll();
+    res.send(users);
 })
 
 var server = app.listen(3000, function () {

@@ -1,0 +1,28 @@
+version: '3'
+services:
+  api:
+    image: finbloxui-api
+    container_name: finbloxui-api
+    build:
+      context: ../
+      dockerfile: ./infra/api/server/Dockerfile
+      args:
+        node_cmd: nodemon
+        node_args: --ext js,yml,yaml
+    # only use volumes for dev
+    volumes:
+      - ./:/usr/src/api
+      # this allows npm to successfully install all modules
+      - /usr/src/api/node_modules
+    networks:
+      - finbloxui-network
+    ports:
+      - 3001:3000
+#Docker Networks
+networks:
+  finbloxui-network:
+    driver: bridge
+#Volumes
+volumes:
+  lbdata:
+    driver: local

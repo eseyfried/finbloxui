@@ -4,11 +4,6 @@ plugins: /verdaccio/plugins
 auth:
   finbloxui-auth:
     foo: bar
-  # htpasswd:
-  #   # Look for this htpasswd for login credentials
-  #   file: /verdaccio/storage/htpasswd
-  #   # Setting this to -1 so that registration is disabled
-  #   max_users: -1
 uplinks:
   npmjs:
     url: https://registry.npmjs.org/
@@ -28,11 +23,3 @@ packages:
     unpublish: admin
 log:
   - { type: stdout, format: pretty, level: http }
-# security:
-#   api:
-#     legacy: false
-#     jwt:
-#       sign:
-#         expiresIn: 29d
-#       verify:
-#         someProp: [value]

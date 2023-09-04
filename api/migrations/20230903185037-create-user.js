@@ -28,6 +28,10 @@ module.exports = {
         type: Sequelize.UUID,
         unique: true
       },
+      licenseBeginsAt: {
+        allowNull: false,
+        type: Sequelize.DATEONLY
+      },
       licenseExpiresAt: {
         allowNull: false,
         type: Sequelize.DATEONLY

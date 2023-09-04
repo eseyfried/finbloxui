@@ -1,8 +1,14 @@
 const express = require('express');
+const router = express.Router();
 const app = express();
 app.use(express.json());
+app.use(router);
 const { User, Group } = require('./models');
 const  moment = require('moment');
+
+const  { 
+    getLicense
+} = require('./modules/controllers/license.js')
   
 app.get('/', async function (req, res) {
     const user = await User.findOne({
@@ -16,6 +22,8 @@ app.get('/', async function (req, res) {
     res.send(user);
 })
 
+router.get('/authenticate/:licenseKey', getLicense)
+/*
 app.post('/authenticate', async (req, res) => {
     const { password } = req.body;
     let licenseKey;
@@ -54,7 +62,7 @@ app.post('/authenticate', async (req, res) => {
     }
     res.send(response);
 });
-
+*/
 app.post('/signup', async (req, res) => {
     const user = await User.create({
         firstName: "Jane",

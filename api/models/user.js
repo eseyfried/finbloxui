@@ -25,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.UUIDV4,
         defaultValue: () => uuidv4()
     },
+    licenseBeginsAt: DataTypes.DATEONLY,
     licenseExpiresAt: DataTypes.DATEONLY,
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE,

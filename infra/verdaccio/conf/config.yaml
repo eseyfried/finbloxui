@@ -28,3 +28,11 @@ packages:
     unpublish: admin
 log:
   - { type: stdout, format: pretty, level: http }
+# security:
+#   api:
+#     legacy: false
+#     jwt:
+#       sign:
+#         expiresIn: 29d
+#       verify:
+#         someProp: [value]

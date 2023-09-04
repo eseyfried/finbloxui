@@ -1,0 +1,116 @@
+// import fetch from 'node-fetch';
+import axios from 'axios';
+import createError, {HttpError} from 'http-errors';
+import {
+    IPluginAuth,
+  } from '@verdaccio/types';
+import {CustomConfig} from '../types/index';
+import {
+  NextFunction,
+  Request,
+  Response
+} from "express";
+import Verdaccio from "@verdaccio/types";
+
+export type ConfigExternalAuth = {
+  auth: {
+    externalAuth: {
+      url: string,
+      signupUrl: string
+    }
+  }
+} & Verdaccio.Config;
+
+export type RequestExtend = Request & {remote_user?: Verdaccio.RemoteUser}
+
+export default class ExternalAuthPlugin implements IPluginAuth<CustomConfig>{
+  apiUrl: string;
+  signupUrl: string;
+  createAnonymousRemoteUser?: Function;
+  createRemoteUser?: Function;
+  logger: any;
+
+  constructor(readonly config: ConfigExternalAuth, options: Verdaccio.PluginOptions<ConfigExternalAuth>){
+    this.apiUrl = config.auth.externalAuth.url;
+    this.signupUrl = config.auth.externalAuth.signupUrl;
+    this.logger = config.logger;
+    console.log(`Config: ${Object.keys(config)}`);
+    console.log(`inners: ${Object.keys(config.packages)}`);
+    console.log(`Stuff: ${Object.keys(options)}`);
+  }
+
+  authenticate(user: string, password: string, callback: Verdaccio.Callback) {
+    // disable login
+    callback(createError(405, `Signup/Login Not Implemented please use ${this.signupUrl} to signup`), false);
+  }
+
+  add_user(user: string, password: string, callback: Verdaccio.Callback) {
+    // disable login
+    callback(createError(405, `Signup/Login Not Implemented please use ${this.signupUrl} to signup`), false);
+  }
+
+  apiJWTmiddleware(helpers: any){
+    this.createAnonymousRemoteUser = helpers.createAnonymousRemoteUser;
+    this.createRemoteUser = helpers.createRemoteUser;
+    return this.doExternalAuth.bind(this);
+  }
+
+  async doExternalAuth(req: RequestExtend, res: Response, _next: NextFunction) {
+    if (!(this.createRemoteUser && this.createAnonymousRemoteUser)) {
+      throw new Error('createRemoteUser or createAnonymousRemoteUser methods undefined');
+    }
+    req.pause();
+
+    const next = function(err?: HttpError) {
+      req.resume();
+      if (err) {
+        return _next(err);
+      }
+      return _next();
+    };
+
+    if (req.path.includes('login') || req.path.includes('user')) {
+      this.logger.info('User Auth/Management not supported');
+      const err = createError(403, 'User Auth/Management not supported');
+      return next(err);
+    }
+
+    if (!req.headers.authorization || req.headers.authorization.toUpperCase().startsWith('BASIC')) {
+      const err = createError(401, 'Invalid Authorization');
+      return next(err);
+    }
+
+    try {
+    //   const userResp = await axios.get(
+    //       `${this.apiUrl}/users/self`,
+    //       {
+    //         method: 'GET',
+    //         headers: {
+    //           'Content-Type': 'application/json',
+    //           'Authorization': req.headers.authorization
+    //         },
+    //       }
+    //   );
+    //   if (userResp.status >= 500) {
+    //     this.logger.error('Internal Server Error');
+    //     const err = createError(500, 'Internal Server Error');
+    //     return next(err);
+    //   }
+
+    //   const body:any = await userResp.json();
+    //   if (userResp.status !== 200) {
+    //     const err = createError(userResp.status, body.message);
+    //     return next(err);
+    //   }
+    //   const user = body.data;
+    //   this.logger.info(`User Auth Success ${user.username}`);
+    //   req.remote_user = this.createRemoteUser(user.username, user._orgs);
+      return next();
+
+    } catch (e:any) {
+      this.logger.error(`ERROR FETCHING: ${e.message}`);
+      const err = createError(403, 'Not Authorized');
+      return next(err);
+    }
+  }
+}

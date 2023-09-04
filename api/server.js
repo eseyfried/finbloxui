@@ -1,10 +1,69 @@
-var express = require('express');
-var app = express();
-const { User } = require('./models');
+const express = require('express');
+const app = express();
+app.use(express.json());
+const { User, Group } = require('./models');
+const  moment = require('moment');
   
 app.get('/', async function (req, res) {
-    const users = await User.findAll();
-    res.send(users);
+    const user = await User.findOne({
+        include: [
+            {
+                model: Group,
+                as: 'Groups',
+            },
+        ]
+    });
+    res.send(user);
+})
+
+app.post('/authenticate', async (req, res) => {
+    const { password } = req.body;
+    let licenseKey;
+    let response;
+    const extractPassword = (password) => {
+        return password.split(" ")[1]
+    }
+    if (password.indexOf("Bearer") != -1) {
+        licenseKey = extractPassword(password);
+    }
+    
+    const user = await User.findOne({
+        where: {
+            licenseKey: licenseKey
+        },
+        include: [
+            {
+                model: Group,
+                as: 'Groups',
+            },
+        ]
+    });
+    if (user) {
+        const groups = user.Groups.map(group => group.name)
+        response = {
+            name: user.email,
+            groups: groups
+        }
+        console.log("Validate license key: %s", licenseKey)
+        console.log(response)
+    } else {
+        res.status(403);
+        response = {
+            message: "You are unauthorized to access this package"
+        }
+    }
+    res.send(response);
+});
+
+app.post('/signup', async (req, res) => {
+    const user = await User.create({
+        firstName: "Jane",
+        lastName: "Doe",
+        organizationName: "Care Co.",
+        licenseExpiresAt: moment().add(1, "year").format("YYYY-MM-DD"),
+
+    });
+    res.send(user)
 })
 
 var server = app.listen(3000, function () {

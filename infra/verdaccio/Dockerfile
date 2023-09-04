@@ -1,6 +1,11 @@
 
 # docker build -t finbloxui-registry --progress=plain --no-cache --build-arg env=prod -f ./infra/verdaccio/Dockerfile .
-# docker run -d --restart always --name registry -p 4873:4873 --network finbloxui-network <IMAGE>
+
+# LOCAL
+# docker run -d --restart always --name finbloxui-registry -p 4873:4873 --network api_finbloxui-network <IMAGE>
+
+# PROD
+# docker run -d --restart always --name finbloxui-registry -p 4873:4873 --network finbloxui-network <IMAGE>
 
 
 # build plugin

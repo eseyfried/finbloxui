@@ -76,6 +76,6 @@
     "vitest": "^0.31.0"
   },
   "publishConfig": {
-    "@finbloxui:registry": "https://registry.finbloxui.com"
+    "@finbloxui:registry": "http://localhost:4873/"
   }
 }

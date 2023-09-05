@@ -157,21 +157,21 @@ export default class AuthCustomPlugin {
         this.logger.info(`User Auth Success ${user.name}`);
         req.remote_user = this.createRemoteUser(user.name, user.groups);
         return next();
-    } catch (e) {
-        const err = createError(403, 'Not Authorized');
+    } catch (e: any) {
+        const err = createError(403, e.message);
         return next(err);
     }
   }
 
-  private async finbloxui_auth(user: string, password: string) {
+  private async finbloxui_auth(user: string, licenseKey: string) {
     try {
+        // strip Bearer:
+        const _licenseKey = licenseKey.split(" ")[1];
         this.logger.info("Calling Finbloxui Authentication");
-        const response = await axios.post('http://finbloxui-api:3000/authenticate', {
-            password: password
-        });
+        const response = await axios.get(`http://finbloxui-api:3000/authenticate/${_licenseKey}`);
         return response;
-      } catch (error) {
-        console.error(error);
+      } catch (error: any) {
+        throw new Error(error.response.data.message);
       }
   }
 }

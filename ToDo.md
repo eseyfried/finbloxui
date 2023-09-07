@@ -10,3 +10,4 @@
 - [ ] ~~create process to add/remove users to htpasswd~~
 - [ ] document how to get NPM set up as a user
     - test it out
+- [ ] build api to get list of versions available

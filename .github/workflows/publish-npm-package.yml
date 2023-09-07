@@ -11,14 +11,11 @@ on:
 jobs:
   build-and-publish-lib:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-        # with:
-        #   token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+        with:
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
       # Setup .npmrc file to publish to npm
       - name: Build Lib
         uses: actions/setup-node@v3

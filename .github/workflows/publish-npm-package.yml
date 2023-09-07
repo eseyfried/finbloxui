@@ -26,7 +26,12 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '16.x'
+          cache: "npm"
           registry-url: 'https://registry.finbloxui.com'
+      - name: Git config
+        run: |
+          git config --global user.email "eric.seyfried@gmail.com"
+          git config --global user.name "${{ github.actor }}"
       - name: Apply version bump (major)
         if: contains(github.event.inputs.version, 'major')
         run: npm version major

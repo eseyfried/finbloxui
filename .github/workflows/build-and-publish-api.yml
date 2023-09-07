@@ -37,7 +37,7 @@ jobs:
           file: ./infra/api/server/Dockerfile
           build-args: env=prod
           push: true
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest, ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+          tags: ${{ env.REGISTRY }}/${{ github.actor }}/${{ env.IMAGE_NAME }}:latest, ${{ env.REGISTRY }}/${{ github.actor }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
   # build_and_push_api:
   #   runs-on: ubuntu-latest
   #   steps:

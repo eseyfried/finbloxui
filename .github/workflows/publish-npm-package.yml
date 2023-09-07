@@ -9,25 +9,35 @@ on:
         description: 'major, minor, patch'
         required: true
 jobs:
-  build-lib:
+  build-and-publish-lib:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
       # Setup .npmrc file to publish to npm
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '16.x'
-      - run: npm install
-      - run: npm run test
-      - run: npm run build-lib
-  publish-npm:
-    needs: build-lib
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '16.x'
-          registry-url: 'https://registry.finbloxui.com'
-      - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: 593d516b-4fc7-4c29-ab3b-7f9d06f72505
+      - name: Build Lib
+        uses: actions/setup-node@v3
+          with:
+            node-version: '16.x'
+        - run: npm install
+        - run: npm run test
+        - run: npm run build-lib
+      - name: Publish NPM
+        uses: actions/setup-node@v3
+          with:
+            node-version: '16.x'
+            registry-url: 'https://registry.finbloxui.com'
+        - run: npm publish
+          env:
+            NODE_AUTH_TOKEN: 593d516b-4fc7-4c29-ab3b-7f9d06f72505
+  # publish-npm:
+  #   needs: build-lib
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/setup-node@v3
+  #       with:
+  #         node-version: '16.x'
+  #         registry-url: 'https://registry.finbloxui.com'
+  #     - run: npm publish
+  #       env:
+  #         NODE_AUTH_TOKEN: 593d516b-4fc7-4c29-ab3b-7f9d06f72505

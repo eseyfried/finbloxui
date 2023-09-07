@@ -20,6 +20,6 @@ jobs:
         with:
           node-version: '16.x'
           registry-url: 'https://registry.finbloxui.com'
-        run: npm run build-lib && npm publish
+      run: npm run build-lib && npm publish
         env:
           NODE_AUTH_TOKEN: 593d516b-4fc7-4c29-ab3b-7f9d06f72505

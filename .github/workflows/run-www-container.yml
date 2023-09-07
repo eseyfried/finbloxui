@@ -5,7 +5,7 @@ env:
   WWW_CONTAINER_NAME: "www"
   WWW_IMAGE_NAME: "finbloxui-www"
 jobs:
-  deploy:
+  run-container:
     runs-on: ubuntu-latest
     steps:
       - name: "Run WWW container"

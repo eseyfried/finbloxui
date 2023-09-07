@@ -11,7 +11,7 @@ env:
   WWW_IMAGE_NAME: "finbloxui-www"
   WWW_CONTAINER_NAME: "www"
 jobs:
-  deploy-api:
+  deploy-www:
     runs-on: ubuntu-latest
     steps:
       - name: "Deploy to Digital Ocean droplet via ssh Action"
@@ -31,7 +31,7 @@ jobs:
             docker rm ${{ env.WWW_CONTAINER_NAME }}
             # Pull latest images
             docker pull ${{ env.REGISTRY }}/${{ github.actor }}/${{ env.WWW_IMAGE_NAME }}:${{ github.event.inputs.version }} 
-  run-api-container:
+  run-www-container:
     needs: deploy-www
     uses: eseyfried/finbloxui/.github/workflows/run-www-container.yml@main
     secrets: inherit  

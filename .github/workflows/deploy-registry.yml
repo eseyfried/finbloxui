@@ -32,6 +32,6 @@ jobs:
             # Pull latest images
             docker pull ${{ env.REGISTRY }}/${{ github.actor }}/${{ env.REGISTRY_IMAGE_NAME }}:${{ github.event.inputs.version }} 
   run-registry-container:
-    needs: deploy-api
+    needs: deploy-registry
     uses: eseyfried/finbloxui/.github/workflows/run-registry-container.yml@main
     secrets: inherit  

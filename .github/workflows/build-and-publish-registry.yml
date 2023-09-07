@@ -34,6 +34,6 @@ jobs:
           push: true
           tags: ${{ env.REGISTRY }}/${{ github.actor }}/${{ env.IMAGE_NAME }}:latest, ${{ env.REGISTRY }}/${{ github.actor }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
   deploy-registry:
-    needs: build_and_push_www
+    needs: build_and_push_registry
     uses: eseyfried/finbloxui/.github/workflows/deploy-registry.yml@main
     secrets: inherit

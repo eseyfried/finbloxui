@@ -1,7 +1,7 @@
 name: Run Registry Container
 on: [workflow_call, workflow_dispatch]
 env:
-  REGISTRY: "registry.digitalocean.com/sports-camp-360"
+  REGISTRY: "ghcr.io"
   REGISTRY_CONTAINER_NAME: "registry"
   REGISTRY_IMAGE_NAME: "finbloxui-registry"
 jobs:
@@ -29,4 +29,4 @@ jobs:
             -p 4873:4873 \
             --network finbloxui-network \
             -e VERDACCIO_PUBLIC_URL=https://registry.finbloxui.com \
-            ${{ env.REGISTRY }}/${{ env.REGISTRY_IMAGE_NAME }}
+            ${{ env.REGISTRY }}/${{ github.actor }}/${{ env.REGISTRY_IMAGE_NAME }}

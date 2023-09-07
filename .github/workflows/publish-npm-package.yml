@@ -20,9 +20,9 @@ jobs:
         run: npm run build-lib
       - name: NPM Publish
         uses: actions/setup-node@v3
-          with:
-            node-version: '16.x'
-            registry-url: 'https://registry.finbloxui.com'
+        with:
+          node-version: '16.x'
+          registry-url: 'https://registry.finbloxui.com'
         run: npm publish
           env:
             NODE_AUTH_TOKEN: 593d516b-4fc7-4c29-ab3b-7f9d06f72505

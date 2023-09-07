@@ -17,16 +17,16 @@ jobs:
       # Setup .npmrc file to publish to npm
       - name: Build Lib
         uses: actions/setup-node@v3
-          with:
-            node-version: '16.x'
+        with:
+          node-version: '16.x'
         - run: npm install
         - run: npm run test
         - run: npm run build-lib
       - name: Publish NPM
         uses: actions/setup-node@v3
-          with:
-            node-version: '16.x'
-            registry-url: 'https://registry.finbloxui.com'
+        with:
+          node-version: '16.x'
+          registry-url: 'https://registry.finbloxui.com'
         - run: npm publish
           env:
             NODE_AUTH_TOKEN: 593d516b-4fc7-4c29-ab3b-7f9d06f72505

@@ -1,7 +1,7 @@
 name: Run API Container
 on: [workflow_call, workflow_dispatch]
 env:
-  REGISTRY: "registry.digitalocean.com/sports-camp-360"
+  REGISTRY: "ghcr.io"
   API_CONTAINER_NAME: "api"
   API_IMAGE_NAME: "finbloxui-api"
 jobs:
@@ -28,4 +28,4 @@ jobs:
             --name ${{ env.API_CONTAINER_NAME }} \
             -p 3000:3000 \
             --network finbloxui-network \
-            ${{ env.REGISTRY }}/${{ env.API_IMAGE_NAME }}
+            ${{ env.REGISTRY }}/${{ github.actor }}/${{ env.API_IMAGE_NAME }}

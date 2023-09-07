@@ -1,0 +1,36 @@
+name: Run Db Container
+on: [workflow_call, workflow_dispatch]
+env:
+  REGISTRY: "ghcr.io"
+  DB_CONTAINER_NAME: "db"
+  DB_IMAGE_NAME: "finbloxui-db"
+jobs:
+  run-container:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Run Db container"
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.DROPLET_HOST }}
+          username: ${{ secrets.DROPLET_USERNAME }}
+          key: ${{ secrets.DIGITALOCEAN_SSH_KEY }}
+          debug: true
+          script: |
+            # create network
+            docker network create -d bridge finbloxui-network || true
+            # stop container
+            docker stop ${{ env.DB_CONTAINER_NAME }}
+            # remove container
+            docker rm ${{ env.DB_CONTAINER_NAME }}
+            # run container
+            docker run -d \
+            --restart always \
+            --name ${{ env.DB_CONTAINER_NAME }} \
+            -p 7033:3306 \
+            -v mysql:/var/lib/mysql \
+            --network finbloxui-network \
+            -e MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }} \
+            -e MYSQL_DATABASE=${{ secrets.MYSQL_DATABASE }} \
+            -e MYSQL_USER=${{ secrets.MYSQL_USER }} \
+            -e MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }} \
+            ${{ env.REGISTRY }}/${{ github.actor }}/${{ env.DB_IMAGE_NAME }}

@@ -1,0 +1,37 @@
+name: Deploy Db
+on:
+  workflow_call:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Image Version"
+        required: true
+env:
+  REGISTRY: "ghcr.io"
+  DB_IMAGE_NAME: "finbloxui-db"
+  DB_CONTAINER_NAME: "db"
+jobs:
+  deploy-db:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Deploy to Digital Ocean droplet via ssh Action"
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.DROPLET_HOST }}
+          username: ${{ secrets.DROPLET_USERNAME }}
+          key: ${{ secrets.DIGITALOCEAN_SSH_KEY }}
+          debug: true
+          envs: DB_IMAGE_NAME,DB_CONTAINER_NAME,${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }},GITHUB_SHA
+          script: |
+            # login to registry
+            docker login -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }} ${{ env.REGISTRY }}
+            # stop running containers
+            docker stop ${{ env.DB_CONTAINER_NAME }}
+            # remove running containers
+            docker rm ${{ env.DB_CONTAINER_NAME }}
+            # Pull latest images
+            docker pull ${{ env.REGISTRY }}/${{ github.actor }}/${{ env.DB_IMAGE_NAME }}:${{ github.event.inputs.version }} 
+  run-db-container:
+    needs: deploy-db
+    uses: eseyfried/finbloxui/.github/workflows/run-db-container.yml@main
+    secrets: inherit  

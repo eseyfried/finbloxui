@@ -29,13 +29,13 @@ jobs:
           registry-url: 'https://registry.finbloxui.com'
       # - run: npm ${{ github.event.inputs.version }}
       - name: Apply version bump (major)
-      if: contains(github.event.inputs.version, 'major')
+        if: contains(github.event.inputs.version, 'major')
         run: npm version major
       - name: Apply version bump (minor)
-      if: contains(github.event.inputs.version, 'minor')
+        if: contains(github.event.inputs.version, 'minor')
         run: npm version minor
       - name: Apply version bump (patch)
-      if: contains(github.event.inputs.version, 'patch')
+        if: contains(github.event.inputs.version, 'patch')
         run: npm version patch
       - name: Git push version bump
         run: git push origin main --follow-tags --force

@@ -1,0 +1,37 @@
+name: Deploy API
+on:
+  workflow_call:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Image Version"
+        required: true
+env:
+  REGISTRY: "registry.digitalocean.com/sports-camp-360"
+  API_IMAGE_NAME: "finbloxui-api"
+  API_CONTAINER_NAME: "api"
+jobs:
+  deploy-api:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Deploy to Digital Ocean droplet via ssh Action"
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.DROPLET_HOST }}
+          username: ${{ secrets.DROPLET_USERNAME }}
+          key: ${{ secrets.DIGITALOCEAN_SSH_KEY }}
+          debug: true
+          envs: API_IMAGE_NAME,API_CONTAINER_NAME,${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }},GITHUB_SHA
+          script: |
+            # login to registry
+            docker login -u ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }} -p ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }} registry.digitalocean.com
+            # stop running containers
+            docker stop ${{ env.API_CONTAINER_NAME }}
+            # remove running containers
+            docker rm ${{ env.API_CONTAINER_NAME }}
+            # Pull latest images
+            docker pull ${{ env.REGISTRY }}/${{ env.API_IMAGE_NAME }}:${{ github.event.inputs.version }} 
+  run-api-container:
+    needs: deploy-api
+    uses: eseyfried/finbloxui/.github/workflows/run-api-container.yml@main
+    secrets: inherit  

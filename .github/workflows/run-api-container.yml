@@ -1,0 +1,31 @@
+name: Run API Container
+on: [workflow_call, workflow_dispatch]
+env:
+  REGISTRY: "registry.digitalocean.com/sports-camp-360"
+  API_CONTAINER_NAME: "api"
+  API_IMAGE_NAME: "finbloxui-api"
+jobs:
+  deploy-api:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Run API container"
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.DROPLET_HOST }}
+          username: ${{ secrets.DROPLET_USERNAME }}
+          key: ${{ secrets.DIGITALOCEAN_SSH_KEY }}
+          debug: true
+          script: |
+            # create network
+            docker network create -d bridge finbloxui-network || true
+            # stop container
+            docker stop ${{ env.API_CONTAINER_NAME }}
+            # remove container
+            docker rm ${{ env.API_CONTAINER_NAME }}
+            # run container
+            docker run -d \
+            --restart always \
+            --name ${{ env.API_CONTAINER_NAME }} \
+            -p 3000:3000 \
+            --network finbloxui-network \
+            ${{ env.REGISTRY }}/${{ env.API_IMAGE_NAME }}

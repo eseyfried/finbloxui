@@ -11,58 +11,17 @@ const  {
 } = require('./modules/controllers/license.js')
   
 app.get('/', async function (req, res) {
-    const user = await User.findOne({
-        include: [
-            {
-                model: Group,
-                as: 'Groups',
-            },
-        ]
-    });
-    res.send(user);
+    
+    res.send("OK");
+})
+
+app.get('/health', async function (req, res) {
+    
+    res.send("UP");
 })
 
 router.get('/authenticate/:licenseKey', getLicense)
-/*
-app.post('/authenticate', async (req, res) => {
-    const { password } = req.body;
-    let licenseKey;
-    let response;
-    const extractPassword = (password) => {
-        return password.split(" ")[1]
-    }
-    if (password.indexOf("Bearer") != -1) {
-        licenseKey = extractPassword(password);
-    }
-    
-    const user = await User.findOne({
-        where: {
-            licenseKey: licenseKey
-        },
-        include: [
-            {
-                model: Group,
-                as: 'Groups',
-            },
-        ]
-    });
-    if (user) {
-        const groups = user.Groups.map(group => group.name)
-        response = {
-            name: user.email,
-            groups: groups
-        }
-        console.log("Validate license key: %s", licenseKey)
-        console.log(response)
-    } else {
-        res.status(403);
-        response = {
-            message: "You are unauthorized to access this package"
-        }
-    }
-    res.send(response);
-});
-*/
+
 app.post('/signup', async (req, res) => {
     const user = await User.create({
         firstName: "Jane",

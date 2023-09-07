@@ -13,10 +13,14 @@ FROM verdaccio/verdaccio
 
 USER root
 ###
-# copy basic config and htpasswd file
+# copy basic config
 ###
 COPY ./infra/verdaccio/conf/config.yaml /verdaccio/conf
-COPY ./infra/verdaccio/conf/htpasswd /verdaccio/storage/htpasswd
+###
+# Make storage dir
+###
+RUN mkdir -p /verdaccio/storage/data
+
 ###
 # copy plugin source, install deps and build plugin
 ##
@@ -31,8 +35,12 @@ COPY ./infra/verdaccio/plugins/verdaccio-finbloxui-auth/package.* .
 ###
 RUN npm install -g /tmp/build
 RUN ln -s /tmp/build /verdaccio/plugins/verdaccio-finbloxui-auth
+###
+# Set owner perms
+###
 RUN chown -R $VERDACCIO_USER_UID:root /verdaccio/plugins
 RUN chown -R $VERDACCIO_USER_UID:root /verdaccio/storage
+
 
 
 USER verdaccio

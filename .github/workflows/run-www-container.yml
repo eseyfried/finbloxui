@@ -1,7 +1,7 @@
 name: Run WWW Container
 on: [workflow_call, workflow_dispatch]
 env:
-  REGISTRY: "registry.digitalocean.com/sports-camp-360"
+  REGISTRY: "ghcr.io"
   WWW_CONTAINER_NAME: "www"
   WWW_IMAGE_NAME: "finbloxui-www"
 jobs:
@@ -28,4 +28,4 @@ jobs:
             --name ${{ env.WWW_CONTAINER_NAME }} \
             -p 80:80 \
             --network finbloxui-network \
-            ${{ env.REGISTRY }}/${{ env.WWW_IMAGE_NAME }}
+            ${{ env.REGISTRY }}/${{ github.actor }}/${{ env.WWW_IMAGE_NAME }}

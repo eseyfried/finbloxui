@@ -33,27 +33,6 @@ jobs:
           build-args: env=prod
           push: true
           tags: ${{ env.REGISTRY }}/${{ github.actor }}/${{ env.IMAGE_NAME }}:latest, ${{ env.REGISTRY }}/${{ github.actor }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
-  # build_and_push_api:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout the repo 
-  #       uses: actions/checkout@v3
-  #     - name: Build api image 
-  #       run: docker build -t finbloxui-api --progress=plain --no-cache --build-arg env=prod -f ./infra/api/server/Dockerfile .
-  #     - name: Install doctl 
-  #       uses: digitalocean/action-doctl@v2
-  #       with:
-  #         token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-  #     - name: Log in to DO Container Registry 
-  #       run: doctl registry login --expiry-seconds 600
-  #     - name: Tag finbloxui-api image with last commit
-  #       run: docker tag finbloxui-api ${{ env.REGISTRY }}/finbloxui-api:${{ github.sha }}
-  #     - name: Tag finbloxui-api image as latest
-  #       run: docker tag finbloxui-api ${{ env.REGISTRY }}/finbloxui-api:latest
-  #     - name: Push finbloxui-api image last commit to DO Container Registry 
-  #       run: docker push ${{ env.REGISTRY }}/finbloxui-api:${{ github.sha }}
-  #     - name: Push finbloxui-api image latest to DO Container Registry 
-  #       run: docker push ${{ env.REGISTRY }}/finbloxui-api:latest
   deploy-api:
     needs: build_and_push_api
     uses: eseyfried/finbloxui/.github/workflows/deploy-api.yml@main

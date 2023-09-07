@@ -1,4 +1,4 @@
-name: Deploy
+name: Deploy WWW
 on:
   workflow_call:
   workflow_dispatch:
@@ -7,11 +7,11 @@ on:
         description: "Image Version"
         required: true
 env:
-  REGISTRY: "registry.digitalocean.com/sports-camp-360"
+  REGISTRY: "ghcr.io"
   WWW_IMAGE_NAME: "finbloxui-www"
   WWW_CONTAINER_NAME: "www"
 jobs:
-  deploy:
+  deploy-api:
     runs-on: ubuntu-latest
     steps:
       - name: "Deploy to Digital Ocean droplet via ssh Action"
@@ -24,14 +24,14 @@ jobs:
           envs: WWW_IMAGE_NAME,WWW_CONTAINER_NAME,${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }},GITHUB_SHA
           script: |
             # login to registry
-            docker login -u ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }} -p ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }} registry.digitalocean.com
+            docker login -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }} ${{ env.REGISTRY }}
             # stop running containers
             docker stop ${{ env.WWW_CONTAINER_NAME }}
             # remove running containers
             docker rm ${{ env.WWW_CONTAINER_NAME }}
             # Pull latest images
-            docker pull ${{ env.REGISTRY }}/${{ env.WWW_IMAGE_NAME }}:${{ github.event.inputs.version }} 
-  run-www-container:
-    needs: deploy
+            docker pull ${{ env.REGISTRY }}/${{ github.actor }}/${{ env.WWW_IMAGE_NAME }}:${{ github.event.inputs.version }} 
+  run-api-container:
+    needs: deploy-www
     uses: eseyfried/finbloxui/.github/workflows/run-www-container.yml@main
     secrets: inherit  

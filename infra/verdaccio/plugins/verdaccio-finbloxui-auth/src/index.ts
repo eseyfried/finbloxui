@@ -169,7 +169,7 @@ export default class AuthCustomPlugin {
         // strip Bearer:
         const _licenseKey = licenseKey.split(" ")[1];
         this.logger.info("Calling Finbloxui Authentication");
-        const response = await axios.get(`http://finbloxui-api:3000/authenticate/${_licenseKey}`);
+        const response = await axios.get(`http://api:3000/authenticate/${_licenseKey}`);
         return response;
       } catch (error: any) {
         throw new Error(error.response.data.message);

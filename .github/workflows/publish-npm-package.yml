@@ -20,6 +20,7 @@ jobs:
       - run: npm install
       - run: npm run build-lib
   publish-npm:
+    needs: build-lib
     runs-on: ubuntu-latest
     steps:
       - uses: actions/setup-node@v3

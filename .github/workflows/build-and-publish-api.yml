@@ -1,4 +1,4 @@
-# finbloxui-containers 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
+# finbloxui-containers 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
 name: Build and publish api manually
 
 on:
@@ -37,7 +37,7 @@ jobs:
           file: ./infra/api/server/Dockerfile
           build-args: env=prod
           push: true
-          tags: ${{ github.sha }}, latest
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}, ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
   # build_and_push_api:
   #   runs-on: ubuntu-latest
   #   steps:

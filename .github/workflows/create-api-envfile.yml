@@ -1,0 +1,22 @@
+name: Create env file for API
+on: [workflow_call, workflow_dispatch]
+env:
+  API_CONTAINER_NAME: "api"
+jobs:
+  set_env_vars:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Create env file"
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.DROPLET_HOST }}
+          username: ${{ secrets.DROPLET_USERNAME }}
+          key: ${{ secrets.DIGITALOCEAN_SSH_KEY }}
+          debug: true
+          envs: API_CONTAINER_NAME
+          script: |
+            rm .envfile
+            echo DB_NAME=${{ secrets.MYSQL_DATABASE }} >> .envfile
+            echo DB_USER=${{ secrets.MYSQL_USER }} >> .envfile
+            echo DB_PWD=${{ secrets.MYSQL_PASSWORD }} >> .envfile
+            

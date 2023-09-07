@@ -32,6 +32,7 @@ COPY ./infra/verdaccio/plugins/verdaccio-finbloxui-auth/package.* .
 RUN npm install -g /tmp/build
 RUN ln -s /tmp/build /verdaccio/plugins/verdaccio-finbloxui-auth
 RUN chown -R $VERDACCIO_USER_UID:root /verdaccio/plugins
+RUN chown -R $VERDACCIO_USER_UID:root /verdaccio/storage
 
 
 USER verdaccio

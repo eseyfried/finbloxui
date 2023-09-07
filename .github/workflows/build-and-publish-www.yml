@@ -11,7 +11,7 @@ env:
   REGISTRY: "ghcr.io"
   IMAGE_NAME: "finbloxui-www"
 jobs:
-  build_and_push_api:
+  build_and_push_www:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -33,7 +33,7 @@ jobs:
           build-args: env=prod
           push: true
           tags: ${{ env.REGISTRY }}/${{ github.actor }}/${{ env.IMAGE_NAME }}:latest, ${{ env.REGISTRY }}/${{ github.actor }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
-  deploy-api:
+  deploy-www:
     needs: build_and_push_www
     uses: eseyfried/finbloxui/.github/workflows/deploy-www.yml@main
     secrets: inherit

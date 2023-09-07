@@ -63,17 +63,18 @@ export default class AuthCustomPlugin {
    * @param cb
    */
   public allow_access(user: RemoteUser, pkg: PackageAccess, cb: AuthAccessCallback): void {
+    const _pkg: any = pkg;
     this.logger.info({name: user.name, real_groups: user.real_groups.join(",")}, '@{name} is part of real_groups: @{real_groups}');
     /**
      * This code is just an example for demostration purpose
      */
     // if (user.name === this.foo && pkg?.access?.includes[user.name]) {
-    if (user.real_groups.includes["access"]) {
+    if (user.real_groups.includes("access")) {
       this.logger.debug({name: user.name}, 'your package has been granted for @{name}');
       cb(null, true)
     } else {
       this.logger.error({name: user.name}, '@{name} is not allowed to access this package');
-       cb(getInternalError("error, try again"), false);
+       cb(getInternalError(`${user.name} is not allowed to access package ${_pkg.name}`), false);
     }
   }
 

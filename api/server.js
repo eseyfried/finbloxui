@@ -6,12 +6,16 @@ app.use(router);
 const { User, Group } = require('./models');
 const  moment = require('moment');
 
+// load controller modules
+
 const  { 
     getLicense
-} = require('./modules/controllers/license.js')
+} = require('./modules/controllers/license.js');
+const  { 
+    createTrialAccount
+} = require('./modules/controllers/signup.js');
   
 app.get('/', async function (req, res) {
-    
     res.send("OK");
 })
 
@@ -22,16 +26,7 @@ app.get('/health', async function (req, res) {
 
 router.get('/authenticate/:licenseKey', getLicense)
 
-app.post('/signup', async (req, res) => {
-    const user = await User.create({
-        firstName: "Jane",
-        lastName: "Doe",
-        organizationName: "Care Co.",
-        licenseExpiresAt: moment().add(1, "year").format("YYYY-MM-DD"),
-
-    });
-    res.send(user)
-})
+app.post('/signup', createTrialAccount);
 
 var server = app.listen(3000, function () {
    var host = server.address().address

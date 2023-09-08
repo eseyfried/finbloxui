@@ -59,6 +59,14 @@ const getLicense = (async(req, res) => {
     res.status(response.status).send(response.data);
 })
 
+// PRIVATE METHODS
+
+/**
+ * Is the license expired?
+ * @param {String} licenseBeginsAt date YYYY-MM-DD HH:MM:SS
+ * @param {*} licenseExpiresAt date YYYY-MM-DD HH:MM:SS
+ * @returns Boolean
+ */
 const isExpired = (licenseBeginsAt, licenseExpiresAt) => {
     const today = moment();
     const _licenseBeginsAt = moment(licenseBeginsAt);

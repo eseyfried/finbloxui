@@ -20,7 +20,17 @@ module.exports = (sequelize, DataTypes) => {
     firstName: DataTypes.STRING,
     lastName: DataTypes.STRING,
     organizationName: DataTypes.STRING,
-    email: DataTypes.STRING,
+    email: {
+        type: DataTypes.STRING,
+        validate: {
+          isEmail: {
+            msg: 'invalid email format'
+          },
+          notEmpty: {
+            msg: 'email is required'
+          },
+        }
+    },
     licenseKey: {
         type: DataTypes.UUIDV4,
         defaultValue: () => uuidv4()

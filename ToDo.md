@@ -11,7 +11,7 @@
 - [ ] document how to get NPM set up as a user
     - test it out
 - [ ] build api to get list of versions available
-- [ ] create signup api (email for license key)
+- [x] create trial signup api (email for license key)
 - [ ] create trial package
 - [ ] create pro (licensed) package
 - [ ] build seeders for database

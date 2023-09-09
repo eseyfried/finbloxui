@@ -14,5 +14,5 @@
 - [x] create trial signup api (email for license key)
 - [ ] create trial package
 - [ ] create pro (licensed) package
-- [ ] build seeders for database
+- [x] build seeders for database
 - [ ] build licence key checker

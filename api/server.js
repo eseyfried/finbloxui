@@ -26,7 +26,7 @@ app.get('/health', async function (req, res) {
 
 router.get('/authenticate/:licenseKey', getLicense)
 
-app.post('/signup', createTrialAccount);
+app.post('/trial', createTrialAccount);
 
 var server = app.listen(3000, function () {
    var host = server.address().address

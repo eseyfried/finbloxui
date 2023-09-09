@@ -7,6 +7,12 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
     });
+    await queryInterface.addColumn('Users', 'licenseType', {
+        type: Sequelize.ENUM({
+            values: ['trial', 'pro']
+        }),
+        allowNull: false
+    });
   },
 
   async down (queryInterface, Sequelize) {
@@ -14,5 +20,6 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true
     });
+    await queryInterface.removeColumn('Users', 'licenseType',)
   }
 };

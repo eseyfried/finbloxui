@@ -37,6 +37,15 @@ module.exports = (sequelize, DataTypes) => {
     },
     licenseBeginsAt: DataTypes.DATEONLY,
     licenseExpiresAt: DataTypes.DATEONLY,
+    licenseType: {
+        type: DataTypes.STRING,
+        validate: {
+            notEmpty: {
+            msg: 'licenseType is required'
+        },
+        isIn: [['trial', 'pro']]
+        }
+    },
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE,
     deletedAt: DataTypes.DATE

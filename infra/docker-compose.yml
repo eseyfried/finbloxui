@@ -6,7 +6,8 @@ services:
     restart: unless-stopped
     tty: true
     build:
-      context: ./configs/www
+      context: ../
+      dockerfile: ./infra/configs/www/Dockerfile
       args:
         env: dev
     volumes:
@@ -20,4 +21,5 @@ services:
 #Docker Networks
 networks:
   finbloxui-network:
+    name: api_finbloxui-network
     driver: bridge

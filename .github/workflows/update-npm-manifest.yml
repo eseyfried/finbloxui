@@ -1,4 +1,7 @@
 name: Update NPM Manifest
+on:
+  workflow_call:
+  workflow_dispatch:
 jobs:
   update-npm-manifest:
     runs-on: ubuntu-latest

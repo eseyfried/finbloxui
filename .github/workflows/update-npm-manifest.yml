@@ -3,12 +3,12 @@ jobs:
   update-npm-manifest:
     runs-on: ubuntu-latest
     steps:
-    - name: POST NPM Version
-      uses: fjogeleit/http-request-action@v1
-      with:
-        url: 'https://api.finbloxui.com/health'
-        method: 'GET'
-        # username: ${{ secrets.AWX_USER }}
-        # password: ${{ secrets.AWX_PASSWORD }}
-        customHeaders: '{"Content-Type": "application/json"}'
-        data: '{"version": "1.0.1"}'
+      - name: POST NPM Version
+        uses: fjogeleit/http-request-action@v1
+        with:
+          url: 'https://api.finbloxui.com/health'
+          method: 'GET'
+          # username: ${{ secrets.AWX_USER }}
+          # password: ${{ secrets.AWX_PASSWORD }}
+          customHeaders: '{"Content-Type": "application/json"}'
+          data: '{"version": "1.0.1"}'

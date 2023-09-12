@@ -1,6 +1,3 @@
-# TODO
-# Add version bump `npm version patch|major|minor --force && npm publish`
-# Fix rebuild registry loses all npm packages
 name: Publish Package to NPM Registry
 on:
   workflow_dispatch:
@@ -51,3 +48,5 @@ jobs:
       - run: npm publish --registry https://registry.finbloxui.com
         env:
           NODE_AUTH_TOKEN: 593d516b-4fc7-4c29-ab3b-7f9d06f72505
+    output:
+      version: ${{ steps.set-version.outputs.version }}

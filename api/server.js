@@ -3,8 +3,6 @@ const router = express.Router();
 const app = express();
 app.use(express.json());
 app.use(router);
-const { User, Group } = require('./models');
-const  moment = require('moment');
 
 // load controller modules
 
@@ -14,6 +12,10 @@ const  {
 const  { 
     createTrialAccount
 } = require('./modules/controllers/signup.js');
+const  { 
+    addPackage,
+    listPackages
+} = require('./modules/controllers/packages.js');
   
 app.get('/', async function (req, res) {
     res.send("OK");
@@ -27,6 +29,10 @@ app.get('/health', async function (req, res) {
 router.get('/authenticate/:licenseKey', getLicense)
 
 app.post('/trial', createTrialAccount);
+
+// packages
+app.post('/package', addPackage);
+app.get('/package', listPackages);
 
 var server = app.listen(3000, function () {
    var host = server.address().address

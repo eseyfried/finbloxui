@@ -1,3 +1,4 @@
+name: Update NPM Manifest
 jobs:
   update-npm-manifest:
     runs-on: ubuntu-latest

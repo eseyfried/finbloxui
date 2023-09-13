@@ -16,6 +16,6 @@ jobs:
       version: ${{ steps.set-version.outputs.version }}
   update-version:
     needs: test-set-version
-    - uses: eseyfried/finbloxui/.github/workflows/update-npm-manifest.yml@main
-      with:
-        version: ${{ needs.test-set-version.outputs.version }}
+    uses: eseyfried/finbloxui/.github/workflows/update-npm-manifest.yml@main
+    with:
+      version: ${{ needs.test-set-version.outputs.version }}

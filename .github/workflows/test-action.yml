@@ -19,7 +19,7 @@ jobs:
     needs: test-set-version
     steps:
     - name: debugging
-      run: echo "${{ needs.test-set-version.outputs.version }}"
+      run: echo "${{ jobs.test-set-version.outputs.version }}"
     # uses: eseyfried/finbloxui/.github/workflows/update-npm-manifest.yml@main
     # with:
       # version: ${{ needs.test-set-version.outputs.version }}

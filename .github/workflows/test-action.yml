@@ -8,8 +8,8 @@ jobs:
     - id: set-version
       name: Output version change
       run: echo "1.0.7"
+    outputs:
+      version: ${{ steps.set-version.outputs.version }}
   update-version:
     needs: update-npm-manifest
     uses: eseyfried/finbloxui/.github/workflows/update-npm-manifest.yml@main
-  output:
-      version: ${{ steps.set-version.outputs.version }}

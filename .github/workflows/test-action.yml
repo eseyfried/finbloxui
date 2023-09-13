@@ -6,8 +6,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - id: set-version
-        name: Output version change
-        run: echo "1.0.7"
+      name: Output version change
+      run: echo "1.0.7"
   update-version:
     needs: update-npm-manifest
     uses: eseyfried/finbloxui/.github/workflows/update-npm-manifest.yml@main

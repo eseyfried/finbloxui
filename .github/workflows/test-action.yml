@@ -11,5 +11,5 @@ jobs:
     outputs:
       version: ${{ steps.set-version.outputs.version }}
   update-version:
-    needs: update-npm-manifest
+    needs: test-set-version
     uses: eseyfried/finbloxui/.github/workflows/update-npm-manifest.yml@main

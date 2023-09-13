@@ -4,6 +4,7 @@ on:
     inputs:
       version:
         description: 'NPM version'
+        type: string
   workflow_dispatch:
 jobs:
   update-npm-manifest:

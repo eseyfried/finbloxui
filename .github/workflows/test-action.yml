@@ -1,10 +1,10 @@
 name: Test Action
 on:
   workflow_dispatch:
-    outputs:
-      version:
-        description: NPM package version
-        value: ${{ jobs.test-set-version.outputs.version }}
+    # outputs:
+    #   version:
+    #     description: NPM package version
+    #     value: ${{ jobs.test-set-version.outputs.version }}
 jobs:
   test-set-version:
     runs-on: ubuntu-latest

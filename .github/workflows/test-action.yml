@@ -32,12 +32,12 @@ jobs:
       - id: set-version
         run: echo "version=1.0.7" >> $GITHUB_OUTPUT
   update-version:
-    runs-on: ubuntu-latest
+    # runs-on: ubuntu-latest
     needs: test-set-version
-    steps:
-    - name: debugging
-      run: echo "${{ needs.test-set-version.outputs.version }}"
-    # uses: eseyfried/finbloxui/.github/workflows/update-npm-manifest.yml@main
-    # with:
-    #   version: ${{ needs.test-set-version.outputs.version }}
+    # steps:
+    # - name: debugging
+      # run: echo "${{ needs.test-set-version.outputs.version }}"
+    uses: eseyfried/finbloxui/.github/workflows/update-npm-manifest.yml@main
+    with:
+      version: ${{ needs.test-set-version.outputs.version }}
       # version: "1.0.7"

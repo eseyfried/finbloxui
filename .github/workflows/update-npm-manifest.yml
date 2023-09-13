@@ -12,6 +12,7 @@ jobs:
     steps:
       - name: POST NPM Version
         uses: fjogeleit/http-request-action@v1
+        run: echo "${{ inputs.version }}"
         with:
           url: 'https://api.finbloxui.com/version'
           method: 'POST'

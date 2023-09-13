@@ -10,9 +10,10 @@ jobs:
   update-npm-manifest:
     runs-on: ubuntu-latest
     steps:
+      - name: NPM Version
+        run: echo "${{ inputs.version }}"
       - name: POST NPM Version
         uses: fjogeleit/http-request-action@v1
-        run: echo "${{ inputs.version }}"
         with:
           url: 'https://api.finbloxui.com/version'
           method: 'POST'

@@ -19,34 +19,39 @@ jobs:
         with:
           node-version: '16.x'
       - run: npm install
-      - run: npm run test
-      - run: npm run build-lib
-      - name: Publish NPM
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16.x'
-          cache: "npm"
-          registry-url: 'https://registry.finbloxui.com'
-      - name: Git config
-        run: |
-          git config --global user.email "eric.seyfried@gmail.com"
-          git config --global user.name "${{ github.actor }}"
-      - name: Apply version bump (major)
-        if: contains(github.event.inputs.version, 'major')
-        run: npm version major
-      - name: Apply version bump (minor)
-        if: contains(github.event.inputs.version, 'minor')
-        run: npm version minor
-      - name: Apply version bump (patch)
-        if: contains(github.event.inputs.version, 'patch')
-        run: npm version patch
-      - name: Git push version bump
-        run: git push origin main --follow-tags --force
+      # - run: npm run test
+      # - run: npm run build-lib
+      # - name: Publish NPM
+      #   uses: actions/setup-node@v3
+      #   with:
+      #     node-version: '16.x'
+      #     cache: "npm"
+      #     registry-url: 'https://registry.finbloxui.com'
+      # - name: Git config
+      #   run: |
+      #     git config --global user.email "eric.seyfried@gmail.com"
+      #     git config --global user.name "${{ github.actor }}"
+      # - name: Apply version bump (major)
+      #   if: contains(github.event.inputs.version, 'major')
+      #   run: npm version major
+      # - name: Apply version bump (minor)
+      #   if: contains(github.event.inputs.version, 'minor')
+      #   run: npm version minor
+      # - name: Apply version bump (patch)
+      #   if: contains(github.event.inputs.version, 'patch')
+      #   run: npm version patch
+      # - name: Git push version bump
+        # run: git push origin main --follow-tags --force
       - id: set-version
         name: Output version change
-        run: npm pkg get version
-      - run: npm publish --registry https://registry.finbloxui.com
-        env:
-          NODE_AUTH_TOKEN: 593d516b-4fc7-4c29-ab3b-7f9d06f72505
+        run: npm pkg get version 
+      # - run: npm publish --registry https://registry.finbloxui.com
+      #   env:
+      #     NODE_AUTH_TOKEN: 593d516b-4fc7-4c29-ab3b-7f9d06f72505
     output:
       version: ${{ steps.set-version.outputs.version }}
+  update-version:
+    needs: build-and-publish-lib
+    uses: eseyfried/finbloxui/.github/workflows/update-npm-manifest.yml@main
+    with:
+      version: ${{ needs.build-and-publish-lib.outputs.version }}

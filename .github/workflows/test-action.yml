@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - id: set-version
-        run: echo "::set-version name=version::1.0.7"
+        run: echo "1.0.7"
     outputs:
       version: ${{ steps.set-version.outputs.version }}
   update-version:

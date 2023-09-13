@@ -1,6 +1,9 @@
 name: Update NPM Manifest
 on:
   workflow_call:
+    inputs:
+      version:
+        description: 'NPM version'
   workflow_dispatch:
 jobs:
   update-npm-manifest:
@@ -14,4 +17,4 @@ jobs:
           # username: ${{ secrets.AWX_USER }}
           # password: ${{ secrets.AWX_PASSWORD }}
           customHeaders: '{"Content-Type": "application/json"}'
-          data: '{ "version": "${{ needs.test-set-version.outputs.version}}"}'
+          data: '{ "version": "${{ inputs.version}}"}'

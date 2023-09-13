@@ -1,6 +1,10 @@
 name: Test Action
 on:
   workflow_dispatch:
+    outputs:
+      version:
+        description: NPM package version
+        value: ${{ jobs.test-set-version.outputs.version }}
 jobs:
   test-set-version:
     runs-on: ubuntu-latest
@@ -13,3 +17,5 @@ jobs:
   update-version:
     needs: test-set-version
     uses: eseyfried/finbloxui/.github/workflows/update-npm-manifest.yml@main
+    inputs:
+      version: ${{ jobs.test-set-version.outputs.version }}

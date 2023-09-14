@@ -45,7 +45,7 @@ jobs:
       - id: set-version
         name: Output version change
         run: |
-          VERSION="$(npm pkg get version)"
+          VERSION=$(npm pkg get version)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
       # - run: npm publish --registry https://registry.finbloxui.com
       #   env:

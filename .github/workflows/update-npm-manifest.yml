@@ -17,7 +17,5 @@ jobs:
         with:
           url: 'https://api.finbloxui.com/version'
           method: 'POST'
-          # username: ${{ secrets.AWX_USER }}
-          # password: ${{ secrets.AWX_PASSWORD }}
           customHeaders: '{"Content-Type": "application/json"}'
           data: '{ "version": ${{ inputs.version}} }'

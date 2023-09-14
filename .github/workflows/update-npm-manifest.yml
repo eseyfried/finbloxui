@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: NPM Version
-        run: echo "${{ inputs.version }}"
+        run: echo ${{ inputs.version }}
       - name: POST NPM Version
         uses: fjogeleit/http-request-action@v1
         with:
@@ -20,4 +20,4 @@ jobs:
           # username: ${{ secrets.AWX_USER }}
           # password: ${{ secrets.AWX_PASSWORD }}
           customHeaders: '{"Content-Type": "application/json"}'
-          data: '{ "version": "${{ inputs.version}}"}'
+          data: '{ "version": ${{ inputs.version}} }'

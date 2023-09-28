@@ -2,7 +2,7 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 
-import './stories/Examples/preFlight.scss';
+import './stories/Examples/preFlight.css';
 import "./assets/fontawesome/css/fontawesome.css";
 import "./assets/fontawesome/css/brands.css";
 import "./assets/fontawesome/css/solid.css";

@@ -5,7 +5,7 @@ import "./global.css";
 import "../src/assets/fontawesome/css/fontawesome.css";
 import "../src/assets/fontawesome/css/brands.css";
 import "../src/assets/fontawesome/css/solid.css";
-import "../src/stories/Examples/preflight.scss"
+import "../src/stories/Examples/preFlight.scss"
 import "../src/stories/Examples/themes/theme-1.css"
 import "../src/stories/Examples/themes/theme-2.css"
 

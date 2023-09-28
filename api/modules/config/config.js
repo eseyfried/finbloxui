@@ -36,10 +36,10 @@ require('dotenv').config();
     /**
      * Mail
      */
-    // smtp_mail_host: parse(process.env.SMTP_MAIL_HOST, ''),
-    // smtp_mail_port: parse(process.env.SMTP_MAIL_PORT, ''),
-    // smtp_mail_user: parse(process.env.SMTP_MAIL_USER, ''),
-    // smtp_mail_pass: parse(process.env.SMTP_MAIL_PASS, ''),
+    smtp_mail_host: parse(process.env.SMTP_MAIL_HOST, ''),
+    smtp_mail_port: parse(process.env.SMTP_MAIL_PORT, ''),
+    smtp_mail_user: parse(process.env.SMTP_MAIL_USER, ''),
+    smtp_mail_pass: parse(process.env.SMTP_MAIL_PASS, ''),
     /**
      * Logging
      */

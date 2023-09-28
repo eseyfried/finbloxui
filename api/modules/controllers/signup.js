@@ -1,7 +1,8 @@
 const { User, Group, UserGroup } = require('../../models');
 const db = require('../../models/index');
 const moment = require('moment');
-
+const mail = require('../mailer');
+const { config } = require(__dirname + '/../config/config.js')
 
 
 const createTrialAccount = (async (req, res) => {
@@ -45,7 +46,24 @@ const createTrialAccount = (async (req, res) => {
                 transaction: transaction
             });
             if (created) {
-                console.log("[%s] was added to group [%s]", email, group.name)
+                console.log("[%s] was added to group [%s]", email, group.name);
+                /**
+                 * send email
+                 */
+                const mailer = await mail()
+                    
+                let info = await mailer.sendMail({
+                    from: `"FinbloxUI" <${config.site_email}>`, // sender address
+                    to: email, // list of receivers
+                    subject: "Thank you for signing up for FinbloxUI", // Subject line
+                    template: 'trial-welcome',
+                    context: {
+                        email: email,
+                        licenseKey: user.licenseKey,
+                        licenseBeginsAt: moment(user.licenseBeginsAt).format("MM-DD-YYYY"),
+                        licenseExpiresAt: moment(user.licenseExpiresAt).format("MM-DD-YYYY"),
+                    }
+                });
             }
         }));
         await transaction.commit()

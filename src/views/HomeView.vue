@@ -55,7 +55,7 @@
     </section>
     <section class="data">
         <h3 class="text-4xl">
-            Bring Your Own Data...We Got the UI Covered!
+            Bring Your Own Data...We've Got the UI Covered!
         </h3>
         <p class="leading-7">
             Use any data source with FinBlox-UI. Simply pass the data to the component.
@@ -63,7 +63,8 @@
     </section>
     <section class="features">
         <div class="animate__animated md:justify-self-end" data-animate="animate__fadeInLeft">
-            <img src="https://via.placeholder.com/350" >
+            <!-- <img src="https://via.placeholder.com/350" > -->
+            <DataPoint :dataPoint="data" detailsLinkLabel="my link" />
         </div>
         <div class="animate__animated md:justify-self-start" data-animate="animate__fadeInRight">
             <h3 class="text-4xl mb-4">
@@ -76,6 +77,8 @@
                 <li>Completely Themable</li>
                 <li>Configurable Components</li>
                 <li>Custom Rendering Templates</li>
+                <li>Responsive</li>
+                <li>A11Y Compliant</li>
             </ul>
         </div>
     </section>
@@ -83,33 +86,47 @@
         <h3 class="text-4xl me-4">Get Started With FinBlox-UI</h3>
         <a href="/docs" class="btn">Learn More</a>
     </section>
+    <section>
+        <TrialSignup />
+    </section>
     <section class="sponsor">
         <h3 class="text-4xl">Sponsored By</h3>
         <img src="../assets/BridgeFT_Logo_black_ART-768x146.png" alt="bridgeft logo">
     </section>
 </template>
-<script>
+<script setup>
 import { onMounted } from 'vue';
-export default {
-    setup() {
-        onMounted( () => {
-            const observer = new IntersectionObserver(entries => {
-                entries.forEach(entry => {
-                    const animateClass = entry.target.attributes['data-animate'].value
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add(animateClass);
-                    }
-                });
-            });
-            const animationEls = document.querySelectorAll('.animate__animated')
-            animationEls.forEach(el => {
-                observer.observe(el);
-            })
-            
-        })
-        
-    }
+import TrialSignup from "@/www-components/TrialSignup";
+import DataPoint from "@/components/Core/DataPoint"
+
+onMounted( () => {
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            const animateClass = entry.target.attributes['data-animate'].value
+            if (entry.isIntersecting) {
+                entry.target.classList.add(animateClass);
+            }
+        });
+    });
+    const animationEls = document.querySelectorAll('.animate__animated')
+    animationEls.forEach(el => {
+        observer.observe(el);
+    })
+    
+})
+
+const data = {
+  "label": "YTD AUM",
+  "value": "12345678.90",
+  "format": "currency",
+  "trend": {
+    "format": "currency",
+    "value": 14526.34,
+    "direction": "up"
+  }
 }
+        
+
 </script>
 <style lang="scss" >
 
@@ -217,7 +234,7 @@ section.hero {
     }
 }
 .btn {
-    @apply py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 
+    @apply py-4 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 
     focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 no-underline text-center;
 }
 @media (min-width: 992px)  {

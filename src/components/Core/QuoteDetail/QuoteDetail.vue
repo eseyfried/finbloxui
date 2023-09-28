@@ -29,8 +29,8 @@
             :current_price="formatters.formatCurrency(quote.current_price)"
             :price_change_pct="formatters.formatPercent(quote.price_change_pct)"
             :price_change_amt="formatters.formatCurrency(quote.price_change_amt)"
-            :price_change_pct_css="quote.priceChangePctClass"
-            :price_change_amt_css="quote.priceChangeAmtClass"
+            :price_change_pct_css="priceChangePctClass"
+            :price_change_amt_css="priceChangeAmtClass"
         >
             <div class="fb-quote-detail-price">
                 <h4>{{ formatters.formatCurrency(quote.current_price) }}</h4>

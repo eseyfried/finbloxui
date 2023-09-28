@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>FinbloxUI - Welcome</title>
+</head>
+<body>
+  <h1>Welcome to FinbloxUI</h1>
+  <p>Hey {{email}},</p>
+  <p>Thanks for signing up with FinbloxUI.</p>
+  <p>Here is your trial license key: <strong>{{licenseKey}}</strong></p>
+  <p>It is valid from {{ licenseBeginsAt }} - {{ licenseExpiresAt }}</p>
+  <h2>Getting Started</h2>
+  
+  <h3>Connect to Our Private Registry</h3>
+  In your project root, create a .npmrc file.<br>
+  Add the following line to your .npmrc file:<br>
+  <pre>
+    //registry.finbloxui.com/:_authToken="{{licenseKey}}"
+  </pre>
+  Install the FinbloxUI npm package:<br>
+  <pre>
+    npm i @finbloxui/finbloxui --registry https://registry.finbloxui.com
+  </pre>
+  
+  <p>-- The FinbloxUI Team</p>
+</body>
+</html>

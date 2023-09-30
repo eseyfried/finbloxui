@@ -193,7 +193,7 @@
                 />
                 <FeatureCard
                     title="Charts &amp; Graphs"
-                    description="FinbloxUI uses XXXX charting library under the hood. You can completely control the chart using the standard chart options."
+                    description="FinbloxUI uses the chartjs charting library under the hood. You can completely control the chart using the standard chart options."
                     icon="\f200"
                 />
                 <FeatureCard

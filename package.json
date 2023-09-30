@@ -26,11 +26,14 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "build-components": "node ./src/lib/build.js",
-    "build-lib": "npm run build-components && vite build --mode production --config vite-lib.config.js"
+    "build-lib": "npm run build-components && vite build --mode production --config vite-lib.config.js",
+    "new-component": "hygen component with-prompt"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.4.0",
     "animate.css": "^4.1.1",
+    "canvas": "^2.11.2",
+    "chart.js": "^4.4.0",
     "moment": "^2.29.4",
     "pinia": "^2.0.36",
     "prismjs": "^1.29.0",

@@ -8,7 +8,12 @@ describe('Chart', () => {
     beforeEach(() => {
       config = {
         props: {
-            
+            data: {
+                labels: ['Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar'],
+                datasets: [{
+                  data: [12, 19, 3, 5, 2, 3],
+                }]
+            },
         },
         global: {
           plugins: [], // <-- This is how you pass options to a plugin

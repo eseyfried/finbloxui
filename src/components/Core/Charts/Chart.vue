@@ -1,14 +1,16 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
     <div class="fb-chart">
-        <canvas ref="ctx"></canvas>
+        <canvas :id="id" ref="ctx"></canvas>
     </div>
 </template>
 <script setup>
 // imports
 import Chart from 'chart.js/auto';
 import { ref, onMounted, computed, watch } from "vue";
+
 // vars
+
 // eslint-disable-next-line no-unused-vars
 const props = defineProps({
     type: {
@@ -36,17 +38,25 @@ const props = defineProps({
         type: Object,
         default: () => {},
     },
+    plugins: {
+        type: Array,
+        default: () => [],
+    },
     colors: {
         type: Array,
         default: () => [
-              'rgb(229 231 235)',
-              'rgb(209 213 219)',
-              'rgb(156 163 175)',
-              'rgb(107 114 128)',
-              'rgb(75 85 99)',
-              'rgb(55 65 81)',
-              'rgb(31 41 55)'
+            //   'rgb(229 231 235)',
+            //   'rgb(209 213 219)',
+            //   'rgb(156 163 175)',
+            //   'rgb(107 114 128)',
+            //   'rgb(75 85 99)',
+            //   'rgb(55 65 81)',
+            //   'rgb(31 41 55)'
             ]
+    },
+    id: {
+        type: String,
+        default: null
     }
 });
 
@@ -67,6 +77,19 @@ const buildData = computed(() => {
                 return dataset;
             }
         })
+    } else {
+        data.datasets = data.datasets.map(dataset => {
+            dataset.backgroundColor = [
+              'rgb(229 231 235)',
+              'rgb(209 213 219)',
+              'rgb(156 163 175)',
+              'rgb(107 114 128)',
+              'rgb(75 85 99)',
+              'rgb(55 65 81)',
+              'rgb(31 41 55)'
+            ];
+            return dataset
+        });
     }
     return data;
 });
@@ -83,7 +106,8 @@ const createChart = () => {
     return new Chart(ctx.value, {
         type: props.type,
         data: buildData.value,
-        options: props.options
+        options: props.options,
+        plugins: props.plugins,
     });
 }
 /**
@@ -93,7 +117,7 @@ const createChart = () => {
 watch(() => [props.type, props.data, props.options, props.colors], () => {
     if (chart) {
         chart.destroy();
-        chart = createChart()
+        chart = createChart();
     }
 }, { immediate: true })
 </script>

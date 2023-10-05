@@ -1,7 +1,10 @@
 import Chart from '@/components/Core/Charts/Chart.vue';
+import { geChartColorsByTheme } from '@/stories/Examples/modules/chartThemeColors';
+import { ref } from "vue";
 
 
 // eslint-disable-next-line storybook/story-exports
+const theme = ref("headless");
 export default {
     title: 'Library/Core/Charts',
     args: {
@@ -13,7 +16,7 @@ export default {
               data: [12, 19, 3, 5, 2, 3],
               borderWidth: 1,
             }]
-          },
+        },
         options: {
             maintainAspectRatio: false,
             scales: {
@@ -22,23 +25,19 @@ export default {
               }
             }
         },
-        colors: [
-              'rgb(229 231 235)',
-              'rgb(209 213 219)',
-              'rgb(156 163 175)',
-              'rgb(107 114 128)',
-              'rgb(75 85 99)',
-              'rgb(55 65 81)',
-              'rgb(31 41 55)'
-            ]
+        colors: [...geChartColorsByTheme(theme.value)]
     },
-    render: (args) => ({
-      components: { Chart },
-      setup() {
-        return { args };
-      },
-      template: '<Chart :type="args.type" :data="args.data" :options="args.options" />',
-    }),
+    render: (args, context) => {
+        return {
+            components: { Chart },
+            setup() {
+                theme.value = context.globals.theme;
+                args.colors = [...geChartColorsByTheme(theme.value)];
+                return { args };
+            },
+            template: `<Chart />`,
+        }
+    },
     parameters: {
         docs: {
             description: {

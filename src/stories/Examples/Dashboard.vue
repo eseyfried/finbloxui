@@ -15,6 +15,24 @@
         </div>
         <div class="grid grid-cols-2 gap-4 mb-5">
             <div>
+                <h2>Target Allocation</h2>
+                <AssetAllocationChart
+                    :assetCategories="['Equity', 'Options', 'Funds', 'Fixed Income', 'Cash']"
+                    :allocations="[40, 10, 35, 10, 5]"
+                    :colors="chartColors"
+                />
+            </div>
+            <div>
+                <h2>Actual Allocation</h2>
+                <AssetAllocationChart
+                    :assetCategories="['Equity', 'Options', 'Funds', 'Fixed Income', 'Cash']"
+                    :allocations="[40, 10, 35, 10, 5]"
+                    :colors="chartColors"
+                />
+            </div>
+        </div>
+        <div class="grid grid-cols-2 gap-4 mb-5">
+            <div>
                 <h2>Clients</h2>
                 <ClientList
                     :clients="clients"
@@ -29,14 +47,24 @@
     </div>
 </template>
 <script setup>
-import { ref } from "vue";
+import { geChartColorsByTheme } from '@/stories/Examples/modules/chartThemeColors';
+import { ref, computed } from "vue";
 import { storeToRefs } from "pinia";
 import { useDemoStore } from "@/stories/stores/store";
 import ToggleTheme from "./ToggleTheme";
 import ClientList from "@/components/Advisor/Clients/ClientList";
 import ClientCard from "@/components/Advisor/Clients/ClientCard";
 import DataPoint from "@/components/Core/DataPoint";
+import AssetAllocationChart from "@/components/Core/Charts/AssetAllocationChart/AssetAllocationChart";
 
+
+// eslint-disable-next-line no-unused-vars
+const props = defineProps({
+    theme: {
+        type: String,
+        default: null,
+    }
+});
 
 const { accounts, clients, positions } = storeToRefs(useDemoStore());
 const aum = accounts.value.map((account) => account.total_market_value).reduce((accumulator, currentValue) => {
@@ -50,6 +78,11 @@ const dataPointClasses = [
     'drop-shadow-md',
 ];
 const activeClient = ref();
+
+const chartColors = computed(() => {
+    return [...geChartColorsByTheme(props.theme)];
+})
+
 // methods
 const handleClientDetailsClick = (client) => {
     console.log(client)

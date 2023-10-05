@@ -8,6 +8,7 @@
 // imports
 import Chart from 'chart.js/auto';
 import { ref, onMounted, computed, watch } from "vue";
+import { getFBCustomVars } from "@/modules/useCSSVars.js"
 
 // vars
 
@@ -44,15 +45,7 @@ const props = defineProps({
     },
     colors: {
         type: Array,
-        default: () => [
-            //   'rgb(229 231 235)',
-            //   'rgb(209 213 219)',
-            //   'rgb(156 163 175)',
-            //   'rgb(107 114 128)',
-            //   'rgb(75 85 99)',
-            //   'rgb(55 65 81)',
-            //   'rgb(31 41 55)'
-            ]
+        default: () => []
     },
     id: {
         type: String,
@@ -61,38 +54,49 @@ const props = defineProps({
 });
 
 const ctx = ref(null);
+const defaultColors = ref([]);
 let chart = null;
-
 /**
  * build the data object merging in the colors props if set
  */
 const buildData = computed(() => {
     let data = props.data;
+    // colors prop is explicity passed
     if (props.colors.length > 0) {
         data.datasets = data.datasets.map(dataset => {
-            if (dataset.backgroundColor) {
-                return dataset;
-            } else {
-                dataset.backgroundColor = props.colors;
-                return dataset;
-            }
+            dataset.backgroundColor = props.colors;
+            return dataset;
         })
     } else {
         data.datasets = data.datasets.map(dataset => {
-            dataset.backgroundColor = [
-              'rgb(229 231 235)',
-              'rgb(209 213 219)',
-              'rgb(156 163 175)',
-              'rgb(107 114 128)',
-              'rgb(75 85 99)',
-              'rgb(55 65 81)',
-              'rgb(31 41 55)'
-            ];
-            return dataset
+            // if chartjs color is set via standard dataset config, honor it
+            if (dataset.backgroundColor) {
+                return dataset
+            // use props colors or grab from custom css vars
+            } else {
+                defaultColors.value = props.colors ? props.colors : getColorsFromCSSVars();
+                dataset.backgroundColor = defaultColors.value;
+                return dataset
+            }
+            
         });
     }
     return data;
 });
+
+const getColorsFromCSSVars = () => {
+    const fbChartColors = getFBCustomVars("--fb-chart-color-.");
+    const processedColors = [];
+    return fbChartColors.filter(color => {
+        if (!processedColors.includes(color[0])) {
+            processedColors.push(color[0]);
+            return true;
+        } else {
+            return false;
+        }
+    }).map(color => color[1]);
+}
+
 /**
  * create a chart instance when component is mounted
  */
@@ -122,4 +126,15 @@ watch(() => [props.type, props.data, props.options, props.colors], () => {
 }, { immediate: true })
 </script>
 <style lang="scss" scoped>
+</style>
+<style lang="scss" scoped>
+// :root {
+//     --fb-chart-color-1: rgb(229 231 235);
+//     --fb-chart-color-2: rgb(209 213 219);
+//     --fb-chart-color-3: rgb(156 163 175);
+//     --fb-chart-color-4: rgb(107 114 128);
+//     --fb-chart-color-5: rgb(75 85 99);
+//     --fb-chart-color-6: rgb(55 65 81);
+//     --fb-chart-color-7: rgb(31 41 55);
+// }
 </style>

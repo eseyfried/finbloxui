@@ -61,8 +61,6 @@ const props = defineProps({
     },
 });
 
-
-
 const defaultChartData = computed(() => {
     return {
         labels: props.assetCategories,

@@ -1,5 +1,4 @@
 import Chart from '@/components/Core/Charts/Chart.vue';
-import { geChartColorsByTheme } from '@/stories/Examples/modules/chartThemeColors';
 import { ref } from "vue";
 
 
@@ -25,14 +24,13 @@ export default {
               }
             }
         },
-        colors: [...geChartColorsByTheme(theme.value)]
+        colors: []
     },
     render: (args, context) => {
         return {
             components: { Chart },
             setup() {
                 theme.value = context.globals.theme;
-                args.colors = [...geChartColorsByTheme(theme.value)];
                 return { args };
             },
             template: `<Chart />`,
@@ -41,11 +39,28 @@ export default {
     parameters: {
         docs: {
             description: {
-                story: "The basic use of the Chart component.",
+                story: `
+FinbloxUI Charts can use custom css variables to set the colors for charts. Add --fb-chart-color-{#} to the :root css pseudo-class in your stylesheet.
+
+For example:
+<pre>
+&lt;style type="text/css"&gt;
+    :root {
+        --fb-chart-color-1: #37A3EB;
+        --fb-chart-color-2: #FD6384;
+        --fb-chart-color-3: #4BC1C1;
+        --fb-chart-color-4: #FD9F3F;
+        --fb-chart-color-5: #9965FE;
+        --fb-chart-color-6: #FECD57;
+        --fb-chart-color-7: #C9CBD0;
+    }
+&lt;/style&gt;
+</pre>
+                `,
             },
             source: {
                 code: `
-const data = {
+const dassta = {
     labels: ['Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar'],
     datasets: [{
         label: 'Total AUM By Month',

@@ -1,6 +1,7 @@
 import Chart from '@/components/Core/Charts/Chart.vue';
 
 import * as BasicStory from './Basic.stories';
+import * as CustomCSSVarsStory from './CustomCSSVars.stories';
 
 /**
  * ## Overview
@@ -72,10 +73,35 @@ import * as BasicStory from './Basic.stories';
                 category: 'CSS Classes',
             },
         },
+        "--fb-chart-color-{#}": {
+            description: `
+Char colors can also be styled using custom CSS variables placed in your style sheet. Each custom variable name should be incremented numerically. For example:
+
+--fb-chart-color-1, --fb-chart-color--2, etc.
+        
+:root {
+
+    --fb-chart-color-1: rgb(224 231 255);
+
+    --fb-chart-color-2: rgb(199 210 254);
+
+    ...
+
+    --fb-chart-color-10: rgb(165 180 252);
+
+}`,
+            table: {
+                category: 'CSS Vars',
+            },
+        },
     }
 };
 
 
 export const BasicChart = {
     ...BasicStory.default
+};
+
+export const UsingCustomCSSVars = {
+    ...CustomCSSVarsStory.default
 };

@@ -146,7 +146,7 @@
 }
 /* General FinBloxUI CSS */
 html[data-mode='theme-2'] {
-    /* :root {
+    :root {
         --fb-chart-color-1: theme(colors.indigo.100);
         --fb-chart-color-2: theme(colors.indigo.200);
         --fb-chart-color-3: theme(colors.indigo.300);
@@ -154,7 +154,7 @@ html[data-mode='theme-2'] {
         --fb-chart-color-5: theme(colors.indigo.500);
         --fb-chart-color-6: theme(colors.indigo.600);
         --fb-chart-color-7: theme(colors.indigo.700);
-    } */
+    }
     .fb-negative {
         @apply text-red-800;
     }

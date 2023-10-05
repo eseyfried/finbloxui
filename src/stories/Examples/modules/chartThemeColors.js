@@ -8,6 +8,15 @@ const themeColors = {
         'rgb(55 65 81)',
         'rgb(31 41 55)'
     ],
+    "theme 1": [
+        '#37A3EB',
+        '#FD6384',
+        '#4BC1C1',
+        '#FD9F3F',
+        '#9965FE',
+        '#FECD57',
+        '#C9CBD0',
+    ],
     "theme 2": [
         'rgb(224 231 255)',
         'rgb(199 210 254)',

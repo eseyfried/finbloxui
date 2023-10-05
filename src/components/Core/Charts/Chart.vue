@@ -56,6 +56,7 @@ const props = defineProps({
 const ctx = ref(null);
 const defaultColors = ref([]);
 let chart = null;
+
 /**
  * build the data object merging in the colors props if set
  */
@@ -74,7 +75,8 @@ const buildData = computed(() => {
                 return dataset
             // use props colors or grab from custom css vars
             } else {
-                defaultColors.value = props.colors ? props.colors : getColorsFromCSSVars();
+                console.log(props.colors.length)
+                defaultColors.value = props.colors.length ? props.colors : getColorsFromCSSVars();
                 dataset.backgroundColor = defaultColors.value;
                 return dataset
             }
@@ -126,15 +128,4 @@ watch(() => [props.type, props.data, props.options, props.colors], () => {
 }, { immediate: true })
 </script>
 <style lang="scss" scoped>
-</style>
-<style lang="scss" scoped>
-// :root {
-//     --fb-chart-color-1: rgb(229 231 235);
-//     --fb-chart-color-2: rgb(209 213 219);
-//     --fb-chart-color-3: rgb(156 163 175);
-//     --fb-chart-color-4: rgb(107 114 128);
-//     --fb-chart-color-5: rgb(75 85 99);
-//     --fb-chart-color-6: rgb(55 65 81);
-//     --fb-chart-color-7: rgb(31 41 55);
-// }
 </style>

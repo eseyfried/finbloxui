@@ -74,6 +74,26 @@ import * as CustomTemplateStory from './CustomTemplate.stories';
                 category: 'Props',
             },
         },
+        chartjsData: {
+            type: { name: "Object", required: false },
+            defaultValue: {},
+            description: "A standard chartjs [data structure](https://www.chartjs.org/docs/latest/general/data-structures.html) based on chartjs docs. This allows you to utilize additional dataset options from chartjs.",
+            table: {
+                type: { summary: "Array" },
+                defaultValue: { summary: "{}" },
+                category: 'Props',
+            },
+        },
+        chartjsOptions: {
+            type: { name: "Object", required: false },
+            defaultValue: {},
+            description: "A standard chartjs [configuration](https://www.chartjs.org/docs/latest/configuration/) object based on chartjs docs. This allows you to utilize additional chart options from chartjs.",
+            table: {
+                type: { summary: "Array" },
+                defaultValue: { summary: "{}" },
+                category: 'Props',
+            },
+        },
         // colors: {
         //     type: { name: "Array" },
         //     defaultValue: [],

@@ -19,6 +19,8 @@ export default {
         label: "Total Portfolio Value",
         lineColor: "rgb(75, 85, 99)",
         areaColor: "rgb(75, 85, 99, 0.3)",
+        chartjsData: {},
+        chartjsOptions: {},
         // colors: [...geChartColorsByTheme(theme.value)]
     },
     render: (args, context) => {

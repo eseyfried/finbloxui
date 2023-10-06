@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-    <div class="fb-balance-history-chart">
-        <div class="fb-balance-history-chart-hero">
+    <div class="fb-data-history-chart">
+        <div class="fb-data-history-chart-hero">
             <slot
                 :props="props"
                 :currentValue="formatters.formatCurrency(currentValue)"
@@ -12,11 +12,11 @@
             >
                 <h2>{{ label }}</h2>
                 <h3>{{ formatters.formatCurrency(currentValue) }}</h3>
-                <div class="fb-balance-history-chart-change" :class="changeClasses(changeAmount)">
+                <div class="fb-data-history-chart-change" :class="changeClasses(changeAmount)">
                     <span>{{ formatters.formatCurrency(changeAmount, true) }}</span>
                     <span>{{ formatters.formatPercent(changePercent, true) }}</span>
                 </div>
-                <span class="fb-balance-history-chart-date">As of: {{ formatters.formatDate(asOf) }}</span>
+                <span class="fb-data-history-chart-date">As of: {{ formatters.formatDate(asOf) }}</span>
             </slot>
         </div>
         <Chart
@@ -37,7 +37,7 @@ import { computed, getCurrentInstance } from "vue";
 
 // vars
 const component = getCurrentInstance();
-const id = `fb-balance-history-chart-${component.uid}`;
+const id = `fb-data-history-chart-${component.uid}`;
 const props = defineProps({
     type: {
         type: String,
@@ -51,15 +51,15 @@ const props = defineProps({
         type: Array,
         default: () => [],
     },
-    balances: {
+    data: {
         type: Array,
         default: () => [],
     },
-    data: {
+    chartjsData: {
         type: Object,
         default: () => {},
     },
-    options: {
+    chartjsOptions: {
         type: Object,
         default: () => {},
     },
@@ -77,8 +77,8 @@ const props = defineProps({
     },
 });
 
-const currentValue = computed(() => props.balances[props.balances.length - 1]);
-const previousDayValue = computed(() => props.balances[props.balances.length - 2]);
+const currentValue = computed(() => props.data[props.data.length - 1]);
+const previousDayValue = computed(() => props.data[props.data.length - 2]);
 const asOf = computed(() => props.dates[props.dates.length - 1]);
 const changeAmount = computed(() => {
     const dayChangeAmount = currentValue.value - previousDayValue.value;
@@ -97,7 +97,7 @@ const defaultChartData = computed(() => {
     return {
         labels: props.dates,
         datasets: [{
-            data: props.balances,
+            data: props.data,
             fill: 'start',
             borderColor: props.lineColor,
             backgroundColor: props.areaColor
@@ -107,7 +107,7 @@ const defaultChartData = computed(() => {
 
 const chartData = computed(() => {
     return {
-        ...props.data,
+        ...props.chartjsData,
         ...defaultChartData.value
     }
 });
@@ -119,7 +119,7 @@ const chartData = computed(() => {
  */
 const chartOptions = computed(() => {
     return {
-        ...props.options,
+        ...props.chartjsOptions,
         ...{
                 elements: {
                     line: {
@@ -144,7 +144,7 @@ const chartOptions = computed(() => {
                             display: false
                         },
                         suggestedMin: 0,
-                        suggestedMax: yAxisMax(props.balances),
+                        suggestedMax: yAxisMax(props.data),
                         ticks: {
                             // Include a dollar sign in the ticks
                             callback: function(value, index, ticks) {
@@ -193,10 +193,10 @@ const changeClasses = (value) => {
 
 </script>
 <style lang="scss" scoped>
-.fb-balance-history-chart {
+.fb-data-history-chart {
     position: relative;
 }
-.fb-balance-history-chart-hero {
+.fb-data-history-chart-hero {
     position: absolute;
     bottom: 80px;
     left: 100px;

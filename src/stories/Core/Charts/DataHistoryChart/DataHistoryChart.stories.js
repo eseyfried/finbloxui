@@ -1,19 +1,27 @@
-import BalanceHistoryChart from '@/components/Core/Charts/BalanceHistoryChart/BalanceHistoryChart.vue';
+import DataHistoryChart from '@/components/Core/Charts/DataHistoryChart/DataHistoryChart.vue';
 
 import * as BasicStory from './Basic.stories';
 import * as CustomTemplateStory from './CustomTemplate.stories';
 /**
  * ## Overview
- * The `BalanceHistoryChart` component provides an area chart showing the historical balance trend over a date range. Additionally, 
+ * The `DataHistoryChart` component provides an area chart showing the historical data trend over a date range. Additionally, 
  * it provides a set of data points for the current value, change in value as a dollar amount and percent since the previous day.
+ * 
+ * This chart is ideal for use cases such as:
+ * 
+ * - Year to Date AUM
+ * - Year to Date Advisory Fees
+ * - Total Portfolio Value
+ * - Total Account Value
+ *  - Year to Data Balance History
  * 
  * ### User Story
  * > As a user, I want to know the current value of my account or portfolio as well it's general trend over time so that I can quickly understand
  * my account's health over time.
  */
  export default {
-    title: 'Library/Core/Charts/BalanceHistoryChart',
-    component: { BalanceHistoryChart },
+    title: 'Library/Core/Charts/DataHistoryChart',
+    component: { DataHistoryChart },
     tags: ['autodocs'],
     argTypes: {
         label: {
@@ -26,10 +34,10 @@ import * as CustomTemplateStory from './CustomTemplate.stories';
                 category: 'Props',
             },
         },
-        balances: {
+        data: {
             type: { name: "Array", required: true },
             defaultValue: [],
-            description: "An array of balance values for each day in the series",
+            description: "An array of data values for each day in the series",
             table: {
                 type: { summary: "Array" },
                 defaultValue: { summary: "[]" },
@@ -39,7 +47,7 @@ import * as CustomTemplateStory from './CustomTemplate.stories';
         dates: {
             type: { name: "Array", required: true },
             defaultValue: [],
-            description: "An array of dates corresponding to the balance history series.",
+            description: "An array of dates corresponding to the data series.",
             table: {
                 type: { summary: "Array" },
                 defaultValue: { summary: "[]" },
@@ -76,25 +84,25 @@ import * as CustomTemplateStory from './CustomTemplate.stories';
         //         category: 'Props',
         //     },
         // },
-        ".fb-balance-history-chart": {
+        ".fb-data-history-chart": {
             description: "The class applied to the component root element.",
             table: {
                 category: 'CSS Classes',
             },
         },
-        ".fb-balance-history-chart-hero": {
+        ".fb-data-history-chart-hero": {
             description: "The class applied to the component total value root element.",
             table: {
                 category: 'CSS Classes',
             },
         },
-        ".fb-balance-history-chart-change": {
+        ".fb-data-history-chart-change": {
             description: "The class applied to the component value change root element.",
             table: {
                 category: 'CSS Classes',
             },
         },
-        ".fb-balance-history-chart-date": {
+        ".fb-data-history-chart-date": {
             description: "The class applied to the component as-of date root element.",
             table: {
                 category: 'CSS Classes',
@@ -122,7 +130,7 @@ import * as CustomTemplateStory from './CustomTemplate.stories';
 };
 
 
-export const BasicBalanceHistoryChart = {
+export const BasicDataHistoryChart = {
     ...BasicStory.default
 };
 

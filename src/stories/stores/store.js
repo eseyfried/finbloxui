@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { faker } from "@faker-js/faker";
+import moment from "moment";
 
 // const defaultTasks = [
 //     { id: '1', title: 'Something', state: 'TASK_INBOX' },
@@ -205,6 +206,14 @@ const getSymbol = () => {
     );
 };
 
+const historicalBalances = () => {
+    const balances = [];
+    for(let i = 0; i <= moment().dayOfYear(); i++) {
+        balances.push(faker.finance.amount(310000, 350000, 2, '', false));
+    }
+    return balances
+}
+
 export const useDemoStore = defineStore({
     id: 'demo',
     state: () => ({
@@ -214,6 +223,7 @@ export const useDemoStore = defineStore({
       positions: defaultPositions(defaultNumberOfPositions),
       transactions: defaultTransactions(defaultNumberOfTransactions),
       unrealizedLots: defaultUGLLots(defaultNumberOfUGLLots),
+      historicalBalances: historicalBalances(),
       title: "Test Title",
       status: 'idle',
       error: null,

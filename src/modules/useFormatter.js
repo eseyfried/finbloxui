@@ -1,5 +1,5 @@
 import moment from "moment";
-const formatCurrency = (value) => {
+const formatCurrency = (value, unsigned = false) => {
     let formatted;
     if (!value) {
         return value;
@@ -9,16 +9,25 @@ const formatCurrency = (value) => {
     } else {
         formatted = formatNumberWithCommas(parseFloat(value.replace(",","")).toFixed(2));
     }
+    if (unsigned) {
+        formatted = formatted.replace(/-/g, "")
+    }
     return `$${formatted}`;
 };
 
-const formatPercent = (value) => {
-    return `${parseFloat(value).toFixed(2)}%`;
+const formatPercent = (value, unsigned = false) => {
+    let formatted = value;
+    if (unsigned) {
+        formatted = formatted.toString().replace(/-/g, "")
+    }
+    return `${parseFloat(formatted).toFixed(2)}%`;
 };
 
 const formatDate = (value) => {
     return moment(value).format("MM/DD/YYYY");
 };
+
+
 
 const formatMask = (value, showNumChars = 3, maskChar = "*") => {
     const replaceStr = value.substr(0, value.length - showNumChars);

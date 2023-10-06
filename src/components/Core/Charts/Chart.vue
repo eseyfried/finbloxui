@@ -7,6 +7,7 @@
 <script setup>
 // imports
 import Chart from 'chart.js/auto';
+import 'chartjs-adapter-moment';
 import { ref, onMounted, computed, watch } from "vue";
 import { getFBCustomVars } from "@/modules/useCSSVars.js"
 

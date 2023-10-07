@@ -29,6 +29,7 @@ import ChartJS from 'chart.js/auto';
 import { computed, getCurrentInstance, watch } from "vue";
 import * as formatters from "@/modules/useFormatter";
 import { sortBy } from "lodash";
+import { htmlLegendPlugin } from "@/modules/useChartLegend"
 
 
 // vars
@@ -80,6 +81,20 @@ const props = defineProps({
     }
 });
 
+const formatValue = computed(() => {
+    return (value) => {
+        let formattedValue;
+        if (props.format == "percent") {
+            formattedValue = formatters.formatPercent(value);
+        } else if (props.format == "currency") {
+            formattedValue = formatters.formatCurrency(value);
+        }
+        return formattedValue;
+    }
+});
+
+
+
 const defaultChartData = computed(() => {
     return {
         labels: props.assetCategories,
@@ -106,6 +121,8 @@ const chartOptions = computed(() => {
                     htmlLegend: {
                         // ID of the container to put the legend in
                         containerID: "legend-container",
+                        componentID: component.uid,
+                        callback: formatValue.value
                     },
                     legend: {
                         display: false,
@@ -142,96 +159,6 @@ const dataTotals100Percent = computed(() => {
     return null;
 })
 
-
-const getLegendItemValue = (index) => {
-    return props.allocations[index];
-}
-
-const formatValue = computed(() => {
-    return (value) => {
-        let formattedValue;
-        if (props.format == "percent") {
-            formattedValue = formatters.formatPercent(value);
-        } else if (props.format == "currency") {
-            formattedValue = formatters.formatCurrency(value);
-        }
-        return formattedValue;
-    }
-});
-
-const getOrCreateLegendList = (chart, id) => {
-  const legendContainer = document.querySelector(`#${id}-${component.uid}`);
-  let listContainer = legendContainer.querySelector('ul');
-
-  if (!listContainer) {
-    listContainer = document.createElement('ul');
-    listContainer.classList.add("fb-chart-legend-list");
-    legendContainer.appendChild(listContainer);
-  }
-
-  return listContainer;
-};
-
-const htmlLegendPlugin = {
-  id: 'htmlLegend',
-  afterUpdate(chart, args, options) {
-    const ul = getOrCreateLegendList(chart, options.containerID);
-
-    // Remove old legend items
-    while (ul.firstChild) {
-      ul.firstChild.remove();
-    }
-
-    // Reuse the built-in legendItems generator
-    const items = sortBy(chart.options.plugins.legend.labels.generateLabels(chart), ["text"]);
-
-    items.forEach(item => {
-      const li = document.createElement('li');
-      li.classList.add("fb-chart-legend-list-item")
-
-
-      li.onclick = () => {
-        const {type} = chart.config;
-        if (type === 'pie' || type === 'doughnut') {
-          // Pie and doughnut charts only have a single dataset and visibility is per item
-          chart.toggleDataVisibility(item.index);
-        } else {
-          chart.setDatasetVisibility(item.datasetIndex, !chart.isDatasetVisible(item.datasetIndex));
-        }
-        chart.update();
-      };
-
-      // Color box
-      const boxSpan = document.createElement('span');
-      boxSpan.classList.add("fb-chart-legend-list-item-color");
-      boxSpan.style.background = item.fillStyle;
-      boxSpan.style.borderColor = item.strokeStyle;
-      boxSpan.style.borderWidth = item.lineWidth + 'px';
-
-      // Text
-      const textContainer = document.createElement('p');
-      if (item.hidden) {
-        textContainer.classList.add("fb-chart-legend-item-hidden");
-      } else {
-        textContainer.classList.remove("fb-chart-legend-item-hidden");
-      }
-
-      const itemContainer = document.createElement('span');
-      const itemText = document.createTextNode(`${item.text}`);
-      itemContainer.appendChild(itemText);
-      textContainer.appendChild(itemContainer);
-
-      const itemValueContainer = document.createElement('span');
-      const itemValueText = document.createTextNode(`${formatValue.value(getLegendItemValue(item.index))}`);
-      itemValueContainer.appendChild(itemValueText);
-      textContainer.appendChild(itemValueContainer);
-
-      li.appendChild(boxSpan);
-      li.appendChild(textContainer);
-      ul.appendChild(li);
-    });
-  }
-};
 
 /**
  * The chart legend plugin does not re-render

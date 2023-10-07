@@ -15,6 +15,13 @@ const getOrCreateLegendList = (chart, id, componentID) => {
   return listContainer;
 };
 
+const format = (value, callback = null) => {
+    if (callback) {
+        return callback(value);
+    } else {
+        return value;
+    }
+}
 
 
 const htmlLegendPlugin = {
@@ -67,7 +74,7 @@ const htmlLegendPlugin = {
       textContainer.appendChild(itemContainer);
 
       const itemValueContainer = document.createElement('span');
-      const itemValueText = document.createTextNode(`${chart.data.datasets[0].data[item.index]}`);
+      const itemValueText = document.createTextNode(`${format(chart.data.datasets[0].data[item.index], options.callback || null)}`);
       itemValueContainer.appendChild(itemValueText);
       textContainer.appendChild(itemValueContainer);
 

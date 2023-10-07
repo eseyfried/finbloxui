@@ -1,78 +1,66 @@
-import { ref } from "vue";
-import { storeToRefs } from "pinia";
-import { useDemoStore } from "@/stories/stores/store";
 import AssetAllocationChart from '@/components/Core/Charts/AssetAllocationChart/AssetAllocationChart.vue';
+import { geChartColorsByTheme } from '@/stories/Examples/modules/chartThemeColors';
+import { ref } from "vue";
 
-let defaultClient = ref({}); // <--- CHANGE THIS
 
+// eslint-disable-next-line storybook/story-exports
+const theme = ref("headless");
 export default {
     title: 'Library/Core/Charts/AssetAllocationChart',
     args: {
-        client: defaultClient // <--- CHANGE THIS
+        type: "doughnut",
+        format: "percent",
+        assetCategories: ['Equity', 'Options', 'Funds', 'Fixed Income', 'Cash'],
+        allocations: [45, 15, 20, 0, 20],
+        showTotal: true,
+        totalLabel: "Total Value",
+        totalAmount: "134782.99",
+        chartjsOptions: {},
+        chartjsData: {},
+        colors: [...geChartColorsByTheme(theme.value)]
+
     },
-    render: (args) => ({
-      components: { AssetAllocationChart },
-      setup() {
-        const { clients } = storeToRefs(useDemoStore()); // <--- CHANGE THIS
-        args.client = ref(clients.value[0]); // <--- CHANGE THIS
-        defaultClient.value = args.client; // <--- CHANGE THIS
-        return { args };
-      },
-      template: `
-      <AssetAllocationChart :client="args.client">
-        <template #name="slotProps">
-            <h2>{{ slotProps.client.name.household }}</h2>
-            <h3>{{ slotProps.client.name.last_name }}, {{ slotProps.client.name.first_name }}</h3>
-        </template>
-
-        <template #stats="slotProps">
-            <div v-for="(stat, i) in slotProps.client.stats" :key="i">
-                <span>{{ stat.label }}:</span><span>{{ stat.value }}</span>
-            </div>
-        </template>
-
-        <template #details_link="slotProps">
-            <button href="#" v-on="slotProps.eventHandlers">{{ slotProps.props.detailsLinkLabel }}</button>
-        </template>
-      </AssetAllocationChart>
-      `,
-    }),
+    render: (args, context) => {
+        return {
+            components: { AssetAllocationChart },
+            setup() {
+                theme.value = context.globals.theme;
+                args.colors = [...geChartColorsByTheme(theme.value)];
+                return { args };
+            },
+            template: `
+            <AssetAllocationChart>
+                <template #default="slotProps">
+                    <h2>{{ slotProps.totalAmount }}</h2>
+                    <h3>{{ slotProps.totalLabel }}</h3>
+                </template>
+            </AssetAllocationChart>
+            `,
+        }
+    },
     parameters: {
         docs: {
             description: {
-                story: `<a name="custom"></a>You can override the default client templates with your own custom layout using slotted content. 
-                
-There are 4 available template slots:
-- name - layout template for the client.name object
-- stats - layout template for the client.stats array
-- details_link - layout template for the details link
-
-Wrap your content in a slot template tag using one of the above slot names. The following slotProps will be available for use in your
-template:
-- props - all component props
-- client - the entire client object
-- eventHandlers - an object containing built in event handlers. Use v-on to bind this object to the element you want to trigger the events.
-This is only available for the details_link slot.
-`,
+                story: `<a name="custom"></a>You can override the default template with your own custom layout using slotted content. 
+                Wrap your content in a slot template tag using slot name(s) documented above. The documented slotProps will be available for use in your
+                template.`,
             },
             source: {
                 code: `
-<AssetAllocationChart :client="args.client">
-    <template #name="slotProps">
-        <h2>{{ slotProps.client.name.household }}</h2>
-        <h3>{{ slotProps.client.name.last_name }}, {{ slotProps.client.name.first_name }}</h3>
+<AssetAllocationChart
+    type="doughnut"
+    format="percent"
+    :assetCategories="['Equity', 'Options', 'Funds', 'Fixed Income', 'Cash']"
+    :chartjsOptions="{}"
+    :chartjsData="{}"
+    :allocations="[45, 15, 20, 0, 20]"
+>
+    <template #default="slotProps">
+        <h2>{{ slotProps.totalAmount }}</h2>
+        <h3>{{ slotProps.totalLabel }}</h3>
     </template>
-
-    <template #stats="slotProps">
-        <div v-for="(stat, i) in slotProps.client.stats" :key="i">
-            <span>{{ stat.label }}:</span><span>{{ stat.value }}</span>
-        </div>
-    </template>
-
-    <template #details_link="slotProps">
-            <button href="#" v-on="slotProps.eventHandlers">{{ slotProps.props.detailsLinkLabel }}</button>
-    </template>
-</AssetAllocationChart>`
+</AssetAllocationChart>
+                `
             }
         }
     }

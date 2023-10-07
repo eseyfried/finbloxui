@@ -11,6 +11,13 @@
             :plugins="[htmlLegendPlugin]"
             :colors="colors"
         />
+       
+        <div class="fb-asset-allocation-chart-hero" v-if="showTotal">
+            <slot :props="props" :totalLabel="totalLabel" :totalAmount="formatters.formatCurrency(totalAmount)">
+                <h2>{{ totalLabel }}</h2>
+                <h3>{{ formatters.formatCurrency(totalAmount) }}</h3>
+            </slot>
+        </div>
         <div :id="`legend-container-${component.uid}`" class="fb-chart-legend"></div>
     </div>
 </template>
@@ -47,11 +54,11 @@ const props = defineProps({
         type: Array,
         default: () => [],
     },
-    data: {
+    chartjsData: {
         type: Object,
         default: () => {},
     },
-    options: {
+    chartjsOptions: {
         type: Object,
         default: () => {},
     },
@@ -59,6 +66,18 @@ const props = defineProps({
         type: Array,
         default: () => []
     },
+    showTotal: {
+        type: Boolean,
+        default: true
+    },
+    totalLabel: {
+        type: String,
+        default: "Total Value"
+    },
+    totalAmount: {
+        type: String,
+        default: "0.00"
+    }
 });
 
 const defaultChartData = computed(() => {
@@ -74,12 +93,12 @@ const defaultChartData = computed(() => {
  * merge chartjs prop options with default options
  */
 const chartOptions = computed(() => {
-    let cutout = props.options?.cutout ? props.options.cutout : "80%";
+    let cutout = props.chartjsOptions?.cutout ? props.chartjsOptions.cutout : "80%";
     if (props.type === "pie") {
         cutout = 0;
     }
     return {
-        ...props.options,
+        ...props.chartjsOptions,
         ...{
                 maintainAspectRatio: false,
                 cutout: cutout,
@@ -108,9 +127,10 @@ const chartOptions = computed(() => {
     }
 });
 
+
 const chartData = computed(() => {
     return {
-        ...props.data,
+        ...props.chartjsData,
         ...defaultChartData.value
     }
 });
@@ -121,6 +141,7 @@ const dataTotals100Percent = computed(() => {
     }
     return null;
 })
+
 
 const getLegendItemValue = (index) => {
     return props.allocations[index];
@@ -226,6 +247,15 @@ watch(() => [props.format], () => {
 
 </script>
 <style lang="scss" scoped>
+.fb-asset-allocation-chart {
+    position: relative;
+}
+.fb-asset-allocation-chart-hero {
+    text-align: center;
+    position: absolute;
+    top: 25%;
+    width:100%;
+}
 .fb-chart-legend {
     display: flex;
     justify-content: center;

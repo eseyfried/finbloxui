@@ -2,7 +2,7 @@
 <template>
     <div class="page">
         <h1 class="mb-5">Dashboard</h1>
-        <div class="grid grid-cols-3 gap-4 mb-5">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-5">
             <div :class="dataPointClasses" class="icon aum fb-data-point-icon">
                 <DataPoint :dataPoint="{ label: 'YTD AUM', value: aum, format: 'currency', trend: { direction: 'up', value: '14504.32', format: 'currency'}}" />
             </div>
@@ -13,7 +13,7 @@
                 <DataPoint :dataPoint="{ label: 'Total Clients', value: clients.length, format: null, trend: {} }" />
             </div>
         </div>
-        <div class="grid grid-cols-2 gap-4 mb-5">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
             <div>
                 <h2>Target Allocation</h2>
                 <AssetAllocationChart

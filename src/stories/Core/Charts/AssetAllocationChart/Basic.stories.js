@@ -12,8 +12,11 @@ export default {
         format: "percent",
         assetCategories: ['Equity', 'Options', 'Funds', 'Fixed Income', 'Cash'],
         allocations: [45, 15, 20, 0, 20],
-        options: {},
-        data: {},
+        showTotal: true,
+        totalLabel: "Total Value",
+        totalAmount: "134782.99",
+        chartjsOptions: {},
+        chartjsData: {},
         colors: [...geChartColorsByTheme(theme.value)]
 
     },
@@ -39,8 +42,8 @@ export default {
     type="doughnut"
     format="percent"
     :assetCategories="['Equity', 'Options', 'Funds', 'Fixed Income', 'Cash']"
-    :options="{}"
-    :data="{}"
+    :chartjsOptions="{}"
+    :chartjsOptions="{}"
     :allocations="[45, 15, 20, 0, 20]"
 />
                 `

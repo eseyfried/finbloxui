@@ -117,6 +117,7 @@ const totalClients = arraySum(props.data);
 
 </script>
 <style lang="scss" scoped>
+@import "../../../../scss/fb-chart-legend.scss";
 .fb-clients-by-age {
     display: grid;
     grid-template-columns: repeat(v-bind(numGridCol), minmax(0, 1fr));
@@ -129,46 +130,5 @@ const totalClients = arraySum(props.data);
     position: absolute;
     top: 30%;
     width:100%;
-}
-// factor this out
-.fb-chart-legend {
-    display: flex;
-    margin-top: 20px;
-    &.fb-chart-legend-stacked {
-        justify-content: center;
-    }
-}
-.fb-chart-legend:deep(.fb-chart-legend-list) {
-    display: flex;
-    flex-direction: column;
-    margin: 0;
-    padding: 0;
-
-    .fb-chart-legend-list-item {
-        align-items: center;
-        cursor: pointer;
-        display: flex;
-        flex-direction: row;
-        margin-left: 10px;
-        margin-bottom: 3px;
-        p {
-            margin: 0;
-            padding: 0;
-            span {
-                margin-right: 1rem;
-            }
-        }
-        .fb-chart-legend-list-item-color {
-            display: inline-block;
-            flex-shrink: 0;
-            height: 20px;
-            width: 20px;
-            margin-right: 10px;
-        }
-
-        .fb-chart-legend-item-hidden {
-            text-decoration: line-through;
-        }
-    }
 }
 </style>

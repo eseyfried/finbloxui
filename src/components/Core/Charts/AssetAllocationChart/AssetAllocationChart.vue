@@ -18,7 +18,7 @@
                 <h3>{{ formatters.formatCurrency(totalAmount) }}</h3>
             </slot>
         </div>
-        <div :id="`legend-container-${component.uid}`" class="fb-chart-legend"></div>
+        <div :id="`legend-container-${component.uid}`" class="fb-chart-legend fb-chart-legend-stacked"></div>
     </div>
 </template>
 
@@ -174,6 +174,7 @@ watch(() => [props.format], () => {
 
 </script>
 <style lang="scss" scoped>
+@import "../../../../scss/fb-chart-legend.scss";
 .fb-asset-allocation-chart {
     position: relative;
 }
@@ -183,39 +184,5 @@ watch(() => [props.format], () => {
     top: 25%;
     width:100%;
 }
-.fb-chart-legend {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-}
-.fb-chart-legend:deep(.fb-chart-legend-list) {
-    display: flex;
-    flex-direction: column;
-    margin: 0;
-    padding: 0;
 
-    .fb-chart-legend-list-item {
-        align-items: center;
-        cursor: pointer;
-        display: flex;
-        flex-direction: row;
-        margin-left: 10px;
-        margin-bottom: 3px;
-        p {
-            margin: 0;
-            padding: 0;
-        }
-        .fb-chart-legend-list-item-color {
-            display: inline-block;
-            flex-shrink: 0;
-            height: 20px;
-            width: 20px;
-            margin-right: 10px;
-        }
-
-        .fb-chart-legend-item-hidden {
-            text-decoration: line-through;
-        }
-    }
-}
 </style>

@@ -22,12 +22,11 @@
 </template>
 <script setup>
 // imports
-import { getCurrentInstance, watch, computed } from "vue";
+import { getCurrentInstance, computed } from "vue";
 import { isMobile } from "@/modules/useResponsive";
 import { arraySum } from "@/modules/useArrayUtils";
 import * as base from "@/modules/usePieChartBase";
 import Chart from "@/components/Core/Charts/Chart";
-import ChartJS from 'chart.js/auto';
 import { htmlLegendPlugin } from "@/modules/useChartLegend"
 
 // vars

@@ -17,7 +17,7 @@ import * as CustomTemplateStory from './CustomTemplate.stories';
         type: {
             type: { name: "String", required: false },
             defaultValue: "doughnut",
-            description: "A chartjs [configuration options object](https://www.chartjs.org/docs/latest/configuration/)",
+            description: "A chartjs chart type",
             table: {
                 type: { summary: "String" },
                 defaultValue: { summary: "doughnut" },

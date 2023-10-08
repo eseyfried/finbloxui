@@ -43,8 +43,9 @@ export default {
 FinbloxUI Charts can use custom css variables to set the colors for charts. Add --fb-chart-color-{#} to the :root css pseudo-class in your stylesheet.
 
 For example:
-<pre>
+
 &lt;style type="text/css"&gt;
+
     :root {
         --fb-chart-color-1: #37A3EB;
         --fb-chart-color-2: #FD6384;
@@ -54,8 +55,9 @@ For example:
         --fb-chart-color-6: #FECD57;
         --fb-chart-color-7: #C9CBD0;
     }
+    
 &lt;/style&gt;
-</pre>
+
                 `,
             },
             source: {

@@ -124,8 +124,13 @@ watch(() => [props.type, props.data, props.options, props.colors], () => {
     if (chart) {
         chart.destroy();
         chart = createChart();
+        console.log(chart)
     }
 }, { immediate: true })
 </script>
 <style lang="scss" scoped>
+.fb-chart {
+    position: relative;
+    z-index: 100;
+}
 </style>

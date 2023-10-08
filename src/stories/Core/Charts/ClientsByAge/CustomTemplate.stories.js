@@ -10,7 +10,7 @@ export default {
     title: 'Library/Core/Charts/ClientsByAge',
     args: {
         type: "doughnut",
-        ageGroups: ['20-30', '31-40', '41-50', '51-60', '61-70', '71-80', '81-90', '91-100+'],
+        labels: ['20-30', '31-40', '41-50', '51-60', '61-70', '71-80', '81-90', '91-100+'],
         data: [10, 15, 20, 23, 7, 3, 4, 0],
         totalLabel: "Clients",
         chartjsOptions: {},

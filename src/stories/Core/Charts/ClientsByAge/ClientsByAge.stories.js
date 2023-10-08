@@ -29,7 +29,7 @@ import * as CustomTemplateStory from './CustomTemplate.stories';
             ],
             control: { type: 'radio' },
         },
-        ageGroups: {
+        labels: {
             type: { name: "Array", required: true },
             defaultValue: ['20-30', '31-40', '41-50', '51-60', '61-70', '71-80', '81-90', '91-100+'],
             description: "An array of age groups",

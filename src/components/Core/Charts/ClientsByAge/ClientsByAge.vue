@@ -22,9 +22,10 @@
 </template>
 <script setup>
 // imports
-import { computed, getCurrentInstance } from "vue";
+import { getCurrentInstance } from "vue";
 import { isMobile } from "@/modules/useResponsive";
 import { arraySum } from "@/modules/useArrayUtils";
+import * as base from "@/modules/usePieChartBase";
 import Chart from "@/components/Core/Charts/Chart";
 import { htmlLegendPlugin } from "@/modules/useChartLegend"
 
@@ -34,85 +35,21 @@ const id = `fb-clients-by-age-${component.uid}`;
 const numGridCol = isMobile.value ? 1 : 2;
 
 // eslint-disable-next-line no-unused-vars
-const props = defineProps({
-    type: {
-        type: String,
-        default: "doughnut",
-        validator: (value) => ["doughnut", "pie"].includes(value),
-    },
-    ageGroups: {
-        type: Array,
-        default: () => [],
-    },
-    data: {
-        type: Array,
-        default: () => [],
-    },
-    chartjsData: {
-        type: Object,
-        default: () => {},
-    },
-    chartjsOptions: {
-        type: Object,
-        default: () => {},
-    },
-    colors: {
-        type: Array,
-        default: () => []
-    },
-    totalLabel: {
-        type: String,
-        default: "Clients"
-    }
-});
+const props = defineProps(
+    base.useProps({
+        totalLabel: {
+            type: String,
+            default: "Clients"
+        }
+    }));
 
-const defaultChartData = computed(() => {
-    return {
-        labels: props.ageGroups,
-        datasets: [{
-            data: props.data
-        }],
-    }
-});
+const chartData = base.chartData.value(props);
 
 /**
  * merge chartjs prop options with default options
  */
-const chartOptions = computed(() => {
-    let cutout = props.chartjsOptions?.cutout ? props.chartjsOptions.cutout : "80%";
-    if (props.type === "pie") {
-        cutout = 0;
-    }
-    return {
-        ...props.chartjsOptions,
-        ...{
-                maintainAspectRatio: false,
-                cutout: cutout,
-                plugins: {
-                    htmlLegend: {
-                        // ID of the container to put the legend in
-                        containerID: "legend-container",
-                        componentID: component.uid
-                    },
-                    legend: {
-                        display: false,
-                    },
-                    tooltip: {
-                        callbacks: {
-                        }
-                    }
-                }
-            }
-    }
-});
-
-const chartData = computed(() => {
-    return {
-        ...props.chartjsData,
-        ...defaultChartData.value
-    }
-});
-
+const defaultOptions = {}
+const chartOptions = base.chartOptions.value(props, component.uid, defaultOptions);
 const totalClients = arraySum(props.data);
 
 </script>

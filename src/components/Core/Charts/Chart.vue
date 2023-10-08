@@ -76,7 +76,6 @@ const buildData = computed(() => {
                 return dataset
             // use props colors or grab from custom css vars
             } else {
-                console.log(props.colors.length)
                 defaultColors.value = props.colors.length ? props.colors : getColorsFromCSSVars();
                 dataset.backgroundColor = defaultColors.value;
                 return dataset

@@ -32,57 +32,51 @@ const useProps = (props) => {
     }
 }
 
-const defaultChartData = computed(() => {
-    return (props) => {
-        return {
-            labels: props.labels,
-            datasets: [{
-                data: props.data
-            }],
-        }
+const defaultChartData = (props) => {
+    return {
+        labels: props.labels,
+        datasets: [{
+            data: props.data
+        }],
     }
-});
+};
 
-const chartData = computed(() => {
-    return (props) => {
-        return {
-            ...props.chartjsData,
-            ...defaultChartData.value(props)
-        }
+const chartData = (props) => {
+    return {
+        ...props.chartjsData,
+        ...defaultChartData(props)
     }
-});
+};
 
-const chartOptions = computed(() => {
-    return (props, componentID, defaultOptions = {}) => {
-        let cutout = props.chartjsOptions?.cutout ? props.chartjsOptions.cutout : "75%";
-        if (props.type === "pie") {
-            cutout = 0;
-        }
-        return merge(
-            {},
-            props.chartjsOptions,
-            {
-                    maintainAspectRatio: false,
-                    cutout: cutout,
-                    plugins: {
-                        htmlLegend: {
-                            // ID of the container to put the legend in
-                            containerID: "legend-container",
-                            componentID: componentID
-                        },
-                        legend: {
-                            display: false,
-                        },
-                        tooltip: {
-                            callbacks: {
-                            }
+const chartOptions = (props, componentID, defaultOptions = {}) => {
+    let cutout = props.chartjsOptions?.cutout ? props.chartjsOptions.cutout : "90%";
+    if (props.type === "pie") {
+        cutout = 0;
+    }
+    return merge(
+        {},
+        props.chartjsOptions,
+        {
+                maintainAspectRatio: false,
+                cutout: cutout,
+                plugins: {
+                    htmlLegend: {
+                        // ID of the container to put the legend in
+                        containerID: "legend-container",
+                        componentID: componentID
+                    },
+                    legend: {
+                        display: false,
+                    },
+                    tooltip: {
+                        callbacks: {
                         }
                     }
-            },
-            defaultOptions
-        )
-    }
-});
+                }
+        },
+        defaultOptions
+    )
+}
 
 export {
     useProps,

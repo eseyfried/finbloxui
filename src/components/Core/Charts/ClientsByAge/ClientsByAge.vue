@@ -22,11 +22,12 @@
 </template>
 <script setup>
 // imports
-import { getCurrentInstance } from "vue";
+import { getCurrentInstance, watch, computed } from "vue";
 import { isMobile } from "@/modules/useResponsive";
 import { arraySum } from "@/modules/useArrayUtils";
 import * as base from "@/modules/usePieChartBase";
 import Chart from "@/components/Core/Charts/Chart";
+import ChartJS from 'chart.js/auto';
 import { htmlLegendPlugin } from "@/modules/useChartLegend"
 
 // vars
@@ -36,22 +37,18 @@ const numGridCol = isMobile.value ? 1 : 2;
 
 // eslint-disable-next-line no-unused-vars
 const props = defineProps(
-    base.useProps({
+    computed(() => base.useProps({
         totalLabel: {
             type: String,
             default: "Clients"
         }
-    }));
+    })).value
+);
 
-const chartData = base.chartData.value(props);
-
-/**
- * merge chartjs prop options with default options
- */
+const chartData = computed(() => base.chartData(props));
 const defaultOptions = {}
-const chartOptions = base.chartOptions.value(props, component.uid, defaultOptions);
-const totalClients = arraySum(props.data);
-
+const chartOptions = computed(() => base.chartOptions(props, component.uid, defaultOptions)).value;
+const totalClients = computed(() => arraySum(props.data));
 </script>
 <style lang="scss" scoped>
 @import "../../../../scss/fb-chart-legend.scss";

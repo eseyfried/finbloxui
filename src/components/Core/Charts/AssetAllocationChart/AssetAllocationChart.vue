@@ -40,7 +40,7 @@ const numGridCol = isMobile.value ? 1 : 2;
 const id = `fb-asset-allocation-chart-${component.uid}`;
 
 const props = defineProps(
-    base.useProps({
+    computed(() => base.useProps({
         format: {
             type: String,
             default: "percent",
@@ -58,7 +58,7 @@ const props = defineProps(
             type: String,
             default: "0.00"
         }
-    })
+    })).value
 );
 
 const formatValue = computed(() => {
@@ -73,7 +73,7 @@ const formatValue = computed(() => {
     }
 });
 
-const chartData = base.chartData.value(props);
+const chartData = computed(() => base.chartData(props));
 const defaultOptions = {
     plugins: {
         htmlLegend: {
@@ -93,7 +93,7 @@ const defaultOptions = {
         }
     }
 }
-const chartOptions = base.chartOptions.value(props, component.uid, defaultOptions);
+const chartOptions = computed(() => base.chartOptions(props, component.uid, defaultOptions)).value;
 
 
 

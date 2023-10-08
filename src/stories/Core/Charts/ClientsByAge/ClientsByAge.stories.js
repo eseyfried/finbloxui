@@ -89,13 +89,13 @@ import * as CustomTemplateStory from './CustomTemplate.stories';
                 category: 'Props',
             },
         },
-        ".fb-clients-by-age": {
+        ".fb-clients-by-age-chart": {
             description: "The class applied to the component root element.",
             table: {
                 category: 'CSS Classes',
             },
         },
-        ".fb-clients-by-age-hero": {
+        ".fb-clients-by-age-chart-hero": {
             description: "The class applied to the component total section root element.",
             table: {
                 category: 'CSS Classes',

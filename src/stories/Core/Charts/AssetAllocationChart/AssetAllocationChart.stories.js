@@ -46,7 +46,7 @@ import * as CustomTemplateStory from './CustomTemplate.stories';
             ],
             control: { type: 'radio' },
         },
-        assetCategories: {
+        labels: {
             type: { name: "Array", required: true },
             defaultValue: [],
             description: "An array of asset categories",
@@ -56,7 +56,7 @@ import * as CustomTemplateStory from './CustomTemplate.stories';
                 category: 'Props',
             },
         },
-        allocations: {
+        data: {
             type: { name: "Array", required: true },
             defaultValue: [],
             description: "An array of values for each asset category in the asset categories prop. Values should be numeric.",

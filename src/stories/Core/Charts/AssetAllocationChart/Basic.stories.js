@@ -10,8 +10,8 @@ export default {
     args: {
         type: "doughnut",
         format: "percent",
-        assetCategories: ['Equity', 'Options', 'Funds', 'Fixed Income', 'Cash'],
-        allocations: [45, 15, 20, 0, 20],
+        labels: ['Equity', 'Options', 'Funds', 'Fixed Income', 'Cash'],
+        data: [45, 15, 20, 0, 20],
         showTotal: true,
         totalLabel: "Total Value",
         totalAmount: "134782.99",
@@ -41,10 +41,10 @@ export default {
 <AssetAllocationChart
     type="doughnut"
     format="percent"
-    :assetCategories="['Equity', 'Options', 'Funds', 'Fixed Income', 'Cash']"
+    :labels="['Equity', 'Options', 'Funds', 'Fixed Income', 'Cash']"
     :chartjsOptions="{}"
     :chartjsOptions="{}"
-    :allocations="[45, 15, 20, 0, 20]"
+    :data="[45, 15, 20, 0, 20]"
 />
                 `
             }

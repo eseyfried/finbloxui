@@ -200,5 +200,6 @@ const changeClasses = (value) => {
     position: absolute;
     bottom: 80px;
     left: 100px;
+    z-index: 200;
 }
 </style>

@@ -214,6 +214,7 @@ const historicalBalances = () => {
     return balances
 }
 
+
 export const useDemoStore = defineStore({
     id: 'demo',
     state: () => ({

@@ -1,6 +1,6 @@
 html[data-mode='theme-1'] .fb-positions-grid th {
     @apply bg-slate-50;
-    :root {
+    * {
         /* --fb-chart-color-1: theme(colors.green.100);
         --fb-chart-color-2: theme(colors.green.200);
         --fb-chart-color-3: theme(colors.green.300);

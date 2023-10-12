@@ -9,7 +9,7 @@
 import Chart from 'chart.js/auto';
 import 'chartjs-adapter-moment';
 import { ref, onMounted, computed, watch } from "vue";
-import { getFBCustomVars } from "@/modules/useCSSVars.js"
+import { getColorsFromCSSVars } from "@/modules/useCSSVars.js"
 
 // vars
 
@@ -86,18 +86,7 @@ const buildData = computed(() => {
     return data;
 });
 
-const getColorsFromCSSVars = () => {
-    const fbChartColors = getFBCustomVars("--fb-chart-color-.");
-    const processedColors = [];
-    return fbChartColors.filter(color => {
-        if (!processedColors.includes(color[0])) {
-            processedColors.push(color[0]);
-            return true;
-        } else {
-            return false;
-        }
-    }).map(color => color[1]);
-}
+
 
 /**
  * create a chart instance when component is mounted

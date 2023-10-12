@@ -66,87 +66,89 @@
 
 /* Small & Large Mobile Devices */
 @media (max-width: 576px) {
-    /* DataTable */
-    table tbody td {
-        border: none;
-        text-align: right !important;
-    }
-
-    table tbody td span {
-        justify-self: end;
-    }
-
-    table tbody td::before {
-        text-align: left !important;
-        width: 150px;
-    }
-
-    table tbody tr {
-        @apply border-b-2 border-gray-200;
-    }
-
-    table tbody td .fb-action-menu-button {
-        justify-self: end !important;
-    }
-
-    table tbody td .fb-action-menu ul {
-        left: unset !important;
-        right: 0;
-    }
-
-    /* PositionsGrid & TransactionsGrid */
-    .fb-transactions-grid td[data-cell="Description"] span,
-    .fb-positions-grid td[data-cell="Description"] span {
-        white-space: break-spaces;
-        width: 150px;
-    }
-
-    /* Mobile ColumnFilter */
-    .fb-filters {
-        display: grid;
-    }
-    .fb-filters .fb-column-filter {
-        display: block;
-        justify-self: end;
-        & .fb-column-filter-menu {
-            left: unset;
-            right: -10px;
+    html[data-mode]:not([data-mode='headless']) {
+        /* DataTable */
+        table tbody td {
+            border: none;
+            text-align: right !important;
         }
-        & .fb-column-filter-button::before {
-            margin-right: 5px;
+
+        table tbody td span {
+            justify-self: end;
         }
-    }
-    .fb-data-table-filters-visible {
-        display: grid !important;
-    }
-    .fb-data-table-filters {
-        justify-self: end;
-    }
-    .fb-filters a {
-        @apply no-underline;
-        justify-self: end;
-        &:after {
-            content: "\f078";
+
+        table tbody td::before {
+            text-align: left !important;
+            width: 150px;
+        }
+
+        table tbody tr {
+            @apply border-b-2 border-gray-200;
+        }
+
+        table tbody td .fb-action-menu-button {
+            justify-self: end !important;
+        }
+
+        table tbody td .fb-action-menu ul {
+            left: unset !important;
+            right: 0;
+        }
+
+        /* PositionsGrid & TransactionsGrid */
+        .fb-transactions-grid td[data-cell="Description"] span,
+        .fb-positions-grid td[data-cell="Description"] span {
+            white-space: break-spaces;
+            width: 150px;
+        }
+
+        /* Mobile ColumnFilter */
+        .fb-filters {
+            display: grid;
+        }
+        .fb-filters .fb-column-filter {
+            display: block;
+            justify-self: end;
+            & .fb-column-filter-menu {
+                left: unset;
+                right: -10px;
+            }
+            & .fb-column-filter-button::before {
+                margin-right: 5px;
+            }
+        }
+        .fb-data-table-filters-visible {
+            display: grid !important;
+        }
+        .fb-data-table-filters {
+            justify-self: end;
+        }
+        .fb-filters a {
+            @apply no-underline;
+            justify-self: end;
+            &:after {
+                content: "\f078";
+                font: var(--fa-font-solid);
+                @apply ml-1;
+            }
+        }
+        .fb-column-filter-button::before {
+            content: unset !important;
+            font: unset !important;
+        }
+        .fb-column-filter-button::after {
+            content: "\f0b0";
             font: var(--fa-font-solid);
-            @apply ml-1;
+            @apply text-gray-500 ml-2;
         }
-    }
-    .fb-column-filter-button::before {
-        content: unset !important;
-        font: unset !important;
-    }
-    .fb-column-filter-button::after {
-        content: "\f0b0";
-        font: var(--fa-font-solid);
-        @apply text-gray-500 ml-2;
-    }
-    .fb-column-filter-has-filters::after {
-        @apply text-indigo-500;
+        .fb-column-filter-has-filters::after {
+            @apply text-indigo-500;
+        }
     }
 }
 /* General FinBloxUI CSS */
 html[data-mode='theme-2'] {
-    :root {
+    * {
         --fb-chart-color-1: theme(colors.indigo.100);
         --fb-chart-color-2: theme(colors.indigo.200);
         --fb-chart-color-3: theme(colors.indigo.300);

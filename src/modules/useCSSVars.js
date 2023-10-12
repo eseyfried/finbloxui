@@ -37,8 +37,22 @@ const getCustomVarValue = (varName, vars = []) => {
     return customVar.length ? customVar[0][1] : null
 }
 
+const getColorsFromCSSVars = () => {
+    const fbChartColors = getFBCustomVars("--fb-chart-color-.");
+    const processedColors = [];
+    return fbChartColors.filter(color => {
+        if (!processedColors.includes(color[0])) {
+            processedColors.push(color[0]);
+            return true;
+        } else {
+            return false;
+        }
+    }).map(color => color[1]);
+}
+
 export {
     getCSSCustomPropIndex,
     getFBCustomVars,
-    getCustomVarValue
+    getCustomVarValue,
+    getColorsFromCSSVars
 }

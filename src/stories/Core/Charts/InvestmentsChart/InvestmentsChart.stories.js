@@ -1,28 +1,28 @@
-import NetworthChart from '@/components/Core/Charts/NetworthChart/NetworthChart.vue';
+import InvestmentsChart from '@/components/Core/Charts/InvestmentsChart/InvestmentsChart.vue';
 
 import * as BasicStory from './Basic.stories';
 import * as EventsStory from './Events.stories';
 import * as CustomTemplateStory from './CustomTemplate.stories';
 /**
  * ## Overview
- * The `NetworthChart` component provides a visual view of networth over time along with a snapshot view of networth stats.
- * Values include: he current Networth as of today, the change in networth since the 
+ * The `InvestmentsChart` component provides a visual view of investments over time along with a snapshot view of investments stats.
+ * Values include: he current Investments as of today, the change in investments since the 
  * previous month as well as since the beginning of the year.
  * 
  * This is ideal for use as a dashboard component.
  * 
  * ### User Story
- * > As a user, I want to know what my current networth is as well as how my networth is trending over time.
+ * > As a user, I want to know what my current investments is as well as how my investments is trending over time.
  */
  export default {
-    title: 'Library/Core/Charts/NetworthChart',
-    component: { NetworthChart },
+    title: 'Library/Core/Charts/InvestmentsChart',
+    component: { InvestmentsChart },
     tags: ['autodocs'],
     argTypes: {
         data: {
             type: { name: "Array", required: true },
             defaultValue: [],
-            description: "An array of networth data values for each day in the series. This should be daily value since the beginning of the year. Values should be Numeric.",
+            description: "An array of investments data values for each day in the series. This should be daily value since the beginning of the year. Values should be Numeric.",
             table: {
                 type: { summary: "Array" },
                 defaultValue: { summary: "[]" },
@@ -52,31 +52,31 @@ import * as CustomTemplateStory from './CustomTemplate.stories';
         },
         label: {
             type: { name: "String", required: false },
-            defaultValue: "Networth",
-            description: "The text label for the networth section of the chart.",
+            defaultValue: "Investments",
+            description: "The text label for the investments section of the chart.",
             table: {
                 type: { summary: "String" },
-                defaultValue: { summary: "Networth" },
+                defaultValue: { summary: "Investments" },
                 category: 'Props',
             },
         },
-        monthLabel: {
+        changeAmountLabel: {
             type: { name: "String", required: false },
-            defaultValue: "This Month",
-            description: "The text label for the month section of the chart.",
+            defaultValue: "Change",
+            description: "The text label for the $ change amount of the chart.",
             table: {
                 type: { summary: "String" },
-                defaultValue: { summary: "This Month" },
+                defaultValue: { summary: "Investments" },
                 category: 'Props',
             },
         },
-        sinceLabel: {
+        changePercentLabel: {
             type: { name: "String", required: false },
-            defaultValue: "Since",
-            description: "The text label for the since year section of the chart.",
+            defaultValue: "Change",
+            description: "The text label for the % change section of the chart.",
             table: {
                 type: { summary: "String" },
-                defaultValue: { summary: "Since" },
+                defaultValue: { summary: "Change" },
                 category: 'Props',
             },
         },
@@ -100,33 +100,33 @@ import * as CustomTemplateStory from './CustomTemplate.stories';
                 category: 'Props',
             },
         },
-        ".fb-networth-chart": {
+        ".fb-investments-chart": {
             description: "The class applied to the component root element. The background color is set by default using `--fb-chart-color-4`.",
             table: {
                 category: 'CSS Classes',
             },
         },
-        ".fb-networth-chart-hero": {
-            description: "The class applied to the component networth hero root element.",
+        ".fb-investments-chart-hero": {
+            description: "The class applied to the component investments hero root element.",
             table: {
                 category: 'CSS Classes',
             },
         },
-        ".fb-networth-chart-month": {
-            description: "The class applied to the component month root element.",
+        ".fb-investments-chart-change-amount": {
+            description: "The class applied to the component change amount root element.",
             table: {
                 category: 'CSS Classes',
             },
         },
-        ".fb-networth-chart-year": {
-            description: "The class applied to the component year root element.",
+        ".fb-investments-chart-change-percent": {
+            description: "The class applied to the component change percent root element.",
             table: {
                 category: 'CSS Classes',
             },
         },
         // SLOTS
         "hero": {
-            description: "The `hero` slot for customizing the total networth template. The slotProps props can be used in your template.",
+            description: "The `hero` slot for customizing the total investments template. The slotProps props can be used in your template.",
             table: {
                 category: 'slots',
                 defaultValue: {
@@ -139,33 +139,30 @@ import * as CustomTemplateStory from './CustomTemplate.stories';
                 }
             },
         },
-        "month": {
-            description: "The `month` slot for customizing the current month template. The slotProps props can be used in your template.",
+        "changeAmount": {
+            description: "The `changeAmount` slot for customizing the change amount template. The slotProps props can be used in your template.",
             table: {
                 category: 'slots',
                 defaultValue: {
                     detail: "available slotProps to bind to your template",
                     summary: `{
                         props: {},
-                        monthChangeAmount: "",
-                        monthChangePercent: "",
+                        changeAmount: "",
                         changeClasses: "",
                     }`
                 }
             },
         },
-        "year": {
-            description: "The `year` slot for customizing the since year template. The slotProps props can be used in your template.",
+        "changePercent": {
+            description: "The `changePercent` slot for customizing the change percent template. The slotProps props can be used in your template.",
             table: {
                 category: 'slots',
                 defaultValue: {
                     detail: "available slotProps to bind to your template",
                     summary: `{
                         props: {},
-                        yearChangeAmount: "",
-                        yearChangePercent: "",
+                        changePercent: "",
                         changeClasses: "",
-                        sinceDate: "",
                     }`
                 }
             },
@@ -174,7 +171,7 @@ import * as CustomTemplateStory from './CustomTemplate.stories';
 };
 
 
-export const BasicNetworthChart = {
+export const BasicInvestmentsChart = {
     ...BasicStory.default
 };
 
@@ -183,7 +180,6 @@ export const BasicNetworthChart = {
 // };
 const template = CustomTemplateStory.default.template;
 export const CustomTemplate = {
-    // ...CustomTemplateStory.default
     args: {
         ...BasicStory.default.args,
         ...CustomTemplateStory.default.args

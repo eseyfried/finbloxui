@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-    <div class="fb-networth-chart">
-        <div class="fb-networth-chart-hero">
+    <div class="fb-investments-chart">
+        <div class="fb-investments-chart-hero">
             <slot
                 name="hero"
                 :props="props"
@@ -10,37 +10,32 @@
             >
                 <h2>{{ label }}</h2>
                 <h3>{{ formatters.formatCurrency(currentValue) }}</h3>
-                <span class="fb-networth-chart-date">As of: {{ formatters.formatDate(asOf) }}</span>
+                <span class="fb-investments-chart-date">As of: {{ formatters.formatDate(asOf) }}</span>
             </slot>
         </div>
-        <div class="fb-networth-chart-month">
+        <div class="fb-investments-chart-change-amount">
             <slot
-                name="month"
+                name="changeAmount"
                 :props="props"
-                :monthChangeAmount="formatters.formatCurrency(monthChangeAmount, false)"
-                :monthChangePercent="formatters.formatPercent(monthChangePercent, true)"
-                :changeClasses="changeClasses(monthChangeAmount)"
+                :changeAmount="formatters.formatCurrency(changeAmount, false)"
+                :changeClasses="changeClasses(changeAmount)"
             >
-                <h4>{{ monthLabel }}</h4>
-                <div class="fb-networth-chart-month-change" :class="changeClasses(monthChangeAmount)">
-                    <span>{{ formatters.formatCurrency(monthChangeAmount, false) }}</span>
-                    <span>{{ formatters.formatPercent(monthChangePercent, true) }}</span>
+                <h4>{{ changeAmountLabel }}</h4>
+                <div :class="changeClasses(changeAmount)">
+                    <span>{{ formatters.formatCurrency(changeAmount, false) }}</span>
                 </div>
             </slot>
         </div>
-        <div class="fb-networth-chart-year">
+        <div class="fb-investments-chart-change-percent">
             <slot
-                name="year"
+                name="changePercent"
                 :props="props"
-                :yearChangeAmount="formatters.formatCurrency(yearChangeAmount, false)"
-                :yearChangePercent="formatters.formatPercent(yearChangePercent, true)"
-                :changeClasses="changeClasses(yearChangeAmount)"
-                :sinceDate="sinceDate"
+                :changePercent="formatters.formatPercent(changePercent, true)"
+                :changeClasses="changeClasses(changePercent)"
             >
-                <h4>{{ sinceLabel }} {{ moment.utc(sinceDate).format("MMM YYYY") }}</h4>
-                <div class="fb-networth-chart-year-change" :class="changeClasses(yearChangeAmount)">
-                    <span>{{ formatters.formatCurrency(yearChangeAmount, false) }}</span>
-                    <span>{{ formatters.formatPercent(yearChangePercent, true) }}</span>
+                <h4>{{ changePercentLabel }}</h4>
+                <div :class="changeClasses(changePercent)">
+                    <span>{{ formatters.formatPercent(changePercent, true) }}</span>
                 </div>
             </slot>
         </div>
@@ -55,7 +50,6 @@
 </template>
 <script setup>
 // imports
-import moment from "moment";
 import * as dateUtils from "@/modules/useDateUtils";
 import Chart from "@/components/Core/Charts/Chart";
 import * as formatters from "@/modules/useFormatter";
@@ -64,7 +58,7 @@ import { merge } from "lodash";
 
 // vars
 const component = getCurrentInstance();
-const id = `fb-networth-chart-${component.uid}`;
+const id = `fb-investments-chart-${component.uid}`;
 const props = defineProps({
     type: {
         type: String,
@@ -72,15 +66,15 @@ const props = defineProps({
     },
     label: {
         type: String,
-        default: "Networth"
+        default: "Investments"
     },
-    monthLabel: {
+    changeAmountLabel: {
         type: String,
-        default: "This Month"
+        default: "Change"
     },
-    sinceLabel: {
+    changePercentLabel: {
         type: String,
-        default: "Since"
+        default: "Change"
     },
     dates: {
         type: Array,
@@ -108,15 +102,13 @@ const props = defineProps({
     },
 });
 const monthlyData = computed( () => dateUtils.toMonthly(dateUtils.toXY(props.dates, props.data)));
-const currentValue = computed(() => monthlyData.value[monthlyData.value.length - 1]?.y);
-const previousMonthValue = computed(() => monthlyData.value[monthlyData.value.length - 2]?.y);
-const beginningValue = computed(() => monthlyData.value[0]?.y);
-const sinceDate = computed(() => monthlyData.value[0]?.x);
+const currentValue = computed(() => props.data.slice(-1));
+const previousDayValue = computed(() => props.data[props.data.length - 2]);
+
 const asOf = computed(() => props.dates[props.dates.length - 1]);
-const monthChangeAmount = computed(() => currentValue.value - previousMonthValue.value);
-const monthChangePercent = computed(() => monthChangeAmount.value / currentValue.value);
-const yearChangeAmount = computed(() => currentValue.value - beginningValue.value);
-const yearChangePercent = computed(() => yearChangeAmount.value / currentValue.value);
+const changeAmount = computed(() => currentValue.value - previousDayValue.value);
+const changePercent = computed(() => changeAmount.value / currentValue.value);
+
 
 
 const defaultChartData = computed(() => {
@@ -220,7 +212,7 @@ const changeClasses = (value) => {
 </script>
 <style lang="scss" scoped>
 @import "../../../../scss/finbloxui.scss";
-.fb-networth-chart {
+.fb-investments-chart {
     position: relative;
     background-color: var(--fb-chart-color-4);
 }
@@ -233,19 +225,19 @@ const changeClasses = (value) => {
     font-size: 4.0vmin;
 }
 
-.fb-networth-chart-hero {
+.fb-investments-chart-hero {
     position: absolute;
     top: 5%;
     left: 5%;
     z-index: 200;
 }
-.fb-networth-chart-month {
+.fb-investments-chart-change-amount {
     position: absolute;
     bottom: 15%;
     left: 5%;
     z-index: 200;
 }
-.fb-networth-chart-year {
+.fb-investments-chart-change-percent {
     position: absolute;
     bottom: 15%;
     right: 5%;

@@ -208,7 +208,7 @@ const getSymbol = () => {
 
 const historicalBalances = () => {
     const balances = [];
-    for(let i = 0; i <= moment().dayOfYear(); i++) {
+    for(let i = 0; i < moment().dayOfYear(); i++) {
         balances.push(faker.finance.amount(310000, 350000, 2, '', false));
     }
     return balances

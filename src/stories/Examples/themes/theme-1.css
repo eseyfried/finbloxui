@@ -1,13 +1,5 @@
-html[data-mode='theme-1'] .fb-positions-grid th {
-    @apply bg-slate-50;
+html[data-mode='theme-1'] {
     * {
-        /* --fb-chart-color-1: theme(colors.green.100);
-        --fb-chart-color-2: theme(colors.green.200);
-        --fb-chart-color-3: theme(colors.green.300);
-        --fb-chart-color-4: theme(colors.green.400);
-        --fb-chart-color-5: theme(colors.green.500);
-        --fb-chart-color-6: theme(colors.green.600);
-        --fb-chart-color-7: theme(colors.green.700); */
         --fb-chart-color-1: #37A3EB;
         --fb-chart-color-2: #FD6384;
         --fb-chart-color-3: #4BC1C1;
@@ -15,5 +7,8 @@ html[data-mode='theme-1'] .fb-positions-grid th {
         --fb-chart-color-5: #9965FE;
         --fb-chart-color-6: #FECD57;
         --fb-chart-color-7: #C9CBD0;
+    }
+    .fb-positions-grid th {
+        @apply bg-slate-50;
     }
 }

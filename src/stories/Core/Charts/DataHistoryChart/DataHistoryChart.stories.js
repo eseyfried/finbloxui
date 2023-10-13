@@ -63,6 +63,7 @@ import * as CustomTemplateStory from './CustomTemplate.stories';
                 defaultValue: { summary: "rgb(75, 85, 99)" },
                 category: 'Props',
             },
+            control: 'color'
         },
         areaColor: {
             type: { name: "String", required: false },
@@ -73,6 +74,7 @@ import * as CustomTemplateStory from './CustomTemplate.stories';
                 defaultValue: { summary: "rgba(75, 85, 99, 0.3)" },
                 category: 'Props',
             },
+            control: 'color'
         },
         chartjsData: {
             type: { name: "Object", required: false },

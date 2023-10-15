@@ -2,6 +2,7 @@
 import * as ClientObjectStory from './ClientObject.stories'
 import * as DataPointObjectStory from './DataPointObject.stories'
 import * as MenuItemObjectStory from './MenuItemObject.stories'
+import * as TransactionsObjectStory from './TransactionsObject.stories'
 
 export default {
   title: 'Library/DataDefinitions',
@@ -41,6 +42,9 @@ export const DataPointObject = {
 
 export const MenuItemObject = {
     ...MenuItemObjectStory.default
+};
+export const TransactionsObject = {
+    ...TransactionsObjectStory.default
 };
 
 

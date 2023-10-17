@@ -160,6 +160,11 @@ const defaultTransactions = (numberOfRecords) => {
                 txn.transaction_fee = neg_amount;
                 txn.description = `${sub_type}`;
             }
+            if (['Transfer'].includes(transaction_type)) {
+                const sub_type = faker.helpers.arrayElement(['Transfer']);
+                txn.amount = amount;
+                txn.description = `${sub_type}`;
+            }
             return txn;
         }
     );

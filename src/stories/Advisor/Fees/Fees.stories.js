@@ -1,29 +1,28 @@
-import Income from '@/components/Advisor/Income/Income.vue';
+import Fees from '@/components/Advisor/Fees/Fees.vue';
 
 import * as BasicStory from './Basic.stories';
-// import * as EventsStory from './Events.stories';
 import * as CustomTemplateStory from './CustomTemplate.stories';
 /**
  * ## Overview
- * The `Income` component displays the total income for a given account or portfolio along with the underlying income transactions.
+ * The `Fees` component displays the total fees for a given account or portfolio along with the underlying fees transactions.
  * 
  * This component is an ideal dashboard stat component.
  * 
  * ### User Story
- * > As a user, I want to know how much income my account or portfolio has generated to date including the underlying income transactions
+ * > As a user, I want to know how much fees my account or portfolio has generated to date including the underlying fees transactions
  */
  export default {
-    title: 'Library/Advisor/Income',
-    component: { Income },
+    title: 'Library/Advisor/Fees',
+    component: { Fees },
     tags: ['autodocs'],
     argTypes: {
         label: {
             type: { name: "String", required: false },
-            defaultValue: "Income",
+            defaultValue: "Management Fees",
             description: "A text label for hero section",
             table: {
                 type: { summary: "String" },
-                defaultValue: { summary: "Income" },
+                defaultValue: { summary: "Management Fees" },
                 category: 'Props',
             },
         },
@@ -88,31 +87,31 @@ import * as CustomTemplateStory from './CustomTemplate.stories';
             },
             control: { type: "boolean" }
         },
-        ".fb-income": {
+        ".fb-fees": {
             description: "The class applied to the component root element.",
             table: {
                 category: 'CSS Classes',
             },
         },
-        ".fb-income-transactions": {
+        ".fb-fees-transactions": {
             description: "The class applied to the component transactions root element.",
             table: {
                 category: 'CSS Classes',
             },
         },
-        ".fb-income-transactions-amount": {
+        ".fb-fees-transactions-amount": {
             description: "The class applied to the component transactions amount table head and column element.",
             table: {
                 category: 'CSS Classes',
             },
         },
-        ".fb-income-transactions-date": {
+        ".fb-fees-transactions-date": {
             description: "The class applied to the component transactions date table head and column element.",
             table: {
                 category: 'CSS Classes',
             },
         },
-        ".fb-income-transactions-description": {
+        ".fb-fees-transactions-description": {
             description: "The class applied to the component transactions description table head and column element.",
             table: {
                 category: 'CSS Classes',
@@ -136,13 +135,10 @@ import * as CustomTemplateStory from './CustomTemplate.stories';
 };
 
 
-export const BasicIncome = {
+export const BasicFees = {
     ...BasicStory.default
 };
 
-// export const Events = {
-//     ...EventsStory.default
-// };
 
 const template = CustomTemplateStory.default.template;
 export const CustomTemplate = {

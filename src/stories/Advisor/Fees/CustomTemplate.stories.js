@@ -1,30 +1,30 @@
 /* eslint-disable storybook/story-exports */
 const template = `
-<Income v-bind="args">
+<Fees v-bind="args">
   <template #transactions="slotProps">
-        <div class="fb-income-transactions">
+        <div class="fb-fees-transactions">
             <table>
                 <thead>
                     <tr>
-                        <th class="fb-income-transactions-desc">{{ slotProps.props.descriptionLabel }}</th>
-                        <th class="fb-income-transactions-amount">{{ slotProps.props.amountLabel }}</th>
-                        <th class="fb-income-transactions-date">{{ slotProps.props.dateLabel }}</th>
+                        <th class="fb-fees-transactions-desc">{{ slotProps.props.descriptionLabel }}</th>
+                        <th class="fb-fees-transactions-amount">{{ slotProps.props.amountLabel }}</th>
+                        <th class="fb-fees-transactions-date">{{ slotProps.props.dateLabel }}</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="(record, i) in slotProps.data" :key="i">
-                        <td class="fb-income-transactions-desc">{{ record.description }}</td>
-                        <td class="fb-income-transactions-amount">{{ args.formatCurrency(record.amount) }}</td>
-                        <td class="fb-income-transactions-date">{{ args.formatDate(record.date) }}</td>
+                        <td class="fb-fees-transactions-desc">{{ record.description }}</td>
+                        <td class="fb-fees-transactions-amount">{{ args.formatCurrency(record.amount) }}</td>
+                        <td class="fb-fees-transactions-date">{{ args.formatDate(record.date) }}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
   </template>
-</Income>
+</Fees>
 `;
 export default {
-    title: 'Library/Advisor/Income',
+    title: 'Library/Advisor/Fees',
     args: {
 
     },

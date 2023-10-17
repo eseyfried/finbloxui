@@ -2,15 +2,15 @@
 import { ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useDemoStore } from "@/stories/stores/store";
-import Income from '@/components/Advisor/Income/Income.vue';
+import Fees from '@/components/Advisor/Fees/Fees.vue';
 import * as formatters from "@/modules/useFormatter";
 
 let defaultTransactions = ref([]);
 export default {
-    title: 'Library/Advisor/Income',
+    title: 'Library/Advisor/Fees',
     args: {
         data: [],
-        label: "Income",
+        label: "Management Fees",
         descriptionLabel: "Description",
         dateLabel: "Date",
         amountLabel: "Amount",
@@ -19,29 +19,29 @@ export default {
     },
     render: (args, context, template = null) => {
         args.data = defaultTransactions.value;
-        args.formatCurrency = formatters.formatCurrency;
         args.formatDate = formatters.formatDate;
+        args.formatCurrency = formatters.formatCurrency;
         return {
-            components: { Income },
+            components: { Fees },
             setup() {
                 const { transactions } = storeToRefs(useDemoStore());
-                args.data = ref(transactions.value.filter(record => record.transaction_type === "Income").map((record => {
+                args.data = ref(transactions.value.filter(record => record.transaction_type === "Expense").map((record => {
                     record.date = record.transaction_date;
                     return record;
                 })));
                 defaultTransactions.value = args.data;
                 return { args };
             },
-            template: template || '<Income v-bind="args" />',
+            template: template || '<Fees v-bind="args" />',
         }
     },
     parameters: {
         docs: {
             description: {
-                story: "The basic use of the Income component.",
+                story: "The basic use of the Fees component.",
             },
             source: {
-                code: `<Income :data="[]" />`
+                code: `<Fees :data="[]" />`
             }
         }
     }

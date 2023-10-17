@@ -1,9 +1,9 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-    <div class="fb-income">
+    <div class="fb-fees">
         <slot name="hero" :props="props">
-            <div class="fb-income-hero">
-                <h2>{{ formatters.formatCurrency(totalIncome) }}</h2>
+            <div class="fb-fees-hero">
+                <h2>{{ formatters.formatCurrency(totalFees) }}</h2>
                 <h3>{{ label }}</h3>
                 <h4 v-if="showDate">As of: {{ formatters.formatDate(asOf) }}</h4>
             </div>
@@ -14,20 +14,20 @@
             :props="props"
             :data="transactions"
         >
-            <div class="fb-income-transactions">
+            <div class="fb-fees-transactions">
                 <table>
                     <thead>
                         <tr>
-                            <th class="fb-income-transactions-desc">{{ descriptionLabel }}</th>
-                            <th class="fb-income-transactions-date">{{ dateLabel }}</th>
-                            <th class="fb-income-transactions-amount">{{ amountLabel }}</th>
+                            <th class="fb-fees-transactions-desc">{{ descriptionLabel }}</th>
+                            <th class="fb-fees-transactions-date">{{ dateLabel }}</th>
+                            <th class="fb-fees-transactions-amount">{{ amountLabel }}</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr v-for="(record, i) in transactions" :key="i">
-                            <td class="fb-income-transactions-desc">{{ record.description }}</td>
-                            <td class="fb-income-transactions-date">{{ formatters.formatDate(record.date) }}</td>
-                            <td class="fb-income-transactions-amount">{{ formatters.formatCurrency(record.amount) }}</td>
+                            <td class="fb-fees-transactions-desc">{{ record.description }}</td>
+                            <td class="fb-fees-transactions-date">{{ formatters.formatDate(record.date) }}</td>
+                            <td class="fb-fees-transactions-amount">{{ formatters.formatCurrency(record.amount) }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -45,7 +45,7 @@ import * as formatters from "@/modules/useFormatter";
 const props = defineProps({
     label: {
         type: String,
-        default: "Income"
+        default: "Management Fees"
     },
     data: {
         type: Array,
@@ -74,16 +74,16 @@ const props = defineProps({
 });
 
 // methods
-const totalIncome = computed(() => props.data.reduce((partialSum, a) => parseFloat(partialSum) + parseFloat(a.amount), 0));
+const totalFees = computed(() => props.data.reduce((partialSum, a) => parseFloat(partialSum) + parseFloat(a.amount), 0));
 const transactions = computed(() => sortBy(props.data, "date").reverse());
 const asOf = computed(() => transactions.value[0]?.date);
 </script>
 <style lang="scss" scoped>
-@import "../../../scss/finbloxui.scss";
 :is(h2, h3) {
     margin: 0;
 }
-.fb-income::v-deep(.fb-income-transactions) {
+.fb-fees {
+    ::v-deep(.fb-fees-transactions) {
         overflow-y: auto;
         height: 200px;
         table {
@@ -95,20 +95,19 @@ const asOf = computed(() => transactions.value[0]?.date);
             th, td {
                 text-align: left;
             }
-            th.fb-income-transactions-amount, th.fb-income-transactions-date {
+            th.fb-fees-transactions-amount,
+            th.fb-fees-transactions-date {
                 text-align: right;
             }
-            td.fb-income-transactions-amount, td.fb-income-transactions-date {
+            
+            tbody {
+                td.fb-fees-transactions-amount,
+                td.fb-fees-transactions-date {
                     text-align: right;
+                }
             }
         }
+
+    }
 }
-
-
-
-
-
-
-
-
 </style>

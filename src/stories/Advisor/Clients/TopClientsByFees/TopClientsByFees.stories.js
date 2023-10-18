@@ -1,19 +1,19 @@
-import TopClientsByAum from '@/components/Advisor/Clients/TopClientsByAum/TopClientsByAum.vue';
+import TopClientsByFees from '@/components/Advisor/Clients/TopClientsByFees/TopClientsByFees.vue';
 
 import * as BasicStory from './Basic.stories';
 import * as EventsStory from './Events.stories';
 import * as CustomTemplateStory from './CustomTemplate.stories';
 /**
  * ## Overview
- * The `TopClientsByAum` component shows the top n clients and their respective assets under managmenet in a tabular display with a 
+ * The `TopClientsByFees` component shows the top n clients and their respective fees paid in a tabular display with a 
  * bar chart for visual comparision.
  * 
  * ### User Story
- * > As a user, I want to see my top clients ranked from high to low so I may compare who my top tier clients are by AUM.
+ * > As a user, I want to see my top clients ranked from high to low so I may compare who my top tier clients are by fees.
  */
  export default {
-    title: 'Library/Advisor/Clients/TopClientsByAum',
-    component: { TopClientsByAum },
+    title: 'Library/Advisor/Clients/TopClientsByFees',
+    component: { TopClientsByFees },
     tags: ['autodocs'],
     argTypes: {
         clients: {
@@ -29,7 +29,7 @@ import * as CustomTemplateStory from './CustomTemplate.stories';
         data: {
             type: { name: "Array", required: true },
             defaultValue: [],
-            description: "An array of total client AUM values. Values must be Numeric.",
+            description: "An array of total client Fees values. Values must be Numeric.",
             table: {
                 type: { summary: "Array" },
                 defaultValue: { summary: "[]" },
@@ -46,37 +46,37 @@ import * as CustomTemplateStory from './CustomTemplate.stories';
                 category: 'Props',
             },
         },
-        aumLabel: {
+        feesLabel: {
             type: { name: "String", required: false },
-            defaultValue: "Total Assets Under Management",
-            description: "A text label for the AUM column",
+            defaultValue: "Total Fees",
+            description: "A text label for the Fees column",
             table: {
-                type: { summary: "Total Assets Under Management" },
+                type: { summary: "Total Fees" },
                 defaultValue: { summary: "String" },
                 category: 'Props',
             },
         },
 
-        ".fb-top-clients-by-aum": {
+        ".fb-top-clients-by-fees": {
             description: "The class applied to the component root element.",
             table: {
                 category: 'CSS Classes',
             },
         },
-        ".fb-top-clients-by-aum-md": {
-            description: "The class applied to the aum valueelement when viewport is >= size md.",
+        ".fb-top-clients-by-fees-md": {
+            description: "The class applied to the fees valueelement when viewport is >= size md.",
             table: {
                 category: 'CSS Classes',
             },
         },
-        ".fb-top-clients-by-aum-bar-container": {
-            description: "The class applied to the aum table cell element.",
+        ".fb-top-clients-by-fees-bar-container": {
+            description: "The class applied to the fees table cell element.",
             table: {
                 category: 'CSS Classes',
             },
         },
-        ".fb-top-clients-by-aum-bar": {
-            description: "The class applied to the aum bar chart.",
+        ".fb-top-clients-by-fees-bar": {
+            description: "The class applied to the fees bar chart.",
             table: {
                 category: 'CSS Classes',
             },
@@ -90,9 +90,9 @@ import * as CustomTemplateStory from './CustomTemplate.stories';
                     detail: "available slotProps to bind to your template",
                     summary: `{
                         props: {},
-                        aumPercent: "",
-                        aumAmount: "",
-                        aumPercentStyle: "",
+                        feesPercent: "",
+                        feesAmount: "",
+                        feesPercentStyle: "",
                         client: "",
                     }`
                 }
@@ -102,7 +102,7 @@ import * as CustomTemplateStory from './CustomTemplate.stories';
 };
 
 
-export const BasicTopClientsByAum = {
+export const BasicTopClientsByFees = {
     ...BasicStory.default
 };
 

@@ -80,7 +80,6 @@ const buildData = computed(() => {
                 dataset.backgroundColor = defaultColors.value;
                 return dataset
             }
-            
         });
     }
     return data;

@@ -25,15 +25,30 @@ const groupByDate = (data, dateMethod = "month") => {
     return grouped
 }
 
-const toMonthly = (dailyData) => {
+const toMonthly = (dailyData, endOfMonth = true) => {
     const grouped = groupByDate(dailyData, "month");
     const entries = Object.entries(grouped);
     const monthly = entries.map((item) => {
         const yearMonthKey = item[0];
         const data = item[1].dates;
-        const lastDayOfMonthData = data[data.length - 1];
+        const lastDayOfMonthData = endOfMonth ? data[data.length - 1] : data[0];
         return {
-            x: lastDayOfMonthData.x.format(),
+            x: lastDayOfMonthData.x.format("YYYY-MM-DD"),
+            y: lastDayOfMonthData.y,
+        };
+    })
+    return monthly;
+}
+
+const toQuarterly = (dailyData, endOfMonth = true) => {
+    const grouped = groupByDate(dailyData, "quarter");
+    const entries = Object.entries(grouped);
+    const monthly = entries.map((item) => {
+        const yearMonthKey = item[0];
+        const data = item[1].dates;
+        const lastDayOfMonthData = endOfMonth ? data[data.length - 1] : data[0];
+        return {
+            x: lastDayOfMonthData.x.format("YYYY-MM-DD"),
             y: lastDayOfMonthData.y,
         };
     })
@@ -41,5 +56,6 @@ const toMonthly = (dailyData) => {
 }
 export {
     toMonthly,
+    toQuarterly,
     toXY,
 }

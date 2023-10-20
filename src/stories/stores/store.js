@@ -219,6 +219,15 @@ const historicalBalances = () => {
     return balances
 }
 
+const dailyFees = () => {
+    const fees = [];
+    for(let i = 0; i <= moment.utc().month(); i++) {
+        const monthTotalAUM = faker.finance.amount(10000000, 15000000, 2, '', false);
+        fees.push(monthTotalAUM * 0.015);
+    }
+    return fees;
+}
+
 
 export const useDemoStore = defineStore({
     id: 'demo',
@@ -230,6 +239,7 @@ export const useDemoStore = defineStore({
       transactions: defaultTransactions(defaultNumberOfTransactions),
       unrealizedLots: defaultUGLLots(defaultNumberOfUGLLots),
       historicalBalances: historicalBalances(),
+      dailyFees: dailyFees(),
       title: "Test Title",
       status: 'idle',
       error: null,

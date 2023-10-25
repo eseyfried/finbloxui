@@ -2,19 +2,20 @@
 import { ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useDemoStore } from "@/stories/stores/store";
-import TotalFeesChart from '@/components/Core/Charts/TotalFeesChart/TotalFeesChart.vue';
+import TotalAUMChart from '@/components/Core/Charts/TotalAUMChart/TotalAUMChart.vue';
 import moment from "moment";
 
 const defaultData = ref([]);
 const defaultDates = ref([]);
 const theme = ref("headless");
 export default {
-    title: 'Library/Core/Charts/TotalFeesChart',
+    title: 'Library/Core/Charts/TotalAUMChart',
     args: {
         data: [],
         dates: [], 
-        label: "YTD Total Fees",
-        barColor: "rgb(75, 85, 99)",
+        label: "YTD Total AUM",
+        lineColor: "rgb(75, 85, 99)",
+        areaColor: "rgb(75, 85, 99, 0.3)",
         chartjsData: {},
         chartjsOptions: {},
     },
@@ -23,11 +24,11 @@ export default {
         args.data = defaultData.value;
         args.dates = defaultDates.value;
         return {
-            components: { TotalFeesChart },
+            components: { TotalAUMChart },
             setup() {
-                  const { monthlyFees } = storeToRefs(useDemoStore());
-                  args.data = monthlyFees.value;
-                  args.dates = Array.from({length: monthlyFees.value.length}, (_, i) => moment().month(i).endOf('month').format("YYYY-MM-DD"));
+                  const { monthlyFees, dailyAUM } = storeToRefs(useDemoStore());
+                  args.data = dailyAUM.value;
+                  args.dates = Array.from({length: dailyAUM.value.length - 1}, (_, i) => moment.utc().dayOfYear(i+1).format("YYYY-MM-DD"));
                   defaultData.value = args.data;
                   defaultDates.value = args.dates;
                   theme.value = context.globals.theme;
@@ -37,16 +38,16 @@ export default {
                   const formatDate = (date) => moment.utc(date).format("MMMM YYYY")
                   return { args, formatDate};
             },
-            template: template || '<TotalFeesChart v-bind="args" />',
+            template: template || '<TotalAUMChart v-bind="args" />',
         }
       },
     parameters: {
         docs: {
             description: {
-                story: "The basic use of the TotalFeesChart component.",
+                story: "The basic use of the TotalAUMChart component.",
             },
             source: {
-                code: `<TotalFeesChart :data="[]" :dates="[]" />`
+                code: `<TotalAUMChart :data="[]" :dates="[]" />`
             }
         }
     }

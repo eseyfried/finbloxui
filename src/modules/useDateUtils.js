@@ -55,6 +55,7 @@ const toQuarterly = (dailyData, endOfMonth = true) => {
     return monthly;
 }
 export {
+    groupByDate,
     toMonthly,
     toQuarterly,
     toXY,

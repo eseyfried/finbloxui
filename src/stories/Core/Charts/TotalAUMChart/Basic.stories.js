@@ -3,6 +3,7 @@ import { ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useDemoStore } from "@/stories/stores/store";
 import TotalAUMChart from '@/components/Core/Charts/TotalAUMChart/TotalAUMChart.vue';
+import { geChartColorsByTheme } from '@/stories/Examples/modules/chartThemeColors';
 import moment from "moment";
 
 const defaultData = ref([]);
@@ -32,9 +33,9 @@ export default {
                   defaultData.value = args.data;
                   defaultDates.value = args.dates;
                   theme.value = context.globals.theme;
-                  //   const colors = [...geChartColorsByTheme(theme.value)];
-                  //   args.lineColor = colors[0];
-                  //   args.areaColor = colors[0];
+                    const colors = [...geChartColorsByTheme(theme.value)];
+                    args.lineColor = colors[3];
+                    args.areaColor = colors[0];
                   const formatDate = (date) => moment.utc(date).format("MMMM YYYY")
                   return { args, formatDate};
             },

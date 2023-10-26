@@ -201,7 +201,7 @@ const chartOptions = computed(() => {
                 line: {
                     borderWidth: 1,
                     // smooth
-                    tension: 0.1// make prop
+                    tension: 0.5// make prop
                 },
                 point: {
                     pointStyle: false

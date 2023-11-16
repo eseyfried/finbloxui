@@ -25,7 +25,7 @@
     </VirtualScroll>
 </template>
 <script setup>
-import { ref, useSlots, computed, onMounted, nextTick } from "vue";
+import { ref, useSlots, computed, onMounted, nextTick, watch } from "vue";
 import { filter as _filter, groupBy as _groupBy } from "lodash";
 import { isMobile } from "@/modules/useResponsive";
 import Base from "@/components/DataTable/Base";
@@ -105,6 +105,7 @@ const props = defineProps({
     }
 });
 
+
 const emits = defineEmits(["column-click"]);
 
 const defaultColumns = Base.columns(slots, props.groupRowsBy);
@@ -124,14 +125,19 @@ const transformedRows = computed( () => {
     return hasFilters.value ? filteredRows.value : props.rows;
 });
 
-onMounted(() => {
-    nextTick(() => {
+
+
+watch(() => [props.teleportTo], () => {
+    const isTeleportComplete = nextTick(() => {
+        teleportComplete.value = true;
         const teleportToEl = document.querySelector(`${props.teleportTo} .fb-filters`);
         if (teleportToEl) {
             teleportComplete.value = true;
         }
+        return teleportComplete.value = true;;
     });
-});
+     teleportComplete.value = isTeleportComplete;
+}, { immediate: true })
 
 // methods
 const onColumnHeaderClick = (column) => {

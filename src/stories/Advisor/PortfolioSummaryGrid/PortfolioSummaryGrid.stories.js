@@ -1,8 +1,7 @@
 import PortfolioSummaryGrid from '@/components/Advisor/PortfolioSummaryGrid/PortfolioSummaryGrid.vue';
 
 import * as BasicStory from './Basic.stories';
-// import * as EventsStory from './Events.stories';
-import * as CustomTemplateStory from './CustomTemplate.stories';
+
 /**
  * ## Overview
  * The `PortfolioSummaryGrid` component provides a highlevel table view of a portfolio or grouping of accounts.
@@ -90,17 +89,3 @@ export const BasicPortfolioSummaryGrid = {
     ...BasicStory.default
 };
 
-// export const Events = {
-//     ...EventsStory.default
-// };
-
-const template = CustomTemplateStory.default.template;
-export const CustomTemplate = {
-    args: {
-        ...BasicStory.default.args,
-        ...CustomTemplateStory.default.args
-    },
-    render: (args, context) => BasicStory.default.render(BasicStory.default.args, context, template),
-    ...CustomTemplateStory.default
-    
-};

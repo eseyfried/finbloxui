@@ -17,16 +17,16 @@
             <div>
                 <h2>Target Allocation</h2>
                 <AssetAllocationChart
-                    :assetCategories="['Equity', 'Options', 'Funds', 'Fixed Income', 'Cash']"
-                    :allocations="[40, 10, 35, 10, 5]"
+                    :labels="['Equity', 'Options', 'Funds', 'Fixed Income', 'Cash']"
+                    :data="[40, 10, 35, 10, 5]"
                     :colors="chartColors"
                 />
             </div>
             <div>
                 <h2>Actual Allocation</h2>
                 <AssetAllocationChart
-                    :assetCategories="['Equity', 'Options', 'Funds', 'Fixed Income', 'Cash']"
-                    :allocations="[40, 10, 35, 10, 5]"
+                    :labels="['Equity', 'Options', 'Funds', 'Fixed Income', 'Cash']"
+                    :data="[40, 10, 35, 10, 5]"
                     :colors="chartColors"
                 />
             </div>

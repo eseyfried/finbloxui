@@ -101,7 +101,7 @@ const monthlyData = computed( () => {
     const entries = Object.entries(monthGroup);
     const monthly = entries.map((month) => {
         const values = month[1].dates.map(item => item.y)
-        return arraySum(values)
+        return values.pop();
     });
     const endOfMonthDates = Array.from({length: monthly.length}, (_, i) => moment().month(i).endOf('month').format("YYYY-MM-DD"));
     
@@ -118,7 +118,7 @@ const quarterlyData = computed( () => {
         const qtrEndIndex = qtrStartIndex + 3;
         const qtrData = monthlyData.value.map(d => d.y).slice(qtrStartIndex, qtrEndIndex);
         const qtrDate = monthlyData.value.map(d => d.x)[qtrStarts[i] + 3 - 1];
-        quarterlyData.push(arraySum(qtrData));
+        quarterlyData.push(qtrData.pop());
         quarterlyDates.push(qtrDate || moment.utc());
     }
     return dateUtils.toXY(quarterlyDates, quarterlyData);

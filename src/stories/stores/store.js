@@ -230,7 +230,7 @@ const monthlyFees = () => {
 
 const dailyAUM = () => {
     const aum = [];
-    for(let i = 0; i <= moment.utc().dayOfYear(); i++) {
+    for(let i = 0; i < moment.utc().dayOfYear(); i++) {
         const dayTotalAUM = faker.finance.amount(1000000, 1100000, 2, '', false);
         aum.push(dayTotalAUM);
     }

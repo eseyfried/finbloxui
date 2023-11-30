@@ -29,7 +29,7 @@ export default {
             setup() {
                   const { monthlyFees, dailyAUM } = storeToRefs(useDemoStore());
                   args.data = dailyAUM.value;
-                  args.dates = Array.from({length: dailyAUM.value.length - 1}, (_, i) => moment.utc().dayOfYear(i+1).format("YYYY-MM-DD"));
+                  args.dates = Array.from({length: dailyAUM.value.length}, (_, i) => moment.utc().dayOfYear(i+1).format("YYYY-MM-DD"));
                   defaultData.value = args.data;
                   defaultDates.value = args.dates;
                   theme.value = context.globals.theme;

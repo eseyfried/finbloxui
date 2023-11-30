@@ -70,11 +70,11 @@ const props = defineProps({
     },
     changeAmountLabel: {
         type: String,
-        default: "Change"
+        default: "Change ($)"
     },
     changePercentLabel: {
         type: String,
-        default: "Change"
+        default: "Change (%)"
     },
     dates: {
         type: Array,

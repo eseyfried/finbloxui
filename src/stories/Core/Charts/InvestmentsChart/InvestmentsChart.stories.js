@@ -62,7 +62,7 @@ import * as CustomTemplateStory from './CustomTemplate.stories';
         },
         changeAmountLabel: {
             type: { name: "String", required: false },
-            defaultValue: "Change",
+            defaultValue: "Change ($)",
             description: "The text label for the $ change amount of the chart.",
             table: {
                 type: { summary: "String" },
@@ -72,7 +72,7 @@ import * as CustomTemplateStory from './CustomTemplate.stories';
         },
         changePercentLabel: {
             type: { name: "String", required: false },
-            defaultValue: "Change",
+            defaultValue: "Change (%)",
             description: "The text label for the % change section of the chart.",
             table: {
                 type: { summary: "String" },

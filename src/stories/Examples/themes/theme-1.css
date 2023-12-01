@@ -1,4 +1,5 @@
 html[data-mode='theme-1'] {
+    
     * {
         --fb-chart-color-1: #37A3EB;
         --fb-chart-color-2: #FD6384;
@@ -7,8 +8,125 @@ html[data-mode='theme-1'] {
         --fb-chart-color-5: #9965FE;
         --fb-chart-color-6: #FECD57;
         --fb-chart-color-7: #C9CBD0;
+        --example-data-point-background: #4BC1C1;
+    }
+
+    /* Header */
+    .header {
+        display:flex;
+        justify-content: space-between;
+        @apply p-4 bg-slate-500;
+
+        & .logo::before {
+            content: "\f299";
+            font: var(--fa-font-brands);
+            @apply mr-2 text-green-500;
+        }
+        & .logo {
+            @apply text-xl text-white;
+        }
+        & .menu {
+            & a {
+                @apply text-white no-underline mx-2;
+            }
+
+            & .profile::before {
+                content: "\f2bd";
+                font: var(--fa-font-solid);
+                @apply mr-2 ml-0 text-lg;
+            }
+
+            & .logout::before {
+                content: "|";
+                @apply mr-4;
+            }
+        }
     }
     .fb-positions-grid th {
         @apply bg-slate-50;
+    }
+
+    /* DATA POINT */
+    .fb-data-point h3 {
+        /* @apply text-2xl; */
+    }
+    .fb-data-point h4 {
+        @apply text-3xl;
+    }
+    .fb-data-point-body {
+        @apply p-3;
+    }
+    .fb-data-point-trend {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+    .fb-data-point-trend[data-trend-direction='up']::before {
+        content: "+";
+    }
+    .fb-data-point-trend[data-trend-direction='down']::before {
+        content: "-";
+    }
+    .fb-data-point-footer {
+        & a {
+            @apply text-white;
+        }
+        @apply pl-3 py-2;
+    }
+    .icon::before {
+        display: inline-block;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    .fb-data-point-body {
+        margin-left: 55px;
+    }
+
+    .fb-data-point::before {
+        position: absolute;
+        top: 20px;
+        left: 10px;
+        font-size: 20px !important;
+        font: var(--fa-font-solid);
+        padding: .75rem 1rem;
+        color: var(--example-data-point-background);
+        @apply rounded-full bg-white;
+    }
+
+    .aum .fb-data-point::before {
+        content: "\24";
+    }
+
+    .fees .fb-data-point::before {
+        content: "\f81d";
+        padding: .75rem;
+    }
+
+    .clients .fb-data-point::before {
+        content: "\f0c0";
+        padding: .75rem .65rem;
+    }
+
+    /* fb-total-aum-chart */
+    .fb-total-aum-chart {
+        & button {
+            background-color: #37A3EB;
+            @apply py-2
+                px-4
+                text-white
+                font-semibold
+                rounded-lg
+                shadow-md
+                focus:outline-none
+                focus:ring-2
+                focus:ring-opacity-75;
+        }
+        & button:hover  {
+            background-color: #4BC1C1;
+        }
+        & button:focus  {
+            background-color: #C9CBD0;
+        }
     }
 }

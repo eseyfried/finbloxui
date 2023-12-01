@@ -6,13 +6,6 @@
 
 @layer base {
     html[data-mode]:not([data-mode='headless']) {
-        a {
-            @apply text-indigo-500 underline;
-
-            &:hover {
-                @apply text-indigo-800;
-            }
-        }
         h1, h2, h3, h4, h5, h6 {
             @apply font-light;
         }
@@ -156,6 +149,7 @@ html[data-mode='theme-2'] {
         --fb-chart-color-5: theme(colors.indigo.500);
         --fb-chart-color-6: theme(colors.indigo.600);
         --fb-chart-color-7: theme(colors.indigo.700);
+        --example-data-point-background: theme(colors.indigo.500);
     }
     .fb-negative {
         @apply text-red-800;
@@ -249,6 +243,9 @@ html[data-mode='theme-2'] {
         content: "-";
     }
     .fb-data-point-footer {
+        & a {
+            @apply text-white;
+        }
         @apply pl-3 py-2 bg-indigo-400/40;
     }
     .icon::before {
@@ -268,7 +265,8 @@ html[data-mode='theme-2'] {
         font-size: 20px !important;
         font: var(--fa-font-solid);
         padding: .75rem 1rem;
-        @apply rounded-full bg-white text-indigo-500;
+        color: var(--example-data-point-background);
+        @apply rounded-full bg-white;
     }
     .aum .fb-data-point::before {
         content: "\24";
@@ -570,6 +568,24 @@ html[data-mode='theme-2'] {
                 content: "|";
                 @apply mr-4;
             }
+        }
+    }
+
+    /* fb-total-aum-chart */
+    .fb-total-aum-chart {
+        & button {
+            @apply py-2
+                px-4
+                bg-indigo-400
+                text-white
+                font-semibold
+                rounded-lg
+                shadow-md
+                hover:bg-indigo-500
+                focus:outline-none
+                focus:ring-2
+                focus:ring-indigo-400
+                focus:ring-opacity-75;
         }
     }
 

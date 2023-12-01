@@ -7,6 +7,7 @@ export default mergeConfig(
   viteConfig,
   defineConfig({
     test: {
+      setupFiles: ['./vitest.setup.js'],
       environment: 'jsdom',
       exclude: [...configDefaults.exclude, 'e2e/*'],
       root: fileURLToPath(new URL('./', import.meta.url)),
@@ -16,7 +17,15 @@ export default mergeConfig(
       },
       coverage: {
         enabled: false
-      }
+      },
+      deps: {
+        inline: ['vitest-canvas-mock'],
+      },
+      environmentOptions: {
+        jsdom: {
+          resources: 'usable',
+        },
+      },
     }
   })
 )

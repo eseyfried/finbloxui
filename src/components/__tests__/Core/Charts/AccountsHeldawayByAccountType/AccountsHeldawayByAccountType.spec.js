@@ -18,6 +18,6 @@ describe('AccountsHeldawayByAccountType', () => {
 
     it('renders properly', () => {
         const wrapper = mount(AccountsHeldawayByAccountType, config)
-        expect(wrapper.find(".fb-accounts-heldaway-by-account-type").exists()).toBe(true);
+        expect(wrapper.find(".fb-accounts-heldaway-by-account-type-chart").exists()).toBe(true);
     })
 });

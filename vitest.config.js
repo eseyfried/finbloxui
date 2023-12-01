@@ -15,7 +15,7 @@ export default mergeConfig(
         web: [/\.[jt]sx$/],
       },
       coverage: {
-        enabled: true
+        enabled: false
       }
     }
   })

@@ -15,7 +15,7 @@ jobs:
       - name: POST NPM Version
         uses: fjogeleit/http-request-action@v1
         with:
-          url: 'https://api.finbloxui.com/version'
+          url: 'https://api.finbloxui.com/package'
           method: 'POST'
           customHeaders: '{"Content-Type": "application/json"}'
           data: '{ "version": ${{ inputs.version}} }'

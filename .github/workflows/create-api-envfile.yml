@@ -19,4 +19,8 @@ jobs:
             echo DB_NAME=${{ secrets.MYSQL_DATABASE }} >> .envfile
             echo DB_USER=${{ secrets.MYSQL_USER }} >> .envfile
             echo DB_PWD=${{ secrets.MYSQL_PASSWORD }} >> .envfile
+            echo SMTP_MAIL_HOST=${{ vars.SMTP_MAIL_HOST }} >> .envfile
+            echo SMTP_MAIL_PORT=${{ vars.SMTP_MAIL_PORT }} >> .envfile
+            echo SMTP_MAIL_USER=${{ secrets.SMTP_MAIL_USER }} >> .envfile
+            echo SMTP_MAIL_PASS=${{ secrets.SMTP_MAIL_PASS }} >> .envfile
             

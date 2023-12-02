@@ -66,7 +66,6 @@ import { ref, computed } from "vue";
 import { storeToRefs } from "pinia";
 import { useDemoStore } from "@/stories/stores/store";
 import { rgbToHex } from '@/stories/Examples/modules/colorUtil';
-import ToggleTheme from "./ToggleTheme";
 import ClientList from "@/components/Advisor/Clients/ClientList";
 import ClientCard from "@/components/Advisor/Clients/ClientCard";
 import DataPoint from "@/components/Core/DataPoint";

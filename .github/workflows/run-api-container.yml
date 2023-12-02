@@ -36,3 +36,14 @@ jobs:
             ${{ env.REGISTRY }}/${{ github.actor }}/${{ env.API_IMAGE_NAME }}
             # cleanup
             rm .envfile
+  migrate-db:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Run database migrations"
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.DROPLET_HOST }}
+          username: ${{ secrets.DROPLET_USERNAME }}
+          key: ${{ secrets.DIGITALOCEAN_SSH_KEY }}
+          debug: true
+          script: docker exec ${{ env.API_CONTAINER_NAME }} npx sequelize db:migrate

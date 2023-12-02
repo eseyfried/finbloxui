@@ -38,6 +38,7 @@ jobs:
             rm .envfile
   migrate-db:
     runs-on: ubuntu-latest
+    needs: deploy-api
     steps:
       - name: "Run database migrations"
         uses: appleboy/ssh-action@v0.1.6

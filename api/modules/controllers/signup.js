@@ -47,30 +47,33 @@ const createTrialAccount = (async (req, res) => {
             });
             if (created) {
                 console.log("[%s] was added to group [%s]", email, group.name);
-                /**
-                 * send email
-                 */
-                const mailer = await mail()
-                    
-                let info = await mailer.sendMail({
-                    from: `"FinbloxUI" <${config.site_email}>`, // sender address
-                    to: email, // list of receivers
-                    subject: "Thank you for signing up for FinbloxUI", // Subject line
-                    template: 'trial-welcome',
-                    context: {
-                        email: email,
-                        licenseKey: user.licenseKey,
-                        licenseBeginsAt: moment(user.licenseBeginsAt).format("MM-DD-YYYY"),
-                        licenseExpiresAt: moment(user.licenseExpiresAt).format("MM-DD-YYYY"),
-                    }
-                });
             }
         }));
-        await transaction.commit()
+        await transaction.commit();
+       
+            /**
+             * send email
+             */
+            const mailer = await mail()
+                
+            let info = await mailer.sendMail({
+                from: `"FinbloxUI" <${config.site_email}>`, // sender address
+                to: email, // list of receivers
+                subject: "Thank you for signing up for FinbloxUI", // Subject line
+                template: 'trial-welcome',
+                context: {
+                    email: email,
+                    licenseKey: user.licenseKey,
+                    licenseBeginsAt: moment(user.licenseBeginsAt).format("MM-DD-YYYY"),
+                    licenseExpiresAt: moment(user.licenseExpiresAt).format("MM-DD-YYYY"),
+                }
+            });
+
     } catch (e) {
         await transaction.rollback()
         response.status = 500;
         let message = e.message;
+        console.log(e);
         if (e.original.code === "ER_DUP_ENTRY") {
             response.status = 409; // resource conflict
             message = "Oh boy...we were unable to create a new account for this email."

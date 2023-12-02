@@ -13,7 +13,7 @@ require('dotenv').config();
      */
     env: parse(process.env.NODE_ENV, 'development'),
     // the frontend site
-    // site_email: parse(process.env.SITE_EMAIL, ''),
+    site_email: parse(process.env.SITE_EMAIL, ''),
     // site_host_name: parse(process.env.SITE_HOST_NAME, 'http://localhost:9080'),
     // image_host_name: parse(process.env.IMAGE_HOST_NAME, ''),
     // jwt_secret: parse(process.env.JWT_SECRET, ''),

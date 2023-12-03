@@ -171,8 +171,11 @@ html[data-mode='theme-2'] {
     }
     /* ClientCard styles */
     .fb-client-card {
+        display: flex;
+        flex-wrap:wrap;
         @apply rounded-sm drop-shadow-md bg-white p-4;
     }
+    
     .fb-client-card label {
         @apply pr-2;
     }
@@ -182,10 +185,16 @@ html[data-mode='theme-2'] {
     .fb-client-card label::after {
         content:":";
     }
+    .fb-client-card-header {
+        flex-basis:100%;
+        @apply mb-5;
+    }
     .fb-client-card-stats {
+        flex-basis:50%;
         @apply mb-5 !important;
     }
     .fb-client-card-contact-info {
+        flex-basis:50%;
         @apply mb-4 !important;
     }
 
@@ -586,6 +595,30 @@ html[data-mode='theme-2'] {
                 focus:ring-2
                 focus:ring-indigo-400
                 focus:ring-opacity-75;
+        }
+    }
+
+    /* Example pages */
+    .page .grid > h2 {
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid #d1d5db;
+    }
+    .client-summary {
+        & .fb-networth-chart, & .fb-investments-chart {
+            & .fb-positive {
+                color: #22c55e !important;
+            }
+            & .fb-negative {
+                color: #f43f5e !important;
+            }
+        }
+        & .fb-networth-chart {
+            --fb-chart-color-4: theme(colors.blue.900);
+            color: white;
+        }
+        & .fb-investments-chart {
+            --fb-chart-color-4: theme(colors.indigo.900);
+            color: white;
         }
     }
 

@@ -85,6 +85,7 @@ const portfolio = [
 const chartColors = computed(() => {
     return [...geChartColorsByTheme(props.theme)];
 })
+
 //methods
 
 </script>

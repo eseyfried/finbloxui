@@ -41,7 +41,7 @@ const { clients } = storeToRefs(useDemoStore());
 
 //methods
 const handleClientDetailsClick = (client) => {
-    console.log(client)
+    parent.window.location.href = `/?path=/story/examples-advisor--client-summary&globals=theme:theme+2`;
     // activeClient.value = client;
 
 }

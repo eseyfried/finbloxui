@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-    <div class="fb-income">
+    <div class="fb-income" :class="componentClasses.getClassByType('component')">
         <slot name="hero" :props="props">
             <div class="fb-income-hero">
                 <h2>{{ formatters.formatCurrency(totalIncome) }}</h2>
@@ -40,6 +40,7 @@
 import { computed } from "vue";
 import { sortBy } from "lodash";
 import * as formatters from "@/modules/useFormatter";
+import * as componentClasses from "@/modules/useCommonCSS";
 
 // vars
 const props = defineProps({

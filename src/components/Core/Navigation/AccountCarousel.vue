@@ -1,7 +1,7 @@
 <template>
-    <div class="fb-account-carousel">
+    <div class="fb-account-carousel" :class="componentClasses.getClassByType('component')">
         <div class="fb-account-carousel-accounts-container">
-            <button @click="prev()" v-if="!isMobile"></button>
+            <button @click="prev()" v-if="!isMobile" :class="componentClasses.getClassByType('buttonPrimary')"></button>
             <div class="fb-account-carousel-accounts">
                 <ul :class="transitionClasses">
                     <li
@@ -45,7 +45,7 @@
                     </li>
                 </ul> 
             </div>
-            <button @click="next()" v-if="!isMobile"></button>
+            <button @click="next()" v-if="!isMobile" :class="componentClasses.getClassByType('buttonPrimary')"></button>
         </div>
         <ul class="fb-account-carousel-indicators">
             <li 
@@ -57,6 +57,7 @@
     </div>
 </template>
 <script setup>
+import * as componentClasses from "@/modules/useCommonCSS";
 import { computed, ref, watch } from "vue";
 import { findIndex } from "lodash";
 import { isMobile } from "@/modules/useResponsive";

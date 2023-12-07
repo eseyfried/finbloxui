@@ -1,28 +1,30 @@
 <template v-slot="slotProps">
-    <ColumnSelector :columns="transformColumns(defaultColumns)" v-if="columnSelector" @fb-column-selector-selected:click="handleColumnSelection($event)" />
-    <VirtualScroll :list="groupRows(transformedRows)" :columns="columns" :enabled="useVirtualScroll" :height="virtualScrollHeight"  v-if="teleportComplete">
-        <template #default="slopProps">
-            <table v-bind="$attrs" role="table">
-                <TableHeader
-                    :columns="slopProps.columns"
-                    :rows="slopProps.rows"
-                    :teleportTo="teleportTo"
-                    @column-click="onColumnHeaderClick($event)"
-                    @column-apply-filter="onColumnHeaderApplyFilter($event)"
-                    @column-clear-filter="onColumnHeaderClearFilter($event)"
-                />
-                <TableBody
-                    :columns="slopProps.columns"
-                    :rows="slopProps.rows"
-                    :groupRowsBy="groupRowsBy"
-                    :groupRowLabel="getGroupRowLabel()"
-                    :showTotals="showTotals"
-                    :groupedTotalsLocation="groupTotalsLocationOveride"
-                    :collapsible="collapsible"
-                />
-            </table>
-        </template>
-    </VirtualScroll>
+    <div class="fb-data-table" :class="componentClasses.getClassByType('component')">
+        <ColumnSelector :columns="transformColumns(defaultColumns)" v-if="columnSelector" @fb-column-selector-selected:click="handleColumnSelection($event)" />
+        <VirtualScroll :list="groupRows(transformedRows)" :columns="columns" :enabled="useVirtualScroll" :height="virtualScrollHeight"  v-if="teleportComplete">
+            <template #default="slopProps">
+                <table v-bind="$attrs" role="table">
+                    <TableHeader
+                        :columns="slopProps.columns"
+                        :rows="slopProps.rows"
+                        :teleportTo="teleportTo"
+                        @column-click="onColumnHeaderClick($event)"
+                        @column-apply-filter="onColumnHeaderApplyFilter($event)"
+                        @column-clear-filter="onColumnHeaderClearFilter($event)"
+                    />
+                    <TableBody
+                        :columns="slopProps.columns"
+                        :rows="slopProps.rows"
+                        :groupRowsBy="groupRowsBy"
+                        :groupRowLabel="getGroupRowLabel()"
+                        :showTotals="showTotals"
+                        :groupedTotalsLocation="groupTotalsLocationOveride"
+                        :collapsible="collapsible"
+                    />
+                </table>
+            </template>
+        </VirtualScroll>
+    </div>
 </template>
 <script setup>
 import { ref, useSlots, computed, onMounted, nextTick, watch } from "vue";
@@ -33,6 +35,7 @@ import VirtualScroll from "@/components/DataTable/VirtualScroll";
 import TableHeader from "@/components/DataTable/TableHeader";
 import TableBody from "@/components/DataTable/TableBody";
 import ColumnSelector from "@/components/DataTable/ColumnSelector/ColumnSelector";
+import * as componentClasses from "@/modules/useCommonCSS";
 const slots = useSlots();
 
 // eslint-disable-next-line no-unused-vars

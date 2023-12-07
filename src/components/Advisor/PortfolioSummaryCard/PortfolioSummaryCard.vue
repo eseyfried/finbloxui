@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-    <div class="fb-portfolio-summary-card">
+    <div class="fb-portfolio-summary-card" :class="componentClasses.getClassByType('component')">
         <slot
             name="default"
             :props="props"
@@ -33,6 +33,7 @@
 // imports
 import * as formatters from "@/modules/useFormatter";
 import { computed } from "vue";
+import * as componentClasses from "@/modules/useCommonCSS";
 
 // vars
 const props = defineProps({

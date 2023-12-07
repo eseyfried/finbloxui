@@ -1,5 +1,5 @@
 <template>
-    <div class="fb-data-point">
+    <div class="fb-data-point" :class="componentClasses.getClassByType('component')">
         <div class="fb-data-point-body">
             <slot :dataPoint="transformedDataPoint" :props="props">
                 <h3>{{ transformedDataPoint.label }}</h3>
@@ -23,7 +23,9 @@
 </template>
 <script setup>
 import * as formatters from "@/modules/useFormatter";
+import * as componentClasses from "@/modules/useCommonCSS";
 import { computed } from "vue";
+
 
 // eslint-disable-next-line no-unused-vars
 const props = defineProps({

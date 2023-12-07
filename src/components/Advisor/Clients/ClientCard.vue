@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-    <div class="fb-client-card" data-component="card">
+    <div class="fb-client-card" :class="componentClasses.getClassByType('component')" data-component="card">
         <slot name="name" :client="transformedClient" :props="props" v-if="transformedClient.name">
             <div class="fb-client-card-header" v-if="transformedClient.name">
                 <h2>{{ transformedClient.name.first_name }} {{ transformedClient.name.last_name }}</h2>
@@ -72,6 +72,7 @@
     </div>
 </template>
 <script setup>
+import * as componentClasses from "@/modules/useCommonCSS";
 import { computed } from "vue";
 import { formatCurrency, formatPercent } from "@/modules/useFormatter";
 // eslint-disable-next-line no-unused-vars

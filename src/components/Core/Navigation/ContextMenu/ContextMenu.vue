@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-    <div class="fb-action-menu" ref="target">
+    <div class="fb-action-menu" :class="componentClasses.getClassByType('component')" ref="target">
         <slot
             name="button"
             :props="props"
@@ -9,6 +9,7 @@
         >
             <button
                 class="fb-action-menu-button"
+                :class="componentClasses.getClassByType('buttonPrimary')"
                 @click="handleMenuButtonClick($event)"
             >
                 {{ buttonLabel }}
@@ -38,6 +39,7 @@
 // imports
 import { ref } from "vue";
 import { onClickOutside } from "@vueuse/core";
+import * as componentClasses from "@/modules/useCommonCSS";
 // vars
 const props = defineProps({
     menuItems: {

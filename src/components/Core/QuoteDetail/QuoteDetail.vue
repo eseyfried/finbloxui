@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-    <div class="fb-quote-detail" v-if="show">
+    <div class="fb-quote-detail" :class="componentClasses.getClassByType('component')" v-if="show">
         <slot name="loader" v-if="!isLoaded">
             <div class="fb-loading">
                 Loading...
@@ -99,6 +99,7 @@
 // imports
 import { ref, computed, onBeforeMount, watch } from "vue";
 import * as formatters from "@/modules/useFormatter";
+import * as componentClasses from "@/modules/useCommonCSS";
 
 // vars
 const props = defineProps({

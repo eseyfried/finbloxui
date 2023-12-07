@@ -19,6 +19,7 @@ export default {
         areaColor: "rgb(75, 85, 99, 0.3)",
         chartjsData: {},
         chartjsOptions: {},
+        defaultTimePeriod: "monthly"
     },
     render: (args, context, template = null) => {
         // this handles state changes when storybook controls are updated

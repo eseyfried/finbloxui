@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-    <div class="fb-portfolio-summary-grid">
+    <div class="fb-portfolio-summary-grid" :class="componentClasses.getClassByType('component')">
         <MobileFilters />
         <DataTable v-if="portfolio.length > 0" :rows="portfolio" v-bind="defaultDataTableOptions" teleportTo=".fb-portfolio-summary-grid" :showTotals="showTotals">
             <Column field="account" :header="columnLabels.account" />
@@ -19,6 +19,7 @@ import MobileFilters from "@/components/DataTable/MobileFilters";
 import DataTable from "@/components/DataTable/DataTable";
 import Base from "@/components/DataTable/Base";
 import Column from '@/components/DataTable/Column.vue';
+import * as componentClasses from "@/modules/useCommonCSS";
 
 // vars
 // eslint-disable-next-line no-unused-vars

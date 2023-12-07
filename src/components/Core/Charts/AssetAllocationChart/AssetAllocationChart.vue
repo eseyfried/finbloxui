@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-    <div class="fb-asset-allocation-chart">
-        <div class="chart">
+    <div class="fb-asset-allocation-chart" :class="componentClasses.getClassByType('component')">
+        <div>
             <p v-if="dataTotals100Percent === false">Data values must total 100% when using percent format.</p>
             <Chart
                 v-if="(data.length > 0 && labels.length > 0)"
@@ -12,19 +12,27 @@
                 :plugins="[htmlLegendPlugin]"
                 :colors="colors"
             />
-            <div class="fb-asset-allocation-chart-hero" v-if="showTotal">
+            <div
+                class="fb-asset-allocation-chart-hero"
+                :class="componentClasses.getClassByType('chartHero')"
+                v-if="showTotal"
+            >
                 <slot :props="props" :totalLabel="totalLabel" :totalAmount="formatters.formatCurrency(totalAmount)">
                     <h2>{{ totalLabel }}</h2>
                     <h3>{{ formatters.formatCurrency(totalAmount) }}</h3>
                 </slot>
             </div>
         </div>
-        <div :id="`legend-container-${component.uid}`" class="fb-chart-legend" :class="{ 'fb-chart-legend-stacked' : isMobile }"></div>
+        <div
+            :id="`legend-container-${component.uid}`"
+            :class="[isMobile ? componentClasses.getClassByType('chartLegendStacked') : null, componentClasses.getClassByType('chartLegend')]"
+        ></div>
     </div>
 </template>
 
 <script setup>
 // imports
+import * as componentClasses from "@/modules/useCommonCSS";
 import Chart from "@/components/Core/Charts/Chart";
 import ChartJS from 'chart.js/auto';
 import { isMobile } from "@/modules/useResponsive";
@@ -124,7 +132,7 @@ watch(() => [props.format], () => {
 .fb-asset-allocation-chart {
     display: grid;
     grid-template-columns: repeat(v-bind(numGridCol), minmax(0, 1fr));
-    .chart {
+    & > div {
         position: relative;
     }
 }

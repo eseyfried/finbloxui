@@ -1,5 +1,7 @@
 <template>
-    <div class="fb-client-list" :class="listType === 'ClientCard' ? 'fb-card' : 'fb-list-item'">
+    <div
+        class="fb-client-list"
+        :class="[listType === 'ClientCard' ? 'fb-card' : 'fb-list-item', componentClasses.getClassByType('component')]">
         <template v-for="(client, i) in clients" :key="i">
             <div class="fb-client-list-item-container">
                 <slot :client="client" :props="props">
@@ -40,6 +42,7 @@
 <script setup>
 import ClientCard from "@/components/Advisor/Clients/ClientCard";
 import ClientListItem from "@/components/Advisor/Clients/ClientListItem";
+import * as componentClasses from "@/modules/useCommonCSS";
 // eslint-disable-next-line no-unused-vars
 const props = defineProps({
     /**

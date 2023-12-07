@@ -1,11 +1,12 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-    <div class="fb-chart">
+    <div :class="componentClasses.getClassByType('chart')">
         <canvas :id="id" ref="ctx"></canvas>
     </div>
 </template>
 <script setup>
 // imports
+import * as componentClasses from "@/modules/useCommonCSS";
 import Chart from 'chart.js/auto';
 import 'chartjs-adapter-moment';
 import { ref, onMounted, computed, watch } from "vue";

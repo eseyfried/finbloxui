@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-    <div class="fb-column-filter">
+    <div class="fb-column-filter" :class="componentClasses.getClassByType('component')">
         <slot
             name="button"
             :attrs="{ class: 'fb-column-filter-button' }"
@@ -9,7 +9,7 @@
         >
             <button
                 class="fb-column-filter-button"
-                :class="{ 'fb-column-filter-has-filters': hasFilters }"
+                :class="[{ 'fb-column-filter-has-filters': hasFilters }, componentClasses.getClassByType('buttonPrimary')]"
                 @click="handleFilterButtonClick()"
             >
                 {{ buttonLabel }}
@@ -116,6 +116,7 @@
 // imports
 import { ref, toRaw, nextTick } from "vue";
 import { onClickOutside } from "@vueuse/core";
+import * as componentClasses from "@/modules/useCommonCSS";
 
 // vars
 const filterValue = props.filterType === "multiselect" ? ref([]) : ref(null);

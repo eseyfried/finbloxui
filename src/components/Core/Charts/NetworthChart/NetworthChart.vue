@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-    <div class="fb-networth-chart">
-        <div class="fb-networth-chart-hero">
+    <div class="fb-networth-chart" :class="componentClasses.getClassByType('component')">
+        <div class="fb-networth-chart-hero" :class="componentClasses.getClassByType('chartHero')">
             <slot
                 name="hero"
                 :props="props"
@@ -57,6 +57,7 @@
 // imports
 import moment from "moment";
 import * as dateUtils from "@/modules/useDateUtils";
+import * as componentClasses from "@/modules/useCommonCSS";
 import Chart from "@/components/Core/Charts/Chart";
 import * as formatters from "@/modules/useFormatter";
 import { computed, getCurrentInstance } from "vue";

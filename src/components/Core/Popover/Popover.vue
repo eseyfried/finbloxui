@@ -1,12 +1,13 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-    <div ref="tooltip" id="tooltip" role="tooltip" class="fb-popover">
+    <div ref="tooltip" id="tooltip" role="tooltip" class="fb-popover" :class="componentClasses.getClassByType('component')">
         <slot />
         <div id="arrow" data-popper-arrow></div>
     </div>
 </template>
 <script setup>
 // imports
+import * as componentClasses from "@/modules/useCommonCSS";
 import { createPopper } from "@popperjs/core";
 import { onMounted, ref, watch } from "vue"; 
 import { useEventListener, onClickOutside } from "@vueuse/core";

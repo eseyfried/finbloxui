@@ -35,6 +35,18 @@ import * as CustomTemplateStory from './CustomTemplate.stories';
                 category: 'Props',
             },
         },
+        defaultTimePeriod: {
+            type: { name: "String", required: false},
+            defaultValue: "monthly",
+            description: "The default time period to display data.",
+            table: {
+                type: { summary: "String" },
+                defaultValue: { summary: "monthly" },
+                category: 'Props',
+            },
+            control: { type: 'radio' },
+            options: ["daily", "monthly", "quarterly"]
+        },
         lineColor: {
             type: { name: "String", required: false },
             defaultValue: "rgb(75, 85, 99)",

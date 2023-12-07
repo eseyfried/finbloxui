@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-    <div class="fb-clients-by-age-chart">
+    <div class="fb-clients-by-age-chart" :class="componentClasses.getClassByType('component')">
         <div class="chart">
             <Chart
                 :id="id"
@@ -10,18 +10,22 @@
                 :plugins="[htmlLegendPlugin]"
                 :colors="colors"
             />
-            <div class="fb-clients-by-age-chart-hero" v-if="type === 'doughnut'">
+            <div class="fb-clients-by-age-chart-hero" :class="componentClasses.getClassByType('chartHero')" v-if="type === 'doughnut'">
                 <slot :props="props" :totalLabel="totalLabel" :totalClients="totalClients">
                     <h2>{{ totalLabel }}</h2>
                     <h3>{{ totalClients }}</h3>
                 </slot>
             </div>
         </div>
-        <div :id="`legend-container-${component.uid}`" class="fb-chart-legend" :class="{ 'fb-chart-legend-stacked' : isMobile }"></div>
+        <div
+            :id="`legend-container-${component.uid}`" class="fb-chart-legend"
+            :class="[isMobile ? componentClasses.getClassByType('chartLegendStacked') : null, componentClasses.getClassByType('chartLegend')]"
+        ></div>
     </div>
 </template>
 <script setup>
 // imports
+import * as componentClasses from "@/modules/useCommonCSS";
 import { getCurrentInstance, computed } from "vue";
 import { isMobile } from "@/modules/useResponsive";
 import { arraySum } from "@/modules/useArrayUtils";
@@ -54,7 +58,7 @@ const totalClients = computed(() => arraySum(props.data));
 .fb-clients-by-age-chart {
     display: grid;
     grid-template-columns: repeat(v-bind(numGridCol), minmax(0, 1fr));
-    .chart {
+    & > div {
         position: relative;
     }
 }

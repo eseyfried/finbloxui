@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-    <div class="fb-accounts-heldaway-by-account-type-chart">
-        <div class="chart">
+    <div class="fb-accounts-heldaway-by-account-type-chart" :class="componentClasses.getClassByType('component')">
+        <div>
             <Chart
                 :id="id"
                 :type="type"
@@ -10,19 +10,27 @@
                 :plugins="[htmlLegendPlugin]"
                 :colors="colors"
             />
-            <div class="fb-accounts-heldaway-by-account-type-chart-hero" v-if="type === 'doughnut'">
+            <div
+                class="fb-accounts-heldaway-by-account-type-chart-hero"
+                :class="componentClasses.getClassByType('chartHero')"
+                v-if="type === 'doughnut'"
+            >
                 <slot :props="props" :totalLabel="totalLabel" :totalValue="totalValue">
                     <h2>{{ totalLabel }}</h2>
                     <h3>{{ totalValue }}</h3>
                 </slot>
             </div>
         </div>
-        <div :id="`legend-container-${component.uid}`" class="fb-chart-legend" :class="{ 'fb-chart-legend-stacked' : isMobile }"></div>
+        <div
+            :id="`legend-container-${component.uid}`"
+            :class="[isMobile ? componentClasses.getClassByType('chartLegendStacked') : null, componentClasses.getClassByType('chartLegend')]"
+        ></div>
     </div>
 </template>
 <script setup>
 // imports
 import { getCurrentInstance, computed } from "vue";
+import * as componentClasses from "@/modules/useCommonCSS";
 import { isMobile } from "@/modules/useResponsive";
 import { arraySum } from "@/modules/useArrayUtils";
 import * as base from "@/modules/usePieChartBase";
@@ -59,7 +67,7 @@ const chartOptions = computed(() => base.chartOptions(props, component.uid, defa
 .fb-accounts-heldaway-by-account-type-chart {
     display: grid;
     grid-template-columns: repeat(v-bind(numGridCol), minmax(0, 1fr));
-    .chart {
+    & > div {
         position: relative;
     }
 }

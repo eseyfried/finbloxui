@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-    <div class="fb-transactions-grid">
+    <div class="fb-transactions-grid" :class="componentClasses.getClassByType('component')">
         <MobileFilters />
         <DataTable v-if="transactions.length > 0" :rows="transactions" v-bind="defaultDataTableOptions" teleportTo=".fb-transactions-grid">
             <template v-for="(_, name) in $slots" #[name]="slotData">
@@ -15,6 +15,7 @@ import { useSlots } from "vue";
 import DataTable from "@/components/DataTable/DataTable";
 import Base from "@/components/DataTable/Base";
 import MobileFilters from "@/components/DataTable/MobileFilters";
+import * as componentClasses from "@/modules/useCommonCSS";
 
 
 // vars

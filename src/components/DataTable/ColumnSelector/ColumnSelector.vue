@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-    <div class="fb-column-selector">
+    <div class="fb-column-selector" :class="componentClasses.getClassByType('component')">
         <slot
             name="button"
             :props="props"
@@ -9,6 +9,7 @@
         >
             <button
                 class="fb-column-selector-button"
+                :class="componentClasses.getClassByType('buttonSecondary')"
                 @click="handleButtonClick"
             >
                 {{ buttonLabel }}
@@ -36,6 +37,7 @@
 // imports
 import { ref } from "vue";
 import { onClickOutside } from "@vueuse/core";
+import * as componentClasses from "@/modules/useCommonCSS";
 
 // vars
 const props = defineProps({

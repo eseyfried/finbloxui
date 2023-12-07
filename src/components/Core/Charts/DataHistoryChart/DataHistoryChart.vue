@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-    <div class="fb-data-history-chart">
-        <div class="fb-data-history-chart-hero">
+    <div class="fb-data-history-chart" :class="componentClasses.getClassByType('component')">
+        <div class="fb-data-history-chart-hero" :class="componentClasses.getClassByType('chartHero')">
             <slot
                 :props="props"
                 :currentValue="formatters.formatCurrency(currentValue)"
@@ -31,6 +31,7 @@
 <script setup>
 // imports
 import moment from "moment";
+import * as componentClasses from "@/modules/useCommonCSS";
 import Chart from "@/components/Core/Charts/Chart";
 import * as formatters from "@/modules/useFormatter";
 import { computed, getCurrentInstance } from "vue";

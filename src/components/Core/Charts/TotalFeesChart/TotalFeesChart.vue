@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-    <div class="fb-total-fees-chart">
-        <div class="fb-total-fees-chart-hero" :class="{ 'fb-total-fees-chart-hero-sm': isMobile }">
+    <div class="fb-total-fees-chart" :class="componentClasses.getClassByType('component')">
+        <div class="fb-total-fees-chart-hero" :class="[{ 'fb-total-fees-chart-hero-sm': isMobile }, componentClasses.getClassByType('chartHero')]">
             <slot
                 name="hero"
                 :props="props"
@@ -23,14 +23,14 @@
         <button
             @click.prevent="toggleData('monthly')"
             class="fb-total-fees-chart-button"
-            :class="{ 'fb-total-fees-chart-button-selected': currentTimePeriod === 'monthly' }"
+            :class="[{ 'fb-total-fees-chart-button-selected': currentTimePeriod === 'monthly' }, componentClasses.getClassByType('buttonSecondary')]"
         >
             Monthly
         </button>
         <button
             @click.prevent="toggleData('quarterly')"
             class="fb-total-fees-chart-button"
-            :class="{ 'fb-total-fees-chart-button-selected': currentTimePeriod === 'quarterly' }"
+            :class="[{ 'fb-total-fees-chart-button-selected': currentTimePeriod === 'quarterly' }, componentClasses.getClassByType('buttonSecondary')]"
         >
             Quarterly
         </button>
@@ -41,6 +41,7 @@
 // imports
 import moment from "moment";
 import * as dateUtils from "@/modules/useDateUtils";
+import * as componentClasses from "@/modules/useCommonCSS";
 import { arraySum } from "@/modules/useArrayUtils";
 import { isMobile } from "@/modules/useResponsive";
 import Chart from "@/components/Core/Charts/Chart";

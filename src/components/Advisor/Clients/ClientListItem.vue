@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-    <div class="fb-client-list-item" data-component="card">
+    <div class="fb-client-list-item" data-component="card" :class="componentClasses.getClassByType('component')">
         <slot name="name" :client="transformedClient" :props="props" v-if="transformedClient.name">
             <div class="fb-client-list-item-header" v-if="transformedClient.name">
                 <h2>{{ transformedClient.name.first_name }} {{ transformedClient.name.last_name }}</h2>
@@ -36,6 +36,7 @@
 <script setup>
 import { computed } from "vue";
 import { formatCurrency, formatPercent } from "@/modules/useFormatter";
+import * as componentClasses from "@/modules/useCommonCSS";
 // eslint-disable-next-line no-unused-vars
 const props = defineProps({
     client: {

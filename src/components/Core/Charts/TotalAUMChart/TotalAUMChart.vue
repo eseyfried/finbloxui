@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-    <div class="fb-total-aum-chart">
-        <div class="fb-total-aum-chart-hero" :class="{ 'fb-total-aum-chart-hero-sm': isMobile }">
+    <div class="fb-total-aum-chart" :class="componentClasses.getClassByType('component')">
+        <div class="fb-total-aum-chart-hero" :class="[componentClasses.getClassByType('chartHero'), isMobile ? 'fb-total-aum-chart-hero-sm' : null]">
             <slot
                 name="hero"
                 :props="props"
@@ -23,21 +23,21 @@
         <button
             @click.prevent="toggleData('daily')"
             class="fb-total-aum-chart-button"
-            :class="{ 'fb-total-aum-chart-button-selected': currentTimePeriod === 'daily' }"
+            :class="[{ 'fb-total-aum-chart-button-selected': currentTimePeriod === 'daily' }, componentClasses.getClassByType('buttonSecondary')]"
         >
             Daily
         </button>
         <button
             @click.prevent="toggleData('monthly')"
             class="fb-total-aum-chart-button"
-            :class="{ 'fb-total-aum-chart-button-selected': currentTimePeriod === 'monthly' }"
+            :class="[{ 'fb-total-aum-chart-button-selected': currentTimePeriod === 'monthly' }, componentClasses.getClassByType('buttonSecondary')]"
         >
             Monthly
         </button>
         <button
             @click.prevent="toggleData('quarterly')"
             class="fb-total-aum-chart-button"
-            :class="{ 'fb-total-aum-chart-button-selected': currentTimePeriod === 'quarterly' }"
+            :class="[{ 'fb-total-aum-chart-button-selected': currentTimePeriod === 'quarterly' }, componentClasses.getClassByType('buttonSecondary')]"
         >
             Quarterly
         </button>
@@ -47,6 +47,7 @@
 <script setup>
 // imports
 import moment from "moment";
+import * as componentClasses from "@/modules/useCommonCSS";
 import * as dateUtils from "@/modules/useDateUtils";
 import { arraySum } from "@/modules/useArrayUtils";
 import { isMobile } from "@/modules/useResponsive";
@@ -92,6 +93,11 @@ const props = defineProps({
         type: String,
         default: () => 'rgb(75, 85, 99, 0.3)'
     },
+    defaultTimePeriod: {
+        type: String,
+        default: "monthly",
+        validator: (value) => ["daily", "monthly", "quarterly"].includes(value)
+    }
 });
 
 
@@ -125,7 +131,7 @@ const quarterlyData = computed( () => {
 });
 const currentValue = computed(() => props.data[props.data.length - 1]);
 const asOf = computed(() => props.dates[props.dates.length - 1]);
-const currentTimePeriod = ref("daily");
+const currentTimePeriod = ref(props.defaultTimePeriod);
 
 
 
@@ -167,9 +173,22 @@ const toggleData = (type) => {
     }
 }
 const defaultChartData = computed(() => {
+    let defaultData;
+    switch (props.defaultTimePeriod) {
+        case "daily":
+            defaultData = dailyData.value;
+            break;
+        case "monthly":
+            defaultData = monthlyData.value;
+            break;
+        case "quarterly":
+            defaultData =quarterlyData.value;
+            break;
+    } 
+
     return {
         datasets: [{
-            data: dailyData.value,
+            data: defaultData,
             fill: 'start',
             borderColor: props.lineColor,
             backgroundColor: props.areaColor

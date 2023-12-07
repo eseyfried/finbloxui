@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-    <div class="fb-top-clients-by-aum">
+    <div class="fb-top-clients-by-aum" :class="componentClasses.getClassByType('component')">
         <table>
             <thead>
                 <tr>
@@ -36,6 +36,7 @@
 </template>
 <script setup>
 // imports
+import * as componentClasses from "@/modules/useCommonCSS";
 import { computed } from "vue";
 import { arraySum } from "@/modules/useArrayUtils";
 import { isMobile } from "@/modules/useResponsive";

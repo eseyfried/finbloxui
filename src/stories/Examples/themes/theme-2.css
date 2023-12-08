@@ -5,7 +5,7 @@
 
 
 @layer base {
-    html[data-mode]:not([data-mode='headless']) {
+    /* html[data-mode]:not([data-mode='headless']) {
         h1, h2, h3, h4, h5, h6 {
             @apply font-light;
         }
@@ -24,8 +24,8 @@
             @apply py-4 px-2 border-b-2 border-gray-200 text-sm  bg-white;
         }
     }
-    
-    .primary-button {
+     */
+    /* .primary-button, .fb-button-primary {
         @apply py-2
             px-4
             bg-indigo-500
@@ -40,7 +40,7 @@
             focus:ring-opacity-75;
     }
 
-    .secondary-button {
+    .secondary-button, .fb-button-secondary {
         @apply py-2
             px-4
             bg-gray-400
@@ -53,7 +53,7 @@
             focus:ring-2
             focus:ring-gray-500
             focus:ring-opacity-75;
-    }
+    } */
 }
 
 
@@ -227,7 +227,7 @@ html[data-mode='theme-2'] {
     }
 
     .fb-client-card a[href='#'] {
-        @apply primary-button;
+        /* @apply primary-button; */
     }
 
 
@@ -313,7 +313,7 @@ html[data-mode='theme-2'] {
         display: grid;
     }
     .fb-column-selector button {
-        @apply secondary-button justify-self-end;
+        /* @apply secondary-button justify-self-end; */
     }
 
     .fb-column-selector ul {
@@ -361,10 +361,10 @@ html[data-mode='theme-2'] {
         @apply mt-2;
     }
     .fb-column-filter-clear-button {
-        @apply secondary-button mr-2;
+        /* @apply secondary-button mr-2; */
     }
     .fb-column-filter-apply-button {
-        @apply primary-button;
+        /* @apply primary-button; */
     }
 
     /* PositionsGrid */
@@ -433,7 +433,7 @@ html[data-mode='theme-2'] {
     }
     .fb-action-menu-button {
         justify-self: center;
-        @apply primary-button rounded-full;
+        @apply rounded-full;
     }
     .fb-action-menu-button::before {
         content: "\f142";

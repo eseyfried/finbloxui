@@ -11,6 +11,82 @@ html[data-mode='theme-1'] {
         --example-data-point-background: #4BC1C1;
     }
 
+    h1, h2, h3, h4, h5, h6 {
+        @apply font-light;
+    }
+    h1 {
+        @apply text-4xl;
+    }
+    h2 {
+        @apply text-2xl;
+    }
+
+    table thead th {
+        @apply p-2 border-b-2 border-gray-200 text-sm bg-white;
+    }
+
+    table tbody td {
+        @apply py-4 px-2 border-b-2 border-gray-200 text-sm  bg-white;
+    }
+
+     /* common layout */
+    .fb-component {
+        
+    }
+
+    /* common chart styles */
+    .fb-chart-hero {
+        h2 {
+            @apply text-2xl font-medium;
+        }
+    }
+
+    .fb-chart-legend {
+        p {
+            display: flex;
+            width: 100%;
+            span:nth-of-type(2) {
+                margin-left: 1rem !important;
+            }
+            span:nth-of-type(1) {
+                margin-right: auto !important;
+            }
+        }
+    }
+
+    .fb-chart-doughnut + .fb-chart-hero {
+        display: flex;
+        flex-direction: column-reverse;
+        top: 35%;
+        & h2 {
+            @apply text-2xl;
+        }
+        & h3 {
+            @apply text-4xl;
+        }
+    }
+    /* common buttons */
+    .fb-button-primary {
+        background-color: var(--fb-chart-color-1);
+    }
+
+    
+    .fb-button-secondary {
+        background-color: var(--fb-chart-color-7);
+        @apply py-2
+            px-4
+            font-semibold
+            text-gray-600
+            rounded-lg
+            shadow-md;
+            &:hover {
+                @apply bg-gray-600 text-white;
+            }
+            &:focus {
+                @apply outline-none ring-2 ring-opacity-75;
+            }
+    }
+
     /* Header */
     .header {
         display:flex;
@@ -110,23 +186,7 @@ html[data-mode='theme-1'] {
 
     /* fb-total-aum-chart */
     .fb-total-aum-chart {
-        & button {
-            background-color: #37A3EB;
-            @apply py-2
-                px-4
-                text-white
-                font-semibold
-                rounded-lg
-                shadow-md
-                focus:outline-none
-                focus:ring-2
-                focus:ring-opacity-75;
-        }
-        & button:hover  {
-            background-color: #4BC1C1;
-        }
-        & button:focus  {
-            background-color: #C9CBD0;
-        }
+        
     }
+    
 }

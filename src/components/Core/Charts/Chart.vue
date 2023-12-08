@@ -1,12 +1,13 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-    <div :class="componentClasses.getClassByType('chart')">
+    <div :class="componentClasses.getClassByType(chartClassTypes)">
         <canvas :id="id" ref="ctx"></canvas>
     </div>
 </template>
 <script setup>
 // imports
 import * as componentClasses from "@/modules/useCommonCSS";
+import * as formatters from "@/modules/useFormatter";
 import Chart from 'chart.js/auto';
 import 'chartjs-adapter-moment';
 import { ref, onMounted, computed, watch } from "vue";
@@ -86,6 +87,9 @@ const buildData = computed(() => {
     return data;
 });
 
+const chartClassTypes = computed(() => {
+    return ['chart',`chart${formatters.ucFirst(props.type)}`]
+});
 
 
 /**

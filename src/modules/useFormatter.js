@@ -39,10 +39,24 @@ const formatNumberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
+const ucFirst = (string) => {
+    if (!string) {
+      return string;
+    }
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  };
+  
+  const ucWords = (string) => {
+    const words = string.split(" ");
+    return words.map((word) => ucFirst(word)).join(" ");
+  };
+
 export {
     formatCurrency,
     formatPercent,
     formatNumberWithCommas,
     formatMask,
-    formatDate
+    formatDate,
+    ucFirst,
+    ucWords
 }

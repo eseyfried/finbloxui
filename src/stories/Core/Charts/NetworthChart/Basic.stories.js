@@ -17,7 +17,7 @@ export default {
         label: "Networth",
         monthLabel: "This Month",
         sinceLabel: "Since",
-        areaColor: "rgba(255, 255, 255, 0.07)",
+        areaColor: "rgba(255, 255, 255, 0.15)",
         chartjsData: {},
         chartjsOptions: {},
     },

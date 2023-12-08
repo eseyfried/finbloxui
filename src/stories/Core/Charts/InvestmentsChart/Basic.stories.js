@@ -17,7 +17,7 @@ export default {
         label: "Investments",
         changeAmountLabel: "Change ($)",
         changePercentLabel: "Change (%)",
-        areaColor: "rgba(255, 255, 255, 0.07)",
+        areaColor: "rgba(255, 255, 255, 0.15)",
         chartjsData: {},
         chartjsOptions: {},
     },

@@ -9,7 +9,7 @@ const componentClasses = {
     chart: "fb-chart",
     chartPie: "fb-chart-pie",
     chartDoughnut: "fb-chart-doughnut",
-    chartArea: "fb-chart-area",
+    chartLine: "fb-chart-line",
     chartBar: "fb-chart-bar",
     chartHero: "fb-chart-hero",
     chartLegend: "fb-chart-legend",

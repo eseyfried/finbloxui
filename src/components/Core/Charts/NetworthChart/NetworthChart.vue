@@ -58,6 +58,7 @@
 import moment from "moment";
 import * as dateUtils from "@/modules/useDateUtils";
 import * as componentClasses from "@/modules/useCommonCSS";
+import { getFBCustomVars } from "@/modules/useCSSVars";
 import Chart from "@/components/Core/Charts/Chart";
 import * as formatters from "@/modules/useFormatter";
 import { computed, getCurrentInstance } from "vue";
@@ -105,7 +106,7 @@ const props = defineProps({
     },
     areaColor: {
         type: String,
-        default: () => 'rgba(255, 255, 255, 0.07)'
+        default: () => 'rgba(255, 255, 255, 0.15)'
     },
 });
 const monthlyData = computed( () => dateUtils.toMonthly(dateUtils.toXY(props.dates, props.data)));
@@ -119,6 +120,14 @@ const monthChangePercent = computed(() => monthChangeAmount.value / currentValue
 const yearChangeAmount = computed(() => currentValue.value - beginningValue.value);
 const yearChangePercent = computed(() => yearChangeAmount.value / currentValue.value);
 
+const areaColor = computed(() => {
+    const cssVar = getFBCustomVars("--fb-chart-area-color");
+    if (cssVar[0]) {
+        return cssVar[0][1];
+    } else {
+        return props.areaColor
+    }
+});
 
 const defaultChartData = computed(() => {
     return {
@@ -126,7 +135,7 @@ const defaultChartData = computed(() => {
             data: monthlyData.value,
             fill: 'start',
             borderColor: props.lineColor,
-            backgroundColor: props.areaColor
+            backgroundColor: areaColor.value
         }],
     }
 });

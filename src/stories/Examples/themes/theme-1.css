@@ -65,6 +65,12 @@ html[data-mode='theme-1'] {
             @apply text-4xl;
         }
     }
+
+    .fb-chart-line {
+        background-color: #4BC1C1;
+        --fb-chart-area-color: #ffffff36;
+    }
+
     /* common buttons */
     .fb-button-primary {
         background-color: var(--fb-chart-color-1);

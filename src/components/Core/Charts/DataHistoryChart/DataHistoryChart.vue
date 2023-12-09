@@ -33,6 +33,7 @@
 import moment from "moment";
 import * as componentClasses from "@/modules/useCommonCSS";
 import Chart from "@/components/Core/Charts/Chart";
+import { areaColor, lineColor } from "@/modules/useChartUtils";
 import * as formatters from "@/modules/useFormatter";
 import { computed, getCurrentInstance } from "vue";
 
@@ -93,15 +94,14 @@ const changePercent = computed(() => {
 });
 
 
-
 const defaultChartData = computed(() => {
     return {
         labels: props.dates,
         datasets: [{
             data: props.data,
             fill: 'start',
-            borderColor: props.lineColor,
-            backgroundColor: props.areaColor
+            borderColor: lineColor(props.lineColor, "--fb-data-history-chart-line-color").value,
+            backgroundColor: areaColor(props.areaColor, "--fb-data-history-chart-area-color").value
         }],
     }
 });

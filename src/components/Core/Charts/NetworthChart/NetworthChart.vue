@@ -58,7 +58,7 @@
 import moment from "moment";
 import * as dateUtils from "@/modules/useDateUtils";
 import * as componentClasses from "@/modules/useCommonCSS";
-import { getFBCustomVars } from "@/modules/useCSSVars";
+import { areaColor, lineColor } from "@/modules/useChartUtils";
 import Chart from "@/components/Core/Charts/Chart";
 import * as formatters from "@/modules/useFormatter";
 import { computed, getCurrentInstance } from "vue";
@@ -120,22 +120,14 @@ const monthChangePercent = computed(() => monthChangeAmount.value / currentValue
 const yearChangeAmount = computed(() => currentValue.value - beginningValue.value);
 const yearChangePercent = computed(() => yearChangeAmount.value / currentValue.value);
 
-const areaColor = computed(() => {
-    const cssVar = getFBCustomVars("--fb-chart-area-color");
-    if (cssVar[0]) {
-        return cssVar[0][1];
-    } else {
-        return props.areaColor
-    }
-});
 
 const defaultChartData = computed(() => {
     return {
         datasets: [{
             data: monthlyData.value,
             fill: 'start',
-            borderColor: props.lineColor,
-            backgroundColor: areaColor.value
+            borderColor: lineColor(props.lineColor, "--fb-networth-chart-line-color").value,
+            backgroundColor: areaColor(props.areaColor, "--fb-networth-chart-area-color").value
         }],
     }
 });

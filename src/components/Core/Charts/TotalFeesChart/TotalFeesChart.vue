@@ -45,6 +45,7 @@ import * as componentClasses from "@/modules/useCommonCSS";
 import { arraySum } from "@/modules/useArrayUtils";
 import { isMobile } from "@/modules/useResponsive";
 import Chart from "@/components/Core/Charts/Chart";
+import { barColor, lineColor } from "@/modules/useChartUtils";
 import ChartJS from 'chart.js/auto';
 import * as formatters from "@/modules/useFormatter";
 import { computed, getCurrentInstance, ref } from "vue";
@@ -133,12 +134,13 @@ const toggleData = (type) => {
         chart.update();
     }
 }
+console.log(lineColor(props.lineColor, "--fb-total-fees-chart-line-color").value)
 const defaultChartData = computed(() => {
     return {
         datasets: [{
             data: monthlyData.value,
-            borderColor: props.barColor,
-            backgroundColor: props.barColor,
+            borderColor: lineColor(props.lineColor, "--fb-total-fees-chart-line-color").value,
+            backgroundColor: barColor(props.barColor, "--fb-total-fees-chart-bar-color").value
         }],
     }
 });
@@ -165,7 +167,7 @@ const chartOptions = computed(() => {
             },
             elements: {
                 bar: {
-                    borderWidth: 0.5,
+                    borderWidth: 1.0,
                 },
                 point: {
                     pointStyle: true

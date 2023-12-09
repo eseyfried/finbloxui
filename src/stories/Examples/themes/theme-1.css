@@ -69,6 +69,10 @@ html[data-mode='theme-1'] {
     .fb-chart-line {
         background-color: #4BC1C1;
         --fb-chart-area-color: #ffffff36;
+        --fb-chart-line-color: #007474;
+    }
+    .fb-chart-bar {
+        --fb-chart-bar-color: #4BC1C1;
     }
 
     /* common buttons */
@@ -190,9 +194,22 @@ html[data-mode='theme-1'] {
         padding: .75rem .65rem;
     }
 
+    /* fb-data-history-chart */
+    .fb-data-history-chart {
+        & .fb-chart-line {
+            background-color: #FFFFFF;
+            --fb-data-history-chart-area-color: #4BC1C1;
+            --fb-data-history-chart-line-color: #007474;
+        }
+    }
+
     /* fb-total-aum-chart */
     .fb-total-aum-chart {
-        
+        & .fb-chart-line {
+            background-color: #FFFFFF;
+            --fb-total-aum-chart-area-color: #4BC1C1;
+            --fb-total-aum-chart-line-color: #007474;
+        }
     }
     
 }

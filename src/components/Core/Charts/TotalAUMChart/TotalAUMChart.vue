@@ -52,6 +52,7 @@ import * as dateUtils from "@/modules/useDateUtils";
 import { arraySum } from "@/modules/useArrayUtils";
 import { isMobile } from "@/modules/useResponsive";
 import Chart from "@/components/Core/Charts/Chart";
+import { areaColor, lineColor } from "@/modules/useChartUtils";
 import ChartJS from 'chart.js/auto';
 import * as formatters from "@/modules/useFormatter";
 import { computed, getCurrentInstance, ref } from "vue";
@@ -190,8 +191,8 @@ const defaultChartData = computed(() => {
         datasets: [{
             data: defaultData,
             fill: 'start',
-            borderColor: props.lineColor,
-            backgroundColor: props.areaColor
+            borderColor: lineColor(props.lineColor, "--fb-total-aum-chart-line-color").value,
+            backgroundColor: areaColor(props.areaColor, "--fb-total-aum-chart-area-color").value
         }],
     }
 });

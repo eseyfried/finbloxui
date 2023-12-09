@@ -134,7 +134,7 @@ const toggleData = (type) => {
         chart.update();
     }
 }
-console.log(lineColor(props.lineColor, "--fb-total-fees-chart-line-color").value)
+
 const defaultChartData = computed(() => {
     return {
         datasets: [{

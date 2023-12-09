@@ -12,6 +12,7 @@ const componentClasses = {
     chartLine: "fb-chart-line",
     chartBar: "fb-chart-bar",
     chartHero: "fb-chart-hero",
+    chartSubHero: "fb-chart-sub-hero",
     chartLegend: "fb-chart-legend",
     chartLegendStacked: "fb-chart-legend-stacked",
 }

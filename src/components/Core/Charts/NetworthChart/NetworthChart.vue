@@ -13,7 +13,7 @@
                 <span class="fb-networth-chart-date">As of: {{ formatters.formatDate(asOf) }}</span>
             </slot>
         </div>
-        <div class="fb-networth-chart-month">
+        <div class="fb-networth-chart-month" :class="componentClasses.getClassByType('chartSubHero')">
             <slot
                 name="month"
                 :props="props"
@@ -28,7 +28,7 @@
                 </div>
             </slot>
         </div>
-        <div class="fb-networth-chart-year">
+        <div class="fb-networth-chart-year" :class="componentClasses.getClassByType('chartSubHero')">
             <slot
                 name="year"
                 :props="props"

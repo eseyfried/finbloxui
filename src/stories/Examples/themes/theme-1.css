@@ -29,6 +29,7 @@ html[data-mode='theme-1'] {
         @apply py-4 px-2 border-b-2 border-gray-200 text-sm  bg-white;
     }
 
+
      /* common layout */
     .fb-component {
         
@@ -37,7 +38,12 @@ html[data-mode='theme-1'] {
     /* common chart styles */
     .fb-chart-hero {
         h2 {
-            @apply text-2xl font-medium;
+            @apply text-3xl text-white font-medium;
+        }
+    }
+    .fb-chart-sub-hero {
+        h4 {
+            @apply text-white;
         }
     }
 
@@ -95,6 +101,22 @@ html[data-mode='theme-1'] {
             &:focus {
                 @apply outline-none ring-2 ring-opacity-75;
             }
+    }
+
+    /* common font styles */
+    .fb-negative {
+        @apply text-red-800;
+    }
+    .fb-positive {
+        @apply text-green-800;
+    }
+    .fb-positive::before {
+        content: "\f062";
+        font: var(--fa-font-solid);
+    }
+    .fb-negative::before {
+        content: "\f063";
+        font: var(--fa-font-solid);
     }
 
     /* Header */
@@ -194,6 +216,40 @@ html[data-mode='theme-1'] {
         padding: .75rem .65rem;
     }
 
+    /* fb-action-menu */
+    .fb-action-menu {
+        display: grid;
+    }
+    .fb-action-menu-button.fb-button-primary {
+        position: relative;
+        font-size: 0px;
+        justify-self: center;
+        width: 40px;
+        height: 40px;
+        @apply rounded-full text-white p-4;
+    }
+    .fb-action-menu-button::before {
+        font-size: 1.0rem !important;
+        content: "\f142";
+        font: var(--fa-font-solid);
+        position: absolute;
+        top: 13px;
+        left: 18px;
+    }
+    .fb-action-menu ul {
+        border-color: var(--fb-chart-color-1);
+        @apply mt-2 shadow-md rounded border-2 bg-white !important;
+    }
+    .fb-action-menu li {
+        @apply p-2 min-w-max;
+        text-align: left;
+    }
+    .fb-action-menu li:hover {
+        background-color: var(--fb-chart-color-1);
+        @apply text-white;
+    }
+
+
     /* fb-data-history-chart */
     .fb-data-history-chart {
         & .fb-chart-line {
@@ -210,6 +266,10 @@ html[data-mode='theme-1'] {
             --fb-total-aum-chart-area-color: #4BC1C1;
             --fb-total-aum-chart-line-color: #007474;
         }
+    }
+    /* fb-total-fees-chart-hero */
+    .fb-total-fees-chart-hero h2 {
+        color: #000000;
     }
     
 }

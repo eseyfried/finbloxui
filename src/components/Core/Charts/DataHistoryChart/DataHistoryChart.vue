@@ -203,4 +203,8 @@ const changeClasses = (value) => {
     left: 100px;
     z-index: 200;
 }
+::v-deep(:is(h2,h3)) {
+    margin: 0;
+    font-size: 5.4vmin;
+}
 </style>

@@ -238,7 +238,7 @@ html[data-mode='theme-1'] {
     }
     .fb-action-menu ul {
         border-color: var(--fb-chart-color-1);
-        @apply mt-2 shadow-md rounded border-2 bg-white !important;
+        @apply mt-1 shadow-md rounded border-2 bg-white !important;
     }
     .fb-action-menu li {
         @apply p-2 min-w-max;

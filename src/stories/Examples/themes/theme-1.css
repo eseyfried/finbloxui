@@ -1,3 +1,15 @@
+@layer {
+
+    .fb-card {
+        & h2 {
+            border-bottom: 1px solid var(--fb-chart-color-1);
+            @apply pb-2;
+        }
+        display: flex;
+        flex-wrap:wrap;
+        @apply shadow-md p-3 rounded border-2 bg-white;
+    }
+}
 html[data-mode='theme-1'] {
     
     * {
@@ -21,18 +33,28 @@ html[data-mode='theme-1'] {
         @apply text-2xl;
     }
 
-    table thead th {
-        @apply p-2 border-b-2 border-gray-200 text-sm bg-white;
+    a {
+        color: var(--fb-chart-color-1);
+        text-decoration: underline;
+        &:hover {
+            color: #008ae6;
+        }
     }
-
-    table tbody td {
-        @apply py-4 px-2 border-b-2 border-gray-200 text-sm  bg-white;
-    }
-
+    
 
      /* common layout */
     .fb-component {
-        
+        & table {
+            @apply mt-4;
+            thead th {
+                background-color: var(--fb-chart-color-7);
+                @apply p-2 border-b-2 border-gray-200 text-sm;
+            }
+            tbody td {
+                @apply py-4 px-2 border-b-2 border-gray-200 text-sm  bg-white;
+            }
+
+        }
     }
 
     /* common chart styles */
@@ -65,7 +87,7 @@ html[data-mode='theme-1'] {
         flex-direction: column-reverse;
         top: 35%;
         & h2 {
-            @apply text-2xl;
+            @apply text-2xl text-black;
         }
         & h3 {
             @apply text-4xl;
@@ -150,11 +172,15 @@ html[data-mode='theme-1'] {
             }
         }
     }
-    .fb-positions-grid th {
-        @apply bg-slate-50;
-    }
+    /* COMPONENT STYLES */
 
     /* DATA POINT */
+    .fb-data-point {
+        position: relative;
+        width: 100%;
+        background: var(--fb-chart-color-2);
+        @apply rounded-sm shadow-md text-white;
+    }
     .fb-data-point h3 {
         /* @apply text-2xl; */
     }
@@ -162,6 +188,8 @@ html[data-mode='theme-1'] {
         @apply text-3xl;
     }
     .fb-data-point-body {
+        display: flex;
+        flex-direction: column-reverse;
         @apply p-3;
     }
     .fb-data-point-trend {
@@ -169,6 +197,7 @@ html[data-mode='theme-1'] {
         top: 10px;
         right: 10px;
     }
+
     .fb-data-point-trend[data-trend-direction='up']::before {
         content: "+";
     }
@@ -177,7 +206,7 @@ html[data-mode='theme-1'] {
     }
     .fb-data-point-footer {
         & a {
-            @apply text-white;
+            @apply text-white underline;
         }
         @apply pl-3 py-2;
     }
@@ -188,33 +217,21 @@ html[data-mode='theme-1'] {
     }
 
     .fb-data-point-body {
-        margin-left: 55px;
+        /* margin-left: 55px; */
     }
 
     .fb-data-point::before {
-        position: absolute;
+        /* position: absolute;
         top: 20px;
         left: 10px;
         font-size: 20px !important;
         font: var(--fa-font-solid);
         padding: .75rem 1rem;
         color: var(--example-data-point-background);
-        @apply rounded-full bg-white;
+        @apply rounded-full bg-white; */
     }
 
-    .aum .fb-data-point::before {
-        content: "\24";
-    }
 
-    .fees .fb-data-point::before {
-        content: "\f81d";
-        padding: .75rem;
-    }
-
-    .clients .fb-data-point::before {
-        content: "\f0c0";
-        padding: .75rem .65rem;
-    }
 
     /* fb-action-menu */
     .fb-action-menu {
@@ -249,6 +266,32 @@ html[data-mode='theme-1'] {
         @apply text-white;
     }
 
+    /* .fb-column-selector */
+    .fb-column-selector ul{
+        border-color: var(--fb-chart-color-1);
+        @apply mt-1 shadow-md rounded border-2 bg-white !important;
+    }
+    .fb-column-selector li {
+        @apply p-2 min-w-max;
+        text-align: left;
+    }
+    .fb-column-selector li:hover {
+        background-color: var(--fb-chart-color-1);
+        @apply text-white;
+        & a::before {
+            @apply text-white;
+        }
+    }
+    .fb-column-selector li:not(.fb-column-selector-selected) a {
+        margin-left: 17px;
+    }
+    .fb-column-selector-selected a::before {
+        content: "\f14a";
+        font: var(--fa-font-solid);
+        margin-right: 5px;
+        color: var(--fb-chart-color-1);
+    }
+
 
     /* fb-data-history-chart */
     .fb-data-history-chart {
@@ -260,6 +303,7 @@ html[data-mode='theme-1'] {
     }
 
     /* fb-total-aum-chart */
+
     .fb-total-aum-chart {
         & .fb-chart-line {
             background-color: #FFFFFF;
@@ -267,9 +311,90 @@ html[data-mode='theme-1'] {
             --fb-total-aum-chart-line-color: #007474;
         }
     }
+
     /* fb-total-fees-chart-hero */
     .fb-total-fees-chart-hero h2 {
         color: #000000;
+    }
+
+    /* fb-quote-detail */
+    .fb-quote-detail {
+        border-color: var(--fb-chart-color-1);
+        @apply shadow-md p-3 rounded border-2 bg-white;
+    }
+    .fb-quote-detail-heading h3 {
+        border-bottom: 1px solid var(--fb-chart-color-1);
+        @apply pb-2 text-lg font-semibold;
+    }
+    .fb-quote-detail-price {
+        display: flex;
+        @apply items-end my-4;
+    }
+    .fb-quote-detail-price h4 {
+        @apply text-xl p-0 m-0;
+        /* line-height: inherit; */
+    }
+    .fb-quote-detail-price h4,
+    .fb-quote-detail-price span {
+        margin-right: .5rem;
+    }
+    .fb-quote-detail-price span {
+        /* line-height: normal; */
+    }
+    .fb-quote-detail-details li label::after {
+        content: ":";
+    }
+    .fb-quote-detail-details li {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    /* .fb-client-card */
+    .fb-client-card {
+        a {
+            width: fit-content;
+        }
+       @apply fb-card;
+    }
+    .fb-client-card-header {
+        flex-basis:100%;
+        @apply mb-5;
+    }
+    .fb-client-card label {
+        @apply font-medium;
+    }
+    .fb-client-card label::after {
+        content:":";
+    }
+    .fb-client-card-stats {
+        flex-basis:50%;
+        li {
+            @apply grid grid-cols-2;
+        }
+        @apply mb-5 !important;
+    }
+    .fb-client-card-contact-info {
+        flex-basis:50%;
+        li {
+            @apply grid grid-cols-2;
+        }
+        @apply mb-4 !important;
+    }
+    
+
+    /* EXAMPLE THEME STYLES */
+    .aum .fb-data-point::before {
+        content: "\24";
+    }
+
+    .fees .fb-data-point::before {
+        content: "\f81d";
+        padding: .75rem;
+    }
+
+    .clients .fb-data-point::before {
+        content: "\f0c0";
+        padding: .75rem .65rem;
     }
     
 }

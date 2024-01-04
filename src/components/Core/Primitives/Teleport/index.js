@@ -1,0 +1,1 @@
+export { default as TeleportPrimitive, TeleportProps } from './Teleport.vue'

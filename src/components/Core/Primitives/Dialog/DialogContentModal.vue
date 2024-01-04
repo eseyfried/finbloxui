@@ -1,0 +1,60 @@
+<script setup>
+import { injectDialogRootContext } from './DialogRoot.vue'
+import DialogContentImpl, {
+  DialogContentImplEmits,
+  DialogContentImplProps
+} from './DialogContentImpl.vue'
+import { useEmitAsProps, useHideOthers } from '@/modules/shared'
+import { usePrimitiveElement } from '@/components/Core/Primitives/Primitive'
+
+const props = defineProps(DialogContentImplProps)
+const emits = defineEmits(DialogContentImplEmits)
+
+const rootContext = injectDialogRootContext()
+
+const emitsAsProps = useEmitAsProps(emits)
+
+const { primitiveElement, currentElement } = usePrimitiveElement()
+useHideOthers(currentElement)
+</script>
+
+<template>
+  <DialogContentImpl
+    ref="primitiveElement"
+    v-bind="{ ...props, ...emitsAsProps }"
+    :trap-focus="rootContext.open.value"
+    :disable-outside-pointer-events="true"
+    @close-auto-focus="
+      (event) => {
+        emits('closeAutoFocus', event);
+
+        if (!event.defaultPrevented) {
+          event.preventDefault();
+          rootContext.triggerElement.value?.focus();
+        }
+      }
+    "
+    @pointer-down-outside="
+      (event) => {
+        const originalEvent = event.detail.originalEvent;
+        const ctrlLeftClick
+          = originalEvent.button === 0 && originalEvent.ctrlKey === true;
+        const isRightClick = originalEvent.button === 2 || ctrlLeftClick;
+
+        // If the event is a right-click, we shouldn't close because
+        // it is effectively as if we right-clicked the `Overlay`.
+        if (isRightClick) event.preventDefault();
+      }
+    "
+    @focus-outside="
+      (event) => {
+        // When focus is trapped, a `focusout` event may still happen.
+        // We make sure we don't trigger our `onDismiss` in such case.
+        event.preventDefault();
+      }
+    "
+    @open-auto-focus="emits('openAutoFocus', $event)"
+  >
+    <slot />
+  </DialogContentImpl>
+</template>

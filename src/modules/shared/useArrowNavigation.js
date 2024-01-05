@@ -16,7 +16,6 @@ export function useArrowNavigation(
 ) {
   if (!currentElement)
     return null
-
   const {
     arrowKeyOptions = 'both',
     attributeName = 'data-fb-vue-collection-item',
@@ -37,6 +36,7 @@ export function useArrowNavigation(
   ]
   const goingVertical = up || down
   const goingHorizontal = right || left
+  
   if (
     !home
     && !end
@@ -52,7 +52,7 @@ export function useArrowNavigation(
 
   if (!allCollectionItems.length)
     return null
-
+    
   if (preventScroll)
     e.preventDefault()
 
@@ -71,7 +71,7 @@ export function useArrowNavigation(
   else if (end) {
     item = allCollectionItems.at(-1) || null
   }
-
+  
   if (focus)
     item?.focus()
   return item
@@ -102,6 +102,8 @@ function findNextFocusableElement(
 
   const adjustedNewIndex = (newIndex + elements.length) % elements.length
   const candidate = elements[adjustedNewIndex]
+  
+  
   if (!candidate)
     return null
 

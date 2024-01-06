@@ -1,5 +1,11 @@
 
-import DataPoint from '@/components/Core/DataPoint.vue';
+import {
+    DataPointRoot,
+    DataPointLabel,
+    DataPointValue,
+    DataPointTrend,
+    DataPointAction
+} from '@/components/Core/DataPoint/';
 
 // eslint-disable-next-line storybook/story-exports
 export default {
@@ -15,21 +21,25 @@ export default {
                 direction: "up"
             }
         },
+        actionLabel: "show more",
+        showAction: true,
     },
     render: (args) => ({
-      components: { DataPoint },
+      components: { DataPointRoot, DataPointLabel, DataPointValue, DataPointTrend, DataPointAction },
       setup() {
         return { args };
       },
-      template: '<DataPoint :dataPoint="args.dataPoint" />',
+      template: `
+        <DataPointRoot v-bind="args" />
+        `,
     }),
     parameters: {
         docs: {
             description: {
-                story: "The basic use of the DataPoint component.",
+                story: "The basic use of the DataPoint component. Embed the component, apply the necessary component props and apply styles using the built in css classes.",
             },
             source: {
-                code: `<DataPoint :dataPoint="dataPoint" />`
+                code: `<DataPointRoot :dataPoint="dataPoint" />`
             }
         }
     }

@@ -1,4 +1,4 @@
-import DataPoint from '@/components/Core/DataPoint.vue';
+import { DataPointRoot } from '@/components/Core/DataPoint/';
 
 // eslint-disable-next-line storybook/story-exports
 export default {
@@ -7,7 +7,7 @@ export default {
         dataPoint: {
             label: "YTD AUM",
             value: "12345678.9999",
-            format: (value) => parseFloat(value).toFixed(2),
+            format: (value) => `$${parseFloat(value).toFixed(2)}`,
             trend: {
                 format: "currency",
                 value: 14526.34,
@@ -16,11 +16,11 @@ export default {
         },
     },
     render: (args) => ({
-      components: { DataPoint },
+      components: { DataPointRoot },
       setup() {
         return { args };
       },
-      template: '<DataPoint :dataPoint="args.dataPoint" />',
+      template: '<DataPointRoot :dataPoint="args.dataPoint" />',
     }),
     parameters: {
         docs: {
@@ -43,9 +43,9 @@ Formatter callbacks will be called with the dataPoint.value as it's argument.
 const dataPoint = {
     label: "YTD AUM",
     value: "12345678.9999",
-    format: (value) => parseFloat(value).toFixed(2)
+    format: (value) => '$'+ parseFloat(value).toFixed(2)
 };
-<DataPoint :dataPoint="dataPoint" />
+<DataPointRoot :dataPoint="dataPoint" />
 `
             }
         }

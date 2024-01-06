@@ -1,4 +1,4 @@
-import DataPoint from '@/components/Core/DataPoint.vue';
+import { DataPointRoot } from '@/components/Core/DataPoint/';
 import * as BasicStory from './Basic.stories';
 import * as CustomTemplateStory from './CustomTemplate.stories';
 import * as CustomFormatterStory from './CustomFormatter.stories';
@@ -14,7 +14,7 @@ import * as EventsStory from './Events.stories';
 
 export default {
     title: 'Library/Core/DataPoint',
-    component: { DataPoint },
+    components: { DataPointRoot },
     tags: ['autodocs'],
     argTypes: {
         dataPoint: {
@@ -27,18 +27,18 @@ export default {
                 category: 'Props',
             },
         },
-        showDetailsLink: {
-            description: "Show details link.",
+        showAction: {
+            description: "Show action link.",
             table: {
                 type: { summary: "Boolean" },
                 defaultValue: { summary: "true" },
                 category: 'Props',
             },
             options: [true, false],
-            control: { type: 'radio' },
+            // control: { type: 'radio' },
         },
-        detailsLinkLabel: {
-            description: "Text label for details link",
+        actionLabel: {
+            description: "Text label for action link",
             table: {
                 type: { summary: "String" },
                 defaultValue: { summary: "Show More" },
@@ -48,8 +48,8 @@ export default {
             defaultValue: "Show More",
             control: { type: 'text' },
         },
-        "fb-data-point-details-link:click": {
-            description: "Event emiited when details link is clicked. Typically used for linking to deeper content.",
+        "fb-data-point-action-link:click": {
+            description: "Event emiited when action link is clicked. Typically used for linking to deeper content.",
             table: {
                 category: 'Events',
                 defaultValue: { summary: "data point object" },

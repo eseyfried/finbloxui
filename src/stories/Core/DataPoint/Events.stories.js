@@ -1,5 +1,5 @@
 import { action } from "@storybook/addon-actions";
-import DataPoint from '@/components/Core/DataPoint.vue';
+import { DataPointRoot } from '@/components/Core/DataPoint/';
 
 // eslint-disable-next-line storybook/story-exports
 export default {
@@ -17,23 +17,23 @@ export default {
         },
     },
     render: (args) => ({
-      components: { DataPoint },
+      components: { DataPointRoot },
       setup() {
         return { args };
       },
-      template: '<DataPoint :dataPoint="args.dataPoint" @fb-data-point-details-link:click="handleClick($event)"/>',
-      methods: { handleClick: action("clicked") }
+      template: '<DataPointRoot :dataPoint="args.dataPoint" @fb-data-point-action-link:click="handleClick($event)"/>',
+      methods: { handleClick: (event) => {  alert(JSON.stringify(event)); return action("clicked"); } }
     }),
     parameters: {
         docs: {
             description: {
                 story: `The DataPoint component offers 1 event that you may bind to an event listener:
 
-- fb-data-point-details-link:click - triggers when the details link is clicked
+- fb-data-point-action-link:click - triggers when the action link is clicked
 `,
             },
             source: {
-                code: `<DataPoint :dataPoint="dataPoint" @fb-data-point-details-link:click="handleDetailsClick($event)" />`
+                code: `<DataPointRoot :dataPoint="dataPoint" @fb-data-point-details-link:click="handleClick($event)" />`
             }
         }
     }

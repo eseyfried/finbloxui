@@ -1,9 +1,6 @@
-<script>
-
-</script>
 <script setup>
 import { mergeProps } from "vue";
-import { injectDataPointRootContext } from './DataPointRoot.vue'
+import { injectClientCardRootContext } from './ClientCardRoot.vue'
 import { Primitive, PrimitiveProps } from '@/components/Core/Primitive/Primitive'
 
 const props = defineProps(mergeProps(PrimitiveProps, {
@@ -12,7 +9,7 @@ const props = defineProps(mergeProps(PrimitiveProps, {
     default: 'a'
   },
 }))
-const rootContext = injectDataPointRootContext()
+const rootContext = injectClientCardRootContext()
 </script>
 <template>
     <Primitive

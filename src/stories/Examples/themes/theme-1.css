@@ -10,7 +10,8 @@
         @apply shadow-md p-3 rounded border-2 bg-white;
     }
 }
-html[data-mode='theme-1'] {
+
+html[data-mode='theme-1'] .headless {
     
     * {
         --fb-chart-color-1: #37A3EB;

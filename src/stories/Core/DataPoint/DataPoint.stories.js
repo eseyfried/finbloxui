@@ -1,8 +1,7 @@
 import { DataPointRoot } from '@/components/Core/DataPoint/';
-import * as BasicStory from './Basic.stories';
-import * as CustomTemplateStory from './CustomTemplate.stories';
-import * as CustomFormatterStory from './CustomFormatter.stories';
-import * as EventsStory from './Events.stories';
+import { action } from "@storybook/addon-actions";
+
+
 /**
  * ## Overview
  * The `DataPoint` component accepts a simple data object with a label, value and optional formatting option. This component is useful
@@ -12,10 +11,24 @@ import * as EventsStory from './Events.stories';
  * > As a user, I want to see important summary statistics so that I can get a quick sense of how my portfolio or account is doing.
  */
 
-export default {
+const main =  {
     title: 'Library/Core/DataPoint',
     components: { DataPointRoot },
     tags: ['autodocs'],
+    args: {
+        dataPoint: {
+            label: "YTD AUM",
+            value: "12345678.90",
+            format: "currency",
+            trend: {
+                format: "currency",
+                value: 14526.34,
+                direction: "up"
+            }
+        },
+        actionLabel: "show more",
+        showAction: true,
+    },
     argTypes: {
         dataPoint: {
             type: { name: "Object", required: true },
@@ -82,16 +95,55 @@ export default {
     }
 };
 
-export const BasicDataPoint = {
-    ...BasicStory.default
-};
+export default main;
 
-export const Events = {
-    ...EventsStory.default
-};
-export const CustomTemplate = {
-    ...CustomTemplateStory.default
-};
-export const CustomFormatter = {
-    ...CustomFormatterStory.default
-};
+
+const Template = (config) => {
+    return {
+        render: (args) => {
+            return {
+                components: { DataPointRoot },
+                setup() {
+                    return { args };
+                },
+                template: config?.template || `<DataPointRoot v-bind="args" @fb-data-point-action-link:click="handleActionClick" />`,
+                methods: {
+                    handleActionClick: (datapoint) => { alert(`Action link was clicked with data ${JSON.stringify(datapoint)}`); action('@fb-data-point-action-link:click')(datapoint) }
+                }
+            }
+        },
+        parameters: {
+            docs: {
+                description: {
+                    story: config?.story,
+                },
+                source: {
+                    code: config?.template
+                }
+            }
+        }
+    };
+}
+
+
+export const DefaultClientCard = {
+    ...Template({
+        story: "The default `DataPointRoot`component renders a data point's label, value, trend and action link."
+    })
+}
+
+export const WithCustomActionLabel = {
+    ...Template(),
+    args: {
+        ...main.args,
+        actionLabel: "show more details"
+    },
+}
+
+export const WithActionOff = {
+    ...Template(),
+    args: {
+        ...main.args,
+        showAction: false
+    },
+}

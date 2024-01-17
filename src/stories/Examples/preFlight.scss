@@ -1,6 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @layer preflight {
 // begin wrapper selector
-html[data-mode]:not([data-mode='headless']) {
+html[data-mode]:not([data-mode='headless']),
+.custom-layout {
 
     /*
 1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
@@ -377,7 +382,8 @@ video {
 
 } // end wrapper selector
 
-html[data-mode]:not([data-mode='headless']) {
+html[data-mode]:not([data-mode='headless']),
+.custom-layout {
     line-height: 1.5; /* 1 */
     -webkit-text-size-adjust: 100%; /* 2 */
     -moz-tab-size: 4; /* 3 */

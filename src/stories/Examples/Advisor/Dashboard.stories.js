@@ -24,7 +24,7 @@ export const Dashboard = {
             setup: () => {
                 return { args }
             },
-            template: `<DashboardPage :theme="args.theme"/>`,
+            template: `<DashboardPage :theme="args.theme" class="headless"/>`,
         }
     },
 };

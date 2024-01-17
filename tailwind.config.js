@@ -3,7 +3,7 @@ module.exports = {
   content: [
     "./index.html",
     "./src/stories/Examples/**/*.{js,vue}",
-    "./src/**/*.{vue,js,ts,jsx,tsx}"
+    "./src/**/*.{vue,js,ts,jsx,tsx,mdx}"
   ],
   darkMode: ['class', '[data-mode="dark"]'],
   theme: {

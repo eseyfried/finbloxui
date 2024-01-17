@@ -1,5 +1,5 @@
 <script>
-import { mergeProps, computed, watch, toRef } from 'vue';
+import { mergeProps, computed, toRef } from 'vue';
 import { PrimitiveProps } from '@/components/Core/Primitive';
 import { createContext } from '@/modules/shared';
 export const DataPointRootProps = mergeProps(PrimitiveProps, {
@@ -46,7 +46,8 @@ const props = defineProps(DataPointRootProps)
 
 
 const emit = defineEmits([
-    'fb-data-point-action-link:click',
+    'fb-client-card-details-link:click',
+    'fb-client-card-contact-link:click',
 ]);
 
 const applyFormat = (value, format) => {
@@ -83,7 +84,7 @@ const handleActionClick = () => {
 provideDataPointRootContext({
     dataPoint: transformedDataPoint.value,
     handleActionClick: handleActionClick,
-    getActionLabel: () => toRef(props, 'actionLabel').value, // make this reactive to prop changes so injected value update
+    actionLabel: toRef(props, 'actionLabel').value, // make this reactive to prop changes so injected value update
     showAction: props.showAction
 });
 

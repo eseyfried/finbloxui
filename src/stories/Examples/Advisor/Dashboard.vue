@@ -1,5 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
+    <div>
     <Header brandName="OneLeaf Financial" />
     <div class="page">
         <div class="grid grid-cols-[200px_auto] gap-4">
@@ -55,6 +56,7 @@
                 </div> -->
             </div>
         </div>
+    </div>
     </div>
 </template>
 <script setup>

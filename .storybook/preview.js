@@ -1,14 +1,15 @@
 /** @type { import('@storybook/vue3').Preview } */
 import { withThemeByDataAttribute } from '@storybook/addon-styling';
+import DocumentationTemplate from './DocumentationTemplate.mdx';
 
-// import "tailwindcss/tailwind.css";
+import "tailwindcss/tailwind.css";
 import "./global.css";
 import "../src/assets/fontawesome/css/fontawesome.css";
 import "../src/assets/fontawesome/css/brands.css";
 import "../src/assets/fontawesome/css/solid.css";
 import "../src/stories/Examples/preFlight.scss"
 import "../src/stories/Examples/themes/theme-1.css"
-import "../src/stories/Examples/themes/theme-2.css"
+// import "../src/stories/Examples/themes/theme-2.css"
 
 
 
@@ -27,6 +28,9 @@ const preview = {
             order: ['Documentation', "Library", '*'],
           },
     },
+    docs: {
+        // page: DocumentationTemplate,
+    },
   }
 }
 
@@ -36,6 +40,8 @@ const myDecorator = (getStory, context, { options, parameters }) => {
        const theme = context.options.theme
        return 
 }
+
+
 
 
 export const decorators = [
@@ -50,6 +56,12 @@ export const decorators = [
     defaultTheme: 'headless',
     attributeName: 'data-mode',
   }),
+  (story, ctx) => {
+    const className = ctx.parameters?.decoratorName || "headless"
+    return {
+        components: { story },
+        template: `<div class="${className}"><story /></div>`,
+    }},
 ];
 
 

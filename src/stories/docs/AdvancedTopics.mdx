@@ -1,0 +1,53 @@
+import { Meta, Source } from '@storybook/blocks';
+
+<Meta title="Documentation/Advanced" />
+
+# How to format rendered values
+
+Some components, such as the [DataPoint](?path=/docs/library-core-datapoint--docs) component, support a
+custom callback to format the rendered value. This can be useful if you'd like to override default formats
+applied by components.
+
+Components that accept defined data objects, such as the [DataPoint Object](?path=/story/library-datadefinitions--data-point-object),
+indicate whether a formatting callback is supported.
+
+Here's an example of how you might use one:
+
+<code>
+
+```javascript
+
+
+const customFormatter = (value) => {
+
+    // format value
+    const formatted = '$'+ parseFloat(value).toFixed(2)
+    // return formatted value
+    return formatted
+
+}
+
+const datapoint = {
+    "label": "Total AUM,
+    "value": 100897123.34,
+    "format": customFormatter,
+    "trend": {
+        "value": 10000.00,
+        "direction": up,
+        "format": customFormatter
+    }
+}
+
+```
+
+</code>
+
+<code>
+
+```html
+
+<DataPointRoot :dataPoint="dataPoint" />
+
+```
+
+</code>

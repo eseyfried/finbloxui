@@ -1,0 +1,39 @@
+import { Meta, Title, Primary, Controls, Stories, ArgTypes } from '@storybook/blocks';
+
+{/* 
+  * 👇 The isTemplate property is required to tell Storybook that this is a template
+  * See https://storybook.js.org/docs/api/doc-block-meta
+  * to learn how to use
+*/}
+
+<Meta isTemplate />
+
+<Title />
+
+{/*
+  * The use of a global decorator to wrap components causes an odd problem.
+  * The first component story does not render. Subsequent ones do.
+  * We trick it by placing a dummy component story and hidding it.
+*/}
+<div className="hidden">
+    <Primary />
+    <Stories />
+</div>
+
+# Default implementation
+
+<Primary />
+
+## Inputs
+
+The component accepts the following inputs (props):
+
+<Controls />
+
+---
+
+## Additional variations
+
+Listed below are additional variations of the component.
+
+<Stories />

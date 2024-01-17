@@ -1,0 +1,246 @@
+import { Meta, Source } from '@storybook/blocks';
+
+
+<Meta title="Documentation/Themeing" />
+
+# How to Theme Components
+
+FinbloxUI components are "headless"...completly unstyled. This gives you the complete control to apply your own look and feel to
+components.
+
+There are 2 methods to styling FinbloxUI components:
+
+- Method #1 - Using Built-in Component Class Names
+- Method #2 - Applying Custom Layout and Styling
+
+## Method #1 - Using Built-in Component Class Names
+
+By default, when you place a component it renders with a default HTML layout along with class names. You can use these class names
+to apply custom css rules. All components are documented with the `fb-*` class names they render.
+
+### When you place a component
+
+<code>
+
+``` html
+<DataPointRoot prop="value" prop="value" />
+```
+
+</code>
+
+### It renders HTML with class names
+
+The `fb-*` class names serve as hooks you can use to write css rules in your stylesheet. Each component is documented along with the `fb-*`
+class names they utilize.
+
+<code>
+
+``` html
+<div class="fb-data-point fb-component">
+    <div class="fb-data-point-body">
+        <h3>YTD AUM</h3>
+        <h4>$12,345,678.90</h4>
+        <span data-trend-direction="up" class="fb-data-point-trend">$14,526.34</span>
+    </div>
+    <div class="fb-data-point-footer">
+        <a href="#">show more</a>
+    </div>
+</div>
+```
+
+</code>
+
+### Creating your custom stylesheet
+
+Using the `fb-*` class names, build out your css rules to style the components.
+
+<code>
+
+``` css
+.fb-data-point {
+    position: relative;
+    width: 100%;
+    background-color: rgb(20 184 166);
+    border-radius: 0.375rem;
+    color: #FFFFFF;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+.fb-data-point h3 {
+    color: inherit;
+    margin: 0;
+}
+.fb-data-point h4 {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+    color: inherit;
+    margin: 0;
+}
+.fb-data-point-body {
+    display: flex;
+    flex-direction: column-reverse;
+    padding: 0.75rem;
+}
+.fb-data-point-trend {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.fb-data-point-trend[data-trend-direction='up']::before {
+    content: "+";
+}
+.fb-data-point-trend[data-trend-direction='down']::before {
+    content: "-";
+}
+.fb-data-point-footer {
+    & a {
+        color: #FFFFFF;
+        text-decoration: underline;
+    }
+    padding-left: 0.75rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+.icon::before {
+    display: inline-block;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+}
+```
+
+</code>
+
+### The finished product
+
+#### Before
+<div>
+    <div>
+        <h3>YTD AUM</h3>
+        <h4>$12,345,678.90</h4>
+        <span data-trend-direction="up">$14,526.34</span>
+    </div>
+    <div>
+        <a href="#">show more</a>
+    </div>
+</div>
+#### After
+<div class="fb-data-point fb-component">
+    <div class="fb-data-point-body">
+        <h3>YTD AUM</h3>
+        <h4>$12,345,678.90</h4>
+        <span data-trend-direction="up" class="fb-data-point-trend">$14,526.34</span>
+    </div>
+    <div class="fb-data-point-footer">
+        <a href="#">show more</a>
+    </div>
+</div>
+
+## Method #2 - Applying Custom Layout and Styling
+
+This next method is a little more advanced. It allows you to adjust the HTML layout and use your own class names and/or favorite css framework.
+In this example, we are using Tailwind's utility based css framework.
+
+<code>
+
+``` html
+<div class="bg-white rounded-sm shadow-md relative p-4">
+    <div class="mb-2">
+        <DataPointLabel class="text-sm text-gray-400 font-semibold" />
+        <DataPointValue class="text-2xl mb-6" />
+        <div class="inline">
+            <i class="text-green-700 fas fa-arrow-up"></i>
+            <DataPointTrend class="text-green-700 me-2" />
+            since yesterday
+        </div>
+    </div>
+    <div v-if="showAction">
+        <DataPointAction />
+    </div>
+</div>
+
+```
+
+</code>
+
+#### Before
+<div>
+    <div>
+        <h3>YTD AUM</h3>
+        <h4>$12,345,678.90</h4>
+        <span data-trend-direction="up">$14,526.34</span>
+    </div>
+    <div>
+        <a href="#">show more</a>
+    </div>
+</div>
+
+#### After
+<div class="custom-layout sb-unstyled bg-white rounded-sm shadow-md relative p-4">
+    <div class="mb-2">
+        <h3 class="text-sm text-gray-400 font-semibold">YTD AUM</h3>
+        <h4 class="text-2xl mb-6">$12,345,678.90</h4>
+        <div>
+            <i class="text-green-700 fas fa-arrow-up"></i><span data-trend-direction="up" class="text-green-700 me-2">$14,526.34</span>since yesterday
+        </div>
+    </div>
+    <div class="text-blue-600 underline">
+        <a href="#">show more</a>
+    </div>
+</div>
+
+
+
+
+<style>
+{`
+.fb-data-point {
+    position: relative;
+    width: 100%;
+    background-color: rgb(20 184 166);
+    border-radius: 0.375rem;
+    color: #FFFFFF;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+.fb-data-point h3 {
+    color: inherit;
+    margin: 0;
+}
+.fb-data-point h4 {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+    color: inherit;
+    margin: 0;
+}
+.fb-data-point-body {
+    display: flex;
+    flex-direction: column-reverse;
+    padding: 0.75rem;
+}
+.fb-data-point-trend {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.fb-data-point-trend[data-trend-direction='up']::before {
+    content: "+";
+}
+.fb-data-point-trend[data-trend-direction='down']::before {
+    content: "-";
+}
+.fb-data-point-footer {
+    & a {
+        color: #FFFFFF;
+        text-decoration: underline;
+    }
+    padding-left: 0.75rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+.icon::before {
+    display: inline-block;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+}
+`}
+</style>

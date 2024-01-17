@@ -53,16 +53,16 @@ export const BasicAccordion = {
           },
           template: `
           <div class="bg-slate-50 p-10">
-            <AccordionRoot class="bg-gray-200 w-[300px] rounded-md shadow-[0_2px_10px] shadow-black/5">
+            <AccordionRoot>
                 <template v-for="(accordionItem, i) in accordionItems" :key="i">
-                    <AccordionItem class="focus-within:shadow-gray-100  mt-px overflow-hidden first:mt-0 first:rounded-t last:rounded-b focus-within:relative focus-within:z-10 focus-within:shadow-[0_0_0_2px]" :value="accordionItem.value">
-                        <AccordionHeader class="flex">
-                            <AccordionTrigger class="text-green-700  shadow-gray-100 hover:bg-green-100 flex h-[45px] flex-1 cursor-default items-center justify-between bg-white px-5 text-[15px] leading-none shadow-[0_1px_0] outline-none group">
+                    <AccordionItem :value="accordionItem.value">
+                        <AccordionHeader>
+                            <AccordionTrigger>
                                 {{ accordionItem.title }}
                             </AccordionTrigger>
                         </AccordionHeader>
-                        <AccordionContent class="text-black bg-white data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp overflow-hidden text-[15px]">
-                            <p class="p-4">{{ accordionItem.content }}</p>
+                        <AccordionContent>
+                            <p>{{ accordionItem.content }}</p>
                         </AccordionContent>
                     </AccordionItem>
                 </template>

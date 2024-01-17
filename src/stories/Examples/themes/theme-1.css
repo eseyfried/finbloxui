@@ -381,6 +381,29 @@ html[data-mode='theme-1'] .headless {
         }
         @apply mb-4 !important;
     }
+
+    /* fb-accordion */
+    .fb-accordion {
+        @apply bg-gray-200 w-[300px] rounded-md shadow-[0_2px_10px] shadow-black/5;
+    }
+    .fb-accordion-item {
+        @apply focus-within:shadow-gray-100  mt-px overflow-hidden first:mt-0 first:rounded-t last:rounded-b focus-within:relative focus-within:z-10 focus-within:shadow-[0_0_0_2px];
+    }
+
+    .fb-accordion-header {
+        @apply flex;
+    }
+
+    .fb-accordion-trigger {
+        @apply text-blue-700 shadow-gray-100 hover:bg-blue-100 flex h-[45px] flex-1 cursor-default items-center justify-between bg-white px-5 text-[15px] leading-none outline-none;
+    }
+
+    .fb-accordion-content {
+        @apply text-black bg-white data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp overflow-hidden text-[15px];
+        p {
+            @apply p-4;
+        }
+    }
     
 
     /* EXAMPLE THEME STYLES */

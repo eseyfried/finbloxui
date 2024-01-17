@@ -30,6 +30,7 @@ function changeItem() {
     :data-state="itemContext.dataState.value"
     :disabled="itemContext.disabled.value"
     @click="changeItem"
+    class="fb-accordion-trigger"
   >
     <slot />
   </CollapsibleTrigger>

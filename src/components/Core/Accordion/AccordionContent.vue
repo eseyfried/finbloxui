@@ -19,6 +19,7 @@ const itemContext = injectAccordionItemContext()
     :aria-labelledby="itemContext.triggerId"
     :data-state="itemContext.dataState.value"
     :data-disabled="itemContext.dataDisabled.value"
+    class="fb-accordion-content"
     style="
       --fb-accordion-content-width: var(--fb-collapsible-content-width);
       --fb-accordion-content-height: var(--fb-collapsible-content-height);

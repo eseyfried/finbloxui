@@ -18,6 +18,7 @@ const itemContext = injectAccordionItemContext()
     :as-child="props.asChild"
     :data-state="itemContext.dataState.value"
     :data-disabled="itemContext.dataDisabled.value"
+    class="fb-accordion-header"
   >
     <slot />
   </Primitive>

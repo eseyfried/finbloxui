@@ -1,5 +1,10 @@
 <template>
-    <Primitive ref="primitiveElement" :as-child="asChild" :as="as">
+    <Primitive
+        ref="primitiveElement"
+        :as-child="asChild"
+        :as="as"
+        :class="['fb-accordion', componentClasses.getClassByType('component')]"
+    >
         <slot :model-value="modelValue" />
     </Primitive>
 </template>
@@ -7,6 +12,7 @@
 import { mergeProps } from 'vue';
 import { PrimitiveProps } from '@/components/Core/Primitive';
 import { createContext, useDirection } from '@/modules/shared';
+import * as componentClasses from "@/modules/useCommonCSS";
 export const AccordionRootEmits = ['update:modelValue']
 
 export const AccordionRootProps = mergeProps(PrimitiveProps, {

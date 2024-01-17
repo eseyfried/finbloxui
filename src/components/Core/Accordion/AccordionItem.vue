@@ -92,6 +92,7 @@ function handleArrowKey(e) {
         :open="open"
         :as-child="props.asChild"
         @keydown.up.down.left.right.home.end="handleArrowKey"
+        class="fb-accordion-item"
     >
         <slot :open="open" />
     </CollapsibleRoot>

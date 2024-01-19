@@ -8,7 +8,7 @@ import {
 
 
 /**
- * <span class="badge sb-unstyled">Core</span>
+ * <span className="badge sb-unstyled">Core</span>
  * 
  * 
  * ## Overview

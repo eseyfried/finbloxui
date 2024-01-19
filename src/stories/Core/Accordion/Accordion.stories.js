@@ -5,10 +5,10 @@ import {
     AccordionContent,
     AccordionTrigger,
 } from "@/components/Core/Accordion";
-
+import { useStoryTemplate } from "@/stories/modules/useStoryTemplate";
 
 /**
- * <span class="badge sb-unstyled">Core</span>
+ * <span className="badge sb-unstyled">Core</span>
  * 
  * 
  * ## Overview
@@ -18,29 +18,29 @@ import {
  * 
  * 
  */
- export default {
+ const main = {
     title: 'Library/Core/Accordion',
     components: { AccordionRoot, AccordionItem, AccordionHeader, AccordionContent, AccordionTrigger },
     tags: ['autodocs'],
     args: {
-        collapsible: true,
         disabled: false,
+        defaultValue: ""
     },
     argTypes: {
-        collapsible: {
-            description: "Whether the accordion items can be collapsible or not",
-            table: {
-                type: { summary: "Boolean" },
-                defaultValue: { summary: "true" },
-                category: 'Props',
-            },
-            options: [true, false],
-        },
         disabled: {
             description: "Whether the accordion is disabled or not",
             table: {
                 type: { summary: "Boolean" },
-                defaultValue: { summary: "true" },
+                defaultValue: { summary: "false" },
+                category: 'Props',
+            },
+            options: [true, false],
+        },
+        defaultValue: {
+            description: "The value of the accordion item to expand by default",
+            table: {
+                type: { summary: "String" },
+                defaultValue: { summary: "" },
                 category: 'Props',
             },
             options: [true, false],
@@ -106,6 +106,7 @@ import {
     }
 };
 
+export default main;
 
 const accordionItems = [
     {
@@ -125,9 +126,12 @@ const accordionItems = [
     },
   ]
 
+
 const template = `
-<AccordionRoot>
-    <template v-for="(accordionItem, i) in accordionItems" :key="i">
+<AccordionRoot
+    v-bind="args"
+>
+    <template v-for="(accordionItem, i) in args.accordionItems" :key="i">
         <AccordionItem :value="accordionItem.value">
             <AccordionHeader>
                 <AccordionTrigger>
@@ -142,30 +146,59 @@ const template = `
 </AccordionRoot>
 `
 
-export const BasicAccordion = {
-        title: 'Library/Core/Accordion',
-        args: {
-            
+const Template = (config) => {
+    return {
+        render: (args) => {
+            return {
+                components: { AccordionRoot, AccordionItem, AccordionHeader, AccordionContent, AccordionTrigger },
+                setup() {
+                    args.accordionItems = accordionItems
+                    args.props = config?.props
+                    return { args };
+                },
+                template: config?.template || useStoryTemplate(template, config?.props),
+                methods: {}
+            }
         },
-        render: (args) => ({
-            components: { AccordionRoot, AccordionItem, AccordionHeader, AccordionContent, AccordionTrigger },
-          setup() {
-            return { args, accordionItems };
-          },
-          template: `
-          <div class="">
-            ${template}
-          </div>`,
-        }),
         parameters: {
             docs: {
                 description: {
-                    story: "The basic use of the Accordion component.",
+                    story: config?.story,
                 },
                 source: {
-                    code: `const accordionItems = ${JSON.stringify(accordionItems, " ", 4)} ${template}`
+                    code: config?.template || config?.source || useStoryTemplate(template, config?.props)
                 }
             }
         }
+    };
+}
+
+export const BasicAccordion = {
+        ...Template({
+            story: "The basic use of the Accordion component.",
+            source: `const accordionItems = ${JSON.stringify(accordionItems, " ", 4)} ${useStoryTemplate(template, {...main.args})}`
+        }),
+        args: {
+            ...main.args
+        },
 };
 
+export const DisabledAccordion = {
+    ...Template({
+        props: {...main.args, disabled: true}
+    }),
+    args: {
+        ...main.args,
+        disabled: true
+    },
+};
+
+export const ExpandedByDefault = {
+    ...Template({
+        props: {...main.args, defaultValue: "item-1"}
+    }),
+    args: {
+        ...main.args,
+        defaultValue: "item-1"
+    },
+};

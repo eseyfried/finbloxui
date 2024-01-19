@@ -60,6 +60,7 @@ const props = defineProps(AccordionRootProps)
 const emits = defineEmits(AccordionRootEmits);
 const { disabled, collapsible } = toRefs(props);
 
+
 const { modelValue, changeModelValue } = useSingleOrMultipleValue(props, emits);
 
 const { primitiveElement, currentElement: parentElement } = usePrimitiveElement();

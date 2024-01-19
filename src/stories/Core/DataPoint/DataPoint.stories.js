@@ -1,5 +1,6 @@
 import { DataPointRoot } from '@/components/Core/DataPoint/';
 import { action } from "@storybook/addon-actions";
+import { useStoryTemplate } from "@/stories/modules/useStoryTemplate";
 
 
 /**
@@ -97,6 +98,7 @@ const main =  {
 
 export default main;
 
+const template = `<DataPointRoot v-bind="args" @fb-data-point-action-link:click="handleActionClick" />`
 
 const Template = (config) => {
     return {
@@ -106,7 +108,7 @@ const Template = (config) => {
                 setup() {
                     return { args };
                 },
-                template: config?.template || `<DataPointRoot v-bind="args" @fb-data-point-action-link:click="handleActionClick" />`,
+                template: config?.template || useStoryTemplate(template, config?.props),
                 methods: {
                     handleActionClick: (datapoint) => { alert(`Action link was clicked with data ${JSON.stringify(datapoint)}`); action('@fb-data-point-action-link:click')(datapoint) }
                 }
@@ -118,7 +120,7 @@ const Template = (config) => {
                     story: config?.story,
                 },
                 source: {
-                    code: config?.template
+                    code: config?.template || config?.source || useStoryTemplate(template, config?.props)
                 }
             }
         }
@@ -128,12 +130,15 @@ const Template = (config) => {
 
 export const DefaultClientCard = {
     ...Template({
-        story: "The default `DataPointRoot`component renders a data point's label, value, trend and action link."
+        story: "The default `DataPointRoot`component renders a data point's label, value, trend and action link.",
+        props: { ...main.args }
     })
 }
 
 export const WithCustomActionLabel = {
-    ...Template(),
+    ...Template({
+        props: { ...main.args, actionLabel: "show more details" }
+    }),
     args: {
         ...main.args,
         actionLabel: "show more details"
@@ -141,7 +146,9 @@ export const WithCustomActionLabel = {
 }
 
 export const WithActionOff = {
-    ...Template(),
+    ...Template({
+        props: { ...main.args, showAction: false }
+    }),
     args: {
         ...main.args,
         showAction: false

@@ -2,6 +2,7 @@ import { ClientCardRoot } from '@/components/Advisor/Clients/ClientCard/';
 import { ref } from "vue";
 import { useClientData } from "@/stories/modules/useClientData";
 import { action } from "@storybook/addon-actions";
+import { useStoryTemplate } from "@/stories/modules/useStoryTemplate";
 
 
 /**
@@ -130,38 +131,55 @@ const main = {
 };
 export default main;
 
+const template = `
+<ClientCardRoot
+    v-bind="args"
+    @fb-client-card-action-link:click="handleActionClick"
+    @fb-client-card-email-link:click="handleEmailClick"
+    @fb-client-card-phone-link:click="handlePhoneClick"
+/>`
 
-const Template = {
-    render: (args) => {
-        return {
-            components: { ClientCardRoot },
-            setup() {
-                args.client = useClientData()
-                return { args }
-            },
-            template: `
-            <ClientCardRoot
-                v-bind="args"
-                @fb-client-card-action-link:click="handleActionClick"
-                @fb-client-card-email-link:click="handleEmailClick"
-                @fb-client-card-phone-link:click="handlePhoneClick"
-            />`,
-            methods: {
-                handleEmailClick: (email) => { alert(`Email link was clicked with value ${email}`); action('@fb-client-card-email-link:click')(email) },
-                handlePhoneClick: (phone) => { alert(`Phone link was clicked with value ${phone}`); action('@fb-client-card-phone-link:click')(phone)},
-                handleActionClick: (client) => { alert(`Action link was clicked with client ${JSON.stringify(client)}`); action('@fb-client-card-action-link:click')(client) }
+const Template = (config) => {
+    return {
+        render: (args) => {
+            return {
+                components: { ClientCardRoot },
+                setup() {
+                    args.client = useClientData()
+                    return { args }
+                },
+                template: config?.template || useStoryTemplate(template, config?.props),
+                methods: {
+                    handleEmailClick: (email) => { alert(`Email link was clicked with value ${email}`); action('@fb-client-card-email-link:click')(email) },
+                    handlePhoneClick: (phone) => { alert(`Phone link was clicked with value ${phone}`); action('@fb-client-card-phone-link:click')(phone)},
+                    handleActionClick: (client) => { alert(`Action link was clicked with client ${JSON.stringify(client)}`); action('@fb-client-card-action-link:click')(client) }
+                }
+            }
+        },
+        parameters: {
+            docs: {
+                description: {
+                    story: config?.story,
+                },
+                source: {
+                    code: config?.template || config?.source || useStoryTemplate(template, config?.props)
+                }
             }
         }
-    }
-  };
+    };
+}
 
 
 export const DefaultClientCard = {
-    ...Template
+    ...Template({
+        props: {...main.args}
+    })
 }
 
 export const WithCustomActionLabel = {
-    ...Template,
+    ...Template({
+        props: {...main.args, actionLabel: "show more details"}
+    }),
     args: {
         ...main.args,
         actionLabel: "show more details"
@@ -169,7 +187,9 @@ export const WithCustomActionLabel = {
 }
 
 export const WithStatsOff = {
-    ...Template,
+    ...Template({
+        props: {...main.args, showStats: false}
+    }),
     args: {
         ...main.args,
         showStats: false,
@@ -177,7 +197,9 @@ export const WithStatsOff = {
 }
 
 export const WithContactInfoOff = {
-    ...Template,
+    ...Template({
+        props: {...main.args, showContactInfo: false}
+    }),
     args: {
         ...main.args,
         showContactInfo: false
@@ -185,7 +207,9 @@ export const WithContactInfoOff = {
 }
 
 export const WithActionOff = {
-    ...Template,
+    ...Template({
+        props: {...main.args, showAction: false}
+    }),
     args: {
         ...main.args,
         showAction: false

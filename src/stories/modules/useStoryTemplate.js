@@ -4,7 +4,8 @@ const parseAttributes = (tag) => {
     const tagAttrs = /[^<\w][^/>]+/gim.exec(tag)
     // split tag on spaces
     const attrs = tagAttrs[0] ? tagAttrs[0].trim().split(/\s+/g) : []
-    const filteredAttrs = attrs.filter(attr => attr != 'v-bind="args"')
+    // const filteredAttrs = attrs.filter(attr => attr != 'v-bind="args"')
+    const filteredAttrs = attrs.filter(attr => true)
     return filteredAttrs
 }
 
@@ -25,7 +26,6 @@ const formatAttrs = (attrs) => {
 }
 
 export const useStoryTemplate = (tmpl, props = null) => {
-    
     // find tag that has v-bind
     const vbindRegex = /(<\w+\s)([^>]*)v-bind="args"([^/>]*)(\/?>)/gim
     const matchedTag = vbindRegex.exec(tmpl)

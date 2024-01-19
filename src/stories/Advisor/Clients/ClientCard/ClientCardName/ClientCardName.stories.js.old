@@ -29,32 +29,11 @@ const main = {
             },
         },
     },
-    args: {
-        as: "div"
-    },
+    args: {},
 };
 
 export default main
 
-const Template = (args) => ({
-    components: { ClientCardRoot, ClientCardName },
-    setup() {
-        args.client = useClientData()
-        return { args }
-    },
-    template: `
-    <div>
-        <ClientCardRoot v-bind="args" as="div">
-            <ClientCardName />
-        </ClientCardRoot>
-    </div>`
-})
-
-export const Component = Template.bind({})
-Component.args = { }
-
-
-/*
 const template = `
 <ClientCardRoot v-bind="args" as="div">
     <ClientCardName />
@@ -85,8 +64,8 @@ const Template = (config) => {
         }
     };
 }
-*/
-/*
+
+
 export const Component = {
     ...Template()
 }
@@ -104,4 +83,3 @@ export const CustomUsingProps = {
     story: 'You can customize the layout using the `#default="props"` attribute and slotted content.'
 })
 }
-*/

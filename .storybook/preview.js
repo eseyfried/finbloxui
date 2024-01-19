@@ -67,6 +67,7 @@ export const decorators = [
 
 import { setup } from '@storybook/vue3'
 import { createPinia } from 'pinia';
+import { useClientData } from "@/stories/modules/useClientData";
 
 
 const pinia = createPinia();

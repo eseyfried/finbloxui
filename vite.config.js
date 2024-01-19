@@ -7,7 +7,7 @@ import vue from '@vitejs/plugin-vue';
 export default defineConfig({
   plugins: [vue({template:{compilerOptions:{whitespace: 'preserve'}}})],
   resolve: {
-    extensions: [".vue", ".js", ".json", ".scss", ".css"],
+    extensions: [".vue", '.mjs',".js", ".json", ".scss", ".css"],
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }

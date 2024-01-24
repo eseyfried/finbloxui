@@ -1,11 +1,11 @@
 <script setup>
 import { mergeProps } from "vue";
 import {
-    ListGroupItem
+    ListGroupItem, ListGroupItemProps
 } from '@/components/Core/ListGroup/';
-import { PrimitiveProps } from '@/components/Core/Primitive/Primitive'
 
-defineProps(mergeProps(PrimitiveProps, {}))
+
+defineProps(mergeProps(ListGroupItemProps, {}))
 
 </script>
 <template>

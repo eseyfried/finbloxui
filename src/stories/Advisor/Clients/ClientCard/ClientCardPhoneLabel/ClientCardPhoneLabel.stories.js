@@ -1,4 +1,5 @@
 import { useClientData } from "@/stories/modules/useClientData";
+import { defaultValue, generateArgs } from "@/stories/modules/useStoryHelper";
 import { 
     ClientCardRoot,
     ClientCardPhoneList,
@@ -7,6 +8,30 @@ import {
     ClientCardPhoneValue
  } from '@/components/Advisor/Clients/ClientCard/';
 import { default as ClientCard } from '../ClientCard.stories'
+
+const getArgs = generateArgs({
+    as: defaultValue(ClientCardPhoneLabel, 'as'),
+    client: useClientData()
+})
+
+const components = {
+    ClientCardRoot,
+    ClientCardPhoneList,
+    ClientCardPhoneListItem,
+    ClientCardPhoneLabel,
+    ClientCardPhoneValue
+}
+
+const template = `
+<ClientCardRoot :client="args.client">
+    <ClientCardPhoneList #default="props">
+        <ClientCardPhoneListItem v-for="(stat, i) in props.phone" :key="i">
+            <ClientCardPhoneLabel :index="i" :as="args.as" />
+            <ClientCardPhoneValue :index="i" />
+        </ClientCardPhoneListItem>
+    </ClientCardPhoneList>
+</ClientCardRoot>`
+
 /**
  * ## Overview
  * The `ClientCardPhoneLabel` sub-component displays a phone field text label for a given phone object in the `client.contact_info.phone[i]` object
@@ -14,16 +39,21 @@ import { default as ClientCard } from '../ClientCard.stories'
  * 
  * 
  */
-const main = {
+export default {
     title: 'Library/Advisor/Clients/ClientCard/ClientCardPhoneLabel',
-    components: { ClientCardRoot, ClientCardPhoneList, ClientCardPhoneListItem, ClientCardPhoneLabel, ClientCardPhoneValue },
+    components,
     tags: ['autodocs'],
     argTypes: {
+        client: {
+            table: {
+                disable: true
+            }
+        },
         as: {
             ...ClientCard.argTypes.as,
             table: {
                 ...ClientCard.argTypes.as.table,
-                defaultValue: { summary: "label" },
+                defaultValue: { summary: defaultValue(ClientCardPhoneLabel, 'as') },
             }
         },
         index: {
@@ -33,6 +63,13 @@ const main = {
                 category: ClientCard.argTypes.as.table.category,
             },
             control: false
+        },
+        ClientCardRoot: {
+            table: {
+                type: { summary: "Root-Component" },
+                defaultValue: { summary: '<ClientCardRoot />' },
+                category: 'Related Components',
+            },
         },
         ClientCardPhoneList: {
             table: {
@@ -56,67 +93,43 @@ const main = {
             },
         },
     },
-    args: {},
+    args: getArgs(),
 };
 
-export default main
-
-const template = `
-<ClientCardRoot v-bind="args" as="div">
-    <ClientCardPhoneList #default="props">
-        <ClientCardPhoneListItem v-for="(stat, i) in props.phone" :key="i">
-            <ClientCardPhoneLabel :index="i" />
-            <ClientCardPhoneValue :index="i" />
-        </ClientCardPhoneListItem>
-    </ClientCardPhoneList>
-</ClientCardRoot>`
-
-const Template = (config) => {
-    return {
-        render: (args) => {
-            return {
-                components: { ClientCardRoot, ClientCardPhoneList, ClientCardPhoneListItem, ClientCardPhoneLabel, ClientCardPhoneValue },
-                setup() {
-                    args.client = useClientData()
-                    return { args };
-                },
-                template: config?.template || template,
-                methods: {}
-            }
-        },
-        parameters: {
-            docs: {
-                description: {
-                    story: config?.story || "The `ClientCardPhoneLabel` component is intended to be used as a sub-component slotted into `ClientCardPhoneListItem`. It renders a phone label from the `client.contact_info.phone[i].label` based on the `index` prop passed in.",
-                },
-                source: {
-                    code: config?.template || template,
-                }
-            }
-        }
-    };
-}
 
 
-export const Component = {
-    ...Template()
-}
 
-export const CustomUsingProps = {
-    ...Template(
-        {
-            template:`
-<ClientCardRoot v-bind="args" as="div">
-    <ClientCardPhoneList #default="props">
-        <ClientCardPhoneListItem v-for="(stat, i) in props.phone" :key="i">
-            <ClientCardPhoneLabel :index="i" #default="props">
-                <h5>{{ props.label }}:</h5>
-            </ClientCardPhoneLabel>
-            <ClientCardPhoneValue :index="i" />
-        </ClientCardPhoneListItem>
-    </ClientCardPhoneList>
-</ClientCardRoot>
-`,
-    story: 'You can customize the layout using the `#default="props"` attribute and slotted content.'
+
+/**
+ * The `ClientCardPhoneLabel` component is intended to be used as a sub-component slotted into `ClientCardPhoneListItem`. 
+ * It renders a phone label from the `client.contact_info.phone[i].label` based on the `index` prop passed in.
+ */
+
+
+export const BasicUse = (args) => ({
+    components,
+    setup: () => { return { args } },
+    template
 })
-}
+
+/**
+ * 
+ * You can customize the layout using the `#default="props"` attribute and slotted content.
+ */
+
+export const CustomUsingSlotProps = (args) => ({
+    components,
+    setup: () => { return { args } },
+    template:`
+    <ClientCardRoot :client="args.client">
+        <ClientCardPhoneList #default="props">
+            <ClientCardPhoneListItem v-for="(stat, i) in props.phone" :key="i">
+                <ClientCardPhoneLabel :index="i" #default="props" :as="args.as">
+                    <h5>{{ props.label }}:</h5>
+                </ClientCardPhoneLabel>
+                <ClientCardPhoneValue :index="i" />
+            </ClientCardPhoneListItem>
+        </ClientCardPhoneList>
+    </ClientCardRoot>
+`
+})

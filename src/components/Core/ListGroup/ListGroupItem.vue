@@ -1,17 +1,18 @@
 <script>
-
+import { Primitive, PrimitiveProps } from '@/components/Core/Primitive/Primitive'
+export const ListGroupItemProps = mergeProps(PrimitiveProps, {
+    as: {
+        type: String,
+        default: "li"
+    }
+})
 </script>
 <script setup>
 import { mergeProps } from "vue";
 import { injectListGroupRootContext } from './ListGroupRoot.vue'
-import { Primitive, PrimitiveProps } from '@/components/Core/Primitive/Primitive'
 
-defineProps(mergeProps(PrimitiveProps, {
-  as: {
-    type: String,
-    default: 'li'
-  }
-}))
+
+defineProps(ListGroupItemProps)
 const rootContext = injectListGroupRootContext()
 </script>
 <template>

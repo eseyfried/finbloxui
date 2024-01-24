@@ -2,8 +2,38 @@ import { ClientCardRoot } from '@/components/Advisor/Clients/ClientCard/';
 import { ref } from "vue";
 import { useClientData } from "@/stories/modules/useClientData";
 import { action } from "@storybook/addon-actions";
-import { useStoryTemplate } from "@/stories/modules/useStoryTemplate";
+import { defaultValue, generateArgs } from "@/stories/modules/useStoryHelper";
 
+
+const getArgs = generateArgs({
+    actionLabel: defaultValue(ClientCardRoot, 'actionLabel'),
+    as: defaultValue(ClientCardRoot, 'as'),
+    showAction: defaultValue(ClientCardRoot, 'showAction'),
+    showStats: defaultValue(ClientCardRoot, 'showStats'),
+    showContactInfo: defaultValue(ClientCardRoot, 'showContactInfo'),
+    client: useClientData()
+})
+
+const components = { ClientCardRoot }
+
+const methods = {
+    handleEmailClick: (email) => { alert(`Email link was clicked with value ${email}`); action('@fb-client-card-email-link:click')(email) },
+    handlePhoneClick: (phone) => { alert(`Phone link was clicked with value ${phone}`); action('@fb-client-card-phone-link:click')(phone)},
+    handleActionClick: (client) => { alert(`Action link was clicked with client ${JSON.stringify(client)}`); action('@fb-client-card-action-link:click')(client) }
+}
+
+const template = `
+<ClientCardRoot
+    :client="args.client"
+    :as="args.as"
+    :showAction="args.showAction"
+    :actionLabel="args.actionLabel"
+    :showStats="args.showStats"
+    :showContactInfo="args.showContactInfo"
+    @fb-client-card-action-link:click="handleActionClick"
+    @fb-client-card-email-link:click="handleEmailClick"
+    @fb-client-card-phone-link:click="handlePhoneClick"
+/>`
 
 /**
  * ## Overview
@@ -12,20 +42,17 @@ import { useStoryTemplate } from "@/stories/modules/useStoryTemplate";
  * 
  */
 
-const main = {
+export default {
     title: 'Library/Advisor/Clients/ClientCard',
-    component: { ClientCardRoot },
+    components,
     tags: ['autodocs'],
-    args: {
-        actionLabel: "show more",
-        as: "div",
-    },
+    args: getArgs(),
     argTypes: {
         as: {
             description: "render this component root tag as a specific html tag",
             table: {
                 type: { summary: "String" },
-                defaultValue: { summary: "div" },
+                defaultValue: { summary: defaultValue(ClientCardRoot, 'as') },
                 category: 'Props',
             },
             control: { type: 'text' },
@@ -45,7 +72,7 @@ const main = {
             description: "Show action link.",
             table: {
                 type: { summary: "Boolean" },
-                defaultValue: { summary: "true" },
+                defaultValue: { summary: defaultValue(ClientCardRoot, 'showAction') },
                 category: 'Props',
             },
             options: [true, false],
@@ -55,7 +82,7 @@ const main = {
             description: "Show stats section.",
             table: {
                 type: { summary: "Boolean" },
-                defaultValue: { summary: true },
+                defaultValue: { summary: defaultValue(ClientCardRoot, 'showStats') },
                 category: 'Props',
             },
             options: [true, false],
@@ -65,7 +92,7 @@ const main = {
             description: "Show contact info section.",
             table: {
                 type: { summary: "Boolean" },
-                defaultValue: { summary: "true" },
+                defaultValue: { summary: defaultValue(ClientCardRoot, 'showContactInfo') },
                 category: 'Props',
             },
             options: [true, false],
@@ -75,11 +102,9 @@ const main = {
             description: "Text label for the action link",
             table: {
                 type: { summary: "String" },
-                defaultValue: { summary: "Show More" },
+                defaultValue: { summary: defaultValue(ClientCardRoot, 'actionLabel') },
                 category: 'Props',
             },
-            type: { name: "string" },
-            defaultValue: "Show More",
             control: { type: 'text' },
         },
         "fb-client-card-email-link:click": {
@@ -129,90 +154,42 @@ const main = {
         },
     }
 };
-export default main;
-
-const template = `
-<ClientCardRoot
-    v-bind="args"
-    @fb-client-card-action-link:click="handleActionClick"
-    @fb-client-card-email-link:click="handleEmailClick"
-    @fb-client-card-phone-link:click="handlePhoneClick"
-/>`
-
-const Template = (config) => {
-    return {
-        render: (args) => {
-            return {
-                components: { ClientCardRoot },
-                setup() {
-                    args.client = useClientData()
-                    return { args }
-                },
-                template: config?.template || useStoryTemplate(template, config?.props),
-                methods: {
-                    handleEmailClick: (email) => { alert(`Email link was clicked with value ${email}`); action('@fb-client-card-email-link:click')(email) },
-                    handlePhoneClick: (phone) => { alert(`Phone link was clicked with value ${phone}`); action('@fb-client-card-phone-link:click')(phone)},
-                    handleActionClick: (client) => { alert(`Action link was clicked with client ${JSON.stringify(client)}`); action('@fb-client-card-action-link:click')(client) }
-                }
-            }
-        },
-        parameters: {
-            docs: {
-                description: {
-                    story: config?.story,
-                },
-                source: {
-                    code: config?.template || config?.source || useStoryTemplate(template, config?.props)
-                }
-            }
-        }
-    };
-}
 
 
-export const DefaultClientCard = {
-    ...Template({
-        props: {...main.args}
-    })
-}
+const render = (args) => ({
+    components,
+    setup: () => { return { args } },
+    template,
+    methods,
+})
+
+
+
+export const BasicUse = render
 
 export const WithCustomActionLabel = {
-    ...Template({
-        props: {...main.args, actionLabel: "show more details"}
-    }),
+    render,
     args: {
-        ...main.args,
-        actionLabel: "show more details"
-    },
+        actionLabel:  "show more details"
+    }
 }
-
 export const WithStatsOff = {
-    ...Template({
-        props: {...main.args, showStats: false}
-    }),
+    render,
     args: {
-        ...main.args,
-        showStats: false,
-    },
+        showStats: false
+    }
 }
 
 export const WithContactInfoOff = {
-    ...Template({
-        props: {...main.args, showContactInfo: false}
-    }),
+    render,
     args: {
-        ...main.args,
         showContactInfo: false
-    },
+    }
 }
 
 export const WithActionOff = {
-    ...Template({
-        props: {...main.args, showAction: false}
-    }),
+    render,
     args: {
-        ...main.args,
         showAction: false
-    },
+    }
 }
-

@@ -1,4 +1,5 @@
 import { useClientData } from "@/stories/modules/useClientData";
+import { defaultValue, generateArgs } from "@/stories/modules/useStoryHelper";
 import { 
     ClientCardRoot,
     ClientCardDataList,
@@ -7,6 +8,30 @@ import {
     ClientCardDataValue
  } from '@/components/Advisor/Clients/ClientCard/';
 import { default as ClientCard } from '../ClientCard.stories'
+
+const getArgs = generateArgs({
+    as: defaultValue(ClientCardDataList, 'as'),
+    client: useClientData()
+})
+
+const components = {
+    ClientCardRoot,
+    ClientCardDataList,
+    ClientCardDataListItem,
+    ClientCardDataLabel,
+    ClientCardDataValue
+}
+
+ const template = `
+<ClientCardRoot :client="args.client">
+    <ClientCardDataList #default="props" :as="args.as">
+        <ClientCardDataListItem v-for="(stat, i) in props.data" :key="i">
+            <ClientCardDataLabel :index="i" />
+            <ClientCardDataValue :index="i" />
+        </ClientCardDataListItem>
+    </ClientCardDataList>
+</ClientCardRoot>`
+
 /**
  * ## Overview
  * The `ClientCardDataList` component is a root element intended to display a list of client
@@ -14,16 +39,21 @@ import { default as ClientCard } from '../ClientCard.stories'
  * It works with its sub-components listed in the related component section.
  * 
  */
-const main = {
+export default {
     title: 'Library/Advisor/Clients/ClientCard/ClientCardDataList',
-    components: { ClientCardRoot, ClientCardDataList, ClientCardDataListItem, ClientCardDataLabel, ClientCardDataValue },
+    components,
     tags: ['autodocs'],
     argTypes: {
+        client: {
+            table: {
+                disable: true
+            }
+        },
         as: {
             ...ClientCard.argTypes.as,
             table: {
                 ...ClientCard.argTypes.as.table,
-                defaultValue: { summary: "ul" },
+                defaultValue: { summary: defaultValue(ClientCardDataList, 'as') },
             }
         },
         default: {
@@ -32,6 +62,13 @@ const main = {
                 type: { summary: "String" },
                 defaultValue: { summary: 'props.data' },
                 category: 'Attributes',
+            },
+        },
+        ClientCardRoot: {
+            table: {
+                type: { summary: "Root-Component" },
+                defaultValue: { summary: '<ClientCardRoot />' },
+                category: 'Related Components',
             },
         },
         ClientCardDataListItem: {
@@ -56,48 +93,38 @@ const main = {
             },
         },
     },
-    args: {},
+    args: getArgs(),
 };
 
-export default main
-
-const template = `
-<ClientCardRoot v-bind="args" as="div">
-    <ClientCardDataList #default="props">
-        <ClientCardDataListItem v-for="(stat, i) in props.data" :key="i">
-            <ClientCardDataLabel :index="i" />
-            <ClientCardDataValue :index="i" />
-        </ClientCardDataListItem>
-    </ClientCardDataList>
-</ClientCardRoot>`
-
-const Template = (config) => {
-    return {
-        render: (args) => {
-            return {
-                components: { ClientCardRoot, ClientCardDataList, ClientCardDataListItem, ClientCardDataLabel, ClientCardDataValue },
-                setup() {
-                    args.client = useClientData()
-                    return { args };
-                },
-                template: config?.template || template,
-                methods: {}
-            }
-        },
-        parameters: {
-            docs: {
-                description: {
-                    story: config?.source || "The `ClientCardDataList` is a root component that provides an array of client financial data objects to slotted sub-components.",
-                },
-                source: {
-                    code: config?.template || template
-                }
-            }
-        }
-    };
-}
 
 
-export const Component = {
-    ...Template()
-}
+/**
+ * The `ClientCardDataList` is a root component that provides an array of client financial data objects to slotted sub-components.
+ */
+
+
+export const BasicUse = (args) => ({
+    components,
+    setup: () => { return { args } },
+    template
+})
+
+/**
+ * 
+ * You can customize the layout using the `#default="props"` attribute and slotted content.
+ */
+
+export const CustomUsingSlotProps = (args) => ({
+    components,
+    setup: () => { return { args } },
+    template:`
+    <ClientCardRoot :client="args.client">
+        <ClientCardDataList #default="props" :as="args.as">
+            <li v-for="(stat, i) in props.data" :key="i">
+                <div>{{ props.data[i].value }}</div>
+                <div>{{ props.data[i].label }}</div>
+            </li>
+        </ClientCardDataList>
+    </ClientCardRoot>
+`
+})

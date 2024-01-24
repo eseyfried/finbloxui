@@ -5,7 +5,6 @@ import ClientCardEmailLabel from './ClientCardEmailLabel.vue';
 import ClientCardEmailLink from './ClientCardEmailLink.vue';
 
 defineProps(mergeProps(PrimitiveProps, {}))
-
 </script>
 <template>
  <Primitive

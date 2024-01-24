@@ -102,7 +102,7 @@ const transformedClient = computed(() => {
 
 provideClientCardRootContext({
     showStats: toRef(props, 'showStats').value,
-    showAction: toRef(props, 'showAction').value,
+    showAction: toRef(props, 'showAction'),
     showContactInfo: toRef(props, 'showContactInfo').value,
     getClient: () => transformedClient.value,
     handleEmailClick: () => emit('fb-client-card-email-link:click', transformedClient.value.contact_info.email.value),
@@ -121,7 +121,7 @@ provideClientCardRootContext({
                     <ClientCardName />
                     <ClientCardHouseholdName />
                 </Container>
-                <ClientCardDataList class="fb-client-card-stats" #default="props">
+                <ClientCardDataList class="fb-client-card-stats" #default="props" v-if="showStats">
                     <ClientCardDataListItem v-for="(stat, i) in props.data" :key="i">
                         <ClientCardDataLabel :index="i" />
                         <ClientCardDataValue :index="i" />

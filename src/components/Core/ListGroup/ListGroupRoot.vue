@@ -15,10 +15,10 @@ export const [injectListGroupRootContext, provideListGroupRootContext]
 <script setup>
 import { Primitive } from '@/components/Core/Primitive';
 
-const props = defineProps(ListGroupRootProps)
+defineProps(ListGroupRootProps)
 
 
-const emit = defineEmits([]);
+defineEmits([]);
 
 
 provideListGroupRootContext({});

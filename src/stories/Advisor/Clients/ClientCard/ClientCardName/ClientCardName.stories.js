@@ -1,23 +1,44 @@
 import { useClientData } from "@/stories/modules/useClientData";
+import { defaultValue, generateArgs } from "@/stories/modules/useStoryHelper";
+
 import { 
     ClientCardRoot,
     ClientCardName
  } from '@/components/Advisor/Clients/ClientCard/';
 import { default as ClientCard } from '../ClientCard.stories'
+
+const getArgs = generateArgs({
+    as: defaultValue(ClientCardName, 'as'),
+    client: useClientData()
+})
+
+const components = { ClientCardRoot, ClientCardName }
+const template = `
+<ClientCardRoot :client="args.client">
+    <ClientCardName :as="args.as" />
+</ClientCardRoot>`
+
+
 /**
  * ## Overview
  * The `ClientCardName` component displays the client first and last name from the `client.name` object passed into the `ClientCardRoot` component.
  * 
  */
-const main = {
+export default {
     title: 'Library/Advisor/Clients/ClientCard/ClientCardName',
-    component: { ClientCardRoot, ClientCardName },
+    components,
     tags: ['autodocs'],
     argTypes: {
+        client: {
+            table: {
+                disable: true
+            }
+        },
         as: {
             ...ClientCard.argTypes.as,
             table: {
-                defaultValue: { summary: "h2" },
+                ...ClientCard.argTypes.as.table,
+                defaultValue: { summary: defaultValue(ClientCardName, 'as') },
             }
         },
         default: {
@@ -28,80 +49,39 @@ const main = {
                 category: 'Attributes',
             },
         },
+        ClientCardRoot: {
+            table: {
+                type: { summary: "Root-Component" },
+                defaultValue: { summary: '<ClientCardRoot />' },
+                category: 'Related Components',
+            },
+        },
     },
-    args: {
-        as: "div"
-    },
+    args: getArgs()
 };
 
-export default main
 
-const Template = (args) => ({
-    components: { ClientCardRoot, ClientCardName },
-    setup() {
-        args.client = useClientData()
-        return { args }
-    },
-    template: `
-    <div>
-        <ClientCardRoot v-bind="args" as="div">
-            <ClientCardName />
-        </ClientCardRoot>
-    </div>`
+
+export const BasicUse = (args) => ({
+    components,
+    setup: () => { return { args } },
+    template
 })
 
-export const Component = Template.bind({})
-Component.args = { }
+/**
+ * 
+ * You can customize the layout using the `#default="props"` attribute and slotted content.
+ */
 
-
-/*
-const template = `
-<ClientCardRoot v-bind="args" as="div">
-    <ClientCardName />
-</ClientCardRoot>`
-
-const Template = (config) => {
-    return {
-        render: (args) => {
-            return {
-                components: { ClientCardRoot, ClientCardName },
-                setup() {
-                    args.client = useClientData()
-                    return { args };
-                },
-                template: config?.template || template,
-                methods: {}
-            }
-        },
-        parameters: {
-            docs: {
-                description: {
-                    story: config?.story || "The `ClientCardName` component is intended to be used as a sub-component slotted into `ClientCardRoot`. It renders a first_name and last_name from the `client.name` object.",
-                },
-                source: {
-                    code: config?.template || template,
-                }
-            }
-        }
-    };
-}
-*/
-/*
-export const Component = {
-    ...Template()
-}
-
-export const CustomUsingProps = {
-    ...Template(
-        {
-            template:`
-<ClientCardRoot v-bind="args" as="div">
-    <ClientCardName #default="props">
-        {{ props.last_name }}, {{ props.first_name }}
-    </ClientCardName>
-</ClientCardRoot>
-`,
-    story: 'You can customize the layout using the `#default="props"` attribute and slotted content.'
+export const CustomUsingSlotProps = (args) => ({
+    components,
+    setup: () => { return { args } },
+    template:`
+    <ClientCardRoot :client="args.client">
+        <ClientCardName #default="props" :as="args.as">
+            {{ props.last_name }}, {{ props.first_name }}
+        </ClientCardName>
+    </ClientCardRoot>
+`
 })
-}
-*/
+

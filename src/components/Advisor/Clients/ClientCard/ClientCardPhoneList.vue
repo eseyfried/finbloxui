@@ -1,8 +1,7 @@
 <script>
 import { mergeProps, } from 'vue';
-import { PrimitiveProps } from '@/components/Core/Primitive';
 import { createContext } from '@/modules/shared';
-export const ClientCardPhoneListProps = mergeProps(PrimitiveProps, {
+export const ClientCardPhoneListProps = mergeProps(ListGroupRootProps, {
 
 })
 
@@ -12,13 +11,14 @@ export const [injectClientCardPhoneListContext, provideClientCardPhoneListContex
 <script setup>
 import { injectClientCardRootContext } from './ClientCardRoot.vue'
 import {
-    ListGroupRoot
+    ListGroupRoot,
+    ListGroupRootProps
 } from '@/components/Core/ListGroup/';
 const rootContext = injectClientCardRootContext()
-const props = defineProps(ClientCardPhoneListProps)
+defineProps(ClientCardPhoneListProps)
 
 
-const emit = defineEmits([]);
+defineEmits([]);
 
 
 provideClientCardPhoneListContext({});

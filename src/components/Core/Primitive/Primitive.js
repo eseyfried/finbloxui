@@ -14,12 +14,18 @@ export const PrimitiveProps = {
      * Setting "asChild" to true has the same effect as setting "as" to "template".
      * @default false
      */
-    asChild: Boolean,
+    asChild: {
+        type: Boolean,
+        default: false,
+    },
     /**
      * @default "div"
      */
     // as: AsTag | Component
-    as: {}
+    as: {
+        type: [String, Object],
+        default: 'div',
+    }
   }
 
   export const Primitive = defineComponent({

@@ -1,93 +1,77 @@
 import { useClientData } from "@/stories/modules/useClientData";
+import { defaultValue, generateArgs } from "@/stories/modules/useStoryHelper";
 import { 
     ClientCardRoot,
-    ClientCardAddress
+    ClientCardAction
  } from '@/components/Advisor/Clients/ClientCard/';
 import { default as ClientCard } from '../ClientCard.stories'
+
+const getArgs = generateArgs({
+    as: defaultValue(ClientCardAction, 'as'),
+    client: useClientData()
+})
+
+const components = { ClientCardRoot, ClientCardAction }
+const template = `
+<ClientCardRoot :client="args.client">
+    <ClientCardAction :as="args.as" />
+</ClientCardRoot>`
 /**
  * ## Overview
- * The `ClientCardAddress` sub-component displays an HTML address element using the address fields in the `client.contact_info.address` object
- * passed into the `ClientCardRoot` component.
+ * The `ClientCardAction` sub-component displays an HTML link element using the label passed to the `ClientCardRoot` component in the action-label prop .
+ * When clicked, it will pass the `client` object to the event handler bound to the `ClientCardRoot` component.
  * 
  * 
  */
-const main = {
-    title: 'Library/Advisor/Clients/ClientCard/ClientCardAddress',
-    components: { ClientCardRoot, ClientCardAddress },
+export default {
+    title: 'Library/Advisor/Clients/ClientCard/ClientCardAction',
+    components,
     tags: ['autodocs'],
     argTypes: {
+        client: {
+            table: {
+                disable: true
+            }
+        },
         as: {
             ...ClientCard.argTypes.as,
             table: {
                 ...ClientCard.argTypes.as.table,
-                defaultValue: { summary: "address" },
+                defaultValue: { summary: defaultValue(ClientCardAction, 'as') },
             }
         },
-        default: {
-            description: 'add #default="props" to make slot props available slotted content.',
+        ClientCardRoot: {
             table: {
-                type: { summary: "String" },
-                defaultValue: { summary: 'props.address' },
-                category: 'Attributes',
+                type: { summary: "Root-Component" },
+                defaultValue: { summary: '<ClientCardRoot />' },
+                category: 'Related Components',
             },
         },
-        
     },
-    args: {},
+    args: getArgs()
 };
 
-export default main
-
-const template = `
-<ClientCardRoot v-bind="args" as="div">
-    <ClientCardAddress #default="props" />
-</ClientCardRoot>`
-
-const Template = (config) => {
-    return {
-        render: (args) => {
-            return {
-                components: { ClientCardRoot, ClientCardAddress },
-                setup() {
-                    args.client = useClientData()
-                    return { args };
-                },
-                template: config?.template || template,
-                methods: {}
-            }
-        },
-        parameters: {
-            docs: {
-                description: {
-                    story: config?.story || "The `ClientCardAddress` is a root component that provides a client address object.",
-                },
-                source: {
-                    code: config?.template || template
-                }
-            }
-        }
-    }
-}
 
 
-export const Component = {
-    ...Template()
-}
-
-export const CustomUsingProps = {
-    ...Template(
-        {
-            template:`
-<ClientCardRoot v-bind="args" as="div">
-    <ClientCardAddress #default="props">
-        <div><label>Street:</label> {{ props.address.street_1 }}</div>
-        <div v-if="props.address.street_2"><label>Apt:</label> {{ props.address.street_2 }}</div>
-        <div><label>City:</label> {{ props.address.city }}</div>
-        <div><label>State:</label> {{ props.address.state }}</div>
-        <div><label>Zip:</label> {{ props.address.postal_code }}</div>
-    </ClientCardAddress>
-</ClientCardRoot>
-`,
-    story: 'You can customize the layout using the `#default="props"` attribute and slotted content.'
+export const BasicUse = (args) => ({
+    components,
+    setup: () => { return { args } },
+    template
 })
-}
+
+/**
+ * 
+ * You can customize the layout using slotted content.
+ */
+
+export const CustomUsingSlotProps = (args) => ({
+    components,
+    setup: () => { return { args } },
+    template:`
+    <ClientCardRoot :client="args.client">
+        <ClientCardAction :as="args.as">
+            More Detail
+        </ClientCardAction>
+    </ClientCardRoot>
+`
+})

@@ -1,4 +1,5 @@
 import { useClientData } from "@/stories/modules/useClientData";
+import { defaultValue, generateArgs } from "@/stories/modules/useStoryHelper";
 import { 
     ClientCardRoot,
     ClientCardDataList,
@@ -7,6 +8,28 @@ import {
     ClientCardDataValue
  } from '@/components/Advisor/Clients/ClientCard/';
 import { default as ClientCard } from '../ClientCard.stories'
+const getArgs = generateArgs({
+    as: defaultValue(ClientCardDataLabel, 'as'),
+    client: useClientData()
+})
+
+const components = {
+    ClientCardRoot,
+    ClientCardDataList,
+    ClientCardDataListItem,
+    ClientCardDataLabel,
+    ClientCardDataValue
+}
+
+const template = `
+<ClientCardRoot :client="args.client">
+    <ClientCardDataList #default="props">
+        <ClientCardDataListItem v-for="(stat, i) in props.data" :key="i">
+            <ClientCardDataLabel :index="i" :as="args.as" />
+            <ClientCardDataValue :index="i" />
+        </ClientCardDataListItem>
+    </ClientCardDataList>
+</ClientCardRoot>`
 /**
  * ## Overview
  * The `ClientCardDataLabel` sub-component displays a data point field text label for a given data point object in the `client.stats[i]` object
@@ -14,16 +37,21 @@ import { default as ClientCard } from '../ClientCard.stories'
  * 
  * 
  */
-const main = {
+export default {
     title: 'Library/Advisor/Clients/ClientCard/ClientCardDataLabel',
-    components: { ClientCardRoot, ClientCardDataList, ClientCardDataListItem, ClientCardDataLabel, ClientCardDataValue },
+    components,
     tags: ['autodocs'],
     argTypes: {
+        client: {
+            table: {
+                disable: true
+            }
+        },
         as: {
             ...ClientCard.argTypes.as,
             table: {
                 ...ClientCard.argTypes.as.table,
-                defaultValue: { summary: "label" },
+                defaultValue: { summary: defaultValue(ClientCardDataLabel, 'as') },
             }
         },
         index: {
@@ -33,6 +61,13 @@ const main = {
                 category: ClientCard.argTypes.as.table.category,
             },
             control: false
+        },
+        ClientCardRoot: {
+            table: {
+                type: { summary: "Root-Component" },
+                defaultValue: { summary: '<ClientCardRoot />' },
+                category: 'Related Components',
+            },
         },
         ClientCardDataList: {
             table: {
@@ -56,67 +91,40 @@ const main = {
             },
         },
     },
-    args: {},
+    args: getArgs(),
 };
 
-export default main
-
-const template = `
-<ClientCardRoot v-bind="args" as="div">
-    <ClientCardDataList #default="props">
-        <ClientCardDataListItem v-for="(stat, i) in props.data" :key="i">
-            <ClientCardDataLabel :index="i" />
-            <ClientCardDataValue :index="i" />
-        </ClientCardDataListItem>
-    </ClientCardDataList>
-</ClientCardRoot>`
-
-const Template = (config) => {
-    return {
-        render: (args) => {
-            return {
-                components: { ClientCardRoot, ClientCardDataList, ClientCardDataListItem, ClientCardDataLabel, ClientCardDataValue },
-                setup() {
-                    args.client = useClientData()
-                    return { args };
-                },
-                template: config?.template || template,
-                methods: {}
-            }
-        },
-        parameters: {
-            docs: {
-                description: {
-                    story: config?.source || "The `ClientCardDataLabel` component is intended to be used as a sub-component slotted into `ClientCardDataListItem`. It renders a data point label from the `client.stats[i].label` based on the `index` prop passed in.",
-                },
-                source: {
-                    code: config?.template || template
-                }
-            }
-        }
-    };
-}
 
 
-export const Component = {
-    ...Template()
-}
-
-export const CustomUsingProps = {
-    ...Template(
-        {
-            template:`
-<ClientCardRoot v-bind="args" as="div">
-    <ClientCardDataList #default="props">
-        <ClientCardDataListItem v-for="(stat, i) in props.data" :key="i">
-            <ClientCardDataLabel :index="i" #default="props">
-                <h5>{{ props.label }}:</h5>
-            </ClientCardDataLabel>
-            <ClientCardDataValue :index="i" />
-        </ClientCardDataListItem>
-    </ClientCardDataList>
-</ClientCardRoot>
-`,
-    story: 'You can customize the layout using the `#default="props"` attribute and slotted content.'
+/**
+ * The `ClientCardDataLabel` component is intended to be used as a sub-component slotted into `ClientCardDataListItem`. 
+ * It renders a data point label from the `client.stats[i].label` based on the `index` prop passed in.
+ */
+export const BasicUse = (args) => ({
+    components,
+    setup: () => { return { args } },
+    template
 })
-}
+
+/**
+ * 
+ * You can customize the layout using the `#default="props"` attribute and slotted content.
+ */
+
+export const CustomUsingSlotProps = (args) => ({
+    components,
+    setup: () => { return { args } },
+    template:`
+    <ClientCardRoot :client="args.client">
+        <ClientCardDataList #default="props">
+            <ClientCardDataListItem v-for="(stat, i) in props.data" :key="i">
+                <ClientCardDataLabel :index="i" #default="props" :as="args.as">
+                    <h5>{{ props.label }}:</h5>
+                </ClientCardDataLabel>
+                <ClientCardDataValue :index="i" />
+            </ClientCardDataListItem>
+        </ClientCardDataList>
+    </ClientCardRoot>
+`
+})
+

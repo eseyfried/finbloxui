@@ -1,10 +1,9 @@
 <script setup>
 import { mergeProps } from "vue";
 import { injectClientCardRootContext } from './ClientCardRoot.vue'
-import { PrimitiveProps } from '@/components/Core/Primitive/Primitive'
-import { Label } from "@/components/Core/Label/"
+import { Label, LabelProps } from "@/components/Core/Label/"
 
-defineProps(mergeProps(PrimitiveProps, {}))
+defineProps(mergeProps(LabelProps, {}))
 const rootContext = injectClientCardRootContext()
 </script>
 <template>

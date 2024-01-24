@@ -1,4 +1,5 @@
 import { useClientData } from "@/stories/modules/useClientData";
+import { defaultValue, generateArgs } from "@/stories/modules/useStoryHelper";
 import { 
     ClientCardRoot,
     ClientCardEmail,
@@ -6,6 +7,24 @@ import {
     ClientCardEmailLink
  } from '@/components/Advisor/Clients/ClientCard/';
 import { default as ClientCard } from '../ClientCard.stories'
+const getArgs = generateArgs({
+    as: defaultValue(ClientCardEmailLink, 'as'),
+    client: useClientData()
+})
+
+const components = { 
+    ClientCardRoot,
+    ClientCardEmail,
+    ClientCardEmailLabel,
+    ClientCardEmailLink
+ }
+const template = `
+<ClientCardRoot :client="args.client">
+    <ClientCardEmail>
+        <ClientCardEmailLabel />
+        <ClientCardEmailLink :as="args.as" />
+    </ClientCardEmail>
+</ClientCardRoot>`
 /**
  * ## Overview
  * The `ClientCardEmailLink` sub-component displays an email value HTML link for the email object in the `client.contact_info.email` object
@@ -13,16 +32,21 @@ import { default as ClientCard } from '../ClientCard.stories'
  * 
  * 
  */
-const main = {
+export default {
     title: 'Library/Advisor/Clients/ClientCard/ClientCardEmailLink',
-    components: { ClientCardRoot, ClientCardEmail, ClientCardEmailLabel, ClientCardEmailLink },
+    components,
     tags: ['autodocs'],
     argTypes: {
+        client: {
+            table: {
+                disable: true
+            }
+        },
         as: {
             ...ClientCard.argTypes.as,
             table: {
                 ...ClientCard.argTypes.as.table,
-                defaultValue: { summary: "a" },
+                defaultValue: { summary: defaultValue(ClientCardEmailLink, 'as') },
             }
         },
         default: {
@@ -31,6 +55,13 @@ const main = {
                 type: { summary: "String" },
                 defaultValue: { summary: 'props.email' },
                 category: 'Attributes',
+            },
+        },
+        ClientCardRoot: {
+            table: {
+                type: { summary: "Root-Component" },
+                defaultValue: { summary: '<ClientCardRoot />' },
+                category: 'Related Components',
             },
         },
         ClientCardEmail: {
@@ -48,62 +79,37 @@ const main = {
             },
         },
     },
-    args: {},
+    args: getArgs()
 };
 
-export default main
 
-const template = `
-<ClientCardRoot v-bind="args" as="div">
-    <ClientCardEmail>
-        <ClientCardEmailLabel />
-        <ClientCardEmailLink />
-    </ClientCardEmail>
-</ClientCardRoot>`
 
-const Template = (config) => {
-    return {
-        render: (args) => {
-            return {
-                components: { ClientCardRoot, ClientCardEmail, ClientCardEmailLabel, ClientCardEmailLink },
-                setup() {
-                    args.client = useClientData()
-                    return { args };
-                },
-                template: config?.template || template,
-                methods: {}
-            }
-        },
-        parameters: {
-            docs: {
-                description: {
-                    story: "The `ClientCardEmailLink` component is intended to be used as a sub-component slotted into `ClientCardEmail`. It renders an email value as a link from the `client.contact_info.email.value` object.",
-                },
-                source: {
-                    code: config?.template || template
-                }
-            }
-        }
-    };
-}
-
-export const Component = {
-    ...Template()
-}
-
-export const CustomUsingProps = {
-    ...Template(
-        {
-            template:`
-<ClientCardRoot v-bind="args" as="div">
-    <ClientCardEmail>
-        <ClientCardEmailLabel />
-        <ClientCardEmailLink #default="props">
-            <i>{{ props.email }}</i>
-        </ClientCardEmailLink>
-    </ClientCardEmail>
-</ClientCardRoot>
-`,
-    story: 'You can customize the layout using the `#default="props"` attribute and slotted content.'
+/**
+ * The `ClientCardEmailLink` component is intended to be used as a sub-component slotted into `ClientCardEmail`. 
+ * It renders an email value as a link from the `client.contact_info.email.value` object.
+ */
+export const BasicUse = (args) => ({
+    components,
+    setup: () => { return { args } },
+    template
 })
-}
+
+/**
+ * 
+ * You can customize the layout using the `#default="props"` attribute and slotted content.
+ */
+
+export const CustomUsingSlotProps = (args) => ({
+    components,
+    setup: () => { return { args } },
+    template:`
+    <ClientCardRoot :client="args.client">
+        <ClientCardEmail>
+            <ClientCardEmailLabel />
+            <ClientCardEmailLink #default="props" :as="args.as">
+                <i>{{ props.email }}</i>
+            </ClientCardEmailLink>
+        </ClientCardEmail>
+    </ClientCardRoot>
+`
+})

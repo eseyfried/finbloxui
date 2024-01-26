@@ -10,7 +10,7 @@ export const CollapsibleRootProps = mergeProps(PrimitiveProps, {
     },
     open: {
         type: Boolean,
-        default: true
+        default: false
     },
     disabled: {
         type: Boolean,
@@ -28,6 +28,7 @@ export const [injectCollapsibleRootContext, provideCollapsibleRootContext] = cre
 <script setup>
 import { Primitive } from '@/components/Core/Primitive';
 import { useVModel } from '@vueuse/core';
+import * as componentClasses from "@/modules/useCommonCSS";
 
 const props = defineProps(CollapsibleRootProps);
 
@@ -62,6 +63,7 @@ defineExpose({ open })
     :as-child="props.asChild"
     :data-state="props.open ? 'open' : 'closed'"
     :data-disabled="props.disabled ? '' : undefined"
+    :class="['fb-collapsible', componentClasses.getClassByType('component')]"
   >
     <slot :open="open" />
   </Primitive>

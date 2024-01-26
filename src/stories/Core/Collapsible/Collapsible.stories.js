@@ -3,71 +3,144 @@ import {
     CollapsibleContent,
     CollapsibleTrigger,
 } from "@/components/Core/Collapsible";
+import { defaultValue, generateArgs } from "@/stories/modules/useStoryHelper";
 
+const getArgs = generateArgs({
+    as: defaultValue(CollapsibleRoot, 'as'),
+    defaultOpen: defaultValue(CollapsibleRoot, 'defaultOpen'),
+    disabled: defaultValue(CollapsibleRoot, 'disabled'),
+})
 
+const components = { 
+    CollapsibleRoot,
+    CollapsibleContent,
+    CollapsibleTrigger,
+}
+
+const template =  `
+  <CollapsibleRoot v-model:open="args.defaultOpen" :as="args.as" :disabled="args.disabled" class="w-[300px]">
+      <CollapsibleTrigger>
+          <span v-if="args.open">-</span>
+          <span v-else>+</span>
+      </CollapsibleTrigger>
+      <div>
+          <span>Content that's always visbile </span>
+      </div>
+
+      <CollapsibleContent>
+          <div>
+              <span>Content that can be expanded and collapsed</span>
+          </div>
+      </CollapsibleContent>
+  </CollapsibleRoot>
+`
 /**
  * ## Overview
- * The `Collapsible` component ...  
+ * The `Collapsible` component creates an interactive panel that expands/collapses.
  * 
- * ### User Story
- * > As a user, I want to ... so that I can ...
+ * ### Use Case
+ * > Use the collaspible component when you have content that you want to hide/show when a user interacts with another element.
  */
  export default {
     title: 'Library/Core/Collapsible',
-    components: { CollapsibleRoot, CollapsibleContent, CollapsibleTrigger },
+    components,
     tags: ['autodocs'],
     argTypes: {
-
-    }
-};
-
-
-export const BasicAccordion = {
-        title: 'Library/Core/Collapsible',
-        args: {
-            
+        as: {
+            description: "render this component root tag as a specific html tag",
+            table: {
+                type: { summary: "String" },
+                defaultValue: { summary: defaultValue(CollapsibleRoot, 'as') },
+                category: 'Props',
+            },
+            control: { type: 'text' },
         },
-        render: (args) => ({
-            components: { CollapsibleRoot, CollapsibleContent, CollapsibleTrigger },
-          setup() {
-            args.open = false
-            return { args };
-          },
-          template: `
-          <div class="bg-slate-50 p-10">
-            <CollapsibleRoot v-model:open="args.open" class="w-[300px]">
-                <CollapsibleTrigger
-                    class="cursor-default rounded-full h-[25px] w-[25px] inline-flex items-center justify-center text-green-600 shadow-[0_2px_10px] shadow-gray-400 outline-none data-[state=closed]:bg-white data-[state=open]:bg-green-400 hover:bg-green-200 focus:shadow-[0_0_0_2px] focus:shadow-black"
-                >
-                    <span v-if="args.open">-</span>
-                    <span v-else>+</span>
-                </CollapsibleTrigger>
-                <div class="bg-white rounded mt-[10px] p-[10px] shadow-[0_2px_10px] shadow-gray-600">
-                    <span class="text-green-700 text-[15px] leading-[25px]">@radix-vue/radix-vue</span>
-                </div>
-
-                <CollapsibleContent class="data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp overflow-hidden">
-                    <div class="bg-white rounded my-[10px] p-[10px] shadow-[0_2px_10px] shadow-gray-600">
-                        <span class="text-green-700 text-[15px] leading-[25px]">@vuejs/core</span>
-                    </div>
-                    <div class="bg-white rounded my-[10px] p-[10px] shadow-[0_2px_10px] shadow-gray-600">
-                        <span class="text-green-700 text-[15px] leading-[25px]">@radix-ui/primitives</span>
-                    </div>
-                </CollapsibleContent>
-
-            </CollapsibleRoot>
-          </div>`,
-        }),
-        parameters: {
-            docs: {
-                description: {
-                    story: "The basic use of the Accordion component.",
-                },
-                source: {
-                    code: `
-    <CollapsibleRoot/>`
-                }
-            }
-        }
+        defaultOpen: {
+            description: "expand the collapsible content by default",
+            table: {
+                type: { summary: "Boolean" },
+                defaultValue: { summary: defaultValue(CollapsibleRoot, 'defaultOpen') },
+                category: 'Props',
+            },
+        },
+        disabled: {
+            description: "prevent collapsing by disabling component",
+            table: {
+                type: { summary: "Boolean" },
+                defaultValue: { summary: defaultValue(CollapsibleRoot, 'disabled') },
+                category: 'Props',
+            },
+        },
+        ".fb-collapsible": {
+            description: "The class applied to the component root element.",
+            table: {
+                category: 'CSS Classes',
+            },
+        },
+        ".fb-collapsible-trigger": {
+            description: "The class applied to the item trigger element.",
+            table: {
+                category: 'CSS Classes',
+            },
+        },
+        ".fb-collapsible-content": {
+            description: "The class applied to the component item content element.",
+            table: {
+                category: 'CSS Classes',
+            },
+        },
+        "v-model:open": {
+            description: "bind <CollapsibleRoot /> to this v-model to react to the expand/collapse state changes.",
+            table: {
+                type: { summary: "Boolean" },
+                category: 'Events',
+            },
+        },
+        CollapsibleRoot: {
+            table: {
+                type: { summary: "Root-Component" },
+                defaultValue: { summary: '<CollapsibleRoot />' },
+                category: 'Related Components',
+            },
+        },
+        CollapsibleTrigger: {
+            table: {
+                type: { summary: "Sub-Component" },
+                defaultValue: { summary: '<CollapsibleTrigger />' },
+                category: 'Related Components',
+            },
+        },
+        CollapsibleContent: {
+            table: {
+                type: { summary: "Sub-Component" },
+                defaultValue: { summary: '<CollapsibleContent />' },
+                category: 'Related Components',
+            },
+        },
+    },
+    args: getArgs()
 };
 
+
+const render = (args) => ({
+    components,
+    setup: () => { return { args } },
+    template,
+})
+
+
+export const BasicUse = render
+
+export const DisabledByDefault = {
+    render,
+    args: {
+        disabled: true
+    },
+}
+
+export const ExpandedByDefault = {
+    render,
+    args: {
+        defaultOpen: true
+    }
+}

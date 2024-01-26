@@ -4,6 +4,7 @@ import { Primitive, usePrimitiveElement, PrimitiveProps } from '@/components/Cor
 import { computed, nextTick, onMounted, ref, watch } from 'vue'
 import { injectCollapsibleRootContext } from './CollapsibleRoot.vue'
 import { Presence } from '@/components/Core/Presence/'
+import * as componentClasses from "@/modules/useCommonCSS";
 
 defineOptions({
   inheritAttrs: false,
@@ -91,6 +92,7 @@ onMounted(() => {
         [`--fb-collapsible-content-height`]: `${height}px`,
         [`--fb-collapsible-content-width`]: `${width}px`,
       }"
+      :class="['fb-collapsible-content', componentClasses.getClassByType('component')]"
     >
       <slot v-if="presentRef?.present" />
     </Primitive>

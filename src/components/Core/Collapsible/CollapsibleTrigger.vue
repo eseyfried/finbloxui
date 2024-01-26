@@ -2,6 +2,7 @@
 import { Primitive, PrimitiveProps } from '@/components/Core/Primitive'
 import { injectCollapsibleRootContext } from './CollapsibleRoot.vue';
 import { mergeProps } from "vue";
+import * as componentClasses from "@/modules/useCommonCSS";
 
 const props = defineProps(mergeProps(PrimitiveProps, {
     as: {
@@ -24,6 +25,7 @@ const rootContext = injectCollapsibleRootContext()
     :data-disabled="rootContext.disabled?.value ? '' : undefined"
     :disabled="rootContext.disabled?.value"
     @click="rootContext.onOpenToggle"
+    :class="['fb-collapsible-trigger', componentClasses.getClassByType('component')]"
   >
     <slot />
   </Primitive>

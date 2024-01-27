@@ -1,7 +1,38 @@
 import Chart from '@/components/Core/Charts/Chart.vue';
+import { geChartColorsByTheme } from '@/stories/Examples/modules/chartThemeColors';
+import { ref } from "vue";
 
-import * as BasicStory from './Basic.stories';
-import * as CustomCSSVarsStory from './CustomCSSVars.stories';
+
+import { defaultValue, generateArgs } from "@/stories/modules/useStoryHelper";
+const theme = ref("headless");
+const data = {
+    labels: ['Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar'],
+    datasets: [{
+      label: 'Total AUM By Month',
+      data: [12000, 19000, 30000, 50000, 20000, 30000],
+      borderWidth: 1,
+    }]
+}
+
+const getArgs = generateArgs({
+    type: defaultValue(Chart, 'type'),
+    data: data,
+    options: {},
+    colors: defaultValue(Chart, 'colors')
+})
+
+const components = { 
+    Chart
+}
+
+const template = `
+    <Chart
+        :type="args.type"
+        :data="args.data"
+        :options="args.options"
+        :colors="args.colors"
+    />
+`;
 
 /**
  * ## Overview
@@ -14,15 +45,16 @@ import * as CustomCSSVarsStory from './CustomCSSVars.stories';
  */
  export default {
     title: 'Library/Core/Charts',
-    component: { Chart },
-    tags: ['autodocs'],
+    components,
+    // tags: ['autodocs'],
+    args: getArgs(),
     argTypes: {
         type: {
             description: "Chart type",
             type: { name: "String", required: true },
             table: {
                 type: { summary: "String"},
-                defaultValue: { summary: "bar" },
+                defaultValue: { summary: defaultValue(Chart, 'type') },
                 category: 'Props',
             },
             options: [
@@ -35,25 +67,23 @@ import * as CustomCSSVarsStory from './CustomCSSVars.stories';
                 "radar",
                 "scatter"
             ],
-            control: { type: 'radio' },
+            control: { type: 'select' },
         },
         data: {
             type: { name: "Object", required: true },
-            defaultValue: {},
             description: "A chartjs [data object](https://www.chartjs.org/docs/latest/general/data-structures.html)",
             table: {
                 type: { summary: "Object" },
-                defaultValue: { summary: "{}" },
+                defaultValue: { summary: JSON.stringify(defaultValue(Chart, 'data')) },
                 category: 'Props',
             },
         },
         options: {
-            type: { name: "Object", required: true },
-            defaultValue: {},
+            type: { name: "Object", required: false },
             description: "A chartjs [options object](https://www.chartjs.org/docs/latest/configuration/)",
             table: {
                 type: { summary: "Object" },
-                defaultValue: { summary: "{}" },
+                defaultValue: { summary: JSON.stringify(defaultValue(Chart, 'options')) },
                 category: 'Props',
             },
         },
@@ -63,7 +93,7 @@ import * as CustomCSSVarsStory from './CustomCSSVars.stories';
             description: "An array of colors to apply to all datasets based on chartjs [colors](https://www.chartjs.org/docs/latest/general/colors.html)",
             table: {
                 type: { summary: "Array" },
-                defaultValue: { summary: "[]" },
+                defaultValue: { summary: JSON.stringify(defaultValue(Chart, 'colors')) },
                 category: 'Props',
             },
         },
@@ -97,11 +127,16 @@ Char colors can also be styled using custom CSS variables placed in your style s
     }
 };
 
+const render = (args, context) => ({
+    components,
+    setup: () => { 
+        theme.value = context.globals.theme;
+        args.colors = {...[...geChartColorsByTheme(theme.value)]}
+        return { args }
+    },
+    template,
+})
 
-export const BasicChart = {
-    ...BasicStory.default
-};
 
-export const UsingCustomCSSVars = {
-    ...CustomCSSVarsStory.default
-};
+
+export const BasicUse = render

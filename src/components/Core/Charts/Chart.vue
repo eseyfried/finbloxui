@@ -4,6 +4,18 @@
         <canvas :id="id" ref="ctx"></canvas>
     </div>
 </template>
+<script>
+const optionsDefault = () => { 
+    return {
+        maintainAspectRatio: false,
+        scales: {
+            y: {
+                beginAtZero: true,
+            }
+        }
+    }
+}
+</script>
 <script setup>
 // imports
 import * as componentClasses from "@/modules/useCommonCSS";
@@ -12,6 +24,7 @@ import Chart from 'chart.js/auto';
 import 'chartjs-adapter-moment';
 import { ref, onMounted, computed, watch } from "vue";
 import { getColorsFromCSSVars } from "@/modules/useCSSVars.js"
+import { geChartColorsByTheme } from '@/stories/Examples/modules/chartThemeColors';
 
 // vars
 
@@ -19,7 +32,7 @@ import { getColorsFromCSSVars } from "@/modules/useCSSVars.js"
 const props = defineProps({
     type: {
         type: String,
-        default: null,
+        default: "bar",
         validator: (value) => {
             return [
                 "bar",
@@ -36,19 +49,19 @@ const props = defineProps({
     },
     data: {
         type: Object,
-        default: () => {},
+        default: () => { return {} },
     },
     options: {
-        type: Object,
-        default: () => {},
+        type: [Object, Function],
+        default: optionsDefault
     },
     plugins: {
         type: Array,
-        default: () => [],
+        default: () => { return [] },
     },
     colors: {
-        type: Array,
-        default: () => []
+        type: [Object, Array],
+        default: () => { return {...[...geChartColorsByTheme("headless")]} },
     },
     id: {
         type: String,
@@ -56,19 +69,30 @@ const props = defineProps({
     }
 });
 
+
+
 const ctx = ref(null);
 const defaultColors = ref([]);
 let chart = null;
 
+const colors = computed(() => {
+    let colors;
+    if (props.colors.length) {
+        colors = props.colors
+    } else if (typeof props.colors === 'object'){
+        colors = Object.values(props.colors)
+    }
+    return colors
+})
 /**
  * build the data object merging in the colors props if set
  */
 const buildData = computed(() => {
     let data = props.data;
     // colors prop is explicity passed
-    if (props.colors.length > 0) {
+    if (colors.value.length > 0) {
         data.datasets = data.datasets.map(dataset => {
-            dataset.backgroundColor = props.colors;
+            dataset.backgroundColor = colors.value;
             return dataset;
         })
     } else {
@@ -98,6 +122,14 @@ const chartClassTypes = computed(() => {
 onMounted(() => {
     chart = createChart();
 })
+
+const options = computed(() => {
+    if (typeof props.options === "object" && Object.entries(props.options).length > 0) {
+       return props.options
+    } else {
+        return optionsDefault()
+    }
+})
 /**
  * create a new chart instance
  */
@@ -105,7 +137,7 @@ const createChart = () => {
     return new Chart(ctx.value, {
         type: props.type,
         data: buildData.value,
-        options: props.options,
+        options: options.value,
         plugins: props.plugins,
     });
 }

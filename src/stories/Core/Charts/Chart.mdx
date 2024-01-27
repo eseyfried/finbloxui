@@ -1,0 +1,38 @@
+import { Meta, Title, Subtitle, Description, Primary, Controls, Stories } from '@storybook/blocks';
+
+import * as ChartStories from './Chart.stories';
+
+<Meta of={ChartStories} />
+
+<Title />
+
+<Subtitle />
+
+<Description />
+
+<Primary />
+
+<Controls />
+
+## Custom CSS Vars
+
+FinbloxUI Charts can use custom css variables to set the colors for charts. Add `--fb-chart-color-{#}` to the :root css pseudo-class in your stylesheet.
+
+For example:
+
+```css
+// your.stylesheet.css
+<style type="text/css">
+    :root {
+        --fb-chart-color-1: #37A3EB;
+        --fb-chart-color-2: #FD6384;
+        --fb-chart-color-3: #4BC1C1;
+        --fb-chart-color-4: #FD9F3F;
+        --fb-chart-color-5: #9965FE;
+        --fb-chart-color-6: #FECD57;
+        --fb-chart-color-7: #C9CBD0;
+    }
+</style>
+```
+
+<Stories />

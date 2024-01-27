@@ -64,32 +64,6 @@ export default {
 
 
 
-const Template = (config) => {
-    return {
-        render: (args) => {
-            return {
-                components: { ClientCardRoot, ClientCardAddress },
-                setup() {
-                    args.client = useClientData()
-                    return { args };
-                },
-                template: config?.template || template,
-                methods: {}
-            }
-        },
-        parameters: {
-            docs: {
-                description: {
-                    story: config?.story || "The `ClientCardAddress` is a root component that provides a client address object.",
-                },
-                source: {
-                    code: config?.template || template
-                }
-            }
-        }
-    }
-}
-
 /**
  * 
  * The `ClientCardAddress` is a root component that provides a client address object.

@@ -15,7 +15,7 @@
                 :class="componentClasses.getClassByType('chartHero')"
                 v-if="type === 'doughnut'"
             >
-                <slot :props="props" :totalLabel="totalLabel" :totalValue="totalValue">
+                <slot :totalLabel="totalLabel" :totalValue="totalValue">
                     <h2>{{ totalLabel }}</h2>
                     <h3>{{ totalValue }}</h3>
                 </slot>

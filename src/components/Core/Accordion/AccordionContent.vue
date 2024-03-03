@@ -1,7 +1,7 @@
 <script setup>
 import { mergeProps } from "vue";
-import { PrimitiveProps } from '@/components/Core/Primitive'
-import { CollapsibleContent } from '@/components/Core/Collapsible'
+import { PrimitiveProps } from '@/components/Core/Primitive/Primitive'
+import CollapsibleContent from '@/components/Core/Collapsible/CollapsibleContent'
 import { injectAccordionItemContext } from './AccordionItem.vue'
 
 const props = defineProps(mergeProps(PrimitiveProps,{}));

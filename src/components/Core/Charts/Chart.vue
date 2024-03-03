@@ -5,8 +5,10 @@
     </div>
 </template>
 <script>
-const optionsDefault = () => { 
-    return {
+const optionsDefault = (props) => {
+    const colors = props.colors.length > 0 ? props.colors : false
+    const options = {
+        elements:{},
         maintainAspectRatio: false,
         scales: {
             y: {
@@ -14,25 +16,58 @@ const optionsDefault = () => {
             }
         }
     }
+    // options.elements[getChartElementType(props.type)] = {
+    //     backgroundColor: colors || getColorsFromCSSVars(),
+    // }
+    // options.elements["line"] = {
+    //     borderColor: colors || getColorsFromCSSVars(),
+    //     backgroundColor: colors || getColorsFromCSSVars(),
+    //     point: colors || getColorsFromCSSVars(),
+    // }
+    return options
+}
+const getChartElementType = (chartType) => {
+    let type
+    switch(chartType) {
+        case "radar":
+        case "bubble":
+        case "line":
+            type = "point"
+            break;
+        // case "line":
+        //     type = "line"
+        //     break;
+        case "bar":
+            type = "bar"
+            break;
+        case "pie":
+        case "doughnut":
+        case "polarArea":
+            type = "arc"
+            break;
+    }
+    return type
 }
 </script>
 <script setup>
 // imports
+import { merge } from "lodash"
 import * as componentClasses from "@/modules/useCommonCSS";
 import * as formatters from "@/modules/useFormatter";
 import Chart from 'chart.js/auto';
 import 'chartjs-adapter-moment';
 import { ref, onMounted, computed, watch } from "vue";
 import { getColorsFromCSSVars } from "@/modules/useCSSVars.js"
-import { geChartColorsByTheme } from '@/stories/Examples/modules/chartThemeColors';
+import { geChartColorsByTheme } from '@/../.histoire/modules/chartThemeColors';
 
-// vars
+
 
 // eslint-disable-next-line no-unused-vars
 const props = defineProps({
     type: {
         type: String,
         default: "bar",
+        desc: "The type of chart.",
         validator: (value) => {
             return [
                 "bar",
@@ -49,30 +84,36 @@ const props = defineProps({
     },
     data: {
         type: Object,
+        desc: "A valid chartjs data object.",
         default: () => { return {} },
     },
     options: {
         type: [Object, Function],
-        default: optionsDefault
+        default: optionsDefault,
+        desc: "A valid chartjs options object.",
     },
     plugins: {
         type: Array,
         default: () => { return [] },
+        desc: "A valid chartjs plugin array.",
     },
     colors: {
         type: [Object, Array],
-        default: () => { return {...[...geChartColorsByTheme("headless")]} },
+        default: () => geChartColorsByTheme("headless"),
+        // default: () => { return {...[...geChartColorsByTheme("headless")]} },
     },
     id: {
         type: String,
-        default: null
+        default: null,
+        desc: "A unique id to assign to the chart.",
     }
 });
 
 
 
+
 const ctx = ref(null);
-const defaultColors = ref([]);
+
 let chart = null;
 
 const colors = computed(() => {
@@ -87,28 +128,31 @@ const colors = computed(() => {
 /**
  * build the data object merging in the colors props if set
  */
+
 const buildData = computed(() => {
     let data = props.data;
     // colors prop is explicity passed
+    // priority #1
     if (colors.value.length > 0) {
         data.datasets = data.datasets.map(dataset => {
-            dataset.backgroundColor = colors.value;
+            // dataset.backgroundColor = colors.value;
             return dataset;
         })
     } else {
-        data.datasets = data.datasets.map(dataset => {
-            // if chartjs color is set via standard dataset config, honor it
-            if (dataset.backgroundColor) {
-                return dataset
-            // use props colors or grab from custom css vars
-            } else {
-                defaultColors.value = props.colors.length ? props.colors : getColorsFromCSSVars();
-                dataset.backgroundColor = defaultColors.value;
-                return dataset
+        data.datasets = data.datasets.map((dataset,i) => {
+            // grab colors from css vars
+            // priority #2
+            const cssVarColors = getColorsFromCSSVars()
+            if (cssVarColors.length > 0) {
+                dataset.backgroundColor = cssVarColors;
             }
+            // priority #3
+            // or default to colors set on dataset
+            return dataset
         });
     }
     return data;
+
 });
 
 const chartClassTypes = computed(() => {
@@ -119,16 +163,16 @@ const chartClassTypes = computed(() => {
 /**
  * create a chart instance when component is mounted
  */
+
 onMounted(() => {
     chart = createChart();
 })
 
 const options = computed(() => {
-    if (typeof props.options === "object" && Object.entries(props.options).length > 0) {
-       return props.options
-    } else {
-        return optionsDefault()
-    }
+    return merge(
+        optionsDefault(props),
+        props.options
+    )
 })
 /**
  * create a new chart instance
@@ -136,16 +180,19 @@ const options = computed(() => {
 const createChart = () => {
     return new Chart(ctx.value, {
         type: props.type,
-        data: buildData.value,
+        data: props.data,
         options: options.value,
         plugins: props.plugins,
     });
 }
+
+
+
 /**
  * watch the props, when they change
  * destroy the chart and recreate it with updated props
  */
-watch(() => [props.type, props.data, props.options, props.colors], () => {
+watch(() => [props.type, props.data, props.options, props.colors], (newValue, oldValue) => {
     if (chart) {
         chart.destroy();
         chart = createChart();

@@ -12,7 +12,7 @@
                 :class="[{ 'fb-column-filter-has-filters': hasFilters }, componentClasses.getClassByType('buttonPrimary')]"
                 @click="handleFilterButtonClick()"
             >
-                {{ buttonLabel }}
+                {{ triggerButtonLabel }}
             </button>
         </slot>
         <div class="fb-column-filter-menu" :class="{ 'fb-column-filter-menu-visible': showFilter }" ref="target">
@@ -119,7 +119,7 @@ import { onClickOutside } from "@vueuse/core";
 import * as componentClasses from "@/modules/useCommonCSS";
 
 // vars
-const filterValue = props.filterType === "multiselect" ? ref([]) : ref(null);
+
 const filterOperator = ref(null);
 const filterInput = ref(null);
 const defaultFilterOperator = ref(null);
@@ -137,10 +137,13 @@ const props = defineProps({
             // The value must match one of these strings
             return ["text", "multiselect", "select"].includes(value)
         },
+        desc: "The type of filter",
+        options: ["text", "multiselect", "select"]
     },
     selectOptions: {
         type: Array,
-        default: () => []
+        default: () => [],
+        desc: "The options for the select type filter"
     },
     operator: {
         type: String,
@@ -149,6 +152,8 @@ const props = defineProps({
             // The value must match one of these strings
             return ["equality", "comparison"].includes(value)
         },
+        desc: "The operator type",
+        options: ["equality", "comparison"]
     },
     equalityOptions: {
         type: Array,
@@ -160,6 +165,15 @@ const props = defineProps({
             { label: "Equals", value: "equals"},
             { label: "Not Equals", value: "not_equals"},
         ],
+        desc: "The options for the equality operator",
+        options: [
+            { label: "Starts With", value: "starts_with"},
+            { label: "Contains", value: "contains"},
+            { label: "Not Contains", value: "not_contains"},
+            { label: "Ends With", value: "ends_with"},
+            { label: "Equals", value: "equals"},
+            { label: "Not Equals", value: "not_equals"},
+        ]
     },
     comparisonOptions: {
         type: Array,
@@ -171,20 +185,34 @@ const props = defineProps({
             { label: "Greater than", value: "greater_than"},
             { label: "Greater than or equal to", value: "greater_than_equal"},
         ],
+        desc: "The options for the comparison operator",
+        options: [
+            { label: "Equals", value: "equals"},
+            { label: "Not Equals", value: "not_equals"},
+            { label: "Less than", value: "less_than"},
+            { label: "Less than or equal to", value: "less_than_equal"},
+            { label: "Greater than", value: "greater_than"},
+            { label: "Greater than or equal to", value: "greater_than_equal"},
+        ]
     },
     clearButtonLabel: {
         type: String,
         default: "Clear",
+        desc: "The text label for the clear button"
     },
     applyButtonLabel: {
         type: String,
         default: "Apply",
+        desc: "The text label for the apply button"
     },
-    buttonLabel: {
+    triggerButtonLabel: {
         type: String,
-        default: null
+        default: null,
+        desc: "The text label for the filter trigger button"
     }
 });
+
+const filterValue = props.filterType === "multiselect" ? ref([]) : ref(null);
 const emit = defineEmits([
     'fb-column-filter-button:click',
     'fb-column-filter-input:change',

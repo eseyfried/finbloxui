@@ -7,10 +7,10 @@ import HomeView from "@/views/HomeView2.vue";
 </script>
 <style lang="scss">
 .fb-negative {
-    @apply text-red-800;
+    @apply tw-text-red-800;
 }
 .fb-positive {
-    @apply text-green-800;
+    @apply tw-text-green-800;
 }
 .fb-positive::before {
     content: "\f062";

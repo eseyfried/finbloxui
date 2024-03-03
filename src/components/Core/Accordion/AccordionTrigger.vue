@@ -2,7 +2,7 @@
 import { injectAccordionItemContext } from './AccordionItem.vue'
 import { injectAccordionRootContext } from './AccordionRoot.vue'
 
-import { CollapsibleTrigger } from '@/components/Core/Collapsible'
+import CollapsibleTrigger from '@/components/Core/Collapsible/CollapsibleTrigger'
 
 const props = defineProps({})
 

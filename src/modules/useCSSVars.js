@@ -26,10 +26,34 @@ const getCSSCustomPropIndex = () =>
         []
     );
 
-const getFBCustomVars = (search) => getCSSCustomPropIndex().filter(customProp => {
-    const regex = search ? new RegExp(search, "g") : /--fb-./g;
-    return customProp[0].match(regex)
-})
+const getCSSCustomPropIndexByTheme = () =>
+[...document.styleSheets].filter(isSameDomain).reduce(
+    (finalArr, sheet) =>
+    finalArr.concat(
+        [...sheet.cssRules].filter(isStyleRule).reduce((propValArr, rule) => {
+            const theme = window.theme || 'headless'
+            const pattern = `html\\[data-mode="${theme}"\\]`
+            const regex = new RegExp(pattern, "g")
+            const hasTheme = regex.test(rule.selectorText)
+        const props = [...rule.style]
+            .map((propName) => [
+                propName.trim(),
+                rule.style.getPropertyValue(propName).trim()
+            ])
+            .filter(([propName]) => hasTheme && propName.indexOf("--") === 0);
+            return [...propValArr, ...props];
+        }, [])
+    ),
+    []
+);
+
+const getFBCustomVars = (search) => {
+    const fn = useTheme() ? getCSSCustomPropIndexByTheme : getCSSCustomPropIndex
+    return fn().filter(customProp => {
+        const regex = search ? new RegExp(search, "g") : /--fb-./g;
+        return customProp[0].match(regex)
+    })
+}
 
 const getCustomVarValue = (varName, vars = []) => {
     const customVars = vars.length ? vars : getCSSCustomPropIndex();
@@ -49,6 +73,8 @@ const getColorsFromCSSVars = () => {
         }
     }).map(color => color[1]);
 }
+
+const useTheme = () => window.theme || false
 
 export {
     getCSSCustomPropIndex,

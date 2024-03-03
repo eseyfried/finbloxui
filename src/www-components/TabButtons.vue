@@ -38,7 +38,7 @@ const slideBg = (n) => {
 <style lang="scss" scoped>
 .container {
     --bg-offset: 0%;
-    @apply relative flex flex-row w-fit rounded-full bg-[#18181b] p-1 overflow-hidden;
+    @apply tw-relative tw-flex tw-flex-row tw-w-fit tw-rounded-full tw-bg-[#18181b] tw-p-1 tw-overflow-hidden;
 }
 .container::after {
     content: '';
@@ -48,18 +48,18 @@ const slideBg = (n) => {
     top: 0;
     left: var(--bg-offset);
     transition: left 0.5s;
-    @apply bg-blue-600 rounded-full;
+    @apply tw-bg-blue-600 tw-rounded-full;
 }
 
 .container > button {
     cursor: pointer;
     width: 100px;
-    @apply px-4 py-2 rounded-full text-center text-sm text-gray-500 bg-transparent;
+    @apply tw-px-4 tw-py-2 tw-rounded-full tw-text-center tw-text-sm tw-text-gray-500 tw-bg-transparent;
 }
 .container button:hover {
-    @apply text-white;
+    @apply tw-text-white;
 }
 .container button.active {
-    @apply  text-white z-20;
+    @apply  tw-text-white tw-z-20;
 }
 </style>

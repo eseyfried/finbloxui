@@ -5,7 +5,7 @@
             <thead>
                 <tr>
                     <th>{{ clientLabel }}</th>
-                    <th>{{ aumLabel }}</th>
+                    <th :colspan="isMobile ? 1 : 2">{{ aumLabel }}</th>
                 </tr>
             </thead>
             
@@ -14,18 +14,17 @@
                     <slot
                         v-if="aumPercentages[i] >= 1"
                         :props="props"
-                        :aumPercentStyle="{ 'style': `width: ${aumPercentages[i]}%`}"
                         :aumPercent="aumPercentages[i]"
                         :aumAmount="formatters.formatCurrency(data[i])"
                         :client="client"
                     >
                         <tr>
                             <td>{{ client }}</td>
-                            <td>
-                                <span :class="{'fb-top-clients-by-aum-md': !isMobile}">{{ formatters.formatCurrency(data[i]) }}</span>
-                                <div v-if="!isMobile" class="fb-top-clients-by-aum-bar-container">
-                                    <div class="fb-top-clients-by-aum-bar percentage" :style="`width: ${aumPercentages[i]}%;`"></div>
-                                </div>
+                            <td :class="{'fb-top-clients-by-aum-md': !isMobile}">
+                                {{ formatters.formatCurrency(data[i]) }}
+                            </td>
+                            <td v-if="!isMobile">
+                                <ProgressBarRoot :width="aumPercentages[i]" class="fb-top-clients-by-aum-bar" />
                             </td>
                         </tr>
                     </slot>
@@ -41,24 +40,29 @@ import { computed } from "vue";
 import { arraySum } from "@/modules/useArrayUtils";
 import { isMobile } from "@/modules/useResponsive";
 import * as formatters from "@/modules/useFormatter";
+import ProgressBarRoot from "@/components/Core/ProgressBar/ProgressBarRoot"
 
 // vars
 const props = defineProps({
     clients: {
         type: Array,
-        default: () => []
+        default: () => [],
+        desc: "An array of client or household names"
     },
     data: {
         type: Array,
-        default: () => []
+        default: () => [],
+        desc: "An array of total client AUM values. Values must be Numeric.",
     },
     clientLabel: {
         type: String,
-        default: "Client"
+        default: "Client",
+        desc: "A text label for the client column"
     },
     aumLabel: {
         type: String,
-        default: "Total Assets Under Management"
+        default: "Total Assets Under Management",
+        desc: "A text label for the AUM column"
     }
 });
 
@@ -87,18 +91,11 @@ table {
     }
 }
 table::v-deep(tr) {
-    .fb-top-clients-by-aum-bar-container {
-        display: contents;
-    }
     .fb-top-clients-by-aum-md {
-        display: inline-block;
-        width: 30%;
         text-align: right;
     }
     .fb-top-clients-by-aum-bar {
-        height: 10px;
-        display: inline-block;
-        background-color: var(--fb-chart-color-4);
+        margin-left: 10px;
     }
 }
 // @for $i from 1 through 100 {

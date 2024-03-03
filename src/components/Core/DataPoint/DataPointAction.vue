@@ -2,7 +2,7 @@
 
 </script>
 <script setup>
-import { mergeProps } from "vue";
+import { mergeProps, watch, computed } from "vue";
 import { injectDataPointRootContext } from './DataPointRoot.vue'
 import { Primitive, PrimitiveProps } from '@/components/Core/Primitive/Primitive'
 
@@ -13,6 +13,7 @@ const props = defineProps(mergeProps(PrimitiveProps, {
   },
 }))
 const rootContext = injectDataPointRootContext()
+
 </script>
 <template>
     <Primitive

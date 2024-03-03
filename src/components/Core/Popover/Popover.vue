@@ -9,7 +9,7 @@
 // imports
 import * as componentClasses from "@/modules/useCommonCSS";
 import { createPopper } from "@popperjs/core";
-import { onMounted, ref, watch } from "vue"; 
+import { onMounted, ref, watch, mergeProps, toRef, toRefs } from "vue"; 
 import { useEventListener, onClickOutside } from "@vueuse/core";
 
 
@@ -18,23 +18,42 @@ import { useEventListener, onClickOutside } from "@vueuse/core";
 const props = defineProps({
     selector: {
         type: String,
-        default: null
+        default: null,
+        desc: "A css selector to locate the HTML element that triggers the popover"
     },
     trigger: {
         type: String,
         default: "click",
         validator: (value) => {
             return ["click", "hover"].includes(value);
-        }
+        },
+        desc: "The trigger type event."
     },
     updatePopover: {
         type: Boolean,
-        default: false,
+        default: false
+    },
+    options: {
+        type: Object,
+        default: () => { return ref({}) },
+        desc: "https://popper.js.org/ options"
     }
 });
 
 const popperInstance = ref(null);
 const tooltip = ref(null);
+const defaultOptions = {
+    placement: 'auto',
+    modifiers: [
+        {
+            name: 'offset',
+            options: {
+                offset: [0, 8],
+            },
+        },
+    ],
+}
+
 
 onMounted(async () => {
     const toggleElement = document.querySelector(props.selector);
@@ -45,20 +64,15 @@ onMounted(async () => {
         useEventListener(toggleElement, "click", show);
         onClickOutside(toggleElement, hide)
     }
-    
 
-  popperInstance.value = createPopper(toggleElement, tooltip.value, {
-    placement: 'auto',
-    
-    modifiers: [
-        {
-            name: 'offset',
-            options: {
-                offset: [0, 8],
-            },
-        },
-    ],
-    });
+    popperInstance.value = createPopper(
+        toggleElement,
+        tooltip.value,
+        mergeProps(
+            defaultOptions,
+            props.options
+        )
+    );
 
 })
 
@@ -72,8 +86,8 @@ function show() {
     popperInstance.value.setOptions((options) => ({
         ...options,
         modifiers: [
-        ...options.modifiers,
-        { name: 'eventListeners', enabled: true },
+            ...options.modifiers,
+            { name: 'eventListeners', enabled: true },
         ],
     }));
     // Update its position
@@ -90,17 +104,21 @@ function hide() {
     popperInstance.value.setOptions((options) => ({
         ...options,
         modifiers: [
-        ...options.modifiers,
-        { name: 'eventListeners', enabled: false },
+            ...options.modifiers,
+            { name: 'eventListeners', enabled: false },
         ],
     }));
 }
 
-watch(() => props.updatePopover, (value, prevValue) => {
-  if (value === true) {
-   popperInstance.value.update();
-  }
-}, { immediate: true })
+
+watch([props.options, () => props.updatePopover], ([newOptions, newUpdatePopover]) => {
+    if (newOptions && popperInstance.value) {
+        popperInstance.value.setOptions((options) => (mergeProps(options,newOptions)));
+    }
+    if (newUpdatePopover === true) {
+        popperInstance.value.update();
+    }
+}, { immediate: true });
 </script>
 <style lang="scss" scoped>
 

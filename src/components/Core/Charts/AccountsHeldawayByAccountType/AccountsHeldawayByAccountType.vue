@@ -8,7 +8,6 @@
                 :data="chartData"
                 :options="chartOptions"
                 :plugins="[htmlLegendPlugin]"
-                :colors="colors"
             />
             <div
                 class="fb-accounts-heldaway-by-account-type-chart-hero"
@@ -29,7 +28,7 @@
 </template>
 <script setup>
 // imports
-import { getCurrentInstance, computed } from "vue";
+import { getCurrentInstance, computed, watch, reactive } from "vue";
 import * as componentClasses from "@/modules/useCommonCSS";
 import { isMobile } from "@/modules/useResponsive";
 import { arraySum } from "@/modules/useArrayUtils";
@@ -59,8 +58,10 @@ const props = defineProps(
 
 const chartData = computed(() => base.chartData(props));
 const defaultOptions = {}
-const chartOptions = computed(() => base.chartOptions(props, component.uid, defaultOptions)).value;
-
+let chartOptions = reactive(base.chartOptions(props, component.uid, defaultOptions))
+watch(() => [props.type, props.data, props.options, props.colors], () => {
+    chartOptions = base.chartOptions(props, component.uid, defaultOptions)
+})
 </script>
 <style lang="scss" scoped>
 @import "../../../../scss/fb-chart-legend.scss";

@@ -51,9 +51,10 @@ const props = defineProps({
     buttonLabel: {
         type: String,
         default: null,
-    }
+    },
+
 });
-const showMenu = ref(props.show);
+const showMenu = ref(false);
 const emit = defineEmits(['fb-action-menu-item:click']);
 
 const popperInstance = ref(null);
@@ -66,11 +67,15 @@ const handleMenuItemClick = (e, item) => {
         item.callback(item);
         e.preventDefault();
     }
+    if (item.url && item.url != "#") {
+        emit("fb-action-menu-item:click", item);
+        e.preventDefault();
+    }
     if (!item.url || item.url === "#") {
         e.preventDefault();
     }
     showMenu.value = !showMenu.value;
-    emit("fb-action-menu-item:click", item);
+   
 }
 const handleMenuButtonClick = () => {
     showMenu.value = !showMenu.value;

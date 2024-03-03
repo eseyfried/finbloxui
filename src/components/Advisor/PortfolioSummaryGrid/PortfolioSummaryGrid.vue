@@ -1,7 +1,13 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-    <div class="fb-portfolio-summary-grid" :class="componentClasses.getClassByType('component')">
-        <MobileFilters />
+    <Primitive
+        ref="primitiveElement"
+        :as-child="asChild"
+        :as="as"
+        class="fb-portfolio-summary-grid"
+        :class="componentClasses.getClassByType('component')"
+    >
+        <MobileFilters :slots="slots" />
         <DataTable v-if="portfolio.length > 0" :rows="portfolio" v-bind="defaultDataTableOptions" teleportTo=".fb-portfolio-summary-grid" :showTotals="showTotals">
             <Column field="account" :header="columnLabels.account" />
             <Column field="as_of" :header="columnLabels.as_of" formatters="date" />
@@ -11,49 +17,61 @@
             <Column field="change_amount" :header="columnLabels.change_amount" :formatters="['currency', 'change-indicator']" :showTotal="showTotals" />
             <Column field="change_pct" :header="columnLabels.change_pct" :formatters="['percent', 'change-indicator']" />
         </DataTable>
-    </div>
+    </Primitive>
 </template>
+<script>
+const PortfolioSummaryGridProps = mergeProps(
+    PrimitiveProps,
+    {
+        portfolio: {
+            type: Array,
+            default: () => [],
+            desc: "An array of account objects"
+        },
+        columnLabels: {
+            type: Object,
+            default: () => { 
+                return { 
+                    "account": "Account",
+                    "as_of": "As Of",
+                    "cash": "Cash",
+                    "securities": "Holdings",
+                    "current_value": "Current Value",
+                    "change_amount": "Change ($)",
+                    "change_pct": "Change (%)"
+                }
+            },
+            desc: "Text labels to apply to the table columns"
+        },
+        dataTableOptions: {
+            type: Object,
+            default: () => { return {} },
+            desc: "An object containing DataTable component options"
+        },
+        showTotals: {
+            type: Boolean,
+            default: true,
+            desc: "show columns totals"
+        }
+    }
+);
+</script>
 <script setup>
 // imports
+import { mergeProps, computed, useSlots } from "vue";
+import { Primitive, PrimitiveProps } from '@/components/Core/Primitive/Primitive'
 import MobileFilters from "@/components/DataTable/MobileFilters";
-import DataTable from "@/components/DataTable/DataTable";
+import DataTable from '@/components/DataTable/DataTable';
+import Column from '@/components/DataTable/Column/Column';
 import Base from "@/components/DataTable/Base";
-import Column from '@/components/DataTable/Column.vue';
 import * as componentClasses from "@/modules/useCommonCSS";
 
 // vars
 // eslint-disable-next-line no-unused-vars
-const props = defineProps({
-    portfolio: {
-        type: Array,
-        default: () => []
-    },
-    columnLabels: {
-        type: Object,
-        default: () => { 
-            return { 
-                "account": "Account",
-                "as_of": "As Of",
-                "cash": "Cash",
-                "securities": "Holdings",
-                "current_value": "Current Value",
-                "change_amount": "Change ($)",
-                "change_pct": "Change (%)"
-            }
-        }
-    },
-    dataTableOptions: {
-        type: Object,
-        default: () => {}
-    },
-    showTotals: {
-        type: Boolean,
-        default: true
-    }
-});
+const props = defineProps(PortfolioSummaryGridProps);
 
-const defaultDataTableOptions = Base.defaultDataTableOptions(props.dataTableOptions);
-
+const defaultDataTableOptions = computed(() => Base.defaultDataTableOptions(props.dataTableOptions));
+ const slots = useSlots()
 
 </script>
 <style lang="scss" scoped>

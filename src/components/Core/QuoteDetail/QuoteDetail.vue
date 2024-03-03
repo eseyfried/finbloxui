@@ -59,6 +59,9 @@
             :dividend_yield="formatters.formatPercent(quote.dividend_yield)"
             :bid="formatters.formatCurrency(quote.bid)"
             :ask="formatters.formatCurrency(quote.ask)"
+            :pe_ratio="formatters.formatPercent(quote.pe_ratio)"
+            :exchange="quote.exchange"
+            :volume="quote.volume"
         >
             <div class="fb-quote-detail-details">
                 <ul>
@@ -105,15 +108,18 @@ import * as componentClasses from "@/modules/useCommonCSS";
 const props = defineProps({
     show: {
         type: Boolean,
-        default: true
+        default: true,
+        desc: "Toggle the display of the quote detail"
     },
     showDetails: {
         type: Boolean,
-        default: true
+        default: true,
+        desc: "Show the quote details section"
     },
     callback: {
         type: Function,
-        default: null
+        default: null,
+        desc: "A callback function used to return the quote detail props."
     },
     callbackOn: {
         type: String,
@@ -122,62 +128,77 @@ const props = defineProps({
             // The value must match one of these strings
             return ["mount","show"].includes(value)
         },
+        desc: "Execute callback when component is mounted or shown."
     },
     symbol: {
         type: String,
         default: null,
+        desc: "The quoted security symbol"
     },
     security_description: {
         type: String,
         default: null,
+        desc: "The quoted security description."
     },
     current_price: {
         type: Number,
         default: null,
+        desc: "The current price of the security."
     },
     price_change_amt: {
         type: Number,
-        default: null
+        default: null,
+        desc: "The change in price as a dollar amount."
     },
     price_change_pct: {
         type: Number,
-        default: null
+        default: null,
+        desc: "The change in price as a percent."
     },
     previous_close_price: {
         type: Number,
         default: null,
+        desc: "The previous closing price."
     },
     day_high_price: {
         type: Number,
         default: null,
+        desc: "The day's high price."
     },
     day_low_price: {
         type: Number,
         default: null,
+        desc: "The day's low price."
     },
     exchange: {
         type: String,
         default: null,
+        desc: "The exchange the security is traded on."
     },
     volume: {
         type: String,
         default: null,
+        desc: "The security's trade volume."
     },
     bid: {
         type: Number,
         default: null,
+        desc: "The bid price."
     },
     ask: {
         type: Number,
         default: null,
+        desc: "The ask price."
     },
     pe_ratio: {
         type: Number,
         default: null,
+        desc: "The price/earning ratio."
     },
     dividend_yield: {
         type: Number,
         default: null,
+        desc: "The security's dividend yield."
     },
     labels: {
         type: Object,
@@ -192,7 +213,8 @@ const props = defineProps({
                 pe_ratio: "P/E Ratio",
                 dividend_yield: "Dividend Yield",
             }
-        }
+        },
+        desc: "An object of text labels to apply to the data points."
     }
 });
 const emit = defineEmits([
@@ -257,7 +279,7 @@ const priceChangeAmtClass = computed(() => {
     return quote.value.price_change_amt < 0 ? 'fb-negative' : 'fb-positive';
 })
 /**
- * watch the sow prop and trigger the show method when it updated
+ * watch the show prop and trigger the show method when it updated
  */
 watch(() => props.show, (value, prevValue) => {
   if (value === true) {

@@ -1,6 +1,6 @@
 <script>
-import { PrimitiveProps } from '@/components/Core/Primitive';
-import { mergeProps } from 'vue'
+import { PrimitiveProps } from '@/components/Core/Primitive/Primitive';
+import { mergeProps, reactive, watchEffect } from 'vue'
 import { createContext, useId } from '@/modules/shared'
 
 export const CollapsibleRootProps = mergeProps(PrimitiveProps, {
@@ -23,38 +23,38 @@ export const CollapsibleRootEmits = ['update:open']
 
 
 export const [injectCollapsibleRootContext, provideCollapsibleRootContext] = createContext('CollapsibleRoot')
+
 </script>
 
 <script setup>
-import { Primitive } from '@/components/Core/Primitive';
+import { Primitive } from '@/components/Core/Primitive/Primitive';
 import { useVModel } from '@vueuse/core';
 import * as componentClasses from "@/modules/useCommonCSS";
 
 const props = defineProps(CollapsibleRootProps);
 
-
 const emit = defineEmits(CollapsibleRootEmits)
 const open = useVModel(props, 'open', emit, {
   defaultValue: props.defaultOpen,
-  passive: (props.open === undefined),
+  passive: true
 })
-
 
 const disabled = useVModel(props, 'disabled')
 
 
-provideCollapsibleRootContext({
+provideCollapsibleRootContext(reactive({
   contentId: useId(),
   disabled,
   open,
   onOpenToggle: () => {
     open.value = !open.value
-    
   },
-})
+}))
 
 defineExpose({ open })
-
+watchEffect(() => {
+    open.value = props.defaultOpen
+})
 </script>
 
 <template>

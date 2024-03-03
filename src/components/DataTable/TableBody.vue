@@ -5,7 +5,7 @@
             <template v-if="groupRowsBy">
                 <template v-for="{groupKey, data, index} in rows" :key="index">
                     <tr role="row" class="fb-data-table-group-header">
-                        <td :colspan="colspan" :data-cell="groupRowLabel" role="cell">
+                        <td :colspan="colspan" :data-cell="groupRowLabel" role="cell" v-if="collapsible">
                             <a href="#" v-if="collapsible" @click.prevent="handleGroupClick($event, groupKey)">{{ groupKey }}</a>
                             <template v-else>{{ groupKey }}</template>
                         </td>
@@ -98,7 +98,7 @@ const colspan = computed(() => {
 
 // methods
 const generateGroupId = (groupKey) => {
-    return groupKey.replace(/[^a-zA-Z0-9]/g, '');
+    return groupKey ? groupKey.replace(/[^a-zA-Z0-9]/g, '') : groupKey;
 }
 const handleGroupClick = (e, groupKey) => {
     const id = `group-${generateGroupId(groupKey)}`;

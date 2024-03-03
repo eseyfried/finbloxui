@@ -90,8 +90,9 @@ const modelValue = ref(getDefaultValue(props))
     () => [props.type, props.modelValue],
     () => {
       const validatedValue = validateModelValue(props.type, modelValue.value)
-      if (modelValue.value !== validatedValue)
+      if (modelValue.value !== validatedValue) {
         modelValue.value = validatedValue
+      }
     },
     { immediate: true },
   )

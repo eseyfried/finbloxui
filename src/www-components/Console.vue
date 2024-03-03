@@ -2,16 +2,16 @@
 <!-- eslint-disable vue/valid-template-root -->
 <template>
     <div class="console">
-        <div class="flex items-center sticky bg-gray-950 top-0 left-0 px-4 z-10 justify-between h-8 w-full">
-            <div class="flex items-center gap-2 basis-1/3">
-                <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+        <div class="tw-flex tw-items-center tw-sticky tw-bg-gray-950 tw-top-0 tw-left-0 tw-px-4 tw-z-10 tw-justify-between tw-h-8 tw-w-full">
+            <div class="tw-flex tw-items-center tw-gap-2 tw-basis-1/3">
+                <div class="tw-w-3 tw-h-3 tw-rounded-full tw-bg-red-500"></div>
+                <div class="tw-w-3 tw-h-3 tw-rounded-full tw-bg-yellow-500"></div>
+                <div class="tw-w-3 tw-h-3 tw-rounded-full tw-bg-green-500"></div>
             </div>
-            <div class="flex basis-1/3 h-full justify-center items-center">
-                <p class="text-white/30 text-xs font-light">{{ filename }}</p>
+            <div class="tw-flex basis-1/3 tw-h-full tw-justify-center tw-items-center">
+                <p class="tw-text-white/30 tw-text-xs tw-font-light">{{ filename }}</p>
             </div>
-            <div class="flex basis-1/3"></div>
+            <div class="tw-flex tw-basis-1/3"></div>
         </div>
         <!-- <pre><code :class="`language-${language}`" v-escape>
 <slot />
@@ -51,7 +51,7 @@ const vEscape = {
 </script>
 <style lang="scss">
 .console {
-    @apply bg-gray-950 relative w-full h-full box-border shadow-md text-white/80 leading-5 whitespace-pre text-sm font-mono rounded-xl [&>code]:transition-transform overflow-auto max-h-[440px] min-h-[390px];
+    @apply tw-bg-gray-950 tw-relative tw-w-full tw-h-full tw-box-border tw-shadow-md tw-text-white/80 tw-leading-5 tw-whitespace-pre tw-text-sm tw-font-mono tw-rounded-xl [&>code]:tw-transition-transform tw-overflow-auto tw-max-h-[440px] tw-min-h-[390px];
 }
 code[class*="language-"] {
     background: transparent;

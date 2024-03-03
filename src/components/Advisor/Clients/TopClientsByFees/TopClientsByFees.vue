@@ -5,7 +5,7 @@
             <thead>
                 <tr>
                     <th>{{ clientLabel }}</th>
-                    <th>{{ feesLabel }}</th>
+                    <th :colspan="isMobile ? 1 : 2">{{ feesLabel }}</th>
                 </tr>
             </thead>
             
@@ -21,11 +21,11 @@
                     >
                         <tr>
                             <td>{{ client }}</td>
-                            <td>
-                                <span :class="{'fb-top-clients-by-fees-md': !isMobile}">{{ formatters.formatCurrency(data[i]) }}</span>
-                                <div v-if="!isMobile" class="fb-top-clients-by-fees-bar-container">
-                                    <div class="fb-top-clients-by-fees-bar percentage" :style="`width: ${feesPercentages[i]}%;`"></div>
-                                </div>
+                            <td :class="{'fb-top-clients-by-fees-md': !isMobile}">
+                                {{ formatters.formatCurrency(data[i]) }}
+                            </td>
+                            <td v-if="!isMobile">
+                                <ProgressBarRoot :width="feesPercentages[i]" class="fb-top-clients-by-aum-bar" />
                             </td>
                         </tr>
                     </slot>
@@ -41,24 +41,28 @@ import { computed } from "vue";
 import { arraySum } from "@/modules/useArrayUtils";
 import { isMobile } from "@/modules/useResponsive";
 import * as formatters from "@/modules/useFormatter";
-
+import ProgressBarRoot from "@/components/Core/ProgressBar/ProgressBarRoot"
 // vars
 const props = defineProps({
     clients: {
         type: Array,
-        default: () => []
+        default: () => [],
+        desc: "An array of client or household names"
     },
     data: {
         type: Array,
-        default: () => []
+        default: () => [],
+        desc: "An array of total client fee values. Values must be Numeric.",
     },
     clientLabel: {
         type: String,
-        default: "Client"
+        default: "Client",
+        desc: "A text label for the client column"
     },
     feesLabel: {
         type: String,
-        default: "Total Fees"
+        default: "Total Fees",
+        desc: "A text label for the fee column"
     }
 });
 
@@ -87,18 +91,11 @@ table {
     }
 }
 table::v-deep(tr) {
-    .fb-top-clients-by-fees-bar-container {
-        display: contents;
-    }
     .fb-top-clients-by-fees-md {
-        display: inline-block;
-        width: 30%;
         text-align: right;
     }
     .fb-top-clients-by-fees-bar {
-        height: 10px;
-        display: inline-block;
-        background-color: var(--fb-chart-color-4);
+        margin-left: 10px;
     }
 }
 // @for $i from 1 through 100 {

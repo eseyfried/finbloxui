@@ -68,23 +68,23 @@ import QuoteDetail from "@/components/Core/QuoteDetail/QuoteDetail";
 </script>
 <style lang="scss" scoped>
 div:deep(.fb-quote-detail) {
-    @apply shadow-2xl shadow-gray-950 p-3 rounded-lg border-teal-500 border-2 bg-white text-black md:w-[400px];
+    @apply tw-shadow-2xl tw-shadow-gray-950 tw-p-3 tw-rounded-lg tw-border-teal-500 tw-border-2 tw-bg-white tw-text-black md:tw-w-[400px];
     
     .fb-quote-detail-heading h3 {
-        @apply text-3xl font-semibold;
+        @apply tw-text-3xl tw-font-semibold;
     }
     .fb-quote-detail-heading h4 {
-        @apply text-sm font-semibold pb-2 border-b text-gray-500;
+        @apply tw-text-sm tw-font-semibold tw-pb-2 tw-border-b tw-text-gray-500;
         span {
-            @apply mr-2;
+            @apply tw-mr-2;
         }
     }
     .fb-quote-detail-price {
         display: flex;
-        @apply mt-2 p-2 flex-col;
+        @apply tw-mt-2 tw-p-2 tw-flex-col;
     }
     .fb-quote-detail-price h4 {
-        @apply text-2xl font-semibold p-0 m-0;
+        @apply tw-text-2xl tw-font-semibold tw-p-0 tw-m-0;
         line-height: inherit;
     }
     .fb-quote-detail-price h4,
@@ -95,7 +95,7 @@ div:deep(.fb-quote-detail) {
         line-height: normal;
     }
     .fb-quote-detail-details {
-        @apply bg-white p-2;
+        @apply tw-bg-white tw-p-2;
     }
     .fb-quote-detail-details li label::after {
         content: ":";
@@ -104,7 +104,7 @@ div:deep(.fb-quote-detail) {
         display: flex;
         justify-content: space-between;
         span {
-            @apply text-gray-500;
+            @apply tw-text-gray-500;
         }
     }
 }

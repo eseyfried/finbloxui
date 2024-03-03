@@ -1,11 +1,12 @@
 <script>
-import { mergeProps, computed, toRef } from 'vue';
-import { PrimitiveProps } from '@/components/Core/Primitive';
+import { mergeProps, computed, toRef, reactive } from 'vue';
+import { PrimitiveProps } from '@/components/Core/Primitive/Primitive';
 import { createContext } from '@/modules/shared';
 export const ClientCardRootProps = mergeProps(PrimitiveProps, {
     client: {
         type: Object,
         default: () => {},
+        desc: "A client data object"
     },
     showStats: {
         type: Boolean,
@@ -31,25 +32,25 @@ export const [injectClientCardRootContext, provideClientCardRootContext]
 <script setup>
 import * as formatters from "@/modules/useFormatter";
 import * as componentClasses from "@/modules/useCommonCSS";
-import { Primitive } from '@/components/Core/Primitive';
-import { Container } from '@/components/Core/Container';
-import {
-    ClientCardName,
-    ClientCardHouseholdName,
-    ClientCardDataList,
-    ClientCardDataListItem,
-    ClientCardDataLabel,
-    ClientCardDataValue,
-    ClientCardEmail,
-    ClientCardEmailLabel,
-    ClientCardEmailLink,
-    ClientCardPhoneList,
-    ClientCardPhoneListItem,
-    ClientCardPhoneLabel,
-    ClientCardPhoneValue,
-    ClientCardAddress,
-    ClientCardAction
-} from '@/components/Advisor/Clients/ClientCard/';
+import { Primitive } from '@/components/Core/Primitive/Primitive';
+import Container from '@/components/Core/Container/Container'
+import ClientCardName from '@/components/Advisor/Clients/ClientCard/ClientCardName/ClientCardName.vue'
+import ClientCardHouseholdName from '@/components/Advisor/Clients/ClientCard/ClientCardHouseholdName/ClientCardHouseholdName.vue'
+import ClientCardDataList from '@/components/Advisor/Clients/ClientCard/ClientCardDataList/ClientCardDataList.vue'
+import ClientCardDataListItem from '@/components/Advisor/Clients/ClientCard/ClientCardDataListItem/ClientCardDataListItem.vue'
+import ClientCardDataLabel from '@/components/Advisor/Clients/ClientCard/ClientCardDataLabel/ClientCardDataLabel.vue'
+import ClientCardDataValue from '@/components/Advisor/Clients/ClientCard/ClientCardDataValue/ClientCardDataValue.vue'
+import ClientCardPhoneList from '@/components/Advisor/Clients/ClientCard/ClientCardPhoneList/ClientCardPhoneList.vue'
+import ClientCardPhoneListItem from '@/components/Advisor/Clients/ClientCard/ClientCardPhoneListItem/ClientCardPhoneListItem.vue'
+import ClientCardPhoneLabel from '@/components/Advisor/Clients/ClientCard/ClientCardPhoneLabel/ClientCardPhoneLabel.vue'
+import ClientCardPhoneValue from '@/components/Advisor/Clients/ClientCard/ClientCardPhoneValue/ClientCardPhoneValue.vue'
+import ClientCardEmail from '@/components/Advisor/Clients/ClientCard/ClientCardEmail/ClientCardEmail.vue'
+import ClientCardEmailLabel from '@/components/Advisor/Clients/ClientCard/ClientCardEmailLabel/ClientCardEmailLabel.vue'
+import ClientCardEmailLink from '@/components/Advisor/Clients/ClientCard/ClientCardEmailLink/ClientCardEmailLink.vue'
+import ClientCardAddress from '@/components/Advisor/Clients/ClientCard/ClientCardAddress/ClientCardAddress.vue'
+import ClientCardAction from '@/components/Advisor/Clients/ClientCard/ClientCardAction/ClientCardAction.vue'
+
+
 
 
 
@@ -100,16 +101,16 @@ const transformedClient = computed(() => {
 });
 
 
-provideClientCardRootContext({
-    showStats: toRef(props, 'showStats').value,
+provideClientCardRootContext(reactive({
+    showStats: toRef(props, 'showStats'),
     showAction: toRef(props, 'showAction'),
-    showContactInfo: toRef(props, 'showContactInfo').value,
+    showContactInfo: toRef(props, 'showContactInfo'),
     getClient: () => transformedClient.value,
     handleEmailClick: () => emit('fb-client-card-email-link:click', transformedClient.value.contact_info.email.value),
     handlePhoneClick: (phone) => emit('fb-client-card-phone-link:click', phone),
     handleActionClick: () => emit('fb-client-card-action-link:click', transformedClient.value),
-    actionLabel: toRef(props, 'actionLabel').value, // make this reactive to prop changes so injected value update
-});
+    actionLabel: toRef(props, 'actionLabel'), // make this reactive to prop changes so injected value update
+}));
 
 </script>
 

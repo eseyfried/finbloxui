@@ -1,6 +1,6 @@
 <script>
-import { mergeProps, computed, toRef } from 'vue';
-import { PrimitiveProps } from '@/components/Core/Primitive';
+import { mergeProps, computed, toRef, reactive } from 'vue';
+import { PrimitiveProps } from '@/components/Core/Primitive/Primitive';
 import { createContext } from '@/modules/shared';
 export const DataPointRootProps = mergeProps(PrimitiveProps, {
     dataPoint: {
@@ -34,13 +34,12 @@ export const [injectDataPointRootContext, provideDataPointRootContext]
 <script setup>
 import * as formatters from "@/modules/useFormatter";
 import * as componentClasses from "@/modules/useCommonCSS";
-import { Primitive } from '@/components/Core/Primitive';
-import {
-    DataPointLabel,
-    DataPointValue,
-    DataPointTrend,
-    DataPointAction
-} from '@/components/Core/DataPoint/';
+import { Primitive } from '@/components/Core/Primitive/Primitive';
+
+import DataPointLabel from '@/components/Core/DataPoint/DataPointLabel';
+import DataPointValue from '@/components/Core/DataPoint/DataPointValue';
+import DataPointTrend from '@/components/Core/DataPoint/DataPointTrend';
+import DataPointAction from '@/components/Core/DataPoint/DataPointAction';
 
 const props = defineProps(DataPointRootProps)
 
@@ -81,12 +80,12 @@ const handleActionClick = () => {
     emit("fb-data-point-action-link:click", props.dataPoint);
 }
 
-provideDataPointRootContext({
-    dataPoint: transformedDataPoint.value,
+provideDataPointRootContext(reactive({
+    dataPoint: toRef(transformedDataPoint),
     handleActionClick: handleActionClick,
-    actionLabel: toRef(props, 'actionLabel').value, // make this reactive to prop changes so injected value update
-    showAction: props.showAction
-});
+    showAction: toRef(props, 'showAction'),
+    actionLabel: toRef(props, 'actionLabel')
+}));
 
 
 </script>

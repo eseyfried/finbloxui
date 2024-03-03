@@ -25,10 +25,11 @@ module.exports = {
     },
   },
   plugins: [
-    require('@tailwindcss/forms'),
+    // require('@tailwindcss/forms'),
   ],
   corePlugins: {
     preflight: false,
-  }
+  },
+  prefix: 'tw-',
 }
 

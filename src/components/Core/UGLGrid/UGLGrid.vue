@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
     <div class="fb-ugl-grid" :class="componentClasses.getClassByType('component')">
-        <MobileFilters />
+        <MobileFilters :slots="slots" />
         <DataTable v-if="lots.length > 0" :rows="lots" v-bind="defaultDataTableOptions" teleportTo=".fb-ugl-grid">
             <template v-for="(_, name) in $slots" #[name]="slotData">
                 <slot :name="name" v-bind="slotData || {}" />
@@ -11,7 +11,7 @@
 </template>
 <script setup>
 // imports
-import { useSlots } from "vue";
+import { useSlots, computed } from "vue";
 import DataTable from "@/components/DataTable/DataTable";
 import Base from "@/components/DataTable/Base";
 import MobileFilters from "@/components/DataTable/MobileFilters";
@@ -26,19 +26,17 @@ const props = defineProps({
     lots: {
         type: Array,
         default: () => [],
+        desc: "An array of UGL objects"
     },
     dataTableOptions: {
         type: Object,
-        default: () => {}
+        default: () => {},
+        desc: "An object containing DataTable component options"
     }
 });
-const emit = defineEmits(['fb-ugl-grid']);
-const defaultDataTableOptions = Base.defaultDataTableOptions(props.dataTableOptions);
 
-// methods
-const handleEvent = () => {
-    emit("fb-ugl-grid:click", null);
-}
+const defaultDataTableOptions = computed(() => Base.defaultDataTableOptions(props.dataTableOptions));
+
 </script>
 <style lang="scss" scoped>
 </style>

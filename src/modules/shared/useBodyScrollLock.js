@@ -4,7 +4,7 @@ import {
   import { isClient } from '@vueuse/shared'
   import { nextTick, onBeforeUnmount, ref, watch } from 'vue'
   import { defu } from 'defu'
-  import { injectConfigProviderContext } from '@/components/Core/Primitives/ConfigProvider/ConfigProvider'
+  import { injectConfigProviderContext } from '@/components/Core/ConfigProvider/ConfigProvider'
   
   const useInitialOverflowStyle = createGlobalState(() => ref())
   const useBodyLockStackCount = createGlobalState(() => ref(0))

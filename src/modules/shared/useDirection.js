@@ -1,4 +1,4 @@
-import { injectConfigProviderContext } from '@/components/Core/Primitives/ConfigProvider/ConfigProvider.vue'
+import { injectConfigProviderContext } from '@/components/Core/ConfigProvider/ConfigProvider.vue'
 import { ref, computed } from 'vue'
 
 export function useDirection(dir = ref('ltr')) {

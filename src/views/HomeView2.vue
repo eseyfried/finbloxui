@@ -1,27 +1,27 @@
 <!-- eslint-disable vue/valid-template-root -->
 <template>
     <Navbar />
-    <main class="mt-28 px-8 md:px-24">
-        <section id="hero" class="text-white flex h-screen relative overflow-hidden lg:overflow-visible w-full">
-            <div class="flex relative z-20 flex-col gap-6 w-full lg:w-1/2 xl:mt-10">
-                <div class="text-center leading-8 md:leading-10 md:text-left">
-                    <div class="inline-block">
-                        <h1 class="tracking-tight inline font-semibold text-[2.5rem] lg:text-5xl">Build&nbsp;</h1>
-                        <h1 class="tracking-tight inline font-semibold from-[#FF1CF7] to-[#b249f8] text-[2.5rem] lg:text-5xl bg-clip-text text-transparent bg-gradient-to-b">kicka#%&nbsp;</h1>
+    <main class="tw-mt-28 tw-px-8 md:tw-px-24">
+        <section id="hero" class="tw-text-white tw-flex tw-h-screen tw-relative tw-overflow-hidden lg:tw-overflow-visible tw-w-full">
+            <div class="tw-flex tw-relative tw-z-20 tw-flex-col tw-gap-6 tw-w-full lg:tw-w-1/2 xl:tw-mt-10">
+                <div class="tw-text-center tw-leading-8 md:tw-leading-10 md:tw-text-left">
+                    <div class="tw-inline-block">
+                        <h1 class="tw-tracking-tight tw-inline tw-font-semibold tw-text-[2.5rem] lg:tw-text-5xl">Build&nbsp;</h1>
+                        <h1 class="tw-tracking-tight tw-inline tw-font-semibold tw-from-[#FF1CF7] tw-to-[#b249f8] tw-text-[2.5rem] lg:tw-text-5xl tw-bg-clip-text tw-text-transparent tw-bg-gradient-to-b">kicka#%&nbsp;</h1>
                     </div>
-                    <h1 class="tracking-tight inline font-semibold text-[2.5rem] lg:text-5xl">financial user interfaces regardless of your design experience.</h1>
+                    <h1 class="tw-tracking-tight tw-inline tw-font-semibold tw-text-[2.5rem] lg:tw-text-5xl">financial user interfaces regardless of your design experience.</h1>
                 </div>
-                <h2 class="w-full md:w-1/2 my-2 text-lg lg:text-xl font-normal text-default-500 block max-w-full text-center md:text-left">Modern headless Vue UI library for building Self-Directed or Advisor frontends.</h2>
-                <div class="flex flex-col md:flex-row items-center gap-4">
+                <h2 class="tw-w-full md:tw-w-1/2 tw-my-2 tw-text-lg lg:tw-text-xl tw-font-normal tw-text-default-500 tw-block tw-max-w-full tw-text-center md:tw-text-left">Modern headless Vue UI library for building Self-Directed or Advisor frontends.</h2>
+                <div class="tw-flex tw-flex-col md:tw-flex-row tw-items-center tw-gap-4">
                     <a class="button" href="/docs" role="button">Learn More</a>
                 </div>
             </div>
-            <div class="hidden md:flex flex-col">
+            <div class="tw-hidden md:tw-flex tw-flex-col">
                 <ComponentCloud />
             </div>
         </section>
         <section class="">
-            <div class="grid md:grid-cols-3 md:gap-4">
+            <div class="tw-grid md:tw-grid-cols-3 md:tw-gap-4">
                 <FeatureCard
                     title="Headless Components"
                     description="FinbloxUI is completely unstyled out-of-the-box. 
@@ -42,46 +42,46 @@
                 />
             </div>
         </section>
-        <section class="mt-20">
+        <section class="tw-mt-20">
             <SectionHero
                 headline1="Free"
                 headline2="Trial License"
                 subHeadline="Take FinbloxUI for a spin! We'll email you a free trial license key along with access to our private NPM registry."
                 :headlineCss="{
-                    headline2: 'from-[#ffff00] to-[#ffff93] bg-gradient-to-b',
+                    headline2: 'tw-from-[#ffff00] tw-to-[#ffff93] tw-bg-gradient-to-b',
                 }"
-                align="items-center"
+                align="tw-items-center"
             />
-            <TrialSignup class="mt-4" />
+            <TrialSignup class="tw-mt-4" />
         </section>
-        <section id="theming" class="mt-20">
+        <section id="theming" class="tw-mt-20">
             <SectionHero
                 headline1="Apply your own"
                 headline2="theming"
                 headline3="decisions."
                 subHeadline="FinbloxUI provides headless components that allow you to fully control the CSS design."
                 :headlineCss="{
-                    headline2: 'from-[#5EA2EF] to-[#0072F5] bg-gradient-to-b',
+                    headline2: 'tw-from-[#5EA2EF] tw-to-[#0072F5] tw-bg-gradient-to-b',
                 }"
 
             />
-            <Section2Col class="mt-10">
+            <Section2Col class="tw-mt-10">
                <template v-slot:col1>
-                    <div class="relative min-h-[400px]">
+                    <div class="tw-relative min-h-[400px]">
                         <TabButtons :buttons="['Headless', 'Styled']" @tab-button:active="(mode) => { themeingActiveMode = mode; }" />
                         <div class="themeMode" :class="{ 'showThemeMode': themeingActiveMode === 'Headless'}">
-                            <h2 class="text-2xl text-green-500 mt-4 mb-2">Headless</h2>
-                            <HeadlessDataPoint :dataPoint="ytdAum" class="bg-gray-950" />
-                            <p class="mt-4">
+                            <h2 class="tw-text-2xl tw-text-green-500 tw-mt-4 tw-mb-2">Headless</h2>
+                            <HeadlessDataPoint :dataPoint="ytdAum" class="tw-bg-gray-950" />
+                            <p class="tw-mt-4">
                                 FinbloxUI provides completely unstyled, fully accessible UI components, designed to integrate beautifully.
                                 Components have structural markup, functionality and interaction events. Totally customize them with your own
                                 CSS design.
                             </p>
                         </div>
                         <div class="themeMode" :class="{ 'showThemeMode': themeingActiveMode === 'Styled'}">
-                            <h2 class="text-2xl text-green-500 mt-4 mb-2">Styled</h2>
+                            <h2 class="tw-text-2xl tw-text-green-500 tw-mt-4 tw-mb-2">Styled</h2>
                             <DataPoint />
-                            <p class="mt-4">
+                            <p class="tw-mt-4">
                                 Use your favorite CSS framework or plain vanilla CSS to roll your own design.
                                 FinbloxUI components also come with name-spaced CSS classes allowing you to easily target DOM elements.
                             </p>
@@ -93,40 +93,40 @@
                </template>
             </Section2Col>
         </section>
-        <section id="data" class="mt-20">
+        <section id="data" class="tw-mt-20">
             <SectionHero
                 headline1="Bring"
                 headline2="your own"
                 headline3="data."
                 subHeadline="FinbloxUI components are flexible allowing you to pass data, regardless of the data source, via props."
                 :headlineCss="{
-                    headline2: 'from-[#6FEE8D] to-[#17c964] bg-gradient-to-b',
+                    headline2: 'tw-from-[#6FEE8D] tw-to-[#17c964] tw-bg-gradient-to-b',
                 }"
             />
-            <Section2Col class="mt-10">
+            <Section2Col class="tw-mt-10">
                <template v-slot:col1>
-                    <div class="flex justify-center rounded-lg p-8 bg-gradient-to-r from-[#4ADE80] to-[#06B6D4]">
+                    <div class="tw-flex tw-justify-center tw-rounded-lg tw-p-8 tw-bg-gradient-to-r tw-from-[#4ADE80] tw-to-[#06B6D4]">
                         <ClientCard :client="client" />
                     </div>
                </template>
                <template v-slot:col2><Console language="javascript">{{ clientCode }}</Console></template>
             </Section2Col>
         </section>
-        <section id="template" class="mt-20">
+        <section id="template" class="tw-mt-20">
             <SectionHero
                 headline1="Customization made"
                 headline2="easy."
                 subHeadline="Need more control of the underlying HTML and DOM? No problem! FinbloxUI allows you to override default HTML markup."
                 :headlineCss="{
-                    headline2: 'from-[#FF72E1] to-[#F54C7A] bg-gradient-to-b',
+                    headline2: 'tw-from-[#FF72E1] tw-to-[#F54C7A] tw-bg-gradient-to-b',
                 }"
             />
-            <Section2Col class="mt-10">
+            <Section2Col class="tw-mt-10">
                 <template v-slot:col1>
-                        <TabButtons class="mb-4" :buttons="['Default', 'Custom']" @tab-button:active="(mode) => { templateActiveMode = mode; }" />
-                        <div class="relative min-h-[450px] flex justify-center rounded-lg p-8 bg-gradient-to-r from-[#FF72E1] to-[#F54C7A]">
-                            <div class="themeMode flex-col w-1/2" :class="{ 'showThemeMode': templateActiveMode === 'Default'}">
-                                <h2 class="text-2xl text-white mt-0 mb-2">Default Template</h2>
+                        <TabButtons class="tw-mb-4" :buttons="['Default', 'Custom']" @tab-button:active="(mode) => { templateActiveMode = mode; }" />
+                        <div class="tw-relative tw-min-h-[450px] tw-flex tw-justify-center tw-rounded-lg tw-p-8 tw-bg-gradient-to-r tw-from-[#FF72E1] tw-to-[#F54C7A]">
+                            <div class="themeMode tw-flex-col tw-w-1/2" :class="{ 'showThemeMode': templateActiveMode === 'Default'}">
+                                <h2 class="tw-text-2xl tw-text-white tw-mt-0 tw-mb-2">Default Template</h2>
                                 <QuoteDetail
                                     symbol="AAPL"
                                     security_description="Apple, Inc."
@@ -146,29 +146,29 @@
                                />
                             </div>
                             <div class="themeMode" :class="{ 'showThemeMode': templateActiveMode === 'Custom'}">
-                                <h2 class="text-2xl text-white mt-0 mb-2">Custom Template</h2>
+                                <h2 class="tw-text-2xl tw-text-white tw-mt-0 tw-mb-2">Custom Template</h2>
                                 <CustomQuoteDetail />
                             </div>
                         </div>
                </template>
                <template v-slot:col2><Console language="markup">{{ code }}</Console></template>
             </Section2Col>
-            <p class="mt-4 text-white">
+            <p class="tw-mt-4 tw-text-white">
                 You can customize the default HTML using standard VUE template slots.<br>
                 This code example demonstrates how you might adjust the layout of the quote heading and price section.
             </p>
         </section>
-        <section class="mt-20">
+        <section class="tw-mt-20">
             <SectionHero
                 headline1="Last but"
                 headline2="not least."
                 subHeadline="A fully-featured financial brokerage UI library."
                 :headlineCss="{
-                    headline2: 'from-[#FF705B] to-[#FFB457] bg-gradient-to-b',
+                    headline2: 'tw-from-[#FF705B] tw-to-[#FFB457] tw-bg-gradient-to-b',
                 }"
-                align="items-center"
+                align="tw-items-center"
             />
-            <div class="mt-10 grid md:grid-cols-4 md:gap-4">
+            <div class="tw-mt-10 tw-grid md:tw-grid-cols-4 md:tw-gap-4">
                 <FeatureCard
                     title="100+ Components"
                     description="With over 100 beautifully crafted components you can build everything 
@@ -215,21 +215,21 @@
                 />
             </div>
         </section>
-         <section class="mt-20">
+         <section class="tw-mt-20">
             <SectionHero
                 headline1="Free"
                 headline2="Trial License"
                 subHeadline="Take FinbloxUI for a spin! We'll email you a free trial license key along with access to our private NPM registry."
                 :headlineCss="{
-                    headline2: 'from-[#ffff00] to-[#ffff93] bg-gradient-to-b',
+                    headline2: 'tw-from-[#ffff00] tw-to-[#ffff93] tw-bg-gradient-to-b',
                 }"
-                align="items-center"
+                align="tw-items-center"
             />
-            <TrialSignup class="mt-4" />
+            <TrialSignup class="tw-mt-4" />
         </section>
 
     </main>
-    <footer class="h-[200px] bg-gray-950">
+    <footer class="tw-h-[200px] tw-bg-gray-950">
 
     </footer>
     
@@ -444,38 +444,38 @@ const client = {
 </script>
 <style lang="scss" scoped>
 #data:deep(.section-2-col > div) {
-    @apply lg:mt-0;
+    @apply lg:tw-mt-0;
 }
 #data:deep(.section-2-col .console),
 #template:deep(.section-2-col .console) {
-    @apply min-h-full;
+    @apply tw-min-h-full;
 }
 
 .button {
-    @apply px-4 py-2 rounded-full bg-blue-600 hover:bg-blue-500 w-full md:w-fit text-center;
+    @apply tw-px-4 tw-py-2 tw-rounded-full tw-bg-blue-600 hover:tw-bg-blue-500 tw-w-full md:tw-w-fit tw-text-center;
 }
 
 .card {
-    @apply mb-10 md:m-0 p-4 rounded-lg bg-[#18181b];
+    @apply tw-mb-10 md:tw-m-0 tw-p-4 tw-rounded-lg tw-bg-[#18181b];
     h2 {
-        @apply text-green-500 text-lg pb-3 font-semibold;
+        @apply tw-text-green-500 tw-text-lg tw-pb-3 tw-font-semibold;
     }
     h2::before {
         font: var(--fa-font-solid);
-        @apply mr-2 p-2 rounded-full items-center bg-zinc-700 text-green-500;
+        @apply tw-mr-2 tw-p-2 tw-rounded-full tw-items-center tw-bg-zinc-700 tw-text-green-500;
     }
     &.headless h2::before {
         content: "\f0e7";
     }
     p {
-        @apply text-gray-200;
+        @apply tw-text-gray-200;
     }
 }
 
 .themeMode {
     opacity: 0;
     transition: opacity 0.6s linear;
-    @apply absolute;
+    @apply tw-absolute;
 }
 .showThemeMode {
     opacity: 1;

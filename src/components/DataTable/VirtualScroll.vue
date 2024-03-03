@@ -1,10 +1,11 @@
 <template>
     <div v-bind="containerProps" :style="`height: ${height}px`" v-if="enabled">
         <div v-bind="wrapperProps">
-            <slot :rows="virtualList" :columns="columns" />
+            <slot :rows="listToVirtualList" :columns="columns" />
         </div>
     </div>
     <slot v-else :rows="listToVirtualList" :columns="columns" />
+
 </template>
 <script setup>
 import { computed } from "vue";
@@ -18,11 +19,15 @@ const props = defineProps({
         type: Boolean,
         default: false,
     },
+    useGroupBy: {
+        type: Boolean,
+        default: false,
+    },
     /**
      * An array of data to be rendered
      */
     list: {
-        type: Array,
+        type: [Object,Array],
         default: () => [],
     },
     /**
@@ -40,9 +45,8 @@ const props = defineProps({
         default: 400,
     }
 });
-const { list: virtualList, containerProps, wrapperProps } = useVirtualList(props.list, { 
-    itemHeight: 20.5
-});
+
+
 const listToVirtualList = computed(() => {
     const list = props.list.value ? props.list.value : props.list
     /**
@@ -60,4 +64,15 @@ const listToVirtualList = computed(() => {
         });
     }
 });
+
+// const { list: virtualList, containerProps, wrapperProps } = useVirtualList(
+//     props.list,
+//     { 
+//     itemHeight: 20.5
+// });
+
+
+
+
+
 </script>

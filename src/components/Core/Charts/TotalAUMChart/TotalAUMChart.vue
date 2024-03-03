@@ -311,6 +311,7 @@ const yAxisMax = (arr) => {
         position: relative;
         top: 0%;
         left: 0%;
+        bottom: 0%;
     }
     position: absolute;
     bottom: 20%;

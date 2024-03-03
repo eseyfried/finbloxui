@@ -1,8 +1,13 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-    <div class="fb-portfolio-summary-card" :class="componentClasses.getClassByType('component')">
+    <Primitive
+        ref="primitiveElement"
+        :as-child="asChild"
+        :as="as"
+        class="fb-portfolio-summary-card"
+        :class="componentClasses.getClassByType('component')"
+    >
         <slot
-            name="default"
             :props="props"
             :currentValue="formatters.formatCurrency(props.currentValue)"
             :cashValue="formatters.formatCurrency(cashValue)"
@@ -27,49 +32,65 @@
                 </dd>
             </dl>
         </slot>
-    </div>
+    </Primitive>
 </template>
+<script>
+const PortfolioSummaryCardProps = mergeProps(
+    PrimitiveProps,
+    {
+        currentValueLabel: {
+            type: String,
+            default: "Current Value",
+            desc: "Text label for the current value field"
+        },
+        cashLabel: {
+            type: String,
+            default: "Cash",
+            desc: "Text label for the cash value field"
+        },
+        securitiesLabel: {
+            type: String,
+            default: "Holdings",
+            desc: "Text label for the securities value field"
+        },
+        changeLabel: {
+            type: String,
+            default: "Today's Change",
+            desc: "Text label for the today's change value field"
+        },
+        currentValue: {
+            type: Number,
+            default: "",
+            desc: "The unformatted current value"
+        },
+        cashValue: {
+            type: Number,
+            default: "",
+            desc: "The unformatted cash value"
+        },
+        securitiesValue: {
+            type: Number,
+            default: "",
+            desc: "The unformatted securities value"
+        },
+        changeAmount: {
+            type: Number,
+            default: "",
+            desc: "The unformatted change in amount value"
+        },
+    }
+);
+</script>
 <script setup>
 // imports
+import { Primitive, PrimitiveProps } from '@/components/Core/Primitive/Primitive'
 import * as formatters from "@/modules/useFormatter";
-import { computed } from "vue";
+import { computed, mergeProps } from "vue";
 import * as componentClasses from "@/modules/useCommonCSS";
 
 // vars
-const props = defineProps({
-    currentValueLabel: {
-        type: String,
-        default: "Current Value"
-    },
-    cashLabel: {
-        type: String,
-        default: "Cash"
-    },
-    securitiesLabel: {
-        type: String,
-        default: "Holdings"
-    },
-    changeLabel: {
-        type: String,
-        default: "Today's Change"
-    },
-    currentValue: {
-        type: String,
-        default: ""
-    },
-    cashValue: {
-        type: String,
-        default: ""
-    },
-    securitiesValue: {
-        type: String,
-        default: ""
-    },
-    changeAmount: {
-        type: String,
-        default: ""
-    },
-});
+
+const props = defineProps(PortfolioSummaryCardProps)
 const changeAmountPct = computed(() => parseFloat((props.changeAmount / props.securitiesValue) * 100));
 
 

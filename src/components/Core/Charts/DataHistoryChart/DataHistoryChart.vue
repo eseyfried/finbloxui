@@ -6,7 +6,7 @@
                 :props="props"
                 :currentValue="formatters.formatCurrency(currentValue)"
                 :changeAmount="formatters.formatCurrency(changeAmount, true)"
-                :changePercent="formatters.formatCurrency(changePercent, true)"
+                :changePercent="formatters.formatPercent(changePercent, true)"
                 :asOf="formatters.formatDate(asOf)"
                 :changeClasses="changeClasses(changeAmount)"
             >

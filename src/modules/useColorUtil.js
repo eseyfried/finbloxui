@@ -1,3 +1,4 @@
+import colorLib from '@kurkle/color';
 const rgbToHex = (r, g, b) => {
     return "#" + valueToHex(r) + valueToHex(g) + valueToHex(b);
 }
@@ -16,7 +17,13 @@ const valueToHex = (v) => {
     return hex.length == 1 ? "0" + hex : hex;
 }
 
+const transparentize = (value, opacity) => {
+    const alpha = opacity === undefined ? 0.5 : 1 - opacity;
+    return colorLib(value).alpha(alpha).rgbString();
+}
+
 export {
     rgbToHex,
-    hexToRgb
+    hexToRgb,
+    transparentize
 }

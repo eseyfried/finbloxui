@@ -1,0 +1,13 @@
+html[data-mode=headless] {
+    * {
+        --fb-chart-color-1: rgb(229 231 235);
+        --fb-chart-color-2: rgb(209 213 219);
+        --fb-chart-color-3: rgb(107 114 128);
+        --fb-chart-color-4: rgb(156 163 175);
+        --fb-chart-color-5: rgb(107 114 128);
+        --fb-chart-color-6: rgb(55 65 81);
+        --fb-chart-color-7: rgb(31 41 55);
+        --example-data-point-background: #4BC1C1;
+    }
+}
+        

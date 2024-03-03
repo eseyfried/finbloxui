@@ -92,11 +92,11 @@ const defaultClients = (numberOfRecords) => {
                 phone: [
                     {
                         label: "mobile",
-                        value: faker.phone.number("###-###-####")
+                        value: faker.phone.number()
                     },
                     {
                         label: "home",
-                        value: faker.phone.number("###-###-####")
+                        value: faker.phone.number()
                     }
                 ]
             },
@@ -110,7 +110,7 @@ const defaultPositions = (numberOfRecords) => {
         (i) => {
             const quantity = faker.string.numeric({ min: 1, max: 238 });
             const price = faker.finance.amount({ min: 5, max: 300, dec: 2 });
-            const changeFactor = price * (faker.number.float({ min: 1, max: 5, precision: 0.1 })/100);
+            const changeFactor = price * (faker.number.float({ min: 1, max: 5, multipleOf: 0.1 })/100);
             return {
                 id: i+1,
                 symbol: getSymbol(),
@@ -178,7 +178,7 @@ const defaultUGLLots = (numberOfRecords) => {
             const price = faker.finance.amount({ min: 5, max: 300, dec: 2 });
             const cost_basis = faker.finance.amount({ min: price - 10, max: price + 4, dec: 2 });
             const unrealized_gl = cost_basis - price;
-            const changeFactor = price * (faker.number.float({ min: 1, max: 5, precision: 0.1 })/100);
+            const changeFactor = price * (faker.number.float({ min: 1, max: 5, multipleOf: 0.1 })/100);
             const open_date = faker.date.past({ days: 3 });
             const symbol = i % 2 ? getSymbol() : "AAPL";
             return {
@@ -214,7 +214,7 @@ const getSymbol = () => {
 const historicalBalances = () => {
     const balances = [];
     for(let i = 0; i < moment().dayOfYear(); i++) {
-        balances.push(faker.finance.amount(310000, 350000, 2, '', false));
+        balances.push(faker.finance.amount({min:310000, max: 350000, dec: 2, symbol:'', autoFormat:false}));
     }
     return balances
 }
@@ -222,7 +222,7 @@ const historicalBalances = () => {
 const monthlyFees = () => {
     const fees = [];
     for(let i = 0; i <= moment.utc().month(); i++) {
-        const monthTotalAUM = faker.finance.amount(10000000, 15000000, 2, '', false);
+        const monthTotalAUM = faker.finance.amount({min:10000000, max:15000000, dec:2, symbol:'', autoFormat:false});
         fees.push(monthTotalAUM * 0.015);
     }
     return fees;
@@ -231,7 +231,7 @@ const monthlyFees = () => {
 const dailyAUM = () => {
     const aum = [];
     for(let i = 0; i < moment.utc().dayOfYear(); i++) {
-        const dayTotalAUM = faker.finance.amount(1000000, 1100000, 2, '', false);
+        const dayTotalAUM = faker.finance.amount({min:1000000, max:1100000, dec:2, symbols: '', autoFormat: false});
         aum.push(dayTotalAUM);
     }
     return aum;

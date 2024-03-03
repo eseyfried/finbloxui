@@ -1,0 +1,1 @@
+export { default as TopClientsByAum } from "./TopClientsByAum.vue"

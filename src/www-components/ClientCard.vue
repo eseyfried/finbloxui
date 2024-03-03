@@ -70,7 +70,7 @@ const client = {
 </script>
 <style lang="scss" >
 .fb-client-card {
-    @apply relative flex flex-col rounded-lg bg-[#18181B] p-4 text-white md:w-2/3 shadow-gray-950 shadow-2xl;
+    @apply tw-relative tw-flex tw-flex-col tw-rounded-lg tw-bg-[#18181B] tw-p-4 tw-text-white md:tw-w-2/3 tw-shadow-gray-950 tw-shadow-2xl;
     .fb-client-card-header::before {
         content: "";
         background-image: url("https://i.pravatar.cc/150?img=5");
@@ -80,38 +80,38 @@ const client = {
         position: absolute;
         width: 75px;
         height: 75px;
-        @apply hidden left-10 md:block rounded-full bg-white border-2 border-green-500;
+        @apply tw-hidden tw-left-10 md:tw-block tw-rounded-full tw-bg-white tw-border-2 tw-border-green-500;
     }
     .fb-client-card-header {
-        @apply mb-5;
+        @apply tw-mb-5;
         h2 {
-            @apply text-2xl text-right mt-2;
+            @apply tw-text-2xl tw-text-right tw-mt-2;
         }
         h3 {
-            @apply text-base text-right;
+            @apply tw-text-base tw-text-right;
         }
     }
     .fb-client-card-stats,
     .fb-client-card-contact-info {
-        @apply flex flex-col;
+        @apply tw-flex tw-flex-col;
         li {
-            @apply flex justify-between;
+            @apply tw-flex tw-justify-between;
             label::after {
                 content: ":";
             }
             address {
-                @apply text-right;
+                @apply tw-text-right;
             }
         }
     }
     .fb-client-card-contact-info {
-        @apply mt-4 pt-4 border-t text-gray-400;
+        @apply tw-mt-4 tw-pt-4 tw-border-t tw-text-gray-400;
         li:last-child {
-            @apply mt-4 pt-4 border-t;
+            @apply tw-mt-4 tw-pt-4 tw-border-t;
         }
     }
     a {
-        @apply underline text-green-500;
+        @apply tw-underline tw-text-green-500;
     }
 }
 </style>

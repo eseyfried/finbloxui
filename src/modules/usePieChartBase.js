@@ -57,6 +57,14 @@ const chartOptions = (props, componentID, defaultOptions = {}) => {
         props.chartjsOptions,
         {
                 maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        display: false
+                    },
+                    x: {
+                        display: false
+                    }
+                },
                 cutout: cutout,
                 plugins: {
                     htmlLegend: {

@@ -1,11 +1,11 @@
 <!-- eslint-disable vue/valid-template-root -->
 <template>
-    <div class="flex flex-col items-center text-center">
+    <div class="tw-flex tw-flex-col tw-items-center tw-text-center">
         <!-- <h3 class="text-5xl"><span class="text-teal-500">Free</span><br />Trial License</h3>
         <p>Take FinbloxUI for a spin! We'll email you a free trial license key along with access to our private NPM registry.</p>
         <p>No credit card up front. No obligation. Nothing!</p> -->
-        <p v-if="message && !hasError" class="p-4 w-full rounded border-1 border-solid border-green-700 bg-green-50 text-green-700">{{ message }}</p>
-        <div class="flex flex-col sm:flex-row border border-solid w-full md:w-2/3 p-1">
+        <p v-if="message && !hasError" class="tw-p-4 tw-w-full tw-rounded tw-border-1 tw-border-solid tw-border-green-700 tw-bg-green-50 tw-text-green-700">{{ message }}</p>
+        <div class="tw-flex tw-flex-col sm:tw-flex-row tw-border tw-border-solid tw-w-full md:tw-w-2/3 tw-p-1">
             <input type="email" v-model="email" name="email"  placeholder="enter your email" />
             <a href="#" @click.prevent="handleButtonClick">Try FinbloxUI</a>
         </div>
@@ -36,12 +36,13 @@ const handleButtonClick = async (e) => {
 </script>
 <style lang="scss" scoped>
 .error {
-    @apply border-red-400 text-red-600 mt-1;
+    @apply tw-border-red-400 tw-text-red-600 tw-mt-1;
 }
 input {
-    @apply grow border-0;
+    padding: 0.5rem 0.75rem;
+    @apply tw-grow tw-border-0;
 }
 a {
-    @apply bg-[#ffff00] text-black font-semibold hover:bg-[#eaea02] text-center no-underline py-4 px-4;
+    @apply tw-bg-[#ffff00] tw-text-black tw-font-semibold hover:tw-bg-[#eaea02] tw-text-center tw-no-underline tw-py-4 tw-px-4;
 }
 </style>

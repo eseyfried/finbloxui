@@ -35,7 +35,7 @@
                 :yearChangeAmount="formatters.formatCurrency(yearChangeAmount, false)"
                 :yearChangePercent="formatters.formatPercent(yearChangePercent, true)"
                 :changeClasses="changeClasses(yearChangeAmount)"
-                :sinceDate="sinceDate"
+                :sinceDate="moment.utc(sinceDate).format('MMM YYYY')"
             >
                 <h4>{{ sinceLabel }} {{ moment.utc(sinceDate).format("MMM YYYY") }}</h4>
                 <div class="fb-networth-chart-year-change" :class="changeClasses(yearChangeAmount)">

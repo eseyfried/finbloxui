@@ -1,0 +1,1 @@
+export { default as PortfolioSummaryGrid } from "@/components/Advisor/PortfolioSummaryGrid/PortfolioSummaryGrid.vue"

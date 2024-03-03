@@ -13,20 +13,36 @@
         <th @click="onClick()" role="cell">
             {{ columnProp("header") }}
             <template v-if="columnProp('sortable')">
-                <component :is="(column.children && column.children.sortIcon)" :sorted="sorted" :sortDir="sortDir" />
-            </template>
-            
-            <teleport :to="`${teleportTo} .fb-data-table-filters`" :disabled="!isMobile">
                 <component
-                    v-if="column.children && Object.hasOwn(column.children, 'default')"
-                    :is="column.children.default()[0]"
-                    :column="column"
-                    :buttonLabel="isMobile ? columnProp('header') : null"
-                    :selectOptions="column.children.default()[0].props.selectOptions || selectOptions"
-                    @fb-column-filter-apply-button:click="handleApplyFilter($event)"
-                    @fb-column-filter-clear-button:click="handleClearFilter($event)"
+                    :is="(column.children && column.children.sortIcon)"
+                    :sorted="sorted"
+                    :sortDir="sortDir"
                 />
-             </teleport>
+            </template>
+            <template v-if="teleportTo && hasFilters">
+                <teleport :to="`${teleportTo} .fb-data-table-filters`" :disabled="!isMobile">
+                    <component
+                        v-if="column.children && Object.hasOwn(column.children, 'default')"
+                        :is="column.children.default()[0]"
+                        :column="column"
+                        :buttonLabel="isMobile ? columnProp('header') : null"
+                        :selectOptions="column.children.default()[0].props.selectOptions || selectOptions"
+                        @fb-column-filter-apply-button:click="handleApplyFilter($event)"
+                        @fb-column-filter-clear-button:click="handleClearFilter($event)"
+                    />
+                </teleport>
+            </template>
+            <template v-else>
+                <component
+                        v-if="column.children && Object.hasOwn(column.children, 'default')"
+                        :is="column.children.default()[0]"
+                        :column="column"
+                        :buttonLabel="isMobile ? columnProp('header') : null"
+                        :selectOptions="column.children.default()[0].props.selectOptions || selectOptions"
+                        @fb-column-filter-apply-button:click="handleApplyFilter($event)"
+                        @fb-column-filter-clear-button:click="handleClearFilter($event)"
+                    />
+            </template>
         </th>
     </template>
     
@@ -53,6 +69,9 @@ const props = defineProps({
         default: null
     }
 });
+
+
+const hasFilters = ComponentUtils.hasComponent(props.column.children, 'ColumnFilter')
 
 
 const emits = defineEmits([

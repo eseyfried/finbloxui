@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-    <div class="fb-column-selector" :class="componentClasses.getClassByType('component')">
+    <div class="fb-column-selector" :class="componentClasses.getClassByType('component')"> 
         <slot
             name="button"
             :props="props"
@@ -17,12 +17,12 @@
         </slot>
         <ul :class="{'fb-column-selector-visible' : showColumns  }" ref="target">
             <template v-for="column in columns" :key="column">
-                <li :class="{ 'fb-column-selector-selected': selectedColumns.includes(column.name) }">
+                <li :class="{ 'fb-column-selector-selected': selectedColumnNames.includes(column.name) }">
                     <slot
                         name="column"
                         :props="props"
                         :column="column"
-                        :attrs="{ class: { 'fb-column-selector-selected': selectedColumns.includes(column.name) }}"
+                        :attrs="{ class: { 'fb-column-selector-selected': selectedColumnNames.includes(column.name) }}"
                         :eventHandlers="{ click: () => { return handleColumnSelection(column); } }"
                     >
                         
@@ -35,7 +35,7 @@
 </template>
 <script setup>
 // imports
-import { ref } from "vue";
+import { ref, toRef, computed } from "vue";
 import { onClickOutside } from "@vueuse/core";
 import * as componentClasses from "@/modules/useCommonCSS";
 
@@ -43,15 +43,18 @@ import * as componentClasses from "@/modules/useCommonCSS";
 const props = defineProps({
     columns: {
         type: Array,
-        default: () => []
+        default: () => [],
+        desc: "An array of column objects."
     },
     buttonLabel: {
         type: String,
         default: "Columns",
+        desc: "The trigger button text label"
     },
     defaultSelectedColumns: {
         type: Array,
         default: () => [],
+        desc: "An array of column objects"
     },
 });
 const emit = defineEmits([
@@ -61,25 +64,23 @@ const emit = defineEmits([
 const showColumns = ref(false);
 const target = ref(null);
 
+
 onClickOutside(target, () => { showColumns.value = false; });
 
-
-
 // methods
-const transformColumnsToNames = (columns) => {
-    return columns.filter(column => typeof column.name === "string")
-                .map((column) => column.name);
-}
 
+const selectedColumns = toRef(props,props.defaultSelectedColumns.length > 0 ? 'defaultSelectedColumns' : 'columns');
+// const selectedColumns = initSelectedColumns
 
 const handleColumnSelection = (column) => {
-    if (selectedColumns.value.includes(column.name)) {
+    if (selectedColumnNames.value.includes(column.name)) {
         // delete column from selected columns
-        selectedColumns.value = selectedColumns.value.filter(item => {
-            return item !== column.name;
-        });
+        const index = selectedColumns.value.findIndex((col) => col.name === column.name)
+        if (index > -1) {
+            console.log(selectedColumns.value.splice(index, 1))
+        }
     } else {
-        selectedColumns.value.push(column.name);
+        selectedColumns.value.push(column);
     }
     emit("fb-column-selector-selected:click", selectedColumns.value);
 }
@@ -87,8 +88,10 @@ const handleButtonClick = () => {
     showColumns.value  = !showColumns.value
     emit("fb-column-selector-button:click", !showColumns.value);
 }
-const defaultSelectedColumns = props.defaultSelectedColumns.length > 0 ? props.defaultSelectedColumns : props.columns;
-const selectedColumns = ref(transformColumnsToNames(defaultSelectedColumns));
+
+const selectedColumnNames = computed(() => selectedColumns.value.map(column => column.name))
+
+
 </script>
 <style lang="scss" scoped>
 .fb-column-selector {

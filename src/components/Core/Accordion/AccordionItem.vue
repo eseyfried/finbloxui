@@ -9,8 +9,8 @@ const AccordionItemState  = {
 </script>
 <script setup>
 import { computed } from 'vue';
-import { usePrimitiveElement } from '@/components/Core/Primitive';
-import { CollapsibleRoot } from '@/components/Core/Collapsible';
+import { usePrimitiveElement } from '@/components/Core/Primitive/usePrimitiveElement';
+import CollapsibleRoot from '@/components/Core/Collapsible/CollapsibleRoot';
 
 const props = defineProps({
     /**
@@ -89,7 +89,7 @@ function handleArrowKey(e) {
         :data-disabled="dataDisabled"
         :data-state="dataState"
         :disabled="disabled"
-        :open="open"
+        :defaultOpen="open"
         :as-child="props.asChild"
         @keydown.up.down.left.right.home.end="handleArrowKey"
         class="fb-accordion-item"

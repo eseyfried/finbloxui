@@ -1,10 +1,10 @@
 <!-- eslint-disable vue/valid-template-root -->
 <template>
-    <div class="text-white section-2-col grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <div class="flex flex-col mt-8 lg:mt-16">
+    <div class="tw-text-white section-2-col tw-grid tw-grid-cols-1 lg:tw-grid-cols-2 tw-gap-4">
+        <div class="tw-flex tw-flex-col tw-mt-8 lg:tw-mt-16">
             <slot name="col1"></slot>
         </div>
-        <div class="flex relative w-full">
+        <div class="tw-flex tw-relative tw-w-full">
             <slot name="col2"></slot>
         </div>
     </div>

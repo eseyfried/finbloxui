@@ -10,7 +10,7 @@
                 :plugins="[htmlLegendPlugin]"
                 :colors="colors"
             />
-            <div class="fb-clients-by-age-chart-hero" :class="componentClasses.getClassByType('chartHero')" v-if="type === 'doughnut'">
+            <div class="fb-clients-by-age-chart-hero" :class="componentClasses.getClassByType('chartHero')" v-if="showTotal && type === 'doughnut'">
                 <slot :props="props" :totalLabel="totalLabel" :totalClients="totalClients">
                     <h2>{{ totalLabel }}</h2>
                     <h3>{{ totalClients }}</h3>
@@ -26,11 +26,12 @@
 <script setup>
 // imports
 import * as componentClasses from "@/modules/useCommonCSS";
-import { getCurrentInstance, computed } from "vue";
+import { getCurrentInstance, computed, watch, reactive } from "vue";
 import { isMobile } from "@/modules/useResponsive";
 import { arraySum } from "@/modules/useArrayUtils";
 import * as base from "@/modules/usePieChartBase";
 import Chart from "@/components/Core/Charts/Chart";
+import ChartJS from 'chart.js/auto';
 import { htmlLegendPlugin } from "@/modules/useChartLegend"
 
 // vars
@@ -44,14 +45,30 @@ const props = defineProps(
         totalLabel: {
             type: String,
             default: "Clients"
+        },
+        showTotal: {
+            type: Boolean,
+            default: true
         }
     })).value
 );
 
 const chartData = computed(() => base.chartData(props));
 const defaultOptions = {}
-const chartOptions = computed(() => base.chartOptions(props, component.uid, defaultOptions)).value;
+// const chartOptions = computed(() => base.chartOptions(props, component.uid, defaultOptions)).value;
+let chartOptions = reactive(base.chartOptions(props, component.uid, defaultOptions))
 const totalClients = computed(() => arraySum(props.data));
+/**
+ * The chart legend plugin does not re-render
+ * when format prop updates.
+ */
+watch(() => [props.format, props.type], () => {
+   const chart = ChartJS.getChart(id);
+   chartOptions = base.chartOptions(props, component.uid, defaultOptions)
+   if(chart) {
+    chart.update();
+   }
+}, { immediate: true })
 </script>
 <style lang="scss" scoped>
 @import "../../../../scss/fb-chart-legend.scss";

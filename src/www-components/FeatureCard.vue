@@ -46,19 +46,19 @@ const getFont = computed(() => {
 <style lang="scss">
 
 .card {
-    @apply mb-10 md:m-0 p-4 rounded-lg bg-[#18181b];
+    @apply tw-mb-10 md:tw-m-0 tw-p-4 tw-rounded-lg tw-bg-[#18181b];
     h2 {
-        @apply text-green-500 text-lg pb-3 font-semibold;
+        @apply tw-text-green-500 tw-text-lg tw-pb-3 tw-font-semibold;
     }
     h2::before {
         font: v-bind('getFont');
-        @apply mr-2 p-2 rounded-full items-center bg-zinc-700 text-green-500;
+        @apply tw-mr-2 tw-p-2 tw-rounded-full tw-items-center tw-bg-zinc-700 tw-text-green-500;
     }
     h2::before {
         content: v-bind(getIcon);
     }
     p {
-        @apply text-gray-200;
+        @apply tw-text-gray-200;
     }
 }
 </style>

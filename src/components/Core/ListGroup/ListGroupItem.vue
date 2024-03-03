@@ -10,13 +10,18 @@ export const ListGroupItemProps = mergeProps(PrimitiveProps, {
 <script setup>
 import { mergeProps } from "vue";
 import { injectListGroupRootContext } from './ListGroupRoot.vue'
-
+import * as componentClasses from "@/modules/useCommonCSS";
 
 defineProps(ListGroupItemProps)
 const rootContext = injectListGroupRootContext()
 </script>
 <template>
- <Primitive ref="primitiveElement" :as-child="asChild" :as="as">
+ <Primitive
+    ref="primitiveElement"
+    :as-child="asChild"
+    :as="as"
+    :class="['fb-list-group-item', componentClasses.getClassByType('component')]"
+>
     <slot />
  </Primitive>
 </template>

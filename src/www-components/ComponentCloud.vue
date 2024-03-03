@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/valid-template-root -->
 <template>
-    <div class="relative">
+    <div class="tw-relative">
         <div id="ytdAum" class="position">
             <DataPoint />
         </div>
@@ -40,17 +40,17 @@ import ClientCard from "@/www-components/ClientCard";
 
 
 #quoteDetail:deep(.fb-quote-detail) {
-    @apply shadow-md p-3 rounded border-yellow-300 border-2 bg-white text-black;
+    @apply tw-shadow-md tw-p-3 tw-rounded tw-border-yellow-300 tw-border-2 tw-bg-white tw-text-black;
     
     .fb-quote-detail-heading h3 {
-        @apply text-lg font-semibold;
+        @apply tw-text-lg tw-font-semibold;
     }
     .fb-quote-detail-price {
         display: flex;
-        @apply items-end my-2;
+        @apply tw-items-end tw-my-2;
     }
     .fb-quote-detail-price h4 {
-        @apply text-xl p-0 m-0;
+        @apply tw-text-xl tw-p-0 tw-m-0;
         line-height: inherit;
     }
     .fb-quote-detail-price h4,
@@ -71,16 +71,16 @@ import ClientCard from "@/www-components/ClientCard";
 
 #ytdAum {
     &.position {
-        @apply absolute -top-4 left-24 floating slow;
+        @apply tw-absolute -tw-top-4 tw-left-24 floating slow;
     }
-    @apply z-20;
+    @apply tw-z-20;
 }
 #quoteDetail {
-    @apply absolute top-[150px] -left-[120px] w-[400px] z-10 floating fast;
+    @apply tw-absolute tw-top-[150px] -tw-left-[120px] tw-w-[400px] tw-z-10 floating fast;
 }
 
 #clientCard {
-    @apply absolute top-[134px] w-[500px] left-[320px] z-10 floating medium;
+    @apply tw-absolute tw-top-[134px] tw-w-[500px] tw-left-[320px] tw-z-10 floating medium;
 }
 
 

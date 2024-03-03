@@ -1,8 +1,20 @@
 <template v-slot="slotProps">
-    <div class="fb-data-table" :class="componentClasses.getClassByType('component')">
-        <ColumnSelector :columns="transformColumns(defaultColumns)" v-if="columnSelector" @fb-column-selector-selected:click="handleColumnSelection($event)" />
-        <VirtualScroll :list="groupRows(transformedRows)" :columns="columns" :enabled="useVirtualScroll" :height="virtualScrollHeight"  v-if="teleportComplete">
-            <template #default="slopProps">
+    <div class="fb-data-table" :class="componentClasses.getClassByType('component')" v-if="isMounted">
+    <slot />
+        <ColumnSelector
+            :columns="transformColumns(defaultColumns)"
+            v-if="columnSelector"
+            @fb-column-selector-selected:click="handleColumnSelection($event)"
+        />
+        <VirtualScroll
+            :list="groupRows(transformedRows)"
+            :columns="columns"
+            :enabled="useVirtualScroll"
+            :useGroupBy="groupRowsByField !== null"
+            :height="virtualScrollHeight"
+            v-if="teleportComplete"
+        >
+            <template #default="slopProps">            
                 <table v-bind="$attrs" role="table">
                     <TableHeader
                         :columns="slopProps.columns"
@@ -15,8 +27,8 @@
                     <TableBody
                         :columns="slopProps.columns"
                         :rows="slopProps.rows"
-                        :groupRowsBy="groupRowsBy"
-                        :groupRowLabel="getGroupRowLabel()"
+                        :groupRowsBy="groupRowsByField"
+                        :groupRowLabel="getGroupRowLabel"
                         :showTotals="showTotals"
                         :groupedTotalsLocation="groupTotalsLocationOveride"
                         :collapsible="collapsible"
@@ -27,7 +39,7 @@
     </div>
 </template>
 <script setup>
-import { ref, useSlots, computed, onMounted, nextTick, watch } from "vue";
+import { ref, useSlots, computed, onMounted, nextTick, watch, reactive } from "vue";
 import { filter as _filter, groupBy as _groupBy } from "lodash";
 import { isMobile } from "@/modules/useResponsive";
 import Base from "@/components/DataTable/Base";
@@ -45,7 +57,8 @@ const props = defineProps({
      */
     rows: {
         type: Array,
-        default: () => []
+        default: () => [],
+        desc: "An array of json objects rendered as table rows"
     },
     /**
      * Use virtual scrolling for DOM performance with super large datasets
@@ -53,6 +66,7 @@ const props = defineProps({
     useVirtualScroll: {
         type: Boolean,
         default: false,
+        desc: "Use virtual scrolling for DOM performance with super large datasets"
     },
     /**
      * Height of the table when in virtual scroll mode
@@ -60,6 +74,7 @@ const props = defineProps({
     virtualScrollHeight: {
         type: Number,
         default: 400,
+        desc: "Height of the table when in virtual scroll mode"
     },
     /**
      * Enable the column selector
@@ -67,20 +82,23 @@ const props = defineProps({
     columnSelector: {
         type: Boolean,
         default: false,
+        desc: "Enable the column selector"
     },
     /**
      * class selector to teleportTo in a wrapper component (i.e. PositionsGrid)
      */
     teleportTo: {
         type: String,
-        default: null
+        default: null,
+        desc: "class selector to teleportTo in a wrapper component (i.e. PositionsGrid)"
     },
     /**
      * Group rows by a field in the data set
      */
     groupRowsBy: {
         type: String,
-        default: null
+        default: null,
+        desc: "Group rows by a field in the data set"
     },
     /**
      * show column totals
@@ -88,6 +106,7 @@ const props = defineProps({
     showTotals: {
         type: Boolean,
         default: false,
+        desc: "Show column totals"
     },
     /**
      * collapse grouped rows
@@ -95,6 +114,7 @@ const props = defineProps({
     collapsible: {
         type: Boolean,
         default: false,
+        desc: "Collapse grouped rows"
     },
     /**
      * location of grouped totals
@@ -104,19 +124,24 @@ const props = defineProps({
         default: "top",
         validator: (value) => {
             return ["top","bottom"].includes(value)
-        }
+        },
+        desc: "Location of grouped totals"
     }
 });
 
 
 const emits = defineEmits(["column-click"]);
 
-const defaultColumns = Base.columns(slots, props.groupRowsBy);
+const defaultColumns = computed(() => Base.columns(slots, props.groupRowsBy));
 
-const columns = ref(defaultColumns);
+const columns = ref(defaultColumns.value);
 const filteredRows = ref([]);
 const teleportComplete = ref(props.teleportTo ? false : true);
 const groupTotalsLocationOveride = isMobile.value ? "bottom" : props.groupedTotalsLocation;
+const isMounted = ref(false)
+onMounted(() => {
+    isMounted.value = true
+})
 
 /**
  * stack of applied filters;
@@ -130,14 +155,15 @@ const transformedRows = computed( () => {
 
 
 
-watch(() => [props.teleportTo], () => {
+watch(() => [props.teleportTo, slots.default()], () => {
+    columns.value = Base.columns(slots, props.groupRowsBy)
     const isTeleportComplete = nextTick(() => {
         teleportComplete.value = true;
         const teleportToEl = document.querySelector(`${props.teleportTo} .fb-filters`);
         if (teleportToEl) {
             teleportComplete.value = true;
         }
-        return teleportComplete.value = true;;
+        return teleportComplete.value = true;
     });
      teleportComplete.value = isTeleportComplete;
 }, { immediate: true })
@@ -159,15 +185,16 @@ const onColumnHeaderApplyFilter = (filter) => {
     hasFilters.value = true;
 };
 
-const getGroupRowLabel = () => {
+const getGroupRowLabel = computed(() => {
     if (!props.groupRowsBy) {
         return null;
     }
     const groupByColumn = Base.columns(slots).filter(column => {
         return column.props.field === props.groupRowsBy
     })[0];
-    return groupByColumn.props.header;
-}
+
+    return groupByColumn ? groupByColumn.props.header : null;
+})
 /**
  * apply all column filters in filterStack
  */
@@ -185,7 +212,7 @@ const applyFilters = (reset = false) => {
 const columnFilter = (filter, rows) => {
     return _filter(rows, (row) => {
         const { field , filterOperator, filterValue} = filter;
-        const cleanedFilterValue = Array.isArray(filterValue) ? filterValue : filterValue.trim();
+        const cleanedFilterValue = Array.isArray(filterValue) ? filterValue : filterValue.toString().trim();
         const fieldValue = row[field];
         let match;
 
@@ -195,26 +222,26 @@ const columnFilter = (filter, rows) => {
         
         switch(filterOperator) {
             case "contains":
-                match = fieldValue.toLowerCase().includes(cleanedFilterValue);
+                match = fieldValue.toString().toLowerCase().includes(cleanedFilterValue);
             break;
             case "not_contains":
-                match = !fieldValue.toLowerCase().includes(cleanedFilterValue);
+                match = !fieldValue.toString().toLowerCase().includes(cleanedFilterValue);
             break;
             case "starts_with":
-                match = fieldValue.toLowerCase().startsWith(cleanedFilterValue.toLowerCase());
+                match = fieldValue.toString().toLowerCase().startsWith(cleanedFilterValue.toLowerCase());
             break;
             case "ends_with":
-                match = fieldValue.toLowerCase().endsWith(cleanedFilterValue.toLowerCase());
+                match = fieldValue.toString().toLowerCase().endsWith(cleanedFilterValue.toLowerCase());
             break;
             case "equals":
                 if (Array.isArray(cleanedFilterValue)) {
-                    match = cleanedFilterValue.includes(fieldValue.toLowerCase())
+                    match = cleanedFilterValue.includes(fieldValue.toString().toLowerCase())
                 } else {
-                    match = fieldValue.toLowerCase() === cleanedFilterValue.toLowerCase();
+                    match = fieldValue.toString().toLowerCase() === cleanedFilterValue.toLowerCase();
                 }
             break;
             case "not_equals":
-                match = fieldValue.toLowerCase() !== cleanedFilterValue.toLowerCase();
+                match = fieldValue.toString().toLowerCase() !== cleanedFilterValue.toLowerCase();
             break;
             case "greater_than":
                 match = parseFloat(fieldValue) > parseFloat(cleanedFilterValue);
@@ -246,25 +273,38 @@ const groupRows = (rows) => {
     if (!props.groupRowsBy) {
         return rows;
     }
-    if (!props.rows[0][props.groupRowsBy]) {
-        return rows;
+    if (columnExists(props.groupRowsBy)) {
+        return reactive(_groupBy(rows, props.groupRowsBy))
     }
-    return _groupBy(rows, props.groupRowsBy)
+    return rows
 };
 
 const handleColumnSelection = (selectedColumns) => {
     // get the selected columns
     const cols = selectedColumns.map(col => {
-        return defaultColumns.filter(column => {
+        return defaultColumns.value.filter(column => {
             return column.props.field === col;
         })[0]
     })
     // preserve original order of columns
     cols.sort(function(a, b){  
-        return defaultColumns.indexOf(a) - defaultColumns.indexOf(b);
+        return defaultColumns.value.indexOf(a) - defaultColumns.value.indexOf(b);
     });
     columns.value = cols;
 }
+
+const groupRowsByField = computed(() => {
+    return columnExists(props.groupRowsBy) ? props.groupRowsBy : null
+})
+
+const columnExists = (column) => {
+    const matches = Base.columns(slots).filter(col => {
+        return col.props.field === column
+    });
+    return matches.length > 0
+}
+
+
 </script>
 <style lang="scss" scoped>
 @import "@/scss/variables.scss";
@@ -281,7 +321,7 @@ table {
     table:deep(td) {
         display: grid;
         gap: 0.5rem;
-        grid-template-columns: 5ch auto;
+        grid-template-columns: 16ch auto;
     }
     table:deep(td::before) {
         content: attr(data-cell) ": ";

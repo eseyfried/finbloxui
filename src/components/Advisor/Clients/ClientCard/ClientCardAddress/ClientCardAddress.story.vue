@@ -1,0 +1,67 @@
+<template>
+    <Story
+        title="Advisor/Clients/ClientCard/ClientCardAddress"
+        auto-props-disabled
+    >
+        <template #controls="{state}">
+            <HstJson v-model="state.client" title="client" />
+            <PropDesc :component="ClientCardRoot" prop="client" />
+            <HstText type="text" v-model="state.as" title="as" />
+        </template>
+
+        <Variant
+            title="Default"
+            :init-state="() => initState()"
+        >
+            <template #default="{state}">
+                <ClientCardRoot
+                    :client="state.client"
+                >
+                    <ClientCardAddress :as="state.as" />
+                </ClientCardRoot>
+            </template>
+        </Variant>
+        <Variant
+            title="Custom Layout"
+            :init-state="() => initState()"
+        >
+            <template #default="{state}">
+                <ClientCardRoot
+                    :client="state.client"
+                >
+                    <ClientCardAddress #default="{address}">
+<pre>
+Street: {{ address.street_1 }}
+        {{ address.street_2 }}
+City:   {{ address.city }}
+State:  {{ address.state }}
+Zip:    {{ address.postal_code }}
+</pre>
+                    </ClientCardAddress>
+                </ClientCardRoot>
+            </template>
+        </Variant>
+    </Story>
+</template>
+<script setup>
+import { reactive } from 'vue'
+import { defaultValue } from "@/../.histoire/modules/useStoryHelper";
+import { useClientData } from "@/../.histoire/modules/useClientData";
+import PropDesc from '@/../.histoire/components/PropDesc';
+
+
+import ClientCardRoot from '@/components/Advisor/Clients/ClientCard/ClientCardRoot.vue'
+import ClientCardAddress from '@/components/Advisor/Clients/ClientCard/ClientCardAddress/ClientCardAddress.vue'
+
+const state = reactive({
+    as: defaultValue(ClientCardAddress, 'as'),
+    client: useClientData()
+})
+const initState = (props) => {
+    return {
+        ...state,
+        ...props
+    }
+}
+
+</script>

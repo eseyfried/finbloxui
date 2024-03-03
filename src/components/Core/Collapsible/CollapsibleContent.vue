@@ -1,9 +1,10 @@
 <script setup>
 import { mergeProps } from "vue";
-import { Primitive, usePrimitiveElement, PrimitiveProps } from '@/components/Core/Primitive'
+import { Primitive, PrimitiveProps } from '@/components/Core/Primitive/Primitive'
+import { usePrimitiveElement } from '@/components/Core/Primitive/usePrimitiveElement'
 import { computed, nextTick, onMounted, ref, watch } from 'vue'
 import { injectCollapsibleRootContext } from './CollapsibleRoot.vue'
-import { Presence } from '@/components/Core/Presence/'
+import Presence from '@/components/Core/Presence/Presence'
 import * as componentClasses from "@/modules/useCommonCSS";
 
 defineOptions({
@@ -23,6 +24,7 @@ const props = defineProps(mergeProps(PrimitiveProps, {
 
 const rootContext = injectCollapsibleRootContext()
 
+
 const presentRef = ref();
 const { primitiveElement, currentElement } = usePrimitiveElement()
 
@@ -31,7 +33,7 @@ const height = ref(0)
 
 // when opening we want it to immediately open to retrieve dimensions
 // when closing we delay `present` to retrieve dimensions before closing
-const isOpen = computed(() => rootContext.open.value)
+const isOpen = computed(() => rootContext.open)
 const isMountAnimationPrevented = ref(isOpen.value)
 const currentStyle = ref()
 
@@ -71,12 +73,13 @@ onMounted(() => {
     isMountAnimationPrevented.value = false
   })
 })
+
 </script>
 
 <template>
   <Presence
     ref="presentRef"
-    :present="forceMount || rootContext.open.value"
+    :present="forceMount || rootContext.open"
     :force-mount="true"
   >
     <Primitive
@@ -85,8 +88,8 @@ onMounted(() => {
       ref="primitiveElement"
       :as-child="props.asChild"
       :as="as"
-      :data-state="rootContext.open.value ? 'open' : 'closed'"
-      :data-disabled="rootContext.disabled?.value ? 'true' : undefined"
+      :data-state="rootContext.open ? 'open' : 'closed'"
+      :data-disabled="rootContext?.disabled ? 'true' : undefined"
       :hidden="!presentRef?.present"
       :style="{
         [`--fb-collapsible-content-height`]: `${height}px`,

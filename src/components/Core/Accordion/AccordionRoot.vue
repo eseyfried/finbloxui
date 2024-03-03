@@ -10,7 +10,7 @@
 </template>
 <script>
 import { mergeProps } from 'vue';
-import { PrimitiveProps } from '@/components/Core/Primitive';
+import { PrimitiveProps } from '@/components/Core/Primitive/Primitive';
 import { createContext, useDirection } from '@/modules/shared';
 import * as componentClasses from "@/modules/useCommonCSS";
 export const AccordionRootEmits = ['update:modelValue']
@@ -50,10 +50,8 @@ export const [injectAccordionRootContext, provideAccordionRootContext]
 
 <script setup>
 import { computed, toRefs } from 'vue';
-import {
-  Primitive,
-  usePrimitiveElement,
-} from '@/components/Core/Primitive';
+import { Primitive } from '@/components/Core/Primitive/Primitive';
+import { usePrimitiveElement } from '@/components/Core/Primitive/usePrimitiveElement';
 import { useSingleOrMultipleValue } from '@/modules/shared/useSingleOrMultipleValue'
 
 const props = defineProps(AccordionRootProps)

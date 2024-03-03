@@ -15,7 +15,7 @@
             <div
                 class="fb-asset-allocation-chart-hero"
                 :class="componentClasses.getClassByType('chartHero')"
-                v-if="showTotal"
+                v-if="showTotal && type ==='doughnut'"
             >
                 <slot :props="props" :totalLabel="totalLabel" :totalAmount="formatters.formatCurrency(totalAmount)">
                     <h2>{{ totalLabel }}</h2>
@@ -36,7 +36,7 @@ import * as componentClasses from "@/modules/useCommonCSS";
 import Chart from "@/components/Core/Charts/Chart";
 import ChartJS from 'chart.js/auto';
 import { isMobile } from "@/modules/useResponsive";
-import { computed, getCurrentInstance, watch } from "vue";
+import { computed, getCurrentInstance, watch, reactive } from "vue";
 import * as formatters from "@/modules/useFormatter";
 import * as base from "@/modules/usePieChartBase";
 import { htmlLegendPlugin } from "@/modules/useChartLegend"
@@ -101,10 +101,8 @@ const defaultOptions = {
         }
     }
 }
-const chartOptions = computed(() => base.chartOptions(props, component.uid, defaultOptions)).value;
 
-
-
+let chartOptions = reactive(base.chartOptions(props, component.uid, defaultOptions))
 
 const dataTotals100Percent = computed(() => {
     if(props.format === "percent") {
@@ -118,8 +116,9 @@ const dataTotals100Percent = computed(() => {
  * The chart legend plugin does not re-render
  * when format prop updates.
  */
-watch(() => [props.format], () => {
+watch(() => [props.format, props.type], () => {
    const chart = ChartJS.getChart(id);
+   chartOptions = base.chartOptions(props, component.uid, defaultOptions)
    if(chart) {
     chart.update();
    }

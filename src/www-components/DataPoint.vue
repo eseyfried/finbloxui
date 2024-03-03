@@ -19,12 +19,12 @@ const ytdAum = {
 </script>
 <style lang="scss" scoped>
 #datapoint:deep(.fb-data-point) {
-    @apply bg-blue-500 rounded text-white drop-shadow-lg w-[350px];
+    @apply tw-bg-blue-500 tw-rounded tw-text-white tw-drop-shadow-lg tw-w-[350px];
     h4 {
-        @apply text-3xl;
+        @apply tw-text-3xl;
     }
     .fb-data-point-body {
-        @apply p-3;
+        @apply tw-p-3;
     }
     .fb-data-point-trend {
         position: absolute;
@@ -38,7 +38,7 @@ const ytdAum = {
         content: "-";
     }
     .fb-data-point-footer {
-        @apply pl-3 py-2 bg-blue-400/40;
+        @apply tw-pl-3 tw-py-2 tw-bg-blue-400/40;
     }
     &::before {
         display: inline-block;
@@ -57,7 +57,7 @@ const ytdAum = {
         font-size: 20px !important;
         font: var(--fa-font-solid);
         padding: .75rem 1rem;
-        @apply rounded-full bg-white text-blue-500;
+        @apply tw-rounded-full tw-bg-white tw-text-blue-500;
     }
     &::before {
         content: "\24";

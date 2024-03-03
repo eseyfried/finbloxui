@@ -1,5 +1,6 @@
 import * as formatters from "@/modules/useFormatter";
 import ComponentUtils from "@/modules/ComponentUtils";
+import { mergeProps} from "vue"
 
 
 const columns = (slots, groupRowsBy) => {
@@ -18,12 +19,12 @@ const field = (column) => columnProp(column, 'field');
 const header = (column) => columnProp(column, 'header');
 
 const defaultDataTableOptions = (options = {}) => {
-    return {
-        ...options,
-        ...{
+    return mergeProps(
+        {
             columnSelector: true
-        }
-    }
+        },
+        options
+    )
 }
 
 const totalByColumn = (rows, column, grouped = false) => {

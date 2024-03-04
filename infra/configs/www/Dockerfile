@@ -13,8 +13,9 @@ RUN npm install
 
 RUN pwd
 RUN ls -l
+
 # run tests
-# RUN npm run test run
+RUN npm run test run
 
 # build storybook docs
 # RUN npm run build-storybook
@@ -24,7 +25,6 @@ RUN npm run build
 
 # build histoire docs
 ENV HISTOIRE_ENV=production
-
 RUN npm run story:build
 
 

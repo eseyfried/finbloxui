@@ -23,12 +23,12 @@
 - [x] DataTable (and all sub-components) Story
 - [x] Factor our Primitives tree
 - [x] Factor out connections to Storybook directory
-- [ ] production site build
+- [x] production site build
     - [x] fix browser warnings
     - [x] fix headless styles
     - [x] fix hitting reload on docs loads homepage
     - [x] fix icons not loading for themes
-    - [ ] enable unit tests on build
+    - [x] enable unit tests on build
 - [ ] production lib build
     - [ ] update components file
     - [ ] tree shaking component import

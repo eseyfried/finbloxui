@@ -44,6 +44,7 @@ const columns = [
 const state = reactive({
     columns: defaultValue(ColumnSelector, 'columns', columns),
     buttonLabel: defaultValue(ColumnSelector, 'buttonLabel'),
+    // defaultSelectedColumns: defaultValue(ColumnSelector, 'defaultSelectedColumns'),
     defaultSelectedColumns: defaultValue(ColumnSelector, 'defaultSelectedColumns', [columns[2]]),
     
 

@@ -142,9 +142,9 @@ describe('ColumnFilter', () => {
         expect(wrapper.find(".fb-column-filter-has-filters").exists()).toBe(false);
     })
 
-    it('trigger button has label when buttonLabel prop is set', () => {
-        config.props.buttonLabel = "label";
+    it('trigger button has label when triggerButtonLabel prop is set', () => {
+        config.props.triggerButtonLabel = "label";
         const wrapper = mount(ColumnFilter, config);
-        expect(wrapper.find(".fb-column-filter-button").text()).toBe(config.props.buttonLabel);
+        expect(wrapper.find(".fb-column-filter-button").text()).toBe(config.props.triggerButtonLabel);
     })
 });

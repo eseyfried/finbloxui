@@ -1,4 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
+import { nextTick } from 'vue'
 
 import { mount } from '@vue/test-utils';
 import PortfolioSummaryGrid from '@/components/Advisor/PortfolioSummaryGrid/PortfolioSummaryGrid.vue'
@@ -22,7 +23,7 @@ describe('PortfolioSummaryGrid', () => {
                 "change_amount": "Change ($)",
                 "change_pct": "Change (%)"
             },
-            showTotal: true
+            showTotals: true
         },
         global: {
           plugins: [], // <-- This is how you pass options to a plugin
@@ -36,20 +37,23 @@ describe('PortfolioSummaryGrid', () => {
         expect(wrapper.find(".fb-portfolio-summary-grid").exists()).toBe(true);
     });
 
-    it('renders portfolio data', () => {
+    it('renders portfolio data', async () => {
         const wrapper = mount(PortfolioSummaryGrid, config)
+        await nextTick()
         expect(wrapper.findAll(".fb-portfolio-summary-grid tbody tr").length).toBe(3);
     })
 
-    it('columLabels props renders properly', () => {
+    it('columLabels props renders properly', async () => {
         const wrapper = mount(PortfolioSummaryGrid, config);
+        await nextTick()
         const columns = wrapper.findAll(".fb-portfolio-summary-grid th").map(column => column.text());
         expect(columns).toMatchObject(Object.values(config.props.columnLabels));
     })
 
-    it('totals are disabled when showtotals prop is false', () => {
+    it('totals are disabled when showtotals prop is false', async () => {
         config.props.showTotals = false;
         const wrapper = mount(PortfolioSummaryGrid, config)
+        await nextTick()
         expect(wrapper.findAll(".fb-portfolio-summary-grid tbody tr").length).toBe(2);
     })
 });

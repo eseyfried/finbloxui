@@ -2,6 +2,7 @@ import { describe, it, expect, beforeEach } from 'vitest';
 
 import { mount } from '@vue/test-utils';
 import ColumnSelector from '@/components/DataTable/ColumnSelector/ColumnSelector.vue'
+import { nextTick } from 'vue';
 
 describe('ColumnSelector', () => {
     let config;
@@ -30,8 +31,11 @@ describe('ColumnSelector', () => {
     })
 
     it('default selected columns match the full list of columns when defaultSelectedColumns is not passed', () => {
+        config.props.defaultSelectedColumns = [
+            { name: 'column_2', label: 'Column 2'}
+        ]
         const wrapper = mount(ColumnSelector, config)
-        expect(wrapper.findAll("li.fb-column-selector-selected").length).toBe(config.props.columns.length);
+        expect(wrapper.findAll("li.fb-column-selector-selected").length).toBe(config.props.defaultSelectedColumns.length);
     })
 
     it('default selected columns match the defaultSelectedColumns prop', () => {
@@ -72,7 +76,6 @@ describe('ColumnSelector', () => {
         await wrapper.find(".fb-column-selector-button").trigger("click");
         const column = wrapper.find(".fb-column-selector li");
         await column.find('a').trigger("click");
-        
         expect(wrapper.find(".fb-column-selector li.fb-column-selector-selected").exists()).toBe(true);
     })
 
@@ -80,8 +83,7 @@ describe('ColumnSelector', () => {
         const wrapper = mount(ColumnSelector, config);
         await wrapper.find(".fb-column-selector-button").trigger("click");
         const columns = wrapper.findAll(".fb-column-selector li");
-        await columns[0].find('a').trigger("click");
-        
+        await columns[0].find('a').trigger("click");        
         expect(wrapper.find(".fb-column-selector li:not(.fb-column-selector-selected)").exists()).toBe(true);
     })
 });

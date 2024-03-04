@@ -28,10 +28,11 @@
     - [x] fix headless styles
     - [x] fix hitting reload on docs loads homepage
     - [x] fix icons not loading for themes
+    - [ ] enable unit tests on build
 - [ ] production lib build
     - [ ] update components file
     - [ ] tree shaking component import
-- [ ] Run Unit Tests to get sense of rehab work
+- [x] Run Unit Tests to get sense of rehab work
 - [ ] DataTable Overflow & VirtualScroll 
     - [ ] ColumnSort Handling
 - [ ] create one theme

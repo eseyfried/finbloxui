@@ -25,7 +25,7 @@
                                 {{ formatters.formatCurrency(data[i]) }}
                             </td>
                             <td v-if="!isMobile">
-                                <ProgressBarRoot :width="feesPercentages[i]" class="fb-top-clients-by-aum-bar" />
+                                <ProgressBarRoot :width="feesPercentages[i]" class="fb-top-clients-by-fees-bar" />
                             </td>
                         </tr>
                     </slot>

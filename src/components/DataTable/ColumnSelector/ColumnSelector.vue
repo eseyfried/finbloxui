@@ -68,30 +68,36 @@ const target = ref(null);
 onClickOutside(target, () => { showColumns.value = false; });
 
 // methods
-
-const selectedColumns = toRef(props,props.defaultSelectedColumns.length > 0 ? 'defaultSelectedColumns' : 'columns');
-// const selectedColumns = initSelectedColumns
+const columnSelected = ref(false)
+const selectedColumns = toRef(props, 'defaultSelectedColumns');
+const selectedColumnNames = computed(() => {
+    if (columnSelected.value) {
+        // do nothing
+        // workaround because unit tests are not picking up the change in selectedColumns
+    }
+    return selectedColumns.value.map(column => column.name)
+    
+    
+})
 
 const handleColumnSelection = (column) => {
     if (selectedColumnNames.value.includes(column.name)) {
         // delete column from selected columns
         const index = selectedColumns.value.findIndex((col) => col.name === column.name)
         if (index > -1) {
-            console.log(selectedColumns.value.splice(index, 1))
+            selectedColumns.value.splice(index, 1)
         }
     } else {
-        selectedColumns.value.push(column);
+        selectedColumns.value.push(column)
     }
+    columnSelected.value = true
+    
     emit("fb-column-selector-selected:click", selectedColumns.value);
 }
 const handleButtonClick = () => {
     showColumns.value  = !showColumns.value
     emit("fb-column-selector-button:click", !showColumns.value);
 }
-
-const selectedColumnNames = computed(() => selectedColumns.value.map(column => column.name))
-
-
 </script>
 <style lang="scss" scoped>
 .fb-column-selector {

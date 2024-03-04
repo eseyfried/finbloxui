@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 
 import { mount } from '@vue/test-utils';
-import Income from '@/components/Advisor/Income/Income.vue'
+import Income from '@/components/Advisor/Income/IncomeRoot.vue'
 
 describe('Income', () => {
     let config;
@@ -14,9 +14,9 @@ describe('Income', () => {
             dateLabel: "Date",
             showTransactions: true,
             data: [
-                { description: "text", date: "2023-02-01", amount: "100.00" },
-                { description: "text", date: "2023-03-01", amount: "100.00" },
-                { description: "text", date: "2023-01-01", amount: "100.00" },
+                { description: "text", transaction_date: "2023-02-01", amount: "100.00" },
+                { description: "text", transaction_date: "2023-03-01", amount: "100.00" },
+                { description: "text", transaction_date: "2023-01-01", amount: "100.00" },
             ],
         },
         global: {

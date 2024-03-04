@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 
 import { mount } from '@vue/test-utils';
-import ClientList from '@/components/Advisor/Clients/ClientList';
+import ClientList from '@/components/Advisor/Clients/ClientList/ClientListRoot.vue';
 import { client } from '@/components/__tests__/modules/clientFixture';
 
 describe('ClientList', () => {
@@ -29,13 +29,13 @@ describe('ClientList', () => {
 
     it("should emit event when details link is clicked", async () => {
         const wrapper = mount(ClientList, config);
-        await wrapper.find("a[href='#']").trigger("click");
-        const emitted = wrapper.emitted("fb-client-list-details-link:click");
+        await wrapper.find(".fb-client-list-item-action").trigger("click");
+        const emitted = wrapper.emitted("fb-client-list-item:click");
         expect(emitted.length).toBe(1);
     });
 
     it('contact info section is rendered when clientCardOptions prop is passed', () => {
-        config.props.listType = "ClientCard";
+        config.props.type = "card";
         config.props.clientCardOptions = {};
         config.props.clientCardOptions.showContactInfo = true
         const wrapper = mount(ClientList, config);

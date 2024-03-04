@@ -1,6 +1,6 @@
 <template v-slot="slotProps">
     <div class="fb-data-table" :class="componentClasses.getClassByType('component')" v-if="isMounted">
-    <slot />
+        <slot />
         <ColumnSelector
             :columns="transformColumns(defaultColumns)"
             v-if="columnSelector"
@@ -166,6 +166,7 @@ watch(() => [props.teleportTo, slots.default()], () => {
         return teleportComplete.value = true;
     });
      teleportComplete.value = isTeleportComplete;
+     
 }, { immediate: true })
 
 // methods

@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach } from 'vitest';
 
 import { mount } from '@vue/test-utils';
 import ColumnTotal from '@/components/DataTable/ColumnTotal/ColumnTotal.vue';
-import Column from '@/components/DataTable/Column.vue';
+import Column from '@/components/DataTable/Column/Column.vue';
 
 
 describe('ColumnTotal', () => {

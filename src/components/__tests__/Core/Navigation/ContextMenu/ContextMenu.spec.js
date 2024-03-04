@@ -42,7 +42,7 @@ describe('ContextMenu', () => {
 
     it("should emit event when item is clicked", async () => {
         const wrapper = mount(ContextMenu, config);
-        await wrapper.find("a[href='#']").trigger("click");
+        await wrapper.find("a[href='some-url']").trigger("click");
         const emitted = wrapper.emitted("fb-action-menu-item:click");
         expect(emitted.length).toBe(1);
     });

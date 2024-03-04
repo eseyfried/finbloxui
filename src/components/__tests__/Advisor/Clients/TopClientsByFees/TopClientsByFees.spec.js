@@ -39,12 +39,12 @@ describe('TopClientsByFees', () => {
     })
     it('expects rendered data to match data prop', () => {
         const wrapper = mount(TopClientsByFees, config)
-        const renderedClients = wrapper.findAll(".fb-top-clients-by-fees tr td:last-child").map( el => el.text());
+        const renderedClients = wrapper.findAll(".fb-top-clients-by-fees tr td:nth-child(2)").map( el => el.text());
         expect(renderedClients).toEqual(config.props.data.map(item => formatters.formatCurrency(item)));
     })
     it('expects bar charts for each fees data point', () => {
         const wrapper = mount(TopClientsByFees, config)
-        const widths = wrapper.findAll(".fb-top-clients-by-fees .fb-top-clients-by-fees-bar").map( el => el.attributes()["style"].replace(/[ width:%;]/g, ""));
+        const widths = wrapper.findAll(".fb-top-clients-by-fees tr .fb-top-clients-by-fees-bar").map( el => el.attributes()["width"]);
         const expectedWidths = [ '83.33333333333334', '166.66666666666669' ];
         expect(widths).toEqual(expectedWidths);
         

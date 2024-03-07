@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 
 import { mount } from '@vue/test-utils';
-import DataPoint from '@/components/Core/DataPoint';
+import DataPoint from '@/components/Core/DataPoint/DataPointRoot.vue';
 
 describe('DataPoint', () => {
     let config;
@@ -66,7 +66,7 @@ describe('DataPoint', () => {
     })
 
     it('details link is hidden when showDetailsLink prop is set to false', () => {
-        config.props.showDetailsLink = false;
+        config.props.showAction = false;
         const wrapper = mount(DataPoint, config)
         expect(wrapper.find(".fb-data-point-footer a").exists()).toBe(false);
     })
@@ -74,7 +74,7 @@ describe('DataPoint', () => {
     it('details link emits event when clicked', async () => {
         const wrapper = mount(DataPoint, config);
         await wrapper.find(".fb-data-point-footer a").trigger("click");
-        const emitted = wrapper.emitted("fb-data-point-details-link:click");
+        const emitted = wrapper.emitted("fb-data-point-action-link:click");
         expect(emitted.length).toBe(1);
     })
 });

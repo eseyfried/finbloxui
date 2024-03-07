@@ -1,11 +1,11 @@
 <!-- eslint-disable vue/valid-template-root -->
 <template>
     <div id="datapoint">
-        <DataPoint :dataPoint="ytdAum" detailsLinkLabel="see more" />
+        <DataPointRoot :dataPoint="ytdAum" detailsLinkLabel="see more" />
     </div>
 </template>
 <script setup>
-import DataPoint from "@/components/Core/DataPoint";
+import DataPointRoot from "@/components/Core/DataPoint/DataPointRoot";
 const ytdAum = {
   "label": "YTD AUM",
   "value": "12345678.90",

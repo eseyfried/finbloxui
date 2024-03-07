@@ -1,0 +1,1 @@
+export { default as ClientsByAge } from "./ClientsByAge.vue"

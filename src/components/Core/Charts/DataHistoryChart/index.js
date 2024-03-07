@@ -1,0 +1,1 @@
+export { default as DataHistoryChart } from "./DataHistoryChart.vue"

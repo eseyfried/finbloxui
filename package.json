@@ -3,7 +3,7 @@
   "version": "1.0.6",
   "type": "module",
   "files": [
-    "dist"
+    "dist/lib"
   ],
   "main": "./dist/lib/finblox-ui.umd.cjs",
   "module": "./dist/lib/finblox-ui.js",
@@ -27,6 +27,7 @@
     "build-storybook": "storybook build",
     "build-components": "node ./src/lib/build.js",
     "build-lib": "npm run build-components && vite build --mode production --config vite-lib.config.js",
+    "pack-lib": "npm run build-lib && npm pack",
     "create-component": "hygen component with-prompt",
     "story:dev": "histoire dev",
     "story:build": "histoire build",

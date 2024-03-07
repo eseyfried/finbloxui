@@ -244,7 +244,7 @@ import Section2Col from "@/www-components/Section2Col";
 import FeatureCard from "@/www-components/FeatureCard";
 import TabButtons from "@/www-components/TabButtons";
 import Console from "@/www-components/Console";
-import HeadlessDataPoint from "@/components/Core/DataPoint";
+import HeadlessDataPoint from "@/components/Core/DataPoint/DataPointRoot.vue";
 import DataPoint from "@/www-components/DataPoint";
 import ClientCard from "@/www-components/ClientCard";
 import CustomQuoteDetail from "@/www-components/CustomQuoteDetail";

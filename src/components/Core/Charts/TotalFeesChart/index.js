@@ -1,0 +1,1 @@
+export { default as TotalFeesChart } from "./TotalFeesChart.vue"

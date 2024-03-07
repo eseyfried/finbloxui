@@ -1,0 +1,1 @@
+export { default as InvestmentsChart } from "./InvestmentsChart.vue"

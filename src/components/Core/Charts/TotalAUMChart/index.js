@@ -1,0 +1,1 @@
+export { default as TotalAUMChart } from "./TotalAUMChart.vue"

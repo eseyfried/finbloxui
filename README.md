@@ -71,28 +71,51 @@ docker run --name finbloxui-www -p 7080:80 <IMAGE>
 ```
 
 ## Testing NPM build package locally
-create a separate vue+vite project:
 
-prompted:
+Testing (using) the finbloxui npm package locally can be achieved without having to build and publish. This can speed up development, testing etc.
+
+### Step 1 build and pack the library
+
+In root of finbloxui dir, run:
+
+```shell
+npm run pack-lib
+```
+
+This will build the lib and create an npm zip file as one would get from npm install.
+The zip file will be in the root of the finbloxui project.
+
+
+### Step 2 create a vue test project
+
+create a separate vue+vite project outside of the finbloxui root.
+
 ```shell
 npm create vite@latest
 ```
-or simple template:
+
+### Step 3 add the npm package as a dependency
+
+From the root of the project in step 2
+
+add the following to package.json:
+
 ```shell
-npm create vite@latest vue-app -- --template vue
-```
-From the root of that project run:
-```shell
-sudo npm link ../path/to/storybook-vue/storybook-vue
-npm install # <-- not sure of this step
-npm run dev
+"dependencies": {
+    "@finbloxui/finbloxui": "file:/absolute/path/to/finbloxui-root/finbloxui-finbloxui-*.*.*.tgz",
+}
 ```
 
-Changes made to finbloxui will be seen here after running npm run build on finbloxui (storybook-vue).
+Then install finbloxui:
 
-### removing local link
 ```shell
-sudo npm unlink ../path/to/storybook-vue/storybook-vue
+npm run install
+```
+
+If you need to update the local lib:
+
+```shell
+npm run update
 ```
 
 ## Build NPM Package

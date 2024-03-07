@@ -29,13 +29,15 @@
     - [x] fix hitting reload on docs loads homepage
     - [x] fix icons not loading for themes
     - [x] enable unit tests on build
-- [ ] production lib build
-    - [ ] update components file
-    - [ ] tree shaking component import
+- [x] production lib build
+    - [x] update components file
+    - [x] tree shaking component import
+    - [x] test component lib
 - [x] Run Unit Tests to get sense of rehab work
 - [ ] DataTable Overflow & VirtualScroll 
     - [ ] ColumnSort Handling
 - [ ] create one theme
+    - [ ] include themes in lib
 - [ ] animations
 - [ ] a11y
 

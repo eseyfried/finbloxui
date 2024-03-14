@@ -45,19 +45,19 @@ import { logEvent } from 'histoire/client'
 import ContextMenu from '@/components/Core/Navigation/ContextMenu/ContextMenu';
 
 const menuItems = [
-    { "url": "#", "label": "Action A"},
-    { "url": "/some/url", "label": "Action B"},
-    { "url": "/some/other/url", "label": "Action C"},
+    { "url": "#", "label": "Option A"},
+    { "url": "/some/url", "label": "Option B"},
+    { "url": "/some/other/url", "label": "Option C"},
 ]
 
 const menuItemsWithCB = [
-    { "url": "#", "label": "Action A", "callback": (item) => { alert(`callback called with ${JSON.stringify(item)}`) } },
-    { "url": "/some/url", "label": "Action B"},
-    { "url": "/some/other/url", "label": "Action C"},
+    { "url": "#", "label": "Option A", "callback": (item) => { alert(`callback called with ${JSON.stringify(item)}`) } },
+    { "url": "/some/url", "label": "Option B"},
+    { "url": "/some/other/url", "label": "Option C"},
 ]
 const state = reactive({
     menuItems: defaultValue(ContextMenu, 'menuItems', menuItems),
-    buttonLabel: defaultValue(ContextMenu, 'buttonLabel', 'options'),
+    buttonLabel: defaultValue(ContextMenu, 'buttonLabel', 'Options'),
 })
 
 const initState = (props) => {

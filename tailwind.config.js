@@ -11,10 +11,10 @@ module.exports = {
         keyframes: {
             slideDown: {
               from: { height: 0 },
-              to: { height: 'var(--fb-accordion-content-height)' },
+              to: { height: 'var(--fb-collapsible-content-height)' },
             },
             slideUp: {
-              from: { height: 'var(--fb-accordion-content-height)' },
+              from: { height: 'var(--fb-collapsible-content-height)' },
               to: { height: 0 },
             },
           },

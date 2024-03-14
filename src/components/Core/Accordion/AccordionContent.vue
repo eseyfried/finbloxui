@@ -21,8 +21,8 @@ const itemContext = injectAccordionItemContext()
     :data-disabled="itemContext.dataDisabled.value"
     class="fb-accordion-content"
     style="
-      --fb-accordion-content-width: var(--fb-collapsible-content-width);
-      --fb-accordion-content-height: var(--fb-collapsible-content-height);
+      --fb-collapsible-content-width: var(--fb-collapsible-content-width);
+      --fb-collapsible-content-height: var(--fb-collapsible-content-height);
     "
   >
     <slot />

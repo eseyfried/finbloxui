@@ -21,7 +21,8 @@ import "tailwindcss/tailwind.css"
 import "/.histoire/themes/main.css"
 import "/.histoire/themes/preFlight.scss"
 import "/.histoire/themes/headless.css"
-import "/.histoire/themes/theme-1.css"
+import "/.histoire/themes/theme-1.scss"
+import "/.histoire/themes/theme-2/main.scss"
 import { watchEffect, computed, ref } from 'vue'
 
 
@@ -30,7 +31,8 @@ const theme = ref('headless')
 
 const options = [
     { label: "Headless", value: "headless" },
-    { label: "Theme 1", value: "theme-1" }
+    { label: "Theme 1", value: "theme-1" },
+    { label: "Theme 2", value: "theme-2" },
 ]
 const toggleTheme = (event) => {
     let toggleTheme = event.target.value
@@ -38,6 +40,9 @@ const toggleTheme = (event) => {
     document.documentElement.setAttribute("data-mode", theme.value);
     document.documentElement.classList.add("preflight");
     window.theme = theme.value
+    const element = document.querySelector(".histoire-generic-render-story .global-wrapper");
+    element.removeAttribute("class")
+    element.setAttribute("class",`global-wrapper theme ${theme.value}`)
     switchCallback(theme.value)
 
 }

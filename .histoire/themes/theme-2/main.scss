@@ -1,0 +1,14 @@
+
+@use "sass:meta";
+.theme-2 {
+    @include meta.load-css("./_common.scss");
+    @include meta.load-css("./_buttons.scss");
+    @include meta.load-css("./_data-table.scss");
+    @include meta.load-css("./_accordion.scss");
+    @include meta.load-css("./_collapsible.scss");
+    @include meta.load-css("./_container.scss");
+    @include meta.load-css("./_data-point.scss");
+    @include meta.load-css("./_label.scss");
+    @include meta.load-css("./_list-group.scss");
+    @include meta.load-css("./_context-menu.scss");
+}

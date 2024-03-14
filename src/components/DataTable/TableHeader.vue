@@ -57,7 +57,8 @@ const onHeaderCellClearFilter = (column, clear) => {
 </script>
 <style lang="scss" scoped>
 thead {
-    position: relative;
-    z-index: 1000;
+    position:  sticky;
+    top: -1px;
+    z-index: 100
 }
 </style>

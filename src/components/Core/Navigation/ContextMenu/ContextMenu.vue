@@ -9,8 +9,7 @@
         >
             <button
                 class="fb-action-menu-button"
-                :class="componentClasses.getClassByType('buttonPrimary')"
-                @click="handleMenuButtonClick($event)"
+                :class="[ showMenu ? 'fb-action-menu-visible' : null, componentClasses.getClassByType('buttonSecondary')]"
             >
                 {{ buttonLabel }}
             </button>
@@ -74,16 +73,16 @@ const handleMenuItemClick = (e, item) => {
     if (!item.url || item.url === "#") {
         e.preventDefault();
     }
-    showMenu.value = !showMenu.value;
    
 }
 const handleMenuButtonClick = () => {
-    showMenu.value = !showMenu.value;
+    
+    // showMenu.value = !showMenu.value;
 }
 
 onMounted(async () => {
     const toggleElement = document.querySelector(`#${id.value} .fb-action-menu-button`);
-    useEventListener(toggleElement, "click", show);
+    useEventListener(toggleElement, "click", toggleMenu);
     onClickOutside(toggleElement, hide)
     popperInstance.value = createPopper(toggleElement, contextMenu.value, {
     placement: 'bottom',
@@ -99,7 +98,16 @@ onMounted(async () => {
     });
 })
 
+const toggleMenu = () => {
+    if (!showMenu.value) {
+        show()
+    } else if (showMenu.value) {
+        hide()
+    }
+}
+
 function show() {  
+    showMenu.value = true;
     // Make the tooltip visible
     contextMenu.value.setAttribute('data-show', '');
 
@@ -120,7 +128,7 @@ function show() {
 function hide() {
   // Hide the tooltip
     contextMenu.value.removeAttribute('data-show');
-
+    showMenu.value = false;
     // Disable the event listeners
     popperInstance.value.setOptions((options) => ({
         ...options,
@@ -153,8 +161,8 @@ function hide() {
 #contextMenu {
     background: #FFFFFF;
     padding: 0;
-    font-size: 13px;
-    border-radius: 4px;
+    // font-size: 13px;
+    // border-radius: 4px;
     display: none;
     max-width: 300px;
 }

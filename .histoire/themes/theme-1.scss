@@ -87,7 +87,7 @@ html[data-mode='theme-1'] {
     }
     .fb-action-menu ul {
         border-color: var(--fb-chart-color-1);
-        @apply tw-mt-1 tw-shadow-md tw-rounded tw-border-2 tw-bg-white !important;
+        @apply tw-mt-1 tw-shadow-md tw-rounded tw-border-2 tw-bg-white; /*  !important */
     }
     .fb-action-menu li {
         @apply tw-p-2 tw-min-w-max;

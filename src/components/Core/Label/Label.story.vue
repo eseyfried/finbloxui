@@ -9,7 +9,7 @@
         </template>
         <Variant title="Default" :init-state="initState">
             <template #default="{state}">
-                <Label :as="state.as">as: {{ state.as }}</Label>
+                <Label :as="state.as">This is a label</Label>
             </template>
         </Variant>
     </Story>

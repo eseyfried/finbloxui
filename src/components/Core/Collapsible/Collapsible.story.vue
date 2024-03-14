@@ -52,7 +52,7 @@ const handleCollapse = ($event) => {
                     :defaultOpen="state.defaultOpen"
                     class="w-[300px]"
                 >
-                    <CollapsibleTrigger>
+                    <CollapsibleTrigger class="fb-button-primary">
                         <span v-if="open">-</span>
                         <span v-else>+</span>
                     </CollapsibleTrigger>
@@ -78,7 +78,7 @@ const handleCollapse = ($event) => {
                     :defaultOpen="state.defaultOpen"
                     class="w-[300px]"
                 >
-                    <CollapsibleTrigger>
+                    <CollapsibleTrigger class="fb-button-primary">
                         <span v-if="open">-</span>
                         <span v-else>+</span>
                     </CollapsibleTrigger>
@@ -104,7 +104,7 @@ const handleCollapse = ($event) => {
                     :defaultOpen="state.defaultOpen"
                     class="w-[300px]"
                 >
-                    <CollapsibleTrigger>
+                    <CollapsibleTrigger class="fb-button-primary">
                         <span v-if="open">-</span>
                         <span v-else>+</span>
                     </CollapsibleTrigger>
@@ -130,7 +130,7 @@ const handleCollapse = ($event) => {
                     :defaultOpen="state.defaultOpen"
                     class="w-[300px]"
                 >
-                    <CollapsibleTrigger>
+                    <CollapsibleTrigger class="fb-button-primary">
                         <span v-if="open">-</span>
                         <span v-else>+</span>
                     </CollapsibleTrigger>

@@ -1,0 +1,57 @@
+.fb-accordion {
+    @apply
+        tw-bg-gray-200
+        tw-w-[300px]
+        tw-rounded-md
+        tw-shadow-[0_2px_10px]
+        tw-shadow-black/5;
+}
+.fb-accordion-item {
+    @apply 
+        focus-within:tw-shadow-gray-100
+        tw-mt-px
+        tw-overflow-hidden
+        first:tw-mt-0
+        first:tw-rounded-t
+        last:tw-rounded-b
+        focus-within:tw-relative
+        focus-within:tw-z-10
+        focus-within:tw-shadow-[0_0_0_2px];
+}
+
+.fb-accordion-header {
+    @apply tw-flex;
+}
+
+.fb-accordion-trigger {
+    @apply
+        tw-rounded-none
+        focus:tw-ring-0
+        tw-text-gray-700
+        tw-shadow-gray-100
+        hover:tw-bg-gray-100
+        tw-flex
+        tw-h-[45px]
+        tw-flex-1
+        tw-cursor-default
+        tw-items-center
+        tw-justify-between
+        tw-bg-white
+        tw-px-5
+        tw-text-[15px]
+        tw-leading-none
+        tw-outline-none;
+}
+
+.fb-accordion-content {
+    @apply
+        tw-text-gray-700
+        tw-bg-white
+        data-[state=open]:tw-animate-slideDown
+        data-[state=closed]:tw-animate-slideUp
+        tw-overflow-hidden
+        tw-text-[15px];
+    p {
+        @apply tw-p-4;
+    }
+}

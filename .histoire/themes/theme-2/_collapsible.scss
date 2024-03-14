@@ -1,0 +1,18 @@
+.fb-collapsible-content {
+    @apply
+        tw-text-gray-700
+        tw-bg-white
+        data-[state=open]:tw-animate-slideDown
+        data-[state=closed]:tw-animate-slideUp
+        tw-overflow-hidden
+        tw-text-[15px];
+    div {
+        @apply 
+            tw-border
+            tw-rounded-md
+            tw-border-gray-500
+            tw-bg-gray-100
+            tw-w-[400px]
+            tw-p-4;
+    }
+}

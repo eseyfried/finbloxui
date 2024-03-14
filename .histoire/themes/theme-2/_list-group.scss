@@ -1,0 +1,15 @@
+.fb-list-group {
+    @apply
+        tw-w-[350px]
+        tw-bg-white
+        tw-shadow-lg
+        tw-rounded-lg
+        tw-shadow-black/5
+        tw-divide-y
+        tw-divide-gray-200;
+}
+
+.fb-list-group-item {
+    @apply
+        tw-p-3;
+}

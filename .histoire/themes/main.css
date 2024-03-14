@@ -1,6 +1,6 @@
 html:not(:has(iframe)) .__histoire-render-story:not(.__histoire-render-custom-controls) {
     overflow: inherit;
 }
-html:not(:has(iframe)) .global-wrapper * {
-    all: revert;
+html:not(:has(iframe)) .global-wrapper &:not(:has(.theme)) * {
+        /* all: revert; */
 }

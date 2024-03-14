@@ -312,7 +312,7 @@ const columnExists = (column) => {
 table {
     border-collapse: collapse;
     width: 100%;
-    
+    position: relative;
 }
 
 @media (max-width: $break-point-sm - 1) {

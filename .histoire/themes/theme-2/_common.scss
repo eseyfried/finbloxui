@@ -1,0 +1,94 @@
+/*
+    typography
+*/
+h1 {
+    @apply
+        tw-text-3xl
+        tw-font-semibold;
+}
+h2 {
+    @apply
+        tw-text-2xl
+        tw-font-semibold;
+}
+h3 {
+    @apply
+        tw-text-xl
+        tw-font-semibold;
+}
+h4 {
+    @apply
+        tw-text-lg
+        tw-font-semibold;
+}
+h5 {
+    @apply
+        tw-text-base
+        tw-font-semibold;
+}
+h6 {
+    @apply
+        tw-text-sm
+        tw-font-semibold;
+}
+a {
+    @apply
+        tw-text-blue-700
+        tw-underline;
+}
+
+
+/*
+    table
+*/
+table {
+    @apply
+        tw-divide-y
+        tw-divide-gray-200;
+}
+table thead {
+    @apply tw-bg-gray-100;
+}
+table tbody {
+    @apply
+        tw-bg-white tw-divide-y 
+        tw-divide-gray-200;
+}
+table thead th {
+    @apply
+        tw-p-4
+        tw-text-sm
+        tw-font-semibold
+        tw-text-gray-500;
+}
+table tbody tr {
+    @apply 
+        even:tw-bg-gray-50
+        odd:tw-bg-white;
+}
+table tbody td {
+    text-align: center !important;
+    @apply
+        tw-p-4
+        tw-text-sm
+        tw-font-normal;
+}
+
+table tbody td span {
+    justify-self: end;
+}
+
+table tbody td::before {
+    text-align: left !important;
+    width: 150px;
+}
+
+
+table tbody td .fb-action-menu-button {
+    justify-self: end !important;
+}
+
+table tbody td .fb-action-menu ul {
+    left: unset !important;
+    right: 0;
+}

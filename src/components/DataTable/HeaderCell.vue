@@ -124,9 +124,5 @@ const selectOptions = columnData(columnProp('field'));
 
 </script>
 <style lang="scss" scoped>
-th {
-    position: sticky;
-    top: 0;
-}
 
 </style>

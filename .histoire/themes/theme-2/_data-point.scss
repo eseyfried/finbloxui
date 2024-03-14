@@ -1,0 +1,49 @@
+.fb-data-point {
+    @apply
+        tw-bg-white
+        tw-relative
+        tw-rounded-md
+        tw-shadow-lg
+        tw-border
+        tw-border-gray-100
+        tw-pt-10
+        tw-p-6
+        tw-w-[300px];
+}
+
+.fb-data-point-body {
+    & h3 {
+        @apply
+            tw-text-base
+            tw-text-gray-400
+            tw-font-semibold
+            tw-uppercase;
+    }
+    & h4 {
+        @apply
+            tw-text-2xl
+            tw-text-gray-700
+            tw-font-semibold;
+    }
+    & .fb-data-point-trend {
+        position: absolute;
+        top: 24px;
+        right: 24px;
+        &[data-trend-direction="up"] {
+            @apply tw-text-green-700;
+        }
+        &[data-trend-direction="up"]::before {
+            content: "+";
+        }
+        &[data-trend-direction="down"] {
+            @apply tw-text-red-700;
+        }
+        &[data-trend-direction="down"]::before {
+            content: "-";
+        }
+    }
+}
+
+.fb-data-point-footer {
+    @apply tw-mt-6;
+}
